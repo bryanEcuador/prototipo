@@ -11,6 +11,7 @@
 |
 */
 require __DIR__ . '/modulos/proveedores.php';
+require __DIR__ . '/modulos/administracion.php';
 Route::get('/', function () {
     return view('welcome');
 });
@@ -24,5 +25,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/prueba', function () {
     return view('layouts.proveedor');
 });
+
 
 
