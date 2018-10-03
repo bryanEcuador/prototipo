@@ -103,7 +103,6 @@
     </div>
     <div class="row">
         @yield('contenido')
-
     </div>
 </main>
 
@@ -114,6 +113,10 @@
 <script src="/js/main-proveedor.js"></script>
 <!-- The javascript plugin to display page loading on top-->
 <script src="/js/plugins/pace.min.js"></script>
+<script src="/js/plugins/toastr.min.js"></script>
+<script src="{{asset('js/axios.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
 @yield('js')
 </body>
 </html>
