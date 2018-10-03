@@ -6,70 +6,85 @@
 @section('contenido')
     <div class="col-md-12" id="creacionProductos">
         <div class="tile">
-            <form action="" method="post" enctype="multipart/form-data">
-
-            </form>
-            <h4>DATOS BASICOS</h4>
-            <hr>
+            <form action="{{route('proveedor.store')}}" method="post" enctype="multipart/form-data" id="producto">
+                @csrf
+                <h4>DATOS BASICOS</h4>
+                <hr>
                 <div class="form-group row justify-content-md-center">
                     <div class="col-md-4">
-                        <select class="form-control col-md-8" v-model="categoria" >
+                        <select class="form-control col-md-8" v-model="categoria" name="categoria">
                             <option value='0'  disabled >Categoria</option>
                             <option>2</option>
                         </select>
                     </div>
                     <div class="col-md-4 ">
-                        <select class="form-control col-md-8" v-model="sub_categoria">
+                        <select class="form-control col-md-8" v-model="sub_categoria" name="sub_categoria">
                             <option value='0'  disabled>Sub-Categoria</option>
                             <option>2</option>
                         </select>
                     </div>
                     <div class="col-md-4 ">
-                        <select class="form-control col-md-8" v-model="categoria">
+                        <select class="form-control col-md-8" v-model="marca" name="marca">
                             <option value='0'  disabled>Marca</option>
                             <option>2</option>
+                            <option>3</option>
                         </select>
                     </div>
                 </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Nombre:</label>
+                <div class="form-group row">
+                    <div class="col-md-1">
+                        <label for="nombre">Nombre:</label>
+                    </div>
+                    <div class="col-md-4 ">
+                        <input class="form-control" name="nombre" v-model="nombre" id="nombre" placeholder="nombre del producto" min="3" max="20">
+                    </div>
+                    <div class="col-md-1">
+                        <label for="codigo">Codigo:</label>
+                    </div>
+                    <div class="col-md-3 ">
+                        <input class="form-control" name="codigo" v-model="codigo" id="codigo" placeholder="codigo del producto" min="3" max="20">
+                    </div>
                 </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" name="nombre" v-model="nombre" id="nombre" placeholder="nombre del producto" min="3" max="20">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="descripcion">Descripción:</label>
-                </div>
-                <div class="col-md-8 ">
-                   <textarea class="form-control" v-model="descripcion" minlength="15" maxlength="50" rows="2" placeholder="descripción del producto">
+                <div class="form-group row">
+                    <div class="col-md-1">
+                        <label for="descripcion">Descripción:</label>
+                    </div>
+                    <div class="col-md-8 ">
+                   <textarea class="form-control" v-model="descripcion" name="descripcion" minlength="15" maxlength="50" rows="2" placeholder="descripción del producto">
                    </textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <input class="form-control" type="number" placeholder="Precio" name="precio" id="precio" v-model="precio">
+                <div class="form-group row">
+                    <div class="col-md-1">
+                        <label for="precio">Precio:</label>
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" type="number" placeholder="Precio" name="precio" id="precio" v-model="precio" min="0">
+                    </div>
+                    <div class="col-md-1">
+                        <label for="iva">Iva:</label>
+                    </div>
+                    <div class="col-md-2 ">
+                        <input class="form-control" type="number" placeholder="iva" name="iva" id="iva" v-model="iva" min="0" max="100">
+                    </div>
                 </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="number" placeholder="iva" name="iva" id="iva" v-model="iva">
-                </div>
-            </div>
-            <br>
-            <h4>Imagenes del prodcuto</h4>
-            <hr>
-            <label for="colores">Seleccione los colores en orden:</label>
-            <select class="form-control" name="colores[]" id="colores" multiple="multiple" v-model="colores" v-on:change="crearInputs">
-                <option value="0">rojo</option>
-                <option value="1">amarillo</option>
-            </select>
+                <br>
+                <h4>Imagenes del prodcuto</h4>
+                <hr>
+                <label >Seleccione los colores en orden:</label>
+                <select class="form-control" name="colores[]" id="colores" multiple="multiple" v-model="colores" v-on:change="crearInputs">
+                    <option value="0">rojo</option>
+                    <option value="1">amarillo</option>
+                </select>
 
-            <br>
-            <div id="inputs">
+                <br id="br">
+                <div id="inputs">
+                </div>
+                <br>
+                <input type="file" name="img[]">
+                <button type="button" class="btn-info" v-on:click="validar" name="guardar" id="guardar">Agregar produto</button>
+            </form>
 
-            </div>
-            <input type="file" multiple accept="image/png, .jpeg">
         </div>
 
     </div>
@@ -95,6 +110,7 @@
              colores : [],
              errores : [],
              imagenes : [],
+             codigo : '',
 
          },
          created : function() {
@@ -120,17 +136,35 @@
          methods : {
 
             validar : function () {
+                //this.validarCampos();
 
+                // mensajes de alerta
+                if( this.errores.length === 0) {
+                    var form = document.getElementById('producto');
+                    producto.submit();
+                } else {
+                    var num = this.errores.length;
+                    for(i=0; i<num;i++) {
+                        toastr.error(this.errores[i]);
+                    }
+                }
+                this.errores = [];
             },
-
              validarCampos : function() {
                  var datos_sin_numeros =  /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/; // para la afinidad
                  var patt3 = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,\s0-9]+$/; //para la observación
+                 var er_numeros = /^[0-9,]+$/;
 
                  if(this.nombre !== "") {
                      // mas validaciones
                  } else {
                      this.errores.push("El campo nombre no puede estar vacio");
+                 }
+
+                 if(this.codigo !== ""){
+
+                 }else {
+                     this.errores.push("El campo codigo no puede estar vacio");
                  }
 
                  if(this.descripcion !== "") {
@@ -141,9 +175,19 @@
 
                  if(this.precio !== 0) {
                      // mas validaciones
+                     if(er_numeros .test(this.precio) == false)
+                     {
+                         this.errores.push("El campo precio solo puede obtener numeros");
+                     }
                  } else {
                      this.errores.push("El producto debe tener un precio");
                  }
+
+                 if(er_numeros .test(this.iva) == false)
+                 {
+                     this.errores.push("El campo precio solo puede obtener numeros");
+                 }
+
 
                  if(this.categoria !== "") {
                      // mas validaciones
@@ -163,17 +207,44 @@
                      this.errores.push("Debe elegir una  marca");
                  }
              },
-
-
-            enviar : function(){
-
+            enviarFormulario : function(){
             },
-
              crearInputs : function() {
-                var numero = this.colores.length;
-                console.log("selecciono"+ numero);
+                 // numero de colores seleccionados
+                var cantidad = this.colores.length;
+                 // creo un nuevo div
+                 var divElement = document.createElement("div");
+                 // obtengo el viejo div y el nombre de su nodo padre
+                 divOld = document.getElementById("inputs");
+                 padre = document.getElementById("inputs").parentNode;
+                 // elimino el div
+                 padre.removeChild(divOld);
+                 //document.replaceChild(divElement,divOld);
+                 // le agg propiedades a el nuevo div
+                 divElement.setAttribute("id", "inputs");
+                 anterior = document.getElementById("br");
+                 padre.insertBefore(divElement,anterior);
 
-                var newInput = document.createElement("input")
+
+                 // creo los elementos imagen
+                 while( cantidad > 0){
+                     var name = "img"+cantidad+"[]";
+                     var id =    "img"+cantidad;
+                     var inputElement = document.createElement("input");
+                     inputElement.setAttribute("type", "file");
+                     inputElement.setAttribute("multiple", "multiple");
+                     inputElement.setAttribute("accept", "image/png, .jpeg");
+                     inputElement.setAttribute("name",name);
+                     inputElement.setAttribute("id",id);
+                     inputElement.setAttribute("class","form-control");
+                     document.getElementById("inputs").appendChild(inputElement);
+                     //document.body.innerHTML = inputElement + document.body.innerHTML;
+                     cantidad = cantidad-1;
+                     console.log(cantidad);
+                 }
+
+                 /* Cada vez que se escoge un nuevo elemento se destruye y se crea un div del mismo tipo y en base a este se crean las imagenes */
+                 //var newInput = document.createElement("input")
              }
          }
      });
