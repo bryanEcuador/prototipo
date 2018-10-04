@@ -159,3 +159,37 @@
 
 
 @endsection
+<!--guardar : function() {
+                   var parametros = {
+                       "_token": "{{ csrf_token() }}",
+                       //--
+                       "Codigo" : this.Codigo,
+                       "Tipo_Empresa" : this.Tipo_Empresa,
+                       "Ruc": this.Ruc,
+                       "Razon_Social" : this.Razon_Social,
+                       "Direccion": this.Direccion,
+                       "Banco" : this.Banco,
+                       "Cuenta_Bancaria" : "Cuenta_Bancaria",
+                       "Estado" : this.Estado,
+                       "Gerente_General" : this.Gerente_General,
+                       "Fono_Convencional" : this.Fono_Convencional,
+                       "Fono_Representante" : this.Fono_Representante,
+                       "Fono_Gerente":this.Fono_Gerente,
+                       "Usuario":this.Usuario,
+                       "Contraseña":this.Contraseña
+
+                   };
+                   $.ajax({
+                       data : parametros,
+                       url : "administrador/store",
+                       type : "post",
+                       async : true,
+                       success : function(d){
+                         },
+                       error : function (response,jqXHR) {
+                           
+                       }
+                   });
+                 }
+
+               },-->
