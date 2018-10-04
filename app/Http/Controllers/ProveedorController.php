@@ -14,9 +14,32 @@ class ProveedorController extends Controller
     }
 
     public function store(Request $request){
+        $archivos = count($request->file());
+        $colores = count($request->input('colores'));
+        $nombre_imagenes = array();
 
-        //$archivos = count($request->file());
-        $file = $request->file("img");
+        for($i = 0 ; $i<$archivos;$i++)
+        {
+            $n = $i + 1;
+            array_push($nombre_imagenes,"img".$n);
+        }
+
+        foreach ($nombre_imagenes as $valor){
+            $file = $request->file("img1");
+            ($file[0]->getClientOriginalName());
+            for($i =0 ; $i< count($file); $i++){
+               $nombre = $file[$i]->getClientOriginalName();
+                Storage::disk('local')->put("imagen".$nombre,  \File::get($file[$i]));
+            }
+            //$name =  $request->file('img1')->getClientOriginalName();
+            //Storage::disk('local')->put("imagen".$name,  \File::get($file));
+        }
+
+        //echo $colores;
+        dd($request);
+
+
+
         //dd($file);
         $name = $file->getClientOriginalName();
         echo $name;
@@ -26,10 +49,9 @@ class ProveedorController extends Controller
         //}
         //echo $request->file("img1"[0].originalName);
          //$patch = Storage::disk('public')->put('imagen', $request->file("img"));
-        $patch = Storage::disk('local')->put("imagen".$name,  \File::get($file));
          //$patch = Storage::disk('public')->put('imagenes',$request->file("img"));
-         echo $patch;
-        dd($request->file('img')->getClientOriginalName());
+
+        //dd($request->file('img')->getClientOriginalName());
         $request->validate([
             'nombre' => 'required|max:25|string',
             'codigo' => 'required|max:10|string',
