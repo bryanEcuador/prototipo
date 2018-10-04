@@ -4,6 +4,28 @@
 @endsection
 @section('titulo de la pagina','Crear articulos')
 @section('contenido')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('danger'))
+        <div class="alert alert-danger">
+            {{ session('danger') }}
+        </div>
+    @endif
+
     <div class="col-md-12" id="creacionProductos">
         <div class="tile">
             <form action="{{route('proveedor.store')}}" method="post" enctype="multipart/form-data" id="producto">
@@ -36,7 +58,7 @@
                         <label for="nombre">Nombre:</label>
                     </div>
                     <div class="col-md-4 ">
-                        <input class="form-control" name="nombre" v-model="nombre" id="nombre" placeholder="nombre del producto" min="3" max="20">
+                        <input class="form-control" name="nombre" v-model="nombre" id="nombre" placeholder="nombre del producto" min="3" max="20"  value="{{ old('nombre') }}" autocomplete="off">
                     </div>
                     <div class="col-md-1">
                         <label for="codigo">Codigo:</label>
@@ -69,7 +91,7 @@
                     </div>
                 </div>
                 <br>
-                <h4>Imagenes del prodcuto</h4>
+                <h4>Imagenes del producto</h4>
                 <hr>
                 <label >Seleccione los colores en orden:</label>
                 <select class="form-control" name="colores[]" id="colores" multiple="multiple" v-model="colores" v-on:change="crearInputs">
@@ -81,8 +103,7 @@
                 <div id="inputs">
                 </div>
                 <br>
-                <input type="file" name="img" >
-                <button type="button" class="btn-info" v-on:click="validar" name="guardar" id="guardar">Agregar produto</button>
+                <button type="button" class="btn btn-info" v-on:click="validar" name="guardar" id="guardar">Agregar produto</button>
             </form>
 
         </div>
@@ -136,12 +157,12 @@
          methods : {
 
             validar : function () {
-                //this.validarCampos();
+                this.validarCampos();
 
                 // mensajes de alerta
                 if( this.errores.length === 0) {
-                    var form = document.getElementById('producto');
-                    producto.submit();
+                    //var form = document.getElementById('producto');
+                    //producto.submit();
                 } else {
                     var num = this.errores.length;
                     for(i=0; i<num;i++) {
@@ -173,6 +194,8 @@
                      this.errores.push("El campo descripción no puede estar vacio");
                  }
 
+
+
                  if(this.precio !== 0) {
                      // mas validaciones
                      if(er_numeros .test(this.precio) == false)
@@ -189,22 +212,26 @@
                  }
 
 
-                 if(this.categoria !== "") {
+                 if(this.categoria !== 0) {
                      // mas validaciones
                  } else {
                      this.errores.push("Debe elegir una categoria");
                  }
 
-                 if(this.sub_categoria !== "") {
+                 if(this.sub_categoria !== 0) {
                      // mas validaciones
                  } else {
                      this.errores.push("Debe elegir una  subcategoria");
                  }
 
-                 if(this.marca !== "") {
+                 if(this.marca !== 0) {
                      // mas validaciones
                  } else {
                      this.errores.push("Debe elegir una  marca");
+                 }
+
+                 if(this.colores.length == 0){
+                     this.errores.push("Debe Seleccionar los colores del producto");
                  }
              },
             enviarFormulario : function(){
@@ -236,6 +263,7 @@
                      inputElement.setAttribute("accept", "image/png, .jpeg");
                      inputElement.setAttribute("name",name);
                      inputElement.setAttribute("id",id);
+                     inputElement.setAttribute("class","imagenes");
                      inputElement.setAttribute("class","form-control");
                      document.getElementById("inputs").appendChild(inputElement);
                      //document.body.innerHTML = inputElement + document.body.innerHTML;
