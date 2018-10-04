@@ -16,17 +16,19 @@ class ProveedorController extends Controller
     public function store(Request $request){
 
         //$archivos = count($request->file());
-        //$file = $request->file("img");
+        $file = $request->file("img");
         //dd($file);
-        //$name = $file->getClientOriginalName();
+        $name = $file->getClientOriginalName();
+        echo $name;
         //$file->move(public_path(),$name);
         //while ($archivos >= 0) {
           //  echo $request->file('name')
         //}
         //echo $request->file("img1"[0].originalName);
-         Storage::disk('public')->put('\imagenes', $request->file("img"));
+         //$patch = Storage::disk('public')->put('imagen', $request->file("img"));
+        $patch = Storage::disk('local')->put("imagen".$name,  \File::get($file));
          //$patch = Storage::disk('public')->put('imagenes',$request->file("img"));
-         //echo $patch;
+         echo $patch;
         dd($request->file('img')->getClientOriginalName());
         $request->validate([
             'nombre' => 'required|max:25|string',
