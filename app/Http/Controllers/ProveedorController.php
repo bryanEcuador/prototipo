@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 class ProveedorController extends Controller
 {
     public function index(){
@@ -15,9 +15,19 @@ class ProveedorController extends Controller
 
     public function store(Request $request){
 
-        echo count($request->file());
-        echo count($request->file("img1"));
-        dd($request->file());
+        //$archivos = count($request->file());
+        //$file = $request->file("img");
+        //dd($file);
+        //$name = $file->getClientOriginalName();
+        //$file->move(public_path(),$name);
+        //while ($archivos >= 0) {
+          //  echo $request->file('name')
+        //}
+        //echo $request->file("img1"[0].originalName);
+         Storage::disk('public')->put('\imagenes', $request->file("img"));
+         //$patch = Storage::disk('public')->put('imagenes',$request->file("img"));
+         //echo $patch;
+        dd($request->file('img')->getClientOriginalName());
         $request->validate([
             'nombre' => 'required|max:25|string',
             'codigo' => 'required|max:10|string',

@@ -81,7 +81,7 @@
                 <div id="inputs">
                 </div>
                 <br>
-                <input type="file" name="img[]">
+                <input type="file" name="img" >
                 <button type="button" class="btn-info" v-on:click="validar" name="guardar" id="guardar">Agregar produto</button>
             </form>
 
