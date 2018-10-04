@@ -40,13 +40,13 @@ class AdministracionController extends Controller
         'Direccion.required' => 'La Direccion del proveedor es requerido',
         'Banco.required' => 'El Banco del proveedor es requerido',
         'Cuenta Bancaria.required' => 'La cuenta Bancaria es requerido',
-        'Estado' => 'El Estado del proveedor es requerido',
-        'Gerente' => 'El Gerente del proveedor es requerido',
-        'Convencional' => 'El Convencional del proveedor es requerido',
-        'F_Representante' => 'El F_Representante del proveedor es requerido',
-        'FonoG' => 'El FonoG del proveedor es requerido',
-        'Usuario' => 'El Usuario del proveedor es requerido',
-        'Contraseña' => 'La Contraseña del proveedor es requerido',
+        'Estado.required' => 'El Estado del proveedor es requerido',
+        'Gerente.required' => 'El Gerente del proveedor es requerido',
+        'Convencional.required' => 'El Convencional del proveedor es requerido',
+        'F_Representante.required' => 'El F_Representante del proveedor es requerido',
+        'FonoG.required' => 'El FonoG del proveedor es requerido',
+        'Usuario.required' => 'El Usuario del proveedor es requerido',
+        'Contraseña.required' => 'La Contraseña del proveedor es requerido',
         ]);
  
     }
