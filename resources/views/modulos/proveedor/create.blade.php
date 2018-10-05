@@ -132,6 +132,7 @@
              errores : [],
              imagenes : [],
              codigo : '',
+             num_imagenes : 0,
 
          },
          created : function() {
@@ -157,12 +158,11 @@
          methods : {
 
             validar : function () {
-                this.validarCampos();
-
+                //this.validarCampos();
+                this.validarImagenes();
                 // mensajes de alerta
                 if( this.errores.length === 0) {
-                    //var form = document.getElementById('producto');
-                    //producto.submit();
+                    //this.enviarFormulario();
                 } else {
                     var num = this.errores.length;
                     for(i=0; i<num;i++) {
@@ -234,7 +234,29 @@
                      this.errores.push("Debe Seleccionar los colores del producto");
                  }
              },
+             validarImagenes : function() {
+                 var x = document.getElementsByClassName("form-control imagenes");
+                 this.num_imagenes = x.length;
+                 if(this.colores.length == 0) {
+                     this.errores.push("seleccione los colores de los articulos para agregar imagenes")
+                 } else {
+                     if(this.colores.length !== this.num_imagenes){
+                         this.errores.push("EL numero de archivos no coincide con los colores");
+                     } else {
+                         for( var i = 0; i < x.length; i++)
+                         {
+                             if(x[i].files.length < 3){
+                                 this.errores.push("EL numero de imagenes no puede ser menor a 3");
+                             } else if (x[i].files.length > 5) {
+                                 this.errores.push("EL numero de imagenes no puede ser mayor a 5");
+                             }
+                         }
+                     }
+                 }
+             },
             enviarFormulario : function(){
+                var form = document.getElementById('producto');
+                producto.submit();
             },
              crearInputs : function() {
                  // numero de colores seleccionados
@@ -263,8 +285,7 @@
                      inputElement.setAttribute("accept", "image/png, .jpeg");
                      inputElement.setAttribute("name",name);
                      inputElement.setAttribute("id",id);
-                     inputElement.setAttribute("class","imagenes");
-                     inputElement.setAttribute("class","form-control");
+                     inputElement.setAttribute("class","form-control imagenes");
                      document.getElementById("inputs").appendChild(inputElement);
                      //document.body.innerHTML = inputElement + document.body.innerHTML;
                      cantidad = cantidad-1;
