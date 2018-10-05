@@ -235,8 +235,11 @@
                  }
              },
              validarImagenes : function() {
+                // obtenemos el numero de files creados
                  var x = document.getElementsByClassName("form-control imagenes");
+                 // contamos el numero de inputs file
                  this.num_imagenes = x.length;
+                 // pasamos a comparar cuantas imagenes tenemos por cada input file
                  if(this.colores.length == 0) {
                      this.errores.push("seleccione los colores de los articulos para agregar imagenes")
                  } else {

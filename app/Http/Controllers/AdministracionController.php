@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Database\QueryException;
 class AdministracionController extends Controller
 {
     //
@@ -16,6 +16,7 @@ class AdministracionController extends Controller
 
     public function store(Request $request){
        // dd($request);
+        /*
         $request->validate([
             'codigo' => 'required|max:25|string',
             'Empresa' => 'required|max:10|string',
@@ -48,6 +49,14 @@ class AdministracionController extends Controller
         'Usuario.required' => 'El usuario del proveedor es requerido',
         'Contraseña.required' => 'La contraseña del proveedor es requerido',
         ]);
+           */
+        try {
+            $numero = 4%0;
+            return response()->json(['success'=>'Informacion guardada con exito']);
+        } catch (QueryException $e){
+            $array = array("Error" , $e->message(responseText));
+            return $array;
+        }
  
     }
 }
