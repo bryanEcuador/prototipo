@@ -14,8 +14,8 @@ class AdministracionController extends Controller
         return view('modulos.administracion.create');
     }
 
-    public function strore(Request $request){
-        dd($request);
+    public function store(Request $request){
+       // dd($request);
         $request->validate([
             'codigo' => 'required|max:25|string',
             'Empresa' => 'required|max:10|string',
@@ -33,7 +33,7 @@ class AdministracionController extends Controller
             'Usuario' => 'required|max:25|string',
             'Contraseña' => 'required|max:25|string',
         ],['codigo.required' => 'El codigo del proveedor es requerido',
-        'Empresa.required' => 'La Empresa del proveedor es requerido',
+        'Empresa.required' => 'La empresa del proveedor es requerido',
         'Ruc.required' => 'El Ruc del proveedor es requerido',
         'Razon.required' => 'La Razon social del proveedor es requerido',
         'Representante.required' => 'El Representante del proveedor es requerido',
@@ -43,10 +43,10 @@ class AdministracionController extends Controller
         'Estado.required' => 'El Estado del proveedor es requerido',
         'Gerente.required' => 'El Gerente del proveedor es requerido',
         'Convencional.required' => 'El Convencional del proveedor es requerido',
-        'F_Representante.required' => 'El F_Representante del proveedor es requerido',
-        'FonoG.required' => 'El FonoG del proveedor es requerido',
-        'Usuario.required' => 'El Usuario del proveedor es requerido',
-        'Contraseña.required' => 'La Contraseña del proveedor es requerido',
+        'F_Representante.required' => 'El Fono representante del proveedor es requerido',
+        'FonoG.required' => 'El Fono gerente del proveedor es requerido',
+        'Usuario.required' => 'El usuario del proveedor es requerido',
+        'Contraseña.required' => 'La contraseña del proveedor es requerido',
         ]);
  
     }

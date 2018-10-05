@@ -1,4 +1,11 @@
 <!doctype html>
+@extends('layouts.principal')
+@section('nombre_pagina','crear')
+@section('css1')
+@endsection
+@section('titulo de la pagina','Bienvenidos')
+@section('content1')
+
 <html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
@@ -91,5 +98,7 @@
                 </div>
             </div>
         </div>
+        @endsection
+@section('js1')
     </body>
 </html>

@@ -4,10 +4,34 @@
 @endsection
 @section('titulo de la pagina','Creacion de Usuarios')
 @section('contenido')
-    <div class="col-md-12" id="creacionProductos">
+@if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('danger'))
+        <div class="alert alert-danger">
+            {{ session('danger') }}
+        </div>
+    @endif
+    <div class="col-md-12" id="creacionUsuario1">
+        <div class="tile">
+            <form action="{{route('administrador.store')}}" method="post" enctype="multipart/form-data" id="administracion">
+                @csrf
+    <div class="col-md-12" id="creacionUsuario">
         <div class="tile">
            <form action="" method="post" enctype="multipart/form-data">
-
            <div class="form-group row">
                 <div class="col-md-2">
                     <label for="nombre">Codigo Externo:</label>
@@ -142,7 +166,11 @@
                    <input class="form-control" name="Contraseña" v-model="Contraseña" id="Contraseña" placeholder="Contraseña" min="3" max="20">
                 </div>
             </div>
-
+                   <br id="br">
+                <div id="inputs">
+                </div>
+                <br>
+                <button type="input" class="btn btn-info" v-on:click="validar" name="guardar" id="guardar">Agregar Usuario</button>
             </form>
           
         </div>
@@ -328,6 +356,8 @@
                  }
              },
             enviarFormulario : function(){
+                var form = document.getElementById('administracion');
+                administracion.submit();
             },
              
                }
