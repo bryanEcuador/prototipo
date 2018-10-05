@@ -1,5 +1,5 @@
 @extends('layouts.proveedor')
-@section('nombre_pagina','crear')
+@section('nombre_pagina','creacion de Usuario')
 @section('css')
 @endsection
 @section('titulo de la pagina','Creacion de Usuarios')
@@ -27,7 +27,7 @@
     @endif
     <div class="col-md-12" id="creacionUsuario1">
         <div class="tile">
-            <form action="{{route('administrador.store')}}" method="post" enctype="multipart/form-data" id="administracion">
+            <form action="{{route('administrador.store')}}" method="post" id="administracion">
                 @csrf
     <div class="col-md-12" id="creacionUsuario">
         <div class="tile">
