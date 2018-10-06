@@ -8,7 +8,8 @@ use Illuminate\Database\QueryException;
 class ProveedorController extends Controller
 {
     public function index(){
-        return view('modulos.proveedor.index');
+        $datos = array();
+        return view('modulos.proveedor.index',compact('datos'));
     }
     public function create(){
         return view('modulos.proveedor.create');

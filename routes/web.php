@@ -13,7 +13,9 @@
 require __DIR__ . '/modulos/proveedores.php';
 require __DIR__ . '/modulos/administracion.php';
 Route::get('/', function () {
-    return view('welcome');
+
+    $datos = \DB::table('tbdatosdecontacto')->get();
+    return view('welcome',compact('datos'));
 });
 
 Auth::routes();

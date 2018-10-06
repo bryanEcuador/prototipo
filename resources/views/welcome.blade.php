@@ -5,6 +5,7 @@
 @endsection
 @section('titulo de la pagina','Bienvenidos')
 @section('content1')
+@endsection
 
 <html lang="{{ app()->getLocale() }}">
     <head>
@@ -100,5 +101,6 @@
         </div>
         @endsection
 @section('js1')
+
     </body>
 </html>
