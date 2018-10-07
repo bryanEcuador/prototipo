@@ -12,6 +12,7 @@
 */
 require __DIR__ . '/modulos/proveedores.php';
 require __DIR__ . '/modulos/administracion.php';
+require __DIR__ . '/modulos/estaticas.php';
 Route::get('/', function () {
 
     $datos = \DB::table('tbdatosdecontacto')->get();

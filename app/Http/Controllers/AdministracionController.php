@@ -59,4 +59,8 @@ class AdministracionController extends Controller
         }
  
     }
+
+    public function  datosPagina() {
+        return view('modulos.administracion.datos');
+    }
 }

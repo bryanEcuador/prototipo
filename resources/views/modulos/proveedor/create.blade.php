@@ -103,7 +103,7 @@
                 <div id="inputs">
                 </div>
                 <br>
-                <button type="button" class="btn btn-info" v-on:click="validar" name="guardar" id="guardar">Agregar produto</button>
+                <button type="button" class="btn btn-info" v-on:click="enviarFormulario" name="guardar" id="guardar">Agregar produto</button>
             </form>
 
         </div>
