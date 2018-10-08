@@ -62,4 +62,8 @@ public function politica(){
         }
  
     }
+
+    public function  datosPagina() {
+        return view('modulos.administracion.datos');
+    }
 }

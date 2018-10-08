@@ -17,6 +17,7 @@ class ProveedorController extends Controller
 
     public function store(Request $request){
 
+        dd($request);
         // verificamos los inputs
 
         $request->validate([
@@ -94,7 +95,7 @@ class ProveedorController extends Controller
                 for($i =0 ; $i< count($file); $i++){
                     $nombre = $file[$i]->getClientOriginalName();
                     $nombre = time().$nombre;
-                    Storage::disk('public')->put($nombre,  \File::get($file[$i]));
+                    Storage::disk('public')->put($nombre,  \File::get($file['avatar']));
                 }
                 // por aquí va la logica para guardar las imagenes
                 return redirect()->route ('proveedor.create')->with('success', "producto creado con exito");
