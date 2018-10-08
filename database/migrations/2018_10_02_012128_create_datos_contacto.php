@@ -21,9 +21,6 @@ class CreateDatosContacto extends Migration
             $table->string('telefono');
             $table->string('celular');
             $table->string('direccion');
-            $table->string('facebook');
-            $table->string('instagram');
-            $table->string('twitter');
             $table->string('descripcion');
             $table->timestamps();
         });

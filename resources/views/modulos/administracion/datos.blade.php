@@ -42,8 +42,8 @@
                     <div class="col-md-2">
                         <label for="">Terminos y condiciones:</label>
                     </div>
-                    <div class="col-md-6 ">
-
+                    <div class="col-md-10 ">
+                        <textarea id="terminos-ckeditor"></textarea>
                     </div>
                 </div>
 
@@ -51,8 +51,8 @@
                     <div class="col-md-2">
                         <label for="">Politicas de privacidad:</label>
                     </div>
-                    <div class="col-md-6 ">
-
+                    <div class="col-md-10 ">
+                        <textarea id="politicas-ckeditor"></textarea>
                     </div>
                 </div>
 
@@ -60,8 +60,8 @@
                     <div class="col-md-2">
                         <label for="">Acerca de:</label>
                     </div>
-                    <div class="col-md-6 ">
-
+                    <div class="col-md-10 ">
+                        <textarea id="acerca-ckeditor"></textarea>
                     </div>
                 </div>
 
@@ -69,11 +69,14 @@
                     <div class="col-md-2">
                         <label for="">Ordenes y retornos:</label>
                     </div>
-                    <div class="col-md-6 ">
-
+                    <div class="col-md-10 ">
+                        <textarea id="ordenes-ckeditor"></textarea>
                     </div>
                 </div>
-
+                <div class="form-group row">
+                    <label for="logo" class="col-md-2">Logo:</label>
+                    <input type="file" class="form-control col-md-8" name="logo" id="logo">
+                </div>
                 <br>
                 <button type="button" class="btn btn-info" v-on:click="validar" name="guardar" id="guardar">Aceptar</button>
             </div>
@@ -81,6 +84,13 @@
     </div>
 @endsection
 @section('js')
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'acerca-ckeditor' );
+        CKEDITOR.replace( 'terminos-ckeditor' );
+        CKEDITOR.replace( 'politicas-ckeditor' );
+        CKEDITOR.replace( 'ordenes-ckeditor' );
+    </script>
     <script>
         var app = new Vue ({
                 el:"#creacionProveedores",
