@@ -13,7 +13,10 @@ class AdministracionController extends Controller
     public function create(){
         return view('modulos.administracion.create');
     }
-
+public function politica(){
+        return view('modulos.administracion.politica');
+    }
+    
     public function store(Request $request){
        // dd($request);
         /*
