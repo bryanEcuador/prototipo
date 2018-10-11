@@ -63,4 +63,35 @@ class AdministracionController extends Controller
     public function  datosPagina() {
         return view('modulos.administracion.datos');
     }
+
+    public function storeDatosBasicos(Request $request) {
+        //echo $request->input('ordenes');
+        //dd($request);
+         \DB::table('tb_datos_basicos')->insert([
+            [
+                'nombre' => $request->input('nombre') ,
+                'email' => $request->input('email') ,
+                'telefono' => $request->input('Telefono') ,
+                'direccion' => $request->input('direccion') ,
+                'descripcion' => $request->input('descripcion') ,
+                'terminos' => $request->input('terminos') ,
+                'politica' => $request->input('politicas') ,
+                //'acerca' => $request->input('acerca') ,
+                'ordenes' => $request->input('ordenes') ,
+                //'logo' => 'logo.png'
+
+            ],
+        ]);
+
+        //echo $datos;
+    }
+
+    public function  showDatosBasicos() {
+        $datos = \DB::table('tb_datos_basicos')->distinct()->get()->toArray();
+        //echo $datos[0]->nombre;
+        //$datos = (array) $datos;
+       //echo $datos[0]->id;
+        //dd($datos);
+        return view('modulos.administracion.datos.show',compact('datos'));
+    }
 }

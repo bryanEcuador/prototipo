@@ -4,28 +4,6 @@
 @endsection
 @section('titulo de la pagina','Datos de la pagina')
 @section('contenido')
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('danger'))
-        <div class="alert alert-danger">
-            {{ session('danger') }}
-        </div>
-    @endif
-
     <div class="col-md-12" id="datosPagina">
         <form action="{{route('administrador.store.datos')}}" method="post" id="administracion">
             @csrf
@@ -35,7 +13,7 @@
                         <label for="nombre">Nombre pagina:</label>
                     </div>
                     <div class="col-md-6 ">
-                        <input class="form-control"  name="nombre"  id="nombre" placeholder="nombre pagina" minlength="3" maxlength="20">
+                        <input class="form-control" readonly value="{{$datos[0]->nombre}}"  name="nombre"  id="nombre" placeholder="nombre pagina" minlength="3" maxlength="20">
                     </div>
                 </div>
 
@@ -44,7 +22,7 @@
                         <label for="email">Email:</label>
                     </div>
                     <div class="col-md-6 ">
-                        <input class="form-control" name="email" id="email" type="email"  placeholder="email de la pagina" minlength="9" >
+                        <input class="form-control" readonly value="{{$datos[0]->email}}" name="email" id="email" type="email"  placeholder="email de la pagina" minlength="9" >
                     </div>
                 </div>
 
@@ -53,7 +31,7 @@
                         <label for="Telefono">Teléfono:</label>
                     </div>
                     <div class="col-md-6 ">
-                        <input class="form-control" name="Telefono" id="Telefono" type="telf"  placeholder="telefono de contacto" minlength="3" maxlength="20">
+                        <input class="form-control" readonly value="{{$datos[0]->telefono}}" name="Telefono" id="Telefono" type="telf"  placeholder="telefono de contacto" minlength="3" maxlength="20">
                     </div>
                 </div>
 
@@ -62,7 +40,7 @@
                         <label for="direccion">Dirección:</label>
                     </div>
                     <div class="col-md-6 ">
-                        <input class="form-control" name="direccion"  id="direccion"   placeholder="dirección" minlength="3" maxlength="20">
+                        <input class="form-control" readonly value="{{$datos[0]->direccion}}" name="direccion"  id="direccion"   placeholder="dirección" minlength="3" maxlength="20">
                     </div>
                 </div>
 
@@ -71,9 +49,7 @@
                         <label for="descripcion">Descripción:</label>
                     </div>
                     <div class="col-md-6 ">
-                        <textarea class="form-control"  placeholder="descripción de la pagina" name="descripcion" id="descripcion" minlength="5" maxlength="50">
-
-                        </textarea>
+                        <input class="form-control" readonly value="{{$datos[0]->descripcion}}" placeholder="descripción de la pagina" name="descripcion" id="descripcion" minlength="5" maxlength="50">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -81,7 +57,7 @@
                         <label for="">Terminos y condiciones:</label>
                     </div>
                     <div class="col-md-10" >
-                        <textarea id="terminos-ckeditor" name="terminos"></textarea>
+                        <textarea readonly value="{!! $datos[0]->terminos !!}" name="terminos"></textarea>
                     </div>
                 </div>
 
