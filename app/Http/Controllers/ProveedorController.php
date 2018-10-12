@@ -17,9 +17,9 @@ class ProveedorController extends Controller
 
     public function store(Request $request){
 
-        dd($request);
+        //dd($request);
         // verificamos los inputs
-
+/*
         $request->validate([
             'nombre' => 'required|max:25|string',
             'codigo' => 'required|max:10',
@@ -30,7 +30,7 @@ class ProveedorController extends Controller
             'precio' => 'required|min:0|numeric',
             'iva' => 'required|max:100|min:0|numeric',
             'colores' => 'required',
-            'file' => 'required|image|mimes:png, jpeg\'',
+            //'file' => 'required|image|mimes:png, jpeg\'',
         ],[
             'nombre.max' => 'El nombre del producto solo puede tener un maximo de 25 caracteres',
             'nombre.string' => 'El nombre del producto no puede ser un numero',
@@ -53,7 +53,7 @@ class ProveedorController extends Controller
             'file.imagen' => 'Solo puede subir imagenes',
             'file.mine' => 'No se aceptan imagenes de ese tipo',
         ]);
-
+*/
         $nombre_imagenes = array();
         // preguntamos cuantos inpuuts tipo imagen pasaron y el numero de colores elegidos
         $archivos = count($request->file());
@@ -67,7 +67,8 @@ class ProveedorController extends Controller
         }
         // si el numero no coincide redirigimos de nuevo a la vista de create
         if($archivos !== $colores){
-            return redirect()->route ('proveedor.create')->with('danger', "El numero de colores elegidos no coinciden con el numero de archivos cargados");
+            //return redirect()->route ('proveedor.create')->with('danger', "El numero de colores elegidos no coinciden con el numero de archivos cargados");
+            echo "error archivos-color";
         } else {
             foreach ($nombre_imagenes as $valor)
             {
@@ -75,9 +76,11 @@ class ProveedorController extends Controller
                 $numero  = count($request->file($valor));
                 if($numero < 3 )
                 {
-                    return redirect()->route ('proveedor.create')->with('danger', "Debe que subir minimo 3 imagenes por color");
+                    //return redirect()->route ('proveedor.create')->with('danger', "Debe que subir minimo 3 imagenes por color");
+                    echo "minimo imagenes";
                 } else if($numero > 5 ){
-                    return redirect()->route ('proveedor.create')->with('danger', "Debe que subir maximo 5 imagenes por color");
+                    echo "maximo imagenes";
+                    //return redirect()->route ('proveedor.create')->with('danger', "Debe que subir maximo 5 imagenes por color");
                 }
             }
 
@@ -85,25 +88,60 @@ class ProveedorController extends Controller
 
 
         try {
+            /*
             // vamos a pasar a guardar en la base de datos si surge un error no deberían enviarse las imagenes
-
-
+                $producto_id = \DB::table('tb_producto')->insertGetId(
+                    [
+                        'id_categoria' => $request->input('categoria') ,
+                        'id_sub_categoria' => $request->input('sub_categoria') ,
+                        'id_marca' => $request->input('marca') ,
+                        'nombre' => $request->input('nombre') ,
+                        'codigo' => $request->input('codigo') ,
+                        'descripcion' => $request->input('descripcion') ,
+                        'precio' => $request->input('precio') ,
+                        'iva' => $request->input('iva')
+                    ]
+                );
+                */
             // pasamos a cargar las imagenes
-            foreach ($nombre_imagenes as $valor){
-                $file = $request->file($valor);
-                ($file[0]->getClientOriginalName());
+            foreach ($nombre_imagenes as $valor){ // recorro todos los archivos de imagenes
+                $imagenes = array();
+                $file = $request->file($valor); // guardo el array de la imagen
+                //$file[0]->getClientOriginalName(); // obtengo el nombre de la imagen
                 for($i =0 ; $i< count($file); $i++){
-                    $nombre = $file[$i]->getClientOriginalName();
-                    $nombre = time().$nombre;
-                    Storage::disk('public')->put($nombre,  \File::get($file['avatar']));
+                    $nombre = $file[$i]->getClientOriginalName(); // obtengo el nombre de la imagen
+                    $nombre = time().$nombre; // le concateno el tiempo para que esta sea unica
+                    Storage::disk('public')->put($nombre,  \File::get($file[$i])); // la guardo en el disco
                 }
+                    $x = 0;
+                    \DB::table('tb_imagenes')->insert([
+                        'producto_id' => $producto_id,
+                        'color_id' => $colores[$x],
+                        
+                    ]);
                 // por aquí va la logica para guardar las imagenes
-                return redirect()->route ('proveedor.create')->with('success', "producto creado con exito");
+                //return redirect()->route ('proveedor.create')->with('success', "producto creado con exito");
+                echo "realizado";
             }
         }catch (QueryException $e){
-            return redirect()->route ('proveedor.create')->with('danger', "Error".$e->errorInfo[1]);
+            //return redirect()->route ('proveedor.create')->with('danger', "Error".$e->errorInfo[1]);
+            echo "error";
         }
 
-        return redirect()->route ('proveedor.create')->with('danger', "Error");
+        //return redirect()->route ('proveedor.create')->with('danger', "Error");
+    }
+
+    public function consultarCategorias(){
+        return \DB::table('tb_categoria')->distinct()->get();
+    }
+    public function consultarSubCategorias(){
+        return \DB::table('tb_sub_categoria')->distinct()->get();
+    }
+    public function consultarMarcas(){
+        return \DB::table('tb_marca')->distinct()->get();
+    }
+
+    public function consultarColores(){
+        return \DB::table('tb_colores')->distinct()->get();
     }
 }

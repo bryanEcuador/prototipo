@@ -36,20 +36,19 @@
                     <div class="col-md-4">
                         <select class="form-control col-md-8" v-model="categoria" name="categoria">
                             <option value='0'  disabled >Categoria</option>
-                            <option>2</option>
+                            <option v-for="dato in cmbCategoria" :value=" dato.id" > @{{ dato.nombre }} </option>
                         </select>
                     </div>
                     <div class="col-md-4 ">
                         <select class="form-control col-md-8" v-model="sub_categoria" name="sub_categoria">
                             <option value='0'  disabled>Sub-Categoria</option>
-                            <option>2</option>
+                            <option v-for="dato in cmbSubCategoria" :value=" dato.id" > @{{ dato.nombre }} </option>
                         </select>
                     </div>
                     <div class="col-md-4 ">
                         <select class="form-control col-md-8" v-model="marca" name="marca">
                             <option value='0'  disabled>Marca</option>
-                            <option>2</option>
-                            <option>3</option>
+                            <option v-for="dato in cmbMarca" :value=" dato.id" > @{{ dato.nombre }} </option>
                         </select>
                     </div>
                 </div>
@@ -95,8 +94,7 @@
                 <hr>
                 <label >Seleccione los colores en orden:</label>
                 <select class="form-control" name="colores[]" id="colores" multiple="multiple" v-model="colores" v-on:change="crearInputs">
-                    <option value="0">rojo</option>
-                    <option value="1">amarillo</option>
+                    <option v-for="dato in cmbColores" :value=" dato.id" > @{{ dato.nombre }} </option>
                 </select>
 
                 <br id="br">
@@ -134,6 +132,12 @@
              codigo : '',
              num_imagenes : 0,
 
+             // selects
+             cmbMarca : [],
+             cmbCategoria : [],
+             cmbSubCategoria : [],
+             cmbColores : [],
+
          },
          created : function() {
              toastr.options = {
@@ -152,8 +156,22 @@
              "hideEasing": "linear",
              "showMethod": "fadeIn",
              "hideMethod": "fadeOut"
-            }
+            };
+             axios.get('marca').then(response => {
+                 this.cmbMarca  = response.data
+            })
+             axios.get('categoria').then(response => {
+                 this.cmbCategoria  = response.data
+            })
+             axios.get('sub-categoria').then(response => {
+                 this.cmbSubCategoria  = response.data
+            })
+
+             axios.get('colores').then(response => {
+                 this.cmbColores  = response.data
+            })
          },
+
 
          methods : {
 

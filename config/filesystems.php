@@ -50,7 +50,7 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app\public\imagenes'),
+            'root' => storage_path('app\public\imagenes\productos'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],

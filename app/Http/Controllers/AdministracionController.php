@@ -13,10 +13,9 @@ class AdministracionController extends Controller
     public function create(){
         return view('modulos.administracion.create');
     }
-public function politica(){
+    public function politica(){
         return view('modulos.administracion.politica');
     }
-    
     public function store(Request $request){
        // dd($request);
         /*
@@ -62,11 +61,9 @@ public function politica(){
         }
  
     }
-
     public function  datosPagina() {
         return view('modulos.administracion.datos');
     }
-
     public function storeDatosBasicos(Request $request) {
         //echo $request->input('ordenes');
         //dd($request);
@@ -88,7 +85,6 @@ public function politica(){
 
         //echo $datos;
     }
-
     public function  showDatosBasicos() {
         $datos = \DB::table('tb_datos_basicos')->distinct()->get()->toArray();
         //echo $datos[0]->nombre;
@@ -97,4 +93,8 @@ public function politica(){
         //dd($datos);
         return view('modulos.administracion.datos.show',compact('datos'));
     }
+
+
+
+
 }
