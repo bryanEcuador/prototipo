@@ -71,7 +71,7 @@
                         <label for="descripcion">Descripción:</label>
                     </div>
                     <div class="col-md-8 ">
-                   <textarea class="form-control" v-model="descripcion" name="descripcion" minlength="15" maxlength="50" rows="2" placeholder="descripción del producto">
+                   <textarea class="form-control" v-model="descripcion" name="descripcion" minlength="15" maxlength="250" rows="2" placeholder="descripción del producto">
                    </textarea>
                     </div>
                 </div>

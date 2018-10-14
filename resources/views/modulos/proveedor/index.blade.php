@@ -6,33 +6,37 @@
 @section('contenido')
     <div class="col-md-12">
         <div class="tile">
+            <button class=" btn btn-outline-primary"> Crear nuevo producto</button>
+            <br><br>
             <div class="tile-body">
                 <table class="table table-hover table-bordered table-responsive" id="sampleTable">
                     <thead>
                     <tr>
-                        <th>MEDICO</th>
-                        <th>ESPECIALIZACION</th>
-                        <th>LUNES</th>
-                        <th>MARTES</th>
-                        <th>MIERCOLES</th>
-                        <th>JUEVES</th>
-                        <th>VIERNES</th>
-                        <th>SABADO</th>
-                        <th>DOMINGO</th>
+                        <th>Nombre</th>
+                        <th>Codigo</th>
+                        <th>Categoria</th>
+                        <th>Sub categoria</th>
+                        <th>Marca</th>
+                        <th>Precio</th>
+                        <th>Iva</th>
+                        <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
                     @forelse ($datos as $dato)
                         <tr>
-                            <th>{{$dato->NOMBRE_MEDICO}}</th>
-                            <th>{{$dato->ESPECIALIZACION}}</th>
-                            <th>{{$dato->LUNES}}</th>
-                            <th>{{$dato->MARTES}}</th>
-                            <th>{{$dato->Miercoles}}</th>
-                            <th>{{$dato->Jueves}}</th>
-                            <th>{{$dato->Viernes}}</th>
-                            <th>{{$dato->Sabado}}</th>
-                            <th>{{$dato->Domingo}}</th>
+                            <td>{{$dato->nombre}}</td>
+                            <td>{{$dato->codigo}}</td>
+                            <td>{{$dato->id_categoria}}</td>
+                            <td>{{$dato->id_sub_categoria}}</td>
+                            <td>{{$dato->id_marca}}</td>
+                            <td>{{$dato->precio}}</td>
+                            <td>{{$dato->iva}}</td>
+                            <td>
+                                <a  href="{{route('proveedor.show',$dato->id)}}"> <button class="btn btn-success" > ver</button> </a>
+                                <a  href="{{route('proveedor.edit',$dato->id)}}"> <button class="btn btn-info" > Editar</button> </a>
+                                <a  href="{{route('proveedor.show',$dato->id)}}"> <button class="btn btn-danger" > Eliminar</button> </a>
+                            </td>
                         </tr>
                     @empty
                         <p> No existen datos </p>
@@ -47,7 +51,8 @@
 @section('script')
     <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript">$('#sampleTable').DataTable(
+    <script type="text/javascript">
+        $('#sampleTable').DataTable(
             {
                 "scrollX": true,
                 "language": {

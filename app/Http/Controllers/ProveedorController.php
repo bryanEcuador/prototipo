@@ -8,7 +8,8 @@ use Illuminate\Database\QueryException;
 class ProveedorController extends Controller
 {
     public function index(){
-        $datos = array();
+        $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')->get();
+        //dd($datos);
         return view('modulos.proveedor.index',compact('datos'));
     }
     public function create(){
@@ -19,7 +20,7 @@ class ProveedorController extends Controller
 
         //dd($request);
         // verificamos los inputs
-/*
+
         $request->validate([
             'nombre' => 'required|max:25|string',
             'codigo' => 'required|max:10',
@@ -49,15 +50,16 @@ class ProveedorController extends Controller
             'precio.required' => 'El nombre del producto es requerido',
             'iva.required' => 'El nombre del producto es requerido',
             'colores.required' => 'El nombre del producto es requerido',
-            'file.required' => 'Las imagenes del producto son requeridas',
+            //'file.required' => 'Las imagenes del producto son requeridas',
             'file.imagen' => 'Solo puede subir imagenes',
             'file.mine' => 'No se aceptan imagenes de ese tipo',
         ]);
-*/
+
         $nombre_imagenes = array();
-        // preguntamos cuantos inpuuts tipo imagen pasaron y el numero de colores elegidos
-        $archivos = count($request->file());
-        $colores = count($request->input('colores'));
+        $archivos = count($request->file()); // numero de archivos pasados
+        $colores_valor = $request->input('colores'); // colores elegidos
+        $colores = count($request->input('colores')); // numero de colores elegidos
+
 
         // creamos un array con el nombre de todos los archivos de imagenes
         for($i = 0 ; $i<$archivos;$i++)
@@ -67,8 +69,7 @@ class ProveedorController extends Controller
         }
         // si el numero no coincide redirigimos de nuevo a la vista de create
         if($archivos !== $colores){
-            //return redirect()->route ('proveedor.create')->with('danger', "El numero de colores elegidos no coinciden con el numero de archivos cargados");
-            echo "error archivos-color";
+            return redirect()->route ('proveedor.create')->with('danger', "El numero de colores elegidos no coinciden con el numero de archivos cargados");
         } else {
             foreach ($nombre_imagenes as $valor)
             {
@@ -76,19 +77,15 @@ class ProveedorController extends Controller
                 $numero  = count($request->file($valor));
                 if($numero < 3 )
                 {
-                    //return redirect()->route ('proveedor.create')->with('danger', "Debe que subir minimo 3 imagenes por color");
-                    echo "minimo imagenes";
+                    return redirect()->route ('proveedor.create')->with('danger', "Debe que subir minimo 3 imagenes por color");
                 } else if($numero > 5 ){
-                    echo "maximo imagenes";
-                    //return redirect()->route ('proveedor.create')->with('danger', "Debe que subir maximo 5 imagenes por color");
+                    return redirect()->route ('proveedor.create')->with('danger', "Debe que subir maximo 5 imagenes por color");
                 }
             }
-
         }
 
-
         try {
-            /*
+
             // vamos a pasar a guardar en la base de datos si surge un error no deberían enviarse las imagenes
                 $producto_id = \DB::table('tb_producto')->insertGetId(
                     [
@@ -102,33 +99,84 @@ class ProveedorController extends Controller
                         'iva' => $request->input('iva')
                     ]
                 );
-                */
-            // pasamos a cargar las imagenes
+
+
+            $x = 0;
+
             foreach ($nombre_imagenes as $valor){ // recorro todos los archivos de imagenes
-                $imagenes = array();
+                $imagenes = array(); // creamos un array para guardar las imagenes de cada archivo
                 $file = $request->file($valor); // guardo el array de la imagen
-                //$file[0]->getClientOriginalName(); // obtengo el nombre de la imagen
                 for($i =0 ; $i< count($file); $i++){
                     $nombre = $file[$i]->getClientOriginalName(); // obtengo el nombre de la imagen
                     $nombre = time().$nombre; // le concateno el tiempo para que esta sea unica
                     Storage::disk('public')->put($nombre,  \File::get($file[$i])); // la guardo en el disco
+                    array_push($imagenes,$nombre);
                 }
-                    $x = 0;
+
+                // por aquí va la logica para guardar las imagenes
+                if(count($imagenes) == 3) {
+                    //dd($colores_valor);
                     \DB::table('tb_imagenes')->insert([
                         'producto_id' => $producto_id,
-                        'color_id' => $colores[$x],
-                        
+                        'color_id' => $colores_valor[$x],
+                        'imagen1' => $imagenes[0],
+                        'imagen2' => $imagenes[1],
+                        'imagen3' => $imagenes[2],
                     ]);
-                // por aquí va la logica para guardar las imagenes
-                //return redirect()->route ('proveedor.create')->with('success', "producto creado con exito");
-                echo "realizado";
+                } elseif (count($imagenes) == 4) {
+                    \DB::table('tb_imagenes')->insert([
+                        'producto_id' => $producto_id,
+                        'color_id' => $colores_valor[$x],
+                        'imagen1' => $nombre_imagenes[0],
+                        'imagen2' => $nombre_imagenes[1],
+                        'imagen3' => $nombre_imagenes[2],
+                        'imagen4' => $nombre_imagenes[3],
+
+
+                    ]);
+                } else {
+                    \DB::table('tb_imagenes')->insert([
+                        'producto_id' => $producto_id,
+                        'color_id' => $colores_valor[$x],
+                        'imagen1' => $nombre_imagenes[0],
+                        'imagen2' => $nombre_imagenes[1],
+                        'imagen3' => $nombre_imagenes[2],
+                        'imagen4' => $nombre_imagenes[3],
+                        'imagen5' => $nombre_imagenes[4],
+                    ]);
+
+                }
+                $x = $x +1;
             }
+            return redirect()->route ('proveedor.create')->with('success', "producto creado con exito");
         }catch (QueryException $e){
-            //return redirect()->route ('proveedor.create')->with('danger', "Error".$e->errorInfo[1]);
-            echo "error";
+            return redirect()->route ('proveedor.create')->with('danger', "Error".$e->errorInfo[1]);
         }
 
         //return redirect()->route ('proveedor.create')->with('danger', "Error");
+    }
+
+    public function  show($id) {
+
+        $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')
+            ->where('id',$id)
+            ->get();
+        $imagenes = \DB::table('tb_imagenes')->select('color_id','imagen1','imagen2','imagen3','imagen4','imagen5')
+            ->where('producto_id',$id)
+            ->get();
+        //dd($imagenes);
+        return view('modulos.proveedor.show',compact('datos','imagenes'));
+    }
+
+    public function  edit($id) {
+
+        $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')
+            ->where('id',$id)
+            ->get();
+        $imagenes = \DB::table('tb_imagenes')->select('color_id','imagen1','imagen2','imagen3','imagen4','imagen5')
+            ->where('producto_id',$id)
+            ->get();
+        return view('modulos.proveedor.edit',compact('datos','imagenes'));
     }
 
     public function consultarCategorias(){

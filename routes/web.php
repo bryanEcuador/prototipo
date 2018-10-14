@@ -15,8 +15,8 @@ require __DIR__ . '/modulos/administracion.php';
 require __DIR__ . '/modulos/estaticas.php';
 Route::get('/', function () {
 
-    $datos = \DB::table('tbdatosdecontacto')->get();
-    return view('welcome',compact('datos'));
+    //$datos = \DB::table('tbdatosdecontacto')->get();
+    return view('welcome');
 });
 
 Auth::routes();
@@ -28,6 +28,12 @@ Route::get('/index', 'InicioSecionController@index')->name('index');
 Route::get('/prueba', function () {
     return view('layouts.proveedor');
 });
+
+Route::get('/tienda', function () {
+    return view('modulos.usuario.store');
+});
+
+
 
 
 
