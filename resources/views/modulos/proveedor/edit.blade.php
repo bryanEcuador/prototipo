@@ -1,8 +1,8 @@
 @extends('layouts.proveedor')
-@section('nombre_pagina','crear')
+@section('nombre_pagina','editar')
 @section('css')
 @endsection
-@section('titulo de la pagina','Crear articulos')
+@section('titulo de la pagina','Editar articulo')
 @section('contenido')
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -26,115 +26,142 @@
         </div>
     @endif
 
-    <div class="col-md-12" id="creacionProductos">
+    <div class="col-md-12" id="edicionProductos" v-cloak>
+
         <div class="tile">
-            <h4>DATOS BASICOS</h4>
-            <hr>
-            <div class="form-group row justify-content-md-center">
-
-            </div>
-            <div class="form-group row">
-                <div class="col-md-1">
-                    <label for="categoria">Categoria:</label>
-                </div>
-                <div class="col-md-3 ">
-                    <input class="form-control" name="categoria" value="{{$datos[0]->id_categoria}}" readonly  >
-                </div>
-                <div class="col-md-1">
-                    <label for="codigo">Sub categoria:</label>
-                </div>
-                <div class="col-md-3 ">
-                    <input class="form-control" name="sub_categoria" value="{{$datos[0]->id_sub_categoria}}" readonly  >
-                </div>
-                <div class="col-md-1">
-                    <label for="codigo">Marca:</label>
-                </div>
-                <div class="col-md-3 ">
-                    <input class="form-control" name="marca" value="{{$datos[0]->id_marca}}" readonly  >
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-1">
-                    <label for="nombre">Nombre:</label>
-                </div>
-                <div class="col-md-4 ">
-                    <input class="form-control" name="nombre" value="{{$datos[0]->nombre}}" readonly  >
-                </div>
-                <div class="col-md-1">
-                    <label for="codigo">Codigo:</label>
-                </div>
-                <div class="col-md-3 ">
-                    <input class="form-control" name="codigo" value="{{$datos[0]->codigo}}" readonly  >
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-1">
-                    <label for="descripcion">Descripción:</label>
-                </div>
-                <div class="col-md-11 ">
-                    <input class="form-control" value="{{$datos[0]->descripcion}}" readonly  >
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-1">
-                    <label for="precio">Precio:</label>
-                </div>
-                <div class="col-md-2">
-                    <input class="form-control" type="number" value="{{$datos[0]->precio}}" readonly  >
-                </div>
-                <div class="col-md-1">
-                    <label for="iva">Iva:</label>
-                </div>
-                <div class="col-md-2 ">
-                    <input class="form-control" type="number" value="{{$datos[0]->iva}}" readonly  >
-                </div>
-            </div>
-            <br>
-            <h4>Imagenes del producto</h4>
-            <hr>
-            @forelse($imagenes as $imagen)
-                <p> {{$imagen->color_id}}</p>
+            <form action="{{route('proveedor.store')}}" method="post" enctype="multipart/form-data" id="producto">
+                @csrf
+                <h4>DATOS BASICOS</h4>
                 <hr>
-
-                <div class="row">
-                    <div class="col-md-3 card">
-                        <div class="card-body">
-                            <button>Elmiminar</button>
-                            <button>Actualizar</button>
-                        </div>
-                        <img src="{{$imagen->imagen1}}" alt="Cinque Terre" width="100%" height="auto"  >
+                <div class="form-group row justify-content-md-center">
+                    <div class="col-md-4">
+                        <select class="form-control col-md-8" v-model="categoria" :value="categoria" name="categoria">
+                            <option value='0'  disabled >Categoria</option>
+                            <option v-for="dato in cmbCategoria" :value=" dato.id" > @{{ dato.nombre }} </option>
+                        </select>
                     </div>
-
-                    <div class="col-md-3 card">
-                        <div class="card-body">
-                            <button>Elmiminar</button>
-                            <button>Actualizar</button>
-                        </div>
-                        <img src="{{$imagen->imagen2}}"  alt="Cinque Terre" width="100%" height="auto"  >
+                    <div class="col-md-4 ">
+                        <select class="form-control col-md-8" v-model="sub_categoria" :value="sub_categoria" name="sub_categoria">
+                            <option value='0'  disabled>Sub-Categoria</option>
+                            <option v-for="dato in cmbSubCategoria" :value=" dato.id" > @{{ dato.nombre }} </option>
+                        </select>
                     </div>
-
-                    <div class="col-md-3 card">
-                        <div class="card-body">
-                            <button>Elmiminar</button>
-                            <button>Actualizar</button>
-                        </div>
-                        <img src="{{$imagen->imagen3}}" alt="Cinque Terre" width="100%" height="auto"  >
+                    <div class="col-md-4 ">
+                        <select class="form-control col-md-8" v-model="marca" :value="marca" name="marca">
+                            <option value='0'  disabled>Marca</option>
+                            <option v-for="dato in cmbMarca" :value=" dato.id" > @{{ dato.nombre }} </option>
+                        </select>
                     </div>
-
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-1">
+                        <label for="nombre">Nombre:</label>
+                    </div>
+                    <div class="col-md-4 ">
+                        <input class="form-control" name="nombre" v-model="nombre" id="nombre" placeholder="nombre del producto" min="3" max="20"  value="{{ old('nombre') }}" autocomplete="off">
+                    </div>
+                    <div class="col-md-1">
+                        <label for="codigo">Codigo:</label>
+                    </div>
+                    <div class="col-md-3 ">
+                        <input class="form-control" name="codigo" v-model="codigo" id="codigo" placeholder="codigo del producto" min="3" max="20">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-1">
+                        <label for="descripcion">Descripción:</label>
+                    </div>
+                    <div class="col-md-8 ">
+                   <textarea class="form-control" v-model="descripcion" name="descripcion" minlength="15" maxlength="250" rows="2" placeholder="descripción del producto">
+                   </textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-1">
+                        <label for="precio">Precio:</label>
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" type="number" placeholder="Precio" name="precio" id="precio" v-model="precio" min="0">
+                    </div>
+                    <div class="col-md-1">
+                        <label for="iva">Iva:</label>
+                    </div>
+                    <div class="col-md-2 ">
+                        <input class="form-control" type="number" placeholder="iva" name="iva" id="iva" v-model="iva" min="0" max="100">
+                    </div>
                 </div>
                 <br>
+                <h4>Imagenes del producto</h4>
+                <hr>
+                <label >Seleccione los colores en orden:</label>
+                <select class="form-control" name="colores[]" id="colores" multiple="multiple" v-model="colores" v-on:change="crearInputs">
+                    <option v-for="dato in cmbColores" :value=" dato.id" > @{{ dato.nombre }} </option>
+                </select>
 
-            @empty
+                <br id="br">
+                <div id="inputs">
+                </div>
+                <br>
+                <div v-if="archivosMultimedias != 0">
+                    <div class="row" v-for=" archivo in cmbImagenes">
+                        <div class="col-md-3 card" v-if="archivo.imagen1 != null">
+                            <div class="card-body">
+                                <button type="button" class="btn btn-danger" v-on:click="eliminar(archivo.id,archivo.imagen1)">Elmiminar</button>
+                                <button class="btn btn-primary">Actualizar</button>
+                            </div>
+                            <img v-bind:src="archivo.imagen1 " alt="Producto" width="100%" height="auto"  >
+                        </div>
 
-            @endforelse
+                        <div class="col-md-3 card" v-if="archivo.imagen2 != null">
+                            <div class="card-body">
+                                <button class="btn btn-danger">Elmiminar</button>
+                                <button class="btn btn-primary">Actualizar</button>
+                            </div>
+                            <img v-bind:src="archivo.imagen2"  alt="Cinque Terre" width="100%" height="auto"  >
+                        </div>
 
+                        <div class="col-md-3 card" v-if="archivo.imagen3 != null">
+                            <div class="card-body">
+                                <button class="btn btn-danger">Elmiminar</button>
+                                <button class="btn btn-primary">Actualizar</button>
+                            </div>
+                            <img v-bind:src="archivo.imagen3" alt="Cinque Terre" width="100%" height="auto"  >
+
+                        </div>
+                        <div class="col-md-3 card" v-if="archivo.imagen4 != null">
+                            <div class="card-body">
+                                <button class="btn btn-danger">Elmiminar</button>
+                                <button class="btn btn-primary">Actualizar</button>
+                            </div>
+                            <img v-bind:src="archivo.imagen4" alt="Cinque Terre" width="100%" height="auto"  >
+
+                        </div>
+                        <div class="col-md-3 card" v-if="archivo.imagen5 != null">
+                            <div class="card-body">
+                                <button class="btn btn-danger">Elmiminar</button>
+                                <button class="btn btn-primary">Actualizar</button>
+                            </div>
+                            <img v-bind:src="archivo.imagen5" alt="Cinque Terre" width="100%" height="auto"  >
+
+                        </div>
+
+                    </div>
+                </div>
+                <div v-else>
+                    <p>no hay imagenes</p>
+                </div>
+
+                <button type="button" class="btn btn-info" v-on:click="enviarFormulario" name="guardar" id="guardar">Actualizar produto</button>
+            </form>
 
         </div>
+
 
     </div>
 @endsection
 @section('js')
     <script src="/js/plugins/select2.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2();
@@ -142,7 +169,7 @@
     </script>
     <script>
         var app = new Vue ({
-            el:"#creacionProductos",
+            el:"#edicionProductos",
             data: {
                 categoria : 0,
                 sub_categoria : 0,
@@ -156,12 +183,17 @@
                 imagenes : [],
                 codigo : '',
                 num_imagenes : 0,
+                identificador : 0,
 
                 // selects
                 cmbMarca : [],
                 cmbCategoria : [],
                 cmbSubCategoria : [],
                 cmbColores : [],
+                // variables desde el controlador
+                cmbDatos : [],
+                cmbImagenes :[],
+                archivosMultimedias : 0,
 
             },
             created : function() {
@@ -182,19 +214,44 @@
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
                 };
-                axios.get('marca').then(response => {
+
+
+                axios.get('/proveedor/marca').then(response => {
                     this.cmbMarca  = response.data
             })
-                axios.get('categoria').then(response => {
+                axios.get('/proveedor/categoria').then(response => {
                     this.cmbCategoria  = response.data
             })
-                axios.get('sub-categoria').then(response => {
+                axios.get('/proveedor/sub-categoria').then(response => {
                     this.cmbSubCategoria  = response.data
             })
 
                 axios.get('colores').then(response => {
                     this.cmbColores  = response.data
             })
+
+                // codificamos el formato a json
+                this.cmbDatos = {!! json_encode($datos) !!};
+
+                // pasamos los datos a la vista
+                this.nombre = this.cmbDatos[0].nombre;
+                this.descripcion = this.cmbDatos[0].descripcion;
+                this.precio = this.cmbDatos[0].precio;
+                this.codigo = this.cmbDatos[0].codigo;
+                this.iva = this.cmbDatos[0].iva;
+                this.categoria = this.cmbDatos[0].id_categoria;
+                this.sub_categoria = this.cmbDatos[0].id_sub_categoria;
+                this.marca = this.cmbDatos[0].id_marca;
+                this.identificador = this.cmbDatos[0].id;
+
+
+
+                //this.cmbImagenes = {!! json_encode($datos) !!};
+                this.cmbImagenes = @json($imagenes);
+                this.archivosMultimedias = this.cmbImagenes.length;
+                console.log({!! json_encode($datos) !!});
+                console.log({!! json_encode($imagenes) !!});
+
             },
 
 
@@ -340,6 +397,29 @@
 
                     /* Cada vez que se escoge un nuevo elemento se destruye y se crea un div del mismo tipo y en base a este se crean las imagenes */
                     //var newInput = document.createElement("input")
+                },
+
+                eliminar1 : function(id,nombre) {
+                    
+                },
+                eliminar : function(id,nombre) {
+                    swal({
+                        title: "Eliminar!",
+                        text: "Esta seguro que desea eliminar la imagen",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                        .then((willDelete) => {
+                        if (willDelete) {
+                            this.eliminar1(id,nombre);
+                            swal("Eliminado! La imagen ha sido eliminada!", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("Su archivo se encuentra seguro!");
+                }
+                });
                 }
             }
         });
