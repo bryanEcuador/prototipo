@@ -15,7 +15,124 @@ class ProveedorController extends Controller
     public function create(){
         return view('modulos.proveedor.create');
     }
+    public function update(Request $request)
+    {
+        foreach ($request->file() as $clave => $valor){
 
+          list($nombre,$id) =  explode("-",$clave);
+
+          $file = $request->file($clave);
+            $nombre_imagen = $file->getClientOriginalName(); // obtengo el nombre de la imagen
+            $nombre_imagen = '/storage/productos/'.time().$nombre_imagen; // le concateno el tiempo para que esta sea unica
+            Storage::disk('public')->put($nombre,  \File::get($file)); // la guardo en el disco
+
+            \DB::table('tb_imagenes')
+                ->where('id',$id)
+                ->update([$nombre => $nombre_imagen]);
+
+        }
+
+        dd($request->file());
+        $nombre_imagenes = array();
+        $id_imagenes =array();
+
+        foreach ($request->file() as $clave => $valor){
+            echo $clave;
+        }
+
+        for($i = 0 ; $i<count($request->file());$i++)
+        {
+            $n = $i + 1;
+            array_push($nombre_imagenes,"imagen".$n);
+        }
+        foreach (  $nombre_imagenes as $valor) {
+            $file = $request->file($valor);
+            $nombre = $file->getClientOriginalName(); // obtengo el nombre de la imagen
+            $nombre = '/storage/productos/'.time().$nombre; // le concateno el tiempo para que esta sea unica
+            Storage::disk('public')->put($nombre,  \File::get($file)); // la guardo en el disco
+
+            \DB::table('tb_imagenes')
+                ->where($valor,1)
+                ->update(['color_id' => $valor]);
+
+        }
+        dd($request->file());
+
+
+        // recorro el request en busca de claves numericas
+        // las claves numericas corresponden al id de la tabla imagenes
+        // luego se hace la actualización de los colores con su respectivo nuevo color.
+        foreach ($request->input() as $clave => $valor)  {
+            if( is_numeric($clave) ) {
+                \DB::table('tb_imagenes')
+                    ->where('id',$clave)
+                ->update(['color_id' => $valor]);
+            }
+        }
+
+        \DB::table('tb_producto')
+            ->where('id',10)
+            ->update([
+                        'id_categoria'=> $request->input('categoria'),
+                        'id_sub_categoria'=> $request->input('sub_categoria'),
+                        'id_marca'=> $request->input('marca'),
+                        'nombre'=> $request->input('nombre'),
+                        'codigo'=> $request->input('codigo'),
+                        'descripcion'=> $request->input('descripcion'),
+                        'precio'=> $request->input('precio'),
+                        'iva'=> $request->input('iva'),
+                    ]);
+
+        // actualizacion de las imagenes
+
+        foreach ($nombre_imagenes as $valor){ // recorro todos los archivos de imagenes
+            $imagenes = array(); // creamos un array para guardar las imagenes de cada archivo
+            $file = $request->file($valor); // guardo el array de la imagen
+            for($i =0 ; $i< count($file); $i++){
+                $nombre = $file[$i]->getClientOriginalName(); // obtengo el nombre de la imagen
+                $nombre = time().$nombre; // le concateno el tiempo para que esta sea unica
+                Storage::disk('public')->put($nombre,  \File::get($file[$i])); // la guardo en el disco
+                array_push($imagenes,$nombre);
+            }
+
+            // por aquí va la logica para guardar las imagenes
+            if(count($imagenes) == 3) {
+                //dd($colores_valor);
+                \DB::table('tb_imagenes')->insert([
+                    'producto_id' => $producto_id,
+                    'color_id' => $colores_valor[$x],
+                    'imagen1' => $imagenes[0],
+                    'imagen2' => $imagenes[1],
+                    'imagen3' => $imagenes[2],
+                ]);
+            } elseif (count($imagenes) == 4) {
+                \DB::table('tb_imagenes')->insert([
+                    'producto_id' => $producto_id,
+                    'color_id' => $colores_valor[$x],
+                    'imagen1' => $nombre_imagenes[0],
+                    'imagen2' => $nombre_imagenes[1],
+                    'imagen3' => $nombre_imagenes[2],
+                    'imagen4' => $nombre_imagenes[3],
+
+
+                ]);
+            } else {
+                \DB::table('tb_imagenes')->insert([
+                    'producto_id' => $producto_id,
+                    'color_id' => $colores_valor[$x],
+                    'imagen1' => $nombre_imagenes[0],
+                    'imagen2' => $nombre_imagenes[1],
+                    'imagen3' => $nombre_imagenes[2],
+                    'imagen4' => $nombre_imagenes[3],
+                    'imagen5' => $nombre_imagenes[4],
+                ]);
+
+            }
+            $x = $x +1;
+        }
+
+
+    }
     public function store(Request $request){
 
         //dd($request);
@@ -168,17 +285,50 @@ class ProveedorController extends Controller
         return view('modulos.proveedor.show',compact('datos','imagenes'));
     }
 
+    public function delete($id) {
+
+    }
+
     public function  edit($id) {
 
         $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')
             ->where('id',$id)
             ->get();
-        $imagenes = \DB::table('tb_imagenes')->select('color_id','imagen1','imagen2','imagen3','imagen4','imagen5')
+        $imagenes = \DB::table('tb_imagenes')->select('id','producto_id','color_id','imagen1','imagen2','imagen3','imagen4','imagen5')
             ->where('producto_id',$id)
             ->get();
         return view('modulos.proveedor.edit',compact('datos','imagenes'));
     }
 
+    //
+    public function agregarImagen(Request $request) {
+        dd($request);
+    }
+    public function eliminarImagen(Request $request){
+
+
+        //$id = (integer) $request->input('id');
+        try {
+            \DB::table('tb_imagenes')
+                ->where('id',1)
+                ->update([ 'imagen1'=> null]);
+            return "exito";
+        }catch (QueryException $e) {
+            //dd($e);
+            return $e->errorInfo[2];
+        }
+    }
+
+
+
+    // consultas
+    public function consultarImagenes($id) {
+
+        $imagenes = \DB::table('tb_imagenes')->select('id','producto_id','color_id','imagen1','imagen2','imagen3','imagen4','imagen5')
+            ->where('producto_id',$id)
+            ->get();
+        return $imagenes;
+    }
     public function consultarCategorias(){
         return \DB::table('tb_categoria')->distinct()->get();
     }
@@ -188,7 +338,6 @@ class ProveedorController extends Controller
     public function consultarMarcas(){
         return \DB::table('tb_marca')->distinct()->get();
     }
-
     public function consultarColores(){
         return \DB::table('tb_colores')->distinct()->get();
     }
