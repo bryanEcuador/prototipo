@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\QueryException;
 class ProveedorController extends Controller
 {
+    // funciones del crud
     public function index(){
         $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')->get();
         //dd($datos);
@@ -17,118 +18,73 @@ class ProveedorController extends Controller
     }
     public function update(Request $request)
     {
-        foreach ($request->file() as $clave => $valor){
+        dd($request);
+           //preguntamos si nos estan pasando imagenes para guardarlo en el storage
+        if(count($request->file()) > 0) {
+                // obtenemos el nombre y valor del archivo
+            foreach ($request->file() as $clave => $valor){
 
-          list($nombre,$id) =  explode("-",$clave);
+                $file = $request->file($clave);
+                    // obtenemos el nombre y el id para la actualización que se encuentra contenido en la clave
+                    // del archivo
+                list($nombre,$id) =  explode("-",$clave);
+                $imagen = $file->getClientOriginalName(); // obtengo el nombre de la imagen
+                $imagen= time().$imagen; // le concateno el tiempo para que esta sea unica
+                Storage::disk('public')->put($imagen,  \File::get($file)); // la guardo en el disco
 
-          $file = $request->file($clave);
-            $nombre_imagen = $file->getClientOriginalName(); // obtengo el nombre de la imagen
-            $nombre_imagen = '/storage/productos/'.time().$nombre_imagen; // le concateno el tiempo para que esta sea unica
-            Storage::disk('public')->put($nombre,  \File::get($file)); // la guardo en el disco
-
-            \DB::table('tb_imagenes')
-                ->where('id',$id)
-                ->update([$nombre => $nombre_imagen]);
-
-        }
-
-        dd($request->file());
-        $nombre_imagenes = array();
-        $id_imagenes =array();
-
-        foreach ($request->file() as $clave => $valor){
-            echo $clave;
-        }
-
-        for($i = 0 ; $i<count($request->file());$i++)
-        {
-            $n = $i + 1;
-            array_push($nombre_imagenes,"imagen".$n);
-        }
-        foreach (  $nombre_imagenes as $valor) {
-            $file = $request->file($valor);
-            $nombre = $file->getClientOriginalName(); // obtengo el nombre de la imagen
-            $nombre = '/storage/productos/'.time().$nombre; // le concateno el tiempo para que esta sea unica
-            Storage::disk('public')->put($nombre,  \File::get($file)); // la guardo en el disco
-
-            \DB::table('tb_imagenes')
-                ->where($valor,1)
-                ->update(['color_id' => $valor]);
-
-        }
-        dd($request->file());
-
-
-        // recorro el request en busca de claves numericas
-        // las claves numericas corresponden al id de la tabla imagenes
-        // luego se hace la actualización de los colores con su respectivo nuevo color.
-        foreach ($request->input() as $clave => $valor)  {
-            if( is_numeric($clave) ) {
+                // realizamos la actualización de la imagen
+                $nombre_imagen = '/storage/productos/'.$imagen;
                 \DB::table('tb_imagenes')
-                    ->where('id',$clave)
-                ->update(['color_id' => $valor]);
+                    ->where('id',$id)
+                    ->update([$nombre => $nombre_imagen]);
             }
-        }
-
-        \DB::table('tb_producto')
-            ->where('id',10)
-            ->update([
-                        'id_categoria'=> $request->input('categoria'),
-                        'id_sub_categoria'=> $request->input('sub_categoria'),
-                        'id_marca'=> $request->input('marca'),
-                        'nombre'=> $request->input('nombre'),
-                        'codigo'=> $request->input('codigo'),
-                        'descripcion'=> $request->input('descripcion'),
-                        'precio'=> $request->input('precio'),
-                        'iva'=> $request->input('iva'),
-                    ]);
-
-        // actualizacion de las imagenes
-
-        foreach ($nombre_imagenes as $valor){ // recorro todos los archivos de imagenes
-            $imagenes = array(); // creamos un array para guardar las imagenes de cada archivo
-            $file = $request->file($valor); // guardo el array de la imagen
-            for($i =0 ; $i< count($file); $i++){
-                $nombre = $file[$i]->getClientOriginalName(); // obtengo el nombre de la imagen
-                $nombre = time().$nombre; // le concateno el tiempo para que esta sea unica
-                Storage::disk('public')->put($nombre,  \File::get($file[$i])); // la guardo en el disco
-                array_push($imagenes,$nombre);
+            // recorro el request en busca de claves numericas
+            // las claves numericas corresponden al id de la tabla imagenes
+            // luego se hace la actualización de los colores con su respectivo nuevo color.
+            foreach ($request->input() as $clave => $valor)  {
+                if( is_numeric($clave) ) {
+                    \DB::table('tb_imagenes')
+                        ->where('id',$clave)
+                        ->update(['color_id' => $valor]);
+                }
             }
-
-            // por aquí va la logica para guardar las imagenes
-            if(count($imagenes) == 3) {
-                //dd($colores_valor);
-                \DB::table('tb_imagenes')->insert([
-                    'producto_id' => $producto_id,
-                    'color_id' => $colores_valor[$x],
-                    'imagen1' => $imagenes[0],
-                    'imagen2' => $imagenes[1],
-                    'imagen3' => $imagenes[2],
+            //--------------------------------------------- actuaizacion del producto ------------------------
+            \DB::table('tb_producto')
+                ->where('id',$request->input('id_producto'))
+                ->update([
+                    'id_categoria'=> $request->input('categoria'),
+                    'id_sub_categoria'=> $request->input('sub_categoria'),
+                    'id_marca'=> $request->input('marca'),
+                    'nombre'=> $request->input('nombre'),
+                    'codigo'=> $request->input('codigo'),
+                    'descripcion'=> $request->input('descripcion'),
+                    'precio'=> $request->input('precio'),
+                    'iva'=> $request->input('iva'),
                 ]);
-            } elseif (count($imagenes) == 4) {
-                \DB::table('tb_imagenes')->insert([
-                    'producto_id' => $producto_id,
-                    'color_id' => $colores_valor[$x],
-                    'imagen1' => $nombre_imagenes[0],
-                    'imagen2' => $nombre_imagenes[1],
-                    'imagen3' => $nombre_imagenes[2],
-                    'imagen4' => $nombre_imagenes[3],
-
-
-                ]);
-            } else {
-                \DB::table('tb_imagenes')->insert([
-                    'producto_id' => $producto_id,
-                    'color_id' => $colores_valor[$x],
-                    'imagen1' => $nombre_imagenes[0],
-                    'imagen2' => $nombre_imagenes[1],
-                    'imagen3' => $nombre_imagenes[2],
-                    'imagen4' => $nombre_imagenes[3],
-                    'imagen5' => $nombre_imagenes[4],
-                ]);
-
+        } else {
+            // recorro el request en busca de claves numericas
+            // las claves numericas corresponden al id de la tabla imagenes
+            // luego se hace la actualización de los colores con su respectivo nuevo color.
+            foreach ($request->input() as $clave => $valor)  {
+                if( is_numeric($clave) ) {
+                    \DB::table('tb_imagenes')
+                        ->where('id',$clave)
+                        ->update(['color_id' => $valor]);
+                }
             }
-            $x = $x +1;
+            //--------------------------------------------- actuaizacion del producto ------------------------
+            \DB::table('tb_producto')
+                ->where('id',$request->input('id_producto'))
+                ->update([
+                    'id_categoria'=> $request->input('categoria'),
+                    'id_sub_categoria'=> $request->input('sub_categoria'),
+                    'id_marca'=> $request->input('marca'),
+                    'nombre'=> $request->input('nombre'),
+                    'codigo'=> $request->input('codigo'),
+                    'descripcion'=> $request->input('descripcion'),
+                    'precio'=> $request->input('precio'),
+                    'iva'=> $request->input('iva'),
+                ]);
         }
 
 
@@ -272,7 +228,6 @@ class ProveedorController extends Controller
 
         //return redirect()->route ('proveedor.create')->with('danger', "Error");
     }
-
     public function  show($id) {
 
         $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')
@@ -284,11 +239,9 @@ class ProveedorController extends Controller
         //dd($imagenes);
         return view('modulos.proveedor.show',compact('datos','imagenes'));
     }
-
     public function delete($id) {
 
     }
-
     public function  edit($id) {
 
         $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')
@@ -300,9 +253,35 @@ class ProveedorController extends Controller
         return view('modulos.proveedor.edit',compact('datos','imagenes'));
     }
 
-    //
+    // funciones extras
     public function agregarImagen(Request $request) {
+        $file = $request->file('imagen');
+        $nombre = $file->getClientOriginalName(); // obtengo el nombre de la imagen
+        $nombre = time().$nombre; // le concateno el tiempo para que esta sea unica
+        Storage::disk('public')->put($nombre,  \File::get($file)); // la guardo en el disco
+
+        $imagen = '/storage/productos/'.$nombre;
+        $id_imagen = (integer) $request->input('id_imagen');
+
+        for($i = 1 ; $i<=5;$i++)
+        {
+            $valor = "imagen".$i;
+
+            $resultado = \DB::table('tb_imagenes')
+                ->where([
+                    ['id',$id_imagen],
+                ])
+                ->select($valor)->get();
+            if( is_null($resultado[0]->$valor )) {
+                \DB::table('tb_imagenes')
+                    ->where('id',$id_imagen)
+                    ->update([$valor => $imagen ]);
+                break;
+            }
+        }
+
         dd($request);
+
     }
     public function eliminarImagen(Request $request){
 
@@ -318,8 +297,24 @@ class ProveedorController extends Controller
             return $e->errorInfo[2];
         }
     }
+    public function validarEliminacionImagenes($id_imagen) {
+        $cantidad = 0;
+        for($i = 1 ; $i<=5;$i++)
+        {
+            $valor = "imagen".$i;
+            $resultado = \DB::table('tb_imagenes')
+                ->where([
+                    ['id',$id_imagen],
+                ])
+                ->select($valor)->get();
+            if( is_null($resultado[0]->$valor )) {
 
-
+            } else {
+                $cantidad = $cantidad +1;
+            }
+        }
+            return $cantidad;
+    }
 
     // consultas
     public function consultarImagenes($id) {

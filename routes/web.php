@@ -25,12 +25,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/index', 'InicioSecionController@index')->name('index');
 
 // prueba , link para realizar prueba de las distintas vistas
-Route::get('/prueba', function () {
-    return view('layouts.proveedor');
-});
+
 
 Route::get('/tienda', function () {
     return view('modulos.usuario.store');
+});
+
+route::get('/prueba/{id}',function($id_imagen) {
+
 });
 
 

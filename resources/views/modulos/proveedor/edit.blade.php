@@ -115,41 +115,40 @@
                                 </div>
                                 <div class="col-md-3 col-sm-6 card" v-if="archivo.imagen2 != null">
                                     <div class="card-body">
-                                        <button class="btn btn-danger" v-on:click="eliminar(archivo.id,'imagen2',archivo.producto_id)">Elmiminar</button>
-                                        <button class="btn btn-primary">Actualizar</button>
+                                        <button class="btn btn-danger" type="button"  v-on:click="eliminar(archivo.id,'imagen2',archivo.producto_id)">Elmiminar</button>
+                                        <button class="btn btn-primary" type="button" >Actualizar</button>
                                     </div>
                                     <img v-bind:src="archivo.imagen2"  alt="Cinque Terre" width="100%" height="auto"  >
                                 </div>
                                 <div class="col-md-3 card col-sm-6" v-if="archivo.imagen3 != null">
                                     <div class="card-body">
-                                        <button class="btn btn-danger" v-on:click="eliminar(archivo.id,'imagen3',archivo.producto_id)">Elmiminar</button>
-                                        <button class="btn btn-primary">Actualizar</button>
+                                        <button class="btn btn-danger" type="button"  v-on:click="eliminar(archivo.id,'imagen3',archivo.producto_id)">Elmiminar</button>
+                                        <button class="btn btn-primary" type="button" >Actualizar</button>
                                     </div>
                                     <img v-bind:src="archivo.imagen3" alt="Cinque Terre" width="100%" height="auto"  >
 
                                 </div>
                                 <div class="col-md-3 card col-sm-6" v-if="archivo.imagen4 != null">
                                     <div class="card-body">
-                                        <button class="btn btn-danger" v-on:click="eliminar(archivo.id,'imagen4',archivo.producto_id)">Elmiminar</button>
-                                        <button class="btn btn-primary">Actualizar</button>
+                                        <button class="btn btn-danger" type="button"  v-on:click="eliminar(archivo.id,'imagen4',archivo.producto_id)">Elmiminar</button>
+                                        <button class="btn btn-primary" type="button" >Actualizar</button>
                                     </div>
                                     <img v-bind:src="archivo.imagen4" alt="Cinque Terre" width="100%" height="auto"  >
 
                                 </div>
                                 <div class="col-md-3 card col-sm-6 " v-if="archivo.imagen5 != null">
                                     <div class="card-body">
-                                        <button class="btn btn-danger" v-on:click="eliminar(archivo.id,'imagen5',archivo.producto_id)">Elmiminar</button>
-                                        <button class="btn btn-primary">Actualizar</button>
+                                        <button class="btn btn-danger" type="button"  v-on:click="eliminar(archivo.id,'imagen5',archivo.producto_id)">Elmiminar</button>
+                                        <button class="btn btn-primary" type="button" >Actualizar</button>
                                     </div>
                                     <img v-bind:src="archivo.imagen5" alt="Cinque Terre" width="100%" height="auto"  >
 
                                 </div>
-                                <div class="col-md-3" >
+                                <div class="col-md-3" v-if="archivo.imagen5 == null || archivo.imagen4 == null" >
                                     <form action="{{route('proveedor.agregar.imagenes')}}" method="post" enctype="multipart/form-data"  >
                                         @csrf
-                                        <input type="file" name ="imagenes[]" multiple class="form-control" v-bind:id="archivo.id"  v-bind:name="archivo.id"  >
-                                        <button type="button" v-on:click="guardarImagen(archivo.id)"> Guardar imagen </button>
-                                        <button type="button" >Agregar imagenes</button>
+                                        <input type="file"  class="form-control" v-bind:id="archivo.id"  v-bind:name="archivo.id"  >
+                                        <button type="button" v-on:click="guardarImagen(archivo.id,archivo.producto_id)"> Guardar imagen </button>
                                     </form>
                                 </div>
                             </div>
@@ -158,7 +157,7 @@
                     </div>
                 </div>
                 <br>
-                <button type="button" class="btn btn-info" v-on:click="enviarFormulario" name="guardar" id="guardar">Actualizar produto</button>
+                <button type="button" class="btn btn-info" v-on:click="validar" name="guardar" id="guardar">Actualizar produto</button>
             </form>
 
         </div>
@@ -201,6 +200,7 @@
                 cmbDatos : [],
                 cmbImagenes :[],
                 archivosMultimedias : 0,
+                img : 0,
 
             },
             created : function() {
@@ -265,8 +265,8 @@
             methods : {
 
                 validar : function () {
-                    //this.validarCampos();
-                    this.validarImagenes();
+                    this.validarCampos();
+                    //this.validarImagenes();
                     // mensajes de alerta
                     if( this.errores.length === 0) {
                         //this.enviarFormulario();
@@ -337,7 +337,7 @@
                         this.errores.push("Debe elegir una  marca");
                     }
 
-                    if(this.colores.length == 0){
+                    if(this.colores.length == 0) {
                         this.errores.push("Debe Seleccionar los colores del producto");
                     }
                 },
@@ -413,50 +413,62 @@
                 })
                 },
                 eliminarImagen : function(id,nombre,producto) {
-                    var parametros = {
-                        "_token": "{{ csrf_token() }}",
-                        "id" : id,
-                        "nombre" : "imagen1"
-                    };
-                    $.ajax({
-                        data : parametros,
-                        url : "/proveedor/eliminar/imagen",
-                        type : "post",
-                        async : true,
-                        success : function(d){
-                            toastr.success('Registro eliminado con exito.', 'Alerta', {timeOut: 8000});
-                        },
-                        error : function (response,jqXHR) {
+                    axios.get('/proveedor/validar/eliminar/imagen/'+id).then(response => {
+                        this.img  = response.data;
+
+                        if(this.img <= 3) {
+                            alert("no se puede eliminar, porque solo tiene 3 imagenes");
+                        }else {
+                            var parametros = {
+                                "_token": "{{ csrf_token() }}",
+                                "id" : id,
+                                "nombre" : "imagen1"
+                            };
+                            $.ajax({
+                                data : parametros,
+                                url : "/proveedor/eliminar/imagen",
+                                type : "post",
+                                async : true,
+                                success : function(d){
+                                    toastr.success('Registro eliminado con exito.', 'Alerta', {timeOut: 8000});
+                                },
+                                error : function (response,jqXHR) {
 
 
-                            if(response.status === 422)
-                            {
-                                // captura los errores en una variable
-                                var errors = $.parseJSON(response.responseText);
-                                // recorre los errores
-                                $.each(errors, function (key, value) {
-                                    // pasa el error del controlador
-                                    if($.isPlainObject(value)) {
-                                        $.each(value, function (key, value) {
-                                            toastr.error('Error: '+value+'', 'Error', {timeOut: 5000});
-                                            console.log(key+ " " +value);
+                                    if(response.status === 422)
+                                    {
+                                        // captura los errores en una variable
+                                        var errors = $.parseJSON(response.responseText);
+                                        // recorre los errores
+                                        $.each(errors, function (key, value) {
+                                            // pasa el error del controlador
+                                            if($.isPlainObject(value)) {
+                                                $.each(value, function (key, value) {
+                                                    toastr.error('Error: '+value+'', 'Error', {timeOut: 5000});
+                                                    console.log(key+ " " +value);
+                                                });
+                                            }else{
+                                                // es un error general
+                                                console.log(response);
+                                                toastr.error('Error '+response+' al momento guardar el nuevo proveedor.', 'Error', {timeOut: 5000});
+                                            }
                                         });
-                                    }else{
-                                        // es un error general
-                                        console.log(response);
-                                        toastr.error('Error '+response+' al momento guardar el nuevo proveedor.', 'Error', {timeOut: 5000});
+                                    } else {
+                                        console.log(response.responseText);
+                                        toastr.error('Error: '+response.status, 'Error', {timeOut: 5000});
                                     }
-                                });
-                            } else {
-                                console.log(response.responseText);
-                                toastr.error('Error: '+response.status, 'Error', {timeOut: 5000});
-                            }
-                            //toastr.error('Error al momento de crear el permiso.', 'Alerta', {timeOut: 8000});
+                                    //toastr.error('Error al momento de crear el permiso.', 'Alerta', {timeOut: 8000});
 
+                                }
+                            });
+
+                            this.recargarImagenes(producto);
                         }
-                    });
+                    })
 
-                    this.recargarImagenes(producto);
+
+                    /*
+                     */
                 },
                 eliminar : function(id,nombre,producto) {
                     swal({
@@ -512,13 +524,13 @@
 
                 },
 
-                guardarImagen : function (img_id) {
-                    //var formData = new FormData(document.getElementById(img_id).serialize());
-                    console.log(document.getElementById(img_id));
+                guardarImagen : function (img_id,producto) {
 
+                    var valor = '#'+img_id;
                     var formData= new FormData();
                     formData.append("_token", "{{ csrf_token() }}");
-                    formData.append("imagen",$('#1')[0].files[0]);
+                    formData.append("imagen",$(valor)[0].files[0]);
+                    formData.append("id_imagen",img_id);
                     $.ajax({
                         data : formData ,
                         url : "/proveedor/agregar/imagen",
@@ -528,7 +540,7 @@
                        mimeType:"multipart/form-data",
                         processData: false,
                         success : function(d){
-                            toastr.success('Registro eliminado con exito.', 'Alerta', {timeOut: 8000});
+                            toastr.success('Imagen guardada con exito.', 'Alerta', {timeOut: 8000});
                         },
                         error : function (response,jqXHR) {
 
@@ -559,6 +571,7 @@
 
                         }
                     });
+                    this.recargarImagenes(producto);
                 },
                 agregarImagen : function (div) {
 
