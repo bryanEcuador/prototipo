@@ -8,7 +8,7 @@ class AdministracionController extends Controller
 {
     //
     public function index(){
-        return view('modulos.administracion.index');
+     return view('modulos.administracion.index');
     }
     public function create(){
         return view('modulos.administracion.create');

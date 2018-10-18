@@ -5,31 +5,102 @@
 @section('titulo de la pagina','Proveedores')
 @section('contenido')
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap-grid.min.css">
-    <body>
-        <div class="tile">
-    <div class="col-md-12" id="tabe">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Codigo Externo</th>
-                    <th>Tipo De Empresa</th>
-                    <th>Ruc</th>
-                    <th>Razon Social</th>
-                    <th>Representante Legal</th>
-                    <th>Direccion</th>
-                    <th>Banco</th>
-                    <th>Cuenta Bancaria</th>
-                    <th>Estado</th>
-                    <th>Gerente General</th>
-                    <th>Fono Convencional</th>
-                    <th>Fono Representante</th>
-                    <th>Fono Gerente</th>
-                    <th>Usuario</th>
-                    <th>Contraseña</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
+<body>
+        <style type="text/css" media="screen">
+            @charset "UTF-8";
+/* CSS Document *//*estilos visuales de la tabla*/
+table {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #666;
+    font-size: 12px;
+    text-shadow: 1px 1px 0px #fff;
+    background: #eaebec;
+    margin: 20px;
+    border: #ccc 1px solid;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 1px 2px #d1d1d1;
+    -webkit-box-shadow: 0 1px 2px #d1d1d1;
+    box-shadow: 0 1px 2px #d1d1d1;
+}
+table th {
+    padding: 21px 25px 22px 25px;
+    border-top: 1px solid #fafafa;
+    border-bottom: 1px solid #e0e0e0;
+    background: #ededed;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+    background: -moz-linear-gradient(top, #ededed, #ebebeb);
+}
+table tr {
+    text-align: center;
+    padding-left: 20px;
+}
+table td {
+    padding: 18px;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+    background: #fafafa;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+    background: -moz-linear-gradient(top, #fbfbfb, #fafafa);
+}
+table tr.even td {
+    background: #f6f6f6;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+    background: -moz-linear-gradient(top, #f8f8f8, #f6f6f6);
+}
+table tr:hover td {
+    background: #f2f2f2;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+    background: -moz-linear-gradient(top, #f2f2f2, #f0f0f0);
+}
+
+/*fin estilos visuales de la tabla*/
+
+.table-container
+{
+    width: 100%;
+    overflow-y: auto;
+    _overflow: auto;
+    margin: 0 0 1em;
+}
+/* añadimos las barras para dispositivos IOS */
+
+.table-container::-webkit-scrollbar
+{
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+}
+.table-container::-webkit-scrollbar-thumb
+{
+    border-radius: 8px;
+    border: 3px solid #fff;
+    background-color: rgba(0, 0, 0, .3);
+}
+
+        </style>
+    <div class="table-container">
+  <table width="700px">
+    <tr>
+      <th > Codigo Externo </th>
+                    <td>  Tipo de Empresa  </td>
+                    <td > Ruc </td>
+                    <td > Razon Social </td>
+                    <td > Representante legal </td>
+                    <td > Direccion </td>
+                    <td > Banco  </td>
+                    <td > Cuenta Bancaria </td>
+                    <td > Estado </td>
+                    <td> Gerente General </td>
+                     <td > Telefono Convencional  </td>
+                    <td > Telefono Representante </td>
+                    <td > Telefono General</td>
+                    <td > Usuario </td>
+                    <td > Contraseña </td>
+    </tr>
+  </table>
 </div>
 </body>
 @endsection
@@ -40,6 +111,4 @@
             $('.js-example-basic-multiple').select2();
         });
     </script>
-
-
 @endsection
