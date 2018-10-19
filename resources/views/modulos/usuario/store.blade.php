@@ -7,156 +7,13 @@
 @section('breadcrumb_tree')
 @endsection
 @section('contenido')
-    <div class="section">
+    <div class="section" id="productos">
         <!-- container -->
         <div class="container">
             <!-- row -->
             <div class="row">
-                <!-- ASIDE -->
-                <div id="aside" class="col-md-3">
-                    <!-- aside Widget -->
-                    <div class="aside">
-                        <h3 class="aside-title">Categories</h3>
-                        <div class="checkbox-filter">
-
-                            <div class="input-checkbox">
-                                <input type="checkbox" id="category-1">
-                                <label for="category-1">
-                                    <span></span>
-                                    Laptops
-                                    <small>(120)</small>
-                                </label>
-                            </div>
-
-                            <div class="input-checkbox">
-                                <input type="checkbox" id="category-2">
-                                <label for="category-2">
-                                    <span></span>
-                                    Smartphones
-                                    <small>(740)</small>
-                                </label>
-                            </div>
-
-                            <div class="input-checkbox">
-                                <input type="checkbox" id="category-3">
-                                <label for="category-3">
-                                    <span></span>
-                                    Cameras
-                                    <small>(1450)</small>
-                                </label>
-                            </div>
-
-                            <div class="input-checkbox">
-                                <input type="checkbox" id="category-4">
-                                <label for="category-4">
-                                    <span></span>
-                                    Accessories
-                                    <small>(578)</small>
-                                </label>
-                            </div>
-
-                            <div class="input-checkbox">
-                                <input type="checkbox" id="category-5">
-                                <label for="category-5">
-                                    <span></span>
-                                    Laptops
-                                    <small>(120)</small>
-                                </label>
-                            </div>
-
-                            <div class="input-checkbox">
-                                <input type="checkbox" id="category-6">
-                                <label for="category-6">
-                                    <span></span>
-                                    Smartphones
-                                    <small>(740)</small>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /aside Widget -->
-
-                    <!-- aside Widget -->
-                    <div class="aside">
-                        <h3 class="aside-title">Price</h3>
-                        <div class="price-filter">
-                            <div id="price-slider"></div>
-                            <div class="input-number price-min">
-                                <input id="price-min" type="number">
-                                <span class="qty-up">+</span>
-                                <span class="qty-down">-</span>
-                            </div>
-                            <span>-</span>
-                            <div class="input-number price-max">
-                                <input id="price-max" type="number">
-                                <span class="qty-up">+</span>
-                                <span class="qty-down">-</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /aside Widget -->
-
-                    <!-- aside Widget -->
-                    <div class="aside">
-                        <h3 class="aside-title">Brand</h3>
-                        <div class="checkbox-filter">
-                            <div class="input-checkbox">
-                                <input type="checkbox" id="brand-1">
-                                <label for="brand-1">
-                                    <span></span>
-                                    SAMSUNG
-                                    <small>(578)</small>
-                                </label>
-                            </div>
-                            <div class="input-checkbox">
-                                <input type="checkbox" id="brand-2">
-                                <label for="brand-2">
-                                    <span></span>
-                                    LG
-                                    <small>(125)</small>
-                                </label>
-                            </div>
-                            <div class="input-checkbox">
-                                <input type="checkbox" id="brand-3">
-                                <label for="brand-3">
-                                    <span></span>
-                                    SONY
-                                    <small>(755)</small>
-                                </label>
-                            </div>
-                            <div class="input-checkbox">
-                                <input type="checkbox" id="brand-4">
-                                <label for="brand-4">
-                                    <span></span>
-                                    SAMSUNG
-                                    <small>(578)</small>
-                                </label>
-                            </div>
-                            <div class="input-checkbox">
-                                <input type="checkbox" id="brand-5">
-                                <label for="brand-5">
-                                    <span></span>
-                                    LG
-                                    <small>(125)</small>
-                                </label>
-                            </div>
-                            <div class="input-checkbox">
-                                <input type="checkbox" id="brand-6">
-                                <label for="brand-6">
-                                    <span></span>
-                                    SONY
-                                    <small>(755)</small>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /aside Widget -->
-
-                </div>
-                <!-- /ASIDE -->
-
                 <!-- STORE -->
-                <div id="store" class="col-md-9">
+                <div id="store" class="col-md-12">
                     <!-- store top filter -->
                     <div class="store-filter clearfix">
                         <div class="store-sort">
@@ -182,23 +39,22 @@
                         </ul>
                     </div>
                     <!-- /store top filter -->
-
                     <!-- store products -->
                     <div class="row">
                         <!-- product -->
-                        <div class="col-md-4 col-xs-6">
+                        <div class="col-md-4 col-xs-6" v-for="dato in cmbproductos">
                             <div class="product">
                                 <div class="product-img">
-                                    <img src="./img/product01.png" alt="">
+                                    <img :src="dato.imagen" alt="">
                                     <div class="product-label">
                                         <span class="sale">-30%</span>
                                         <span class="new">NEW</span>
                                     </div>
                                 </div>
                                 <div class="product-body">
-                                    <p class="product-category">Category</p>
-                                    <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                    <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+                                    <p class="product-category"> @{{dato.categoria}}</p>
+                                    <h3 class="product-name"><a v-bind:href="'/detalles/'+dato.id">@{{dato.prooducto}}</a> </h3>
+                                    <h4 class="product-price"> <span>$</span> @{{dato.precio}} <del class="product-old-price">$990.00</del></h4>
                                     <div class="product-rating">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -243,6 +99,92 @@
     </div>
 @endsection
 @section('js')
+    <script src="/js/plugins/toastr.js"></script>
+    <script src="{{asset('js/axios.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
+    <script>
+        var app = new Vue ({
+            el:"#productos",
+            data: {
+                cmbproductos : []
+            },
+            created : function() {
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "600",
+                    "hideDuration": "3000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+
+                axios.get('/productos').then(response => {
+                    this.cmbproductos  = response.data
+            })
+
+
+
+            },
+
+
+            methods : {
+
+                detalle: function(id){
+                   var parametros = {
+                        "id" : id
+                    };
+                    $.ajax({
+                        data : parametros,
+                        url : "/detalles",
+                        type : "post",
+                        async : true,
+                        success : function(d){
+                            toastr.success('Registro eliminado con exito.', 'Alerta', {timeOut: 8000});
+                        },
+                        error : function (response,jqXHR) {
+
+
+                            if(response.status === 422)
+                            {
+                                // captura los errores en una variable
+                                var errors = $.parseJSON(response.responseText);
+                                // recorre los errores
+                                $.each(errors, function (key, value) {
+                                    // pasa el error del controlador
+                                    if($.isPlainObject(value)) {
+                                        $.each(value, function (key, value) {
+                                            toastr.error('Error: '+value+'', 'Error', {timeOut: 5000});
+                                            console.log(key+ " " +value);
+                                        });
+                                    }else{
+                                        // es un error general
+                                        console.log(response);
+                                        toastr.error('Error '+response+' al momento guardar el nuevo proveedor.', 'Error', {timeOut: 5000});
+                                    }
+                                });
+                            } else {
+                                console.log(response.responseText);
+                                toastr.error('Error: '+response.status, 'Error', {timeOut: 5000});
+                            }
+                            //toastr.error('Error al momento de crear el permiso.', 'Alerta', {timeOut: 8000});
+
+                        }
+                    });
+                }
+            }
+        });
+    </script>
 @endsection
 
 

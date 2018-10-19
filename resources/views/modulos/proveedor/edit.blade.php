@@ -253,7 +253,7 @@
 
 
 
-                //this.cmbImagenes = {!! json_encode($datos) !!};
+
                 this.cmbImagenes = @json($imagenes);
                 this.archivosMultimedias = this.cmbImagenes.length;
                 console.log({!! json_encode($datos) !!});

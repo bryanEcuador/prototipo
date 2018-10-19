@@ -31,9 +31,16 @@ Route::get('/tienda', function () {
     return view('modulos.usuario.store');
 });
 
-route::get('/prueba/{id}',function($id_imagen) {
-
+route::get('/prueba',function() {
+    $id = 10;
+    $producto =\DB::table('tb_producto')->where('id',$id)->get();
+    //dd($producto);
+    $imagenes =\DB::table('tb_imagenes')->where('producto_id',$id)->get();
+    return view('prueba',compact('producto','imagenes'));
 });
+
+route::get('/productos','TiendaController@productos')->name('productos');
+route::get('/detalles/{id}','TiendaController@detalle')->name('detalle');
 
 
 
