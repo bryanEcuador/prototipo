@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class TiendaController extends Controller
 {
@@ -83,8 +86,20 @@ class TiendaController extends Controller
         //
     }
 
-    public function productos() {
-        return \DB::select('call spConsultarProductosTodos');
+    public function productos($pagina = 0) {
+
+        $pagina != 0 ? $pagina = $pagina - 1 : $pagina  = 0;
+        $paginacion = 1;
+        $total = count(\DB::select(\DB::raw('CALL prototipo.spConsultarProductosTodos()')));
+        $page = Input::get('page');
+
+        $posts = \DB::select(\DB::raw('CALL prototipo.spConsultarProductosTodos()'));
+        $posts = array_slice($posts, $pagina , $paginacion);
+        $posts = new LengthAwarePaginator($posts, $total, 1, $page);
+
+        $posts->setPath('blog');
+
+        return $posts;
     }
 
     public function detalle($id) {

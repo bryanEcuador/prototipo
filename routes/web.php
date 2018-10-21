@@ -39,7 +39,7 @@ route::get('/prueba',function() {
     return view('prueba',compact('producto','imagenes'));
 });
 
-route::get('/productos','TiendaController@productos')->name('productos');
+route::get('/productos/{page?}','TiendaController@productos')->name('productos');
 route::get('/detalles/{id}','TiendaController@detalle')->name('detalle');
 
 

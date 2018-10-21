@@ -1,12 +1,12 @@
 @extends('layouts.admin')
-@section('nombre_pagina','Creacion de Proveedores')
+@section('nombre_pagina','Edición de Proveedores')
 @section('css')
 @endsection
 @section('titulo de la pagina','Creacion de Proveedores')
-@section('subtitulo','Formulario de proveedores')
+@section('subtitulo','Formulario de actualización de  proveedores')
 
 @section('contenido')
-@if ($errors->any())
+    @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -29,145 +29,145 @@
     @endif
 
     <div class="col-md-12" id="creacionProveedores">
-        <form action="{{route('administrador.store')}}" method="post" id="administracion">
+        <form method="post" id="administracion">
             @csrf
-        <div class="tile">
-           <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="codigo">Codigo Externo:</label>
+            <div class="tile">
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="codigo">Codigo Externo:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input class="form-control" name="codigo" v-model="codigo" id="codigo" placeholder="00005840384" min="3" maxlength="20">
+                    </div>
                 </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" name="codigo" v-model="codigo" id="codigo" placeholder="00005840384" min="3" maxlength="20">
-                </div>
-            </div>
-            <div class="form-group row ">
+                <div class="form-group row ">
                     <div class="col-md-2">
                         <label for="nombre">Tipo de Empresa:</label>
                     </div>
                     <div class="col-md-6">
-                         <select class="form-control" v-model="empresa" name="empresa" >
+                        <select class="form-control" v-model="empresa" name="empresa" >
                             <option value='1'>empresa a</option>
                         </select>
                     </div>
-                   
-            </div>
-            
-           <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Ruc :</label>
+
                 </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="number"  name="ruc" v-model="ruc" id="Ruc" placeholder="ruc" minlength="13" maxlength="13">
+
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">Ruc :</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input class="form-control" type="number"  name="ruc" v-model="ruc" id="Ruc" placeholder="ruc" minlength="13" maxlength="13">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="razon">Razon Social:</label>
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="razon">Razon Social:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input class="form-control" name="razon_social" v-model="razon" id="razon" placeholder="Razon Social" minlength="3" maxlength="20">
+                    </div>
                 </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" name="razon_social" v-model="razon" id="razon" placeholder="Razon Social" minlength="3" maxlength="20">
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="representante">Representante Legal:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input class="form-control" name="representante" v-model="representante" id="representante" placeholder="Representante Legal" minlength="3" maxlength="20">
+                    </div>
                 </div>
-            </div>
-           <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="representante">Representante Legal:</label>
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="direccion">Direccion:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input class="form-control" name="direccion" v-model="direccion" id="direccion" placeholder="Direccion" minlength="5" maxlength="40">
+                    </div>
                 </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" name="representante" v-model="representante" id="representante" placeholder="Representante Legal" minlength="3" maxlength="20">
-                </div>
-            </div>
-           <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="direccion">Direccion:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" name="direccion" v-model="direccion" id="direccion" placeholder="Direccion" minlength="5" maxlength="40">
-                </div>
-            </div>
-            <div class="form-group row ">
+                <div class="form-group row ">
                     <div class="col-md-2">
                         <label for="banco">Banco :</label>
                     </div>
                     <div class="col-md-6">
-                         <select class="form-control" v-model="banco" name="banco"  >
+                        <select class="form-control" v-model="banco" name="banco"  >
                             <option value='1'> Bnaco 1</option>
                         </select>
                     </div>
-                   
-            </div>
-            
-           <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Cuenta Bancaria:</label>
+
                 </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="number" step="any" lang="end" name="cuenta_bancaria" v-model="cuenta_bancaria" id="cuenta"  minlength="3" maxlength="20">
+
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">Cuenta Bancaria:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input class="form-control" type="number" step="any" lang="end" name="cuenta_bancaria" v-model="cuenta_bancaria" id="cuenta"  minlength="3" maxlength="20">
+                    </div>
                 </div>
-            </div>
-          <div class="form-group row ">
+                <div class="form-group row ">
                     <div class="col-md-2">
                         <label for="estado">Estado :</label>
                     </div>
                     <div class="col-md-6">
-                         <select class="form-control" v-model="estado" name="estado"  >
+                        <select class="form-control" v-model="estado" name="estado"  >
                             <option value='0' > Activo</option>
                             <option value="1"> inactivo</option>
                         </select>
                     </div>
-                   
-            </div>
-               <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="gerente">Gerente General:</label>
+
                 </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" name="gerente" v-model="gerente" id="gerente" placeholder="nombre completo del gerente general" minlength="12" maxlength="40">
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="gerente">Gerente General:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input class="form-control" name="gerente" v-model="gerente" id="gerente" placeholder="nombre completo del gerente general" minlength="12" maxlength="40">
+                    </div>
                 </div>
-            </div>  
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="convencional">Teléfono Convencional:</label>
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="convencional">Teléfono Convencional:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input class="form-control" type="tel" name="telefono_convencional" v-model="convencional" id="convencional" placeholder="Telefofono" minlength="7" maxlength="20">
+                    </div>
                 </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="tel" name="telefono_convencional" v-model="convencional" id="convencional" placeholder="Telefofono" minlength="7" maxlength="20">
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">Teléfono Representante:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input class="form-control" type="tel" name="telefono_representante" v-model="telefono_representante" id="telefono_representante" placeholder="telefono representante" minlength="7" maxlength="20">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Teléfono Representante:</label>
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">Teléfono Gerente:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input class="form-control" type="tel" name="telefono_gerente" v-model="telefono_gerente" id="telefono_gerente" placeholder="telefono gerente" minlength="7" maxlength="20">
+                    </div>
                 </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="tel" name="telefono_representante" v-model="telefono_representante" id="telefono_representante" placeholder="telefono representante" minlength="7" maxlength="20">
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="usuario">Usuario:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input class="form-control"  name="usuario" v-model="usuario" id="usuario" placeholder="Nombre de usuario" minlength="3" maxlength="20" autocomplete="off">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Teléfono Gerente:</label>
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="pass">Contraseña:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input class="form-control" type="password" name="pass" v-model="pass" id="pass" placeholder="Contraseña" minlength="8" maxlength="20" autocomplete="off">
+                    </div>
                 </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="tel" name="telefono_gerente" v-model="telefono_gerente" id="telefono_gerente" placeholder="telefono gerente" minlength="7" maxlength="20">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="usuario">Usuario:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control"  name="usuario" v-model="usuario" id="usuario" placeholder="Nombre de usuario" minlength="3" maxlength="20" autocomplete="off">
-                </div>
-            </div>
-             <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="pass">Contraseña:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="password" name="pass" v-model="pass" id="pass" placeholder="Contraseña" minlength="8" maxlength="20" autocomplete="off">
-                </div>
-            </div>
                 <br>
-               <!--<button type="input" class="btn btn-info" name="guardar" id="guardar">Agregar Proveedor</button> -->
-               <button type="button" class="btn btn-info" v-on:click="enviarFormulario" name="guardar" id="guardar">Agregar Proveedor</button>
-        </div>
+                <!--<button type="input" class="btn btn-info" name="guardar" id="guardar">Agregar Proveedor</button> -->
+                <button type="button" class="btn btn-info" v-on:click="enviarFormulario"  id="guardar">Actualizar Proveedor</button>
+            </div>
         </form>
     </div>
 @endsection
@@ -192,6 +192,8 @@
                     usuario:'',
                     pass:'',
                     errores : [],
+                    cmbDatos : [],
+                    id : 0,
 
                 },
                 created : function() {
@@ -211,7 +213,24 @@
                         "hideEasing": "linear",
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut"
-                    }
+                    };
+
+                    this.cmbDatos = @json($datos);
+                        this.banco = this.cmbDatos[0].banco;
+                        this.codigo = this.cmbDatos[0].codigo_externo;
+                        this.empresa = this.cmbDatos[0].tipo_empresa;
+                        this.ruc = this.cmbDatos[0].ruc;
+                        this.razon = this.cmbDatos[0].razon_social;
+                        this.representante = this.cmbDatos[0].representante_legal;
+                        this.direccion = this.cmbDatos[0].direccion;
+                        this.cuenta_bancaria = this.cmbDatos[0].cuenta_bancaria;
+                        this.estado  = this.cmbDatos[0].estado;
+                        this.gerente = this.cmbDatos[0].gerente_general;
+                        this.telefono_representante = this.cmbDatos[0].telefono_representante;
+                        this.telefono_gerente= this.cmbDatos[0].telefono_gerente;
+                        this.usuario= this.cmbDatos[0].usuario;
+                        this.id = this.cmbDatos[0].id;
+
                 },
 
                 methods : {
@@ -230,7 +249,7 @@
                         this.errores = [];
                     },
 
-                   // validaciones
+                    // validaciones
                     validarCampos : function() {
                         // expresiones regulares para evaluar información
 
@@ -350,11 +369,7 @@
                         } else {
                             this.errores.push("Debe ingresar el nombre del usuario");
                         }
-                        if(this.pass !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("Debe campo contraseñe no puede estar vacio");
-                        }
+
                     },
 
                     enviarFormulario : function(){
@@ -377,10 +392,11 @@
                             "usuario":this.usuario,
                             "pass":this.pass,
                             "convencional" : this.convencional,
+                            'id' : this.id
                         };
                         $.ajax({
                             data : parametros,
-                            url : "guardar",
+                            url : "/administrador/proveedor/actualizar",
                             type : "post",
                             async : true,
                             success : function(d){

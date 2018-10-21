@@ -42,7 +42,7 @@
                     <!-- store products -->
                     <div class="row">
                         <!-- product -->
-                        <div class="col-md-4 col-xs-6" v-for="dato in cmbproductos">
+                        <div class="col-md-4 col-xs-6" v-for="dato in productos">
                             <div class="product">
                                 <div class="product-img">
                                     <img :src="dato.imagen" alt="">
@@ -74,7 +74,6 @@
                             </div>
                         </div>
                         <!-- /product -->
-
                     </div>
                     <!-- /store products -->
 
@@ -82,11 +81,19 @@
                     <div class="store-filter clearfix">
                         <span class="store-qty">Showing 20-100 products</span>
                         <ul class="store-pagination">
-                            <li class="active">1</li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                            <li v-if="paginacion.current_page > 1">
+                                <a href="#" @click.prevent="changePage(paginacion.current_page - 1 )" >
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <li  v-for="page in pagesNumber" v-bind:class="[ page == isActived ? 'active' : '']">
+                                <a href="#" @click.prevent="changePage(page)"  > @{{page}}</a>
+                            </li>
+                            <li v-if="paginacion.current_page < paginacion.last_page"  >
+                                <a href="#" @click.prevent="changePage(paginacion.current_page + 1 )">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <!-- /store bottom filter -->
@@ -102,12 +109,49 @@
     <script src="/js/plugins/toastr.js"></script>
     <script src="{{asset('js/axios.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
     <script>
         var app = new Vue ({
             el:"#productos",
             data: {
-                cmbproductos : []
+                cmbproductos : [],
+                productos : [],
+                paginacion : {
+                    'total' : 0,
+                    'current_page' : 0,
+                    'per_page' : 0,
+                    'last_page' : 0,
+                    'from' : 0,
+                    'to': 0,
+                },
+                offset: 3,
+
+            },
+            computed : {
+              isActived : function () {
+                  return this.paginacion.current_page;
+              },
+                pagesNumber: function() {
+
+                    if(!this.paginacion.to){
+                        return [];
+                    }
+                    var from = this.paginacion.current_page - this.offset;
+                    if(from < 1){
+                        from = 1;
+                    }
+                    var to = from + (this.offset * 2);
+                    if(to >= this.paginacion.last_page){
+                        to = this.paginacion.last_page;
+                    }
+                    var pagesArray = [];
+                    while(from <= to){
+                        pagesArray.push(from);
+                        from++;
+                    }
+                    return pagesArray;
+                }
+
+
             },
             created : function() {
                 toastr.options = {
@@ -127,11 +171,8 @@
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
                 };
+                this.obtenerPaginas();
 
-
-                axios.get('/productos').then(response => {
-                    this.cmbproductos  = response.data
-            })
 
 
 
@@ -139,6 +180,24 @@
 
 
             methods : {
+
+                obtenerPaginas : function(page) {
+                    var url;
+                    url = page !== undefined ?  '/productos/'+page : '/productos';
+                    axios.get(url).then(response => {
+                        this.cmbproductos  = response.data;
+                    this.productos = this.cmbproductos.data;
+                    this.paginacion.total = this.cmbproductos.total;
+                    if(page == undefined) {
+                        this.paginacion.current_page = this.cmbproductos.current_page;
+                    }
+                    this.paginacion.per_page = this.cmbproductos.per_page;
+                    this.paginacion.last_page = this.cmbproductos.last_page;
+                    this.paginacion.from = this.cmbproductos.from;
+                    this.paginacion.to = this.cmbproductos.to;
+
+                    })
+                },
 
                 detalle: function(id){
                    var parametros = {
@@ -181,6 +240,31 @@
 
                         }
                     });
+                },
+
+                changePage: function(page) {
+                    this.paginacion.current_page = page;
+                    this.obtenerPaginas(page);
+                },
+
+                numeroPaginas : function() {
+                    if(!this.paginacion.to){
+                        return [];
+                    }
+                    var from = this.paginacion.current_page - this.offset;
+                    if(from < 1){
+                        from = 1;
+                    }
+                    var to = from + (this.offset * 2);
+                    if(to >= this.paginacion.last_page){
+                        to = this.paginacion.last_page;
+                    }
+                    var pagesArray = [];
+                    while(from <= to){
+                        this.resultado.push(from);
+                        from++;
+                    }
+                    return pagesArray;
                 }
             }
         });

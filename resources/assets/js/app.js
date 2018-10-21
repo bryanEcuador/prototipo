@@ -5,10 +5,12 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+var VuePaginate = require('vue-paginate');
+Vue.use(VuePaginate);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -16,6 +18,7 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
 
 const app = new Vue({
     el: '#app'

@@ -3,64 +3,186 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+
 class AdministracionController extends Controller
 {
     //
     public function index(){
-     return view('modulos.administracion.index');
+        $datos = DB::table('tb_proveedores')->get();
+     return view('modulos.administracion.index',compact('datos'));
     }
     public function create(){
         return view('modulos.administracion.create');
     }
+
+    public function store(Request $request)
+    {
+
+
+        $request->validate([
+            'codigo' => 'required|max:25|string',
+            'empresa' => 'required|max:10|string',
+            'ruc' => 'required |min:0|numeric',
+            'razon_social' => 'required|string',
+            'representante' => 'required|string',
+            'direccion' => 'required|string',
+            'banco' => 'required|string',
+            'cuenta_bancaria' => 'required |min:0|numeric',
+            'estado' => 'required|string',
+            'gerente' => 'required|max:25|string',
+            'telefono_convencional' => 'required|min:7|numeric',
+            'telefono_representante' => 'required|min:7|numeric',
+            'telefono_gerente' => 'required|min:7|numeric',
+            'usuario' => 'required|max:25|string',
+            'pass' => 'required|max:25|string',
+        ], ['codigo.required' => 'El codigo del proveedor es requerido',
+            'empresa.required' => 'La empresa es requerida',
+            'ruc.required' => 'El Ruc del proveedor es requerido',
+            'razon_social.required' => 'La Razon social  es requerida',
+            'representante.required' => 'El Representante del proveedor es requerido',
+            'direccion.required' => 'La Direccion del proveedor es requerido',
+            'banco.required' => 'El Banco del proveedor es requerido',
+            'cuenta_bancaria.required' => 'La cuenta Bancaria es requerido',
+            'estado.required' => 'El Estado del proveedor es requerido',
+            'gerente.required' => 'El Gerente es requerido',
+            'telefono_convencional.required' => 'El telefono convencional es requerido',
+            'telefono_representante.required' => 'El telefono del representante es requerido',
+            'telefono_gerente.required' => 'El telefono del gerente es requerido',
+            'usuario.required' => 'El usuario del proveedor es requerido',
+            'pass.required' => 'La contraseña del proveedor es requerido',
+        ]);
+
+        try {
+
+            DB::table('tb_proveedores')->insert([
+                "codigo_externo" => $request->input('codigo'),
+                "tipo_empresa" => $request->input('empresa'),
+                "ruc" => $request->input('ruc'),
+                "razon_social" => $request->input('razon_social'),
+                "representante_legal" => $request->input('representante'),
+                "direccion" => $request->input('direccion'),
+                "banco" => "1",//$request->input('banco'),
+                "cuenta_bancaria" => $request->input('cuenta_bancaria'),
+                "estado" => $request->input('estado'),
+                "gerente_general" => $request->input('gerente'),
+                "telefono_representante" => $request->input('telefono_representante'),
+                "telefono_gerente" => $request->input('telefono_gerente'),
+                "usuario" => $request->input('usuario'),
+                "contraseña" => bcrypt($request->input('pass')),
+            ]);
+
+        } catch (QueryException $e) {
+            $array = array("Error", $e->getMessage());
+            return $array;
+        }
+
+    }
+
+    public function editProveedor($id){
+        $id = (integer) $id;
+        $datos = DB::table('tb_proveedores')->where('id',$id)->get();
+        return view('modulos.administracion.proveedores.edit',compact('datos'));
+    }
+
+    public function showProveedor($id){
+        $id = (integer) $id;
+        $datos = DB::table('tb_proveedores')->where('id',$id)->get();
+        return view('modulos.administracion.proveedores.show',compact('datos'));
+    }
+
+    public function updateProveedor(Request $request){
+
+
+        $request->validate([
+            'codigo' => 'required|max:25|string',
+            'empresa' => 'required|max:10|string',
+            'ruc' => 'required |min:0|numeric',
+            'razon_social' => 'required|string',
+            'representante' => 'required|string',
+            'direccion' => 'required|string',
+            'banco' => 'required|string',
+            'cuenta_bancaria' => 'required |min:0|numeric',
+            'estado' => 'required|string',
+            'gerente' => 'required|max:25|string',
+
+            'telefono_representante' => 'required|min:7|numeric',
+            'telefono_gerente' => 'required|min:7|numeric',
+            'usuario' => 'required|max:25|string',
+
+        ], ['codigo.required' => 'El codigo del proveedor es requerido',
+            'empresa.required' => 'La empresa es requerida',
+            'ruc.required' => 'El Ruc del proveedor es requerido',
+            'razon_social.required' => 'La Razon social  es requerida',
+            'representante.required' => 'El Representante del proveedor es requerido',
+            'direccion.required' => 'La Direccion del proveedor es requerido',
+            'banco.required' => 'El Banco del proveedor es requerido',
+            'cuenta_bancaria.required' => 'La cuenta Bancaria es requerido',
+            'estado.required' => 'El Estado del proveedor es requerido',
+            'gerente.required' => 'El Gerente es requerido',
+
+            'telefono_representante.required' => 'El telefono del representante es requerido',
+            'telefono_gerente.required' => 'El telefono del gerente es requerido',
+            'usuario.required' => 'El usuario del proveedor es requerido',
+
+        ]);
+
+        try {
+            if($request->input('pass') == null ) {
+                \DB::table('tb_proveedores')->where('id',$request->input('id'))->update([
+                    "codigo_externo" => $request->input('codigo'),
+                    "tipo_empresa" => $request->input('empresa'),
+                    "ruc" => $request->input('ruc'),
+                    "razon_social" => $request->input('razon_social'),
+                    "representante_legal" => $request->input('representante'),
+                    "direccion" => $request->input('direccion'),
+                    "banco" => "1",//$request->input('banco'),
+                    "cuenta_bancaria" => $request->input('cuenta_bancaria'),
+                    "estado" => $request->input('estado'),
+                    "gerente_general" => $request->input('gerente'),
+                    "telefono_representante" => $request->input('telefono_representante'),
+                    "telefono_gerente" => $request->input('telefono_gerente'),
+                    "usuario" => $request->input('usuario'),
+                ]);
+            } else {
+                \DB::table('tb_proveedores')->where('id',$request->input('id'))->update([
+                    "codigo_externo" => $request->input('codigo'),
+                    "tipo_empresa" => $request->input('empresa'),
+                    "ruc" => $request->input('ruc'),
+                    "razon_social" => $request->input('razon_social'),
+                    "representante_legal" => $request->input('representante'),
+                    "direccion" => $request->input('direccion'),
+                    "banco" => $request->input('banco'),
+                    "cuenta_bancaria" => $request->input('cuenta_bancaria'),
+                    "estado" => $request->input('estado'),
+                    "gerente_general" => $request->input('gerente'),
+                    "telefono_representante" => $request->input('telefono_representante'),
+                    "telefono_gerente" => $request->input('telefono_gerente'),
+                    "usuario" => $request->input('usuario'),
+                    "contraseña" => bcrypt($request->input('pass')),
+                ]);
+            }
+
+    
+        } catch (QueryException $e) {
+            $array = array("Error", $e->getMessage());
+            return $array;
+        }
+
+    }
+
+    public function delteProveedor($id){
+
+    }
+
+
+
+
     public function politica(){
         return view('modulos.administracion.politica');
     }
-    public function store(Request $request){
-       // dd($request);
-        /*
-        $request->validate([
-            'codigo' => 'required|max:25|string',
-            'Empresa' => 'required|max:10|string',
-            'Ruc'=>'required |min:0|numeric',
-            'Razon'=> 'required|string',
-            'Representante'=> 'required|string',
-            'Direccion'=> 'required|string',
-            'Banco' => 'required|max:50|min:15|string',
-            'Cuenta Bancaria'=>'required |min:0|numeric',
-            'Estado'=> 'required|string',
-            'Gerente' => 'required|max:25|string',
-            'Convencional' => 'required|min:0|numeric',
-            'F_Representante' => 'required|max:100|min:0|numeric',
-            'FonoG' => 'required|max:30|min:0|numeric',
-            'Usuario' => 'required|max:25|string',
-            'Contraseña' => 'required|max:25|string',
-        ],['codigo.required' => 'El codigo del proveedor es requerido',
-        'Empresa.required' => 'La empresa del proveedor es requerido',
-        'Ruc.required' => 'El Ruc del proveedor es requerido',
-        'Razon.required' => 'La Razon social del proveedor es requerido',
-        'Representante.required' => 'El Representante del proveedor es requerido',
-        'Direccion.required' => 'La Direccion del proveedor es requerido',
-        'Banco.required' => 'El Banco del proveedor es requerido',
-        'Cuenta Bancaria.required' => 'La cuenta Bancaria es requerido',
-        'Estado.required' => 'El Estado del proveedor es requerido',
-        'Gerente.required' => 'El Gerente del proveedor es requerido',
-        'Convencional.required' => 'El Convencional del proveedor es requerido',
-        'F_Representante.required' => 'El Fono representante del proveedor es requerido',
-        'FonoG.required' => 'El Fono gerente del proveedor es requerido',
-        'Usuario.required' => 'El usuario del proveedor es requerido',
-        'Contraseña.required' => 'La contraseña del proveedor es requerido',
-        ]);
-           */
-        try {
-            $numero = 4%0;
-            return response()->json(['success'=>'Informacion guardada con exito']);
-        } catch (QueryException $e){
-            $array = array("Error" , $e->message(responseText));
-            return $array;
-        }
- 
-    }
+
     public function  datosPagina() {
         return view('modulos.administracion.datos');
     }

@@ -83,7 +83,8 @@
 @section('contenido')
     <div class="table-container">
         <table width="700px">
-             <tr>
+            <thead>
+                <tr>
                      <th > Codigo Externo </th>
                     <th>  Tipo de Empresa  </th>
                     <th > Ruc </th>
@@ -93,20 +94,41 @@
                     <th > Estado </th>
                     <th> Gerente General </th>
                     <th> Telefono Convencional  </th>
-                    <th>Acciones</th>
-             </tr>
+                    <th colspan="3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            @forelse($datos as $dato)
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{$dato->codigo_externo}}</td>
+                <td>{{$dato->tipo_empresa}}</td>
+                <td>{{$dato->ruc}}</td>
+                <td>{{$dato->razon_social}}</td>
+                <td>{{$dato->representante_legal}}</td>
+                <td>{{$dato->direccion}}</td>
+                <td>{{$dato->estado}}</td>
+                <td>{{$dato->gerente_general}}</td>
+                <td>{{$dato->telefono_representante}}</td>
+                <td>
+
+                    <a href="{{route('administrador.proveedor.show',$dato->id)}}"> <button class="btn btn-primary" type="button">Ver</button> </a>
+
+                </td>
+                <td>
+                    <a href="{{route('administrador.proveedor.edit',$dato->id)}}"> <button class="btn btn-success" type="button">Editar</button> </a>
+
+                </td>
+                <td>
+                    <a href="{{route('administrador.proveedor.delete',$dato->id)}}"> <button class="btn btn-danger" type="button">Eliminar</button> </a>
+                </td>
+
+
             </tr>
+             @empty
+
+            @endforelse
+            </tbody>
+
         </table>
     </div>
 @endsection

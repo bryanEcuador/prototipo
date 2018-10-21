@@ -35,7 +35,7 @@
     <![endif]-->
 
 </head>
-<body > 
+<body >
     <div id="detalles">
         <paginate name="people" :list="people" :per="2">
             <li v-for="person in paginated('people')">
@@ -46,40 +46,22 @@
         <paginate-links for="people"></paginate-links>
     </div>
 
-<script src="{{asset('js/axios.min.js')}}"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
-    <script>
-        var VuePaginate = require('vue-paginate');
-        Vue.use(VuePaginate);
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script src="{{asset('js/axios.min.js')}}"></script>
+    <script src="{{asset('js/app.js')}}"></script>
+
+
+
 <script>
 
-    var app = new Vue ({
-        el:"#detalles",
+    new Vue({
+        el: '#app',
         data: {
-            data: {
-                people: [
-                    'Richard Hendricks',
-                    'Erlich Bachman',
-                    'Nelson Bighetti',
-                    'Bertram Gilfoyle',
-                    'Dinesh Chugtai',
-                    'Jared Dunn',
-                    'Jian-Yang'
-                ],
-
-                paginate : ['people'],
-            }
-        },
-        created : function() {
-
-        },
-
-
-        methods : {
+            langs: ['JavaScript', 'PHP', 'HTML', 'CSS', 'Ruby', 'Python', 'Erlang'],
+            paginate: ['languages']
         }
-    });
+    })
+    Vue.use(VuePaginate);
 </script>
 </body>
 </html>
