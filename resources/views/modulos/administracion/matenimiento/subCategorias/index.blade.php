@@ -1,48 +1,51 @@
 @extends('layouts.admin')
-@section('nombre_pagina','Marca')
+@section('nombre_pagina','Subcategoria')
 @section('css')
 @endsection
-@section('titulo de la pagina','Marca')
+@section('titulo de la pagina','subCategoria')
 @section('contenido')
-    <div class="col-md-12" id="marca" v-cloak >
+    <div class="col-md-12" id="subcategoria" v-cloak >
         <!-- contenido -->
         <div class="tile">
             <div class="col-md-12">
-                <button class="btn btn-primary btn-lg pull-right" v-on:click="createMarca"> Crear </button>
-                <div v-if="marcasNumber !== 0">
+                <button class="btn btn-primary btn-lg pull-right" v-on:click="createSubCategoria"> Crear </button>
+                <div v-if="subcategoriasNumber !== 0">
                     <label  class="form-control-label" for="name">Burcar:</label>
-                    <input  type="text"   class="col-md-4 form-control" placeholder="nombre de la Marca" name="name" v-model="marca" v-on:keyup.13="consultarNombreMarca">
+                    <input  type="text"   class="col-md-4 form-control" placeholder="nombre de la SubCategoria" name="name" v-model="subcategoria" v-on:keyup.13="consultarNombreSubCategoria">
                 </div>
             </div>
             <br>
             <hr>
             <div class="col-sm-12 col-sm-offset-2" style="background-color:white;">
-                <table class="table table-hover table-bordered" v-if="marcasNumber !== 0" >
+                <table class="table table-hover table-bordered" v-if="subcategoriasNumber !== 0" >
                     <thead>
                     <tr>
-                        <th>Nombres</th>
+                        <th>Nombre</th>
+                        <th>Categoria</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="dato in cmbMarcas">
+                    <tr v-for="dato in cmbSubCategorias">
                         <td>@{{dato.nombre}}</td>
+                        <td>@{{dato.categoria}}</td>
                         <td>
-                            <button type="button" class="btn btn-success" v-on:click="editMarca(dato.id,dato.nombre)">Editar</button>
-                            <button type="button" class="btn btn-danger" v-on:click="deleteMarca(dato.id)">Eliminar</button>
+                            <button type="button" class="btn btn-success" v-on:click="editSubCategoria(dato.id,dato.nombre,dato.categoria_id)">Editar</button>
+                            <button type="button" class="btn btn-danger" v-on:click="deleteSubCategoria(dato.id)">Eliminar</button>
                         </td>
                     </tr>
                     </tbody>
                     <tfoot>
                     <tr>
                         <th>Nombres</th>
+                        <th>Categoria</th>
                         <th>Acciones</th>
                     </tr>
                     </tfoot>
                 </table>
                 <div v-else>
                     <div class="alert alert-danger">
-                        <p>No existen <strong>Marcas</strong> registradas</p>
+                        <p>No existen <strong>SubCategorias</strong> registradas</p>
                     </div>
                 </div>
             </div>
@@ -68,80 +71,93 @@
         </div>
         <!-- /contenido -->
         <!-- modales -->
-        <!-- Creacion de Marcas modal -->
+        <!-- Creacion de SubCategorias modal -->
         <div class="modal fade" id="crearModal">
             <div class="modal-dialog">
                 <div class="modal-content">
 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Creación de marca</h4>
+                        <h4 class="modal-title">Creación de subcategoria</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="input-group">
-                            <input class="form-control" placeholder="nombre de la marca" type="text" autocomplete="off" maxlength="15" v-model="marca_store">
+                            <select class="form-control" v-model="cmb_categoria" >
+                                <option v-for="dato in cmb_categorias" :value="dato.id"> @{{dato.nombre}} </option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="nombre de la subcategoria" type="text" autocomplete="off" maxlength="15" v-model="subcategoria_store">
                         </div>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" v-on:click="storeMarca">Guardar</button>
+                        <button type="button" class="btn btn-primary" v-on:click="storeSubCategoria">Guardar</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                     </div>
 
                 </div>
             </div>
         </div>
-        <!-- //Creacion de Marcas modal -->
-        <!-- Edicion de Marcas modal -->
+        <!-- //Creacion de SubCategorias modal -->
+        <!-- Edicion de SubCategorias modal -->
         <div class="modal fade" id="editarModal">
             <div class="modal-dialog">
                 <div class="modal-content">
 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Edición de marca</h4>
+                        <h4 class="modal-title">Edición de subcategoria</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="input-group">
-                            <input class="form-control" placeholder="nombre de la marca" type="text" autocomplete="off" maxlength="15" v-model="marca_update">
+                            <select class="form-control" v-model="cmb_categoria" :value="cmb_categoria" >
+                                <option v-for="dato in cmb_categorias" :value="dato.id"> @{{dato.nombre}} </option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="nombre de la subcategoria" type="text" autocomplete="off" maxlength="15" v-model="subcategoria_update">
                         </div>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" v-on:click="updateMarca">Actualizar</button>
+                        <button type="button" class="btn btn-primary" v-on:click="updateSubCategoria">Actualizar</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                     </div>
 
                 </div>
             </div>
         </div>
-        <!-- //Edicion de Marcas modal -->
+        <!-- //Edicion de SubCategorias modal -->
         <!-- modales -->
     </div>
 @endsection
 @section('js')
     <script>
         var app = new Vue ({
-            el:"#marca",
+            el:"#subcategoria",
             data: {
-                mensaje : 'la marca',
-                mensaje2 : 'Marca',
+                mensaje : 'la subcategoria',
+                mensaje2 : 'SubCategoria',
                 datos :[],
 
-                marca_store : '',
-                marca_update : '',
-                marca_id : 0,
+                subcategoria_store : '',
+                subcategoria_update : '',
+                subcategoria_id : 0,
 
-                marca : '',
-                cmbMarcas: [],
+                subcategoria : '',
+                cmbSubCategorias: [],
+                cmb_categorias : [],
+                cmb_categoria : 0,
+
 
                 paginacion : {
                     'total' : 0,
@@ -179,9 +195,9 @@
                     return pagesArray;
                 },
 
-                marcasNumber : function() {
+                subcategoriasNumber : function() {
 
-                    return this.cmbMarcas.length;
+                    return this.cmbSubCategorias.length;
                 }
 
 
@@ -204,7 +220,8 @@
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
                 };
-                this.loadMarca();
+                this.loadSubCategoria();
+                this.cargarCombos();
 
 
 
@@ -213,31 +230,33 @@
 
             methods : {
                 //---------------------- CRUD ----------------------------------------//
-                createMarca : function() {
+                createSubCategoria : function() {
                     $("#crearModal").modal()
                 },
 
-                editMarca : function(id,nombre) {
-                    this.marca_id = id;
-                    this.marca_update = nombre;
+                editSubCategoria : function(id,nombre,categoria) {
+                    this.subcategoria_id = id;
+                    this.subcategoria_update = nombre;
+                    this.cmb_categoria = categoria;
                     $("#editarModal").modal()
 
                 },
 
-                updateMarca : function() {
+                updateSubCategoria : function() {
                     var respuesta = this.validarCampos('actualizacion');
 
                     if( respuesta !== false) {
-                        var url = '/administrador/marca/update';
+                        var url = '/administrador/subcategoria/update';
                         axios.put(url, {
-                            nombre: this.marca_update.toUpperCase(),
-                            id : this.marca_id
+                            nombre: this.subcategoria_update.toUpperCase(),
+                            id : this.subcategoria_id,
+                            categoria : this.cmb_categoria
 
                         }).then(response => {
                             $('#editarModal').modal('hide');
                         toastr.success(this.mensaje2+" actualizada con exito");
                         this.limpiar();
-                        this.loadMarca();
+                        this.loadSubCategoria();
                     }).catch(error => {
                             console.log(error);
                     });
@@ -246,20 +265,21 @@
 
                 },
 
-                storeMarca : function() {
+                storeSubCategoria : function() {
 
                     var respuesta = this.validarCampos('creacion');
 
                     if( respuesta !== false) {
-                        $url = '/administrador/marca/store';
+                        $url = '/administrador/subcategoria/store';
                         axios.post($url, {
-                            nombre: this.marca_store.toUpperCase(),
+                            nombre: this.subcategoria_store.toUpperCase(),
+                            categoria : this.cmb_categoria
 
                         }).then(response => {
                             $('#crearModal').modal('hide');
                         toastr.success(this.mensaje2+" guardada con extito");
                         this.limpiar();
-                        this.loadMarca();
+                        this.loadSubCategoria();
                     }).catch(error => {
                             console.log(error);
                     });
@@ -269,7 +289,7 @@
 
                 },
 
-                deleteMarca : function(id) {
+                deleteSubCategoria : function(id) {
 
                     swal({
                         title: "Eliminar!",
@@ -280,15 +300,15 @@
                     })
                         .then((willDelete) => {
                         if (willDelete) {
-                            var url = '/administrador/marca/delete/'+id;
+                            var url = '/administrador/subcategoria/delete/'+id;
                             axios.delete(url, {
 
                             }).then(response => {
-                                this.loadMarca();
+                                this.loadSubCategoria();
                         }).catch(error => {
                                 console.log(error);
                         });
-                            swal("Eliminado! La marca se ha sido eliminada!", {
+                            swal("Eliminado! La subcategoria se ha sido eliminada!", {
                                 icon: "success",
                             });
                         } else {
@@ -297,13 +317,13 @@
                 });
                 },
 
-                loadMarca : function(page) {
+                loadSubCategoria : function(page) {
 
-                    var url = page !== undefined ?  '/administrador/marca/load/'+page : '/administrador/marca/load';
+                    var url = page !== undefined ?  '/administrador/subcategoria/load/'+page : '/administrador/subcategoria/load';
                     axios.get(url).then(response => {
                         console.log(response);
                     this.datos = response.data;
-                    this.cmbMarcas = this.datos.data
+                    this.cmbSubCategorias = this.datos.data
 
                     this.paginacion.total = this.datos.total;
                     if(page == undefined) {
@@ -315,7 +335,7 @@
                     this.paginacion.to = this.datos.to;
                 }).catch(error => {
                         console.log(error);
-                    this.loadMarca();
+                    this.loadSubCategoria();
                 });
                 },
                 //---------------------- //CRUD ----------------------------------------//
@@ -324,7 +344,7 @@
 
                 changePage: function(page) {
                     this.paginacion.current_page = page;
-                    this.marca === '' ? this.loadMarca(page) : this.consultarNombreMarca(page);
+                    this.subcategoria === '' ? this.loadSubCategoria(page) : this.consultarNombreSubCategoria(page);
                 },
                 //---------------------- /PAGINACION ----------------------------------------//
 
@@ -353,16 +373,16 @@
                 //---------------------- /CONFIGURACION ----------------------------------------//
 
                 //---------------------- CONSULTAS ----------------------------------------//
-                consultarNombreMarca : function(page) {
+                consultarNombreSubCategoria : function(page) {
 
                     var respuesta = this.validarCampos('busqueda');
 
                     if( respuesta !== false) {
-                        var url = page !== undefined ?  '/administrador/marca/load/'+0+'/'+this.marca : '/administrador/marca/load'+page+'/'+this.marca;
+                        var url = page !== undefined ?  '/administrador/subcategoria/load/'+0+'/'+this.subcategoria : '/administrador/subcategoria/load'+page+'/'+this.subcategoria;
                         axios.get(url).then(response => {
                             console.log(response);
                         this.datos = response.data;
-                        this.cmbMarcas = this.datos.data
+                        this.cmbSubCategorias = this.datos.data
 
                         this.paginacion.total = this.datos.total;
                         if(page == undefined) {
@@ -374,7 +394,7 @@
                         this.paginacion.to = this.datos.to;
                     }).catch(error => {
                             console.log(error);
-                        this.consultarNombreMarca (page);
+                        this.consultarNombreSubCategoria (page);
                     });
                     }
 
@@ -383,8 +403,18 @@
                 //---------------------- /CONSULTAS----------------------------------------//
 
                 limpiar : function() {
-                    this.marca_store = '';
-                    this.marca_update = '';
+                    this.subcategoria_store = '';
+                    this.subcategoria_update = '';
+                },
+
+                cargarCombos : function() {
+                  var url = '/administrador/subcategoria/categorias';
+
+                    axios.get(url).then(response => {
+                        this.cmb_categorias = response.data;
+                    }).catch(error => {
+                        this.cargarCombos();
+                    });
                 },
 
                 //--------------------------------------Validaciones -----------------------------------------------//
@@ -395,30 +425,30 @@
                     var er_numeros = /^[0-9,]+$/;
 
                     if(tipo == 'creacion'){
-                        if(this.marca_store === ''){
+                        if(this.subcategoria_store === ''){
                             toastr.error("El campo de " +this.mensaje+ " no puede estar en blanco")
                         } else {
-                            if(patt3.test(this.marca_store) === false){
+                            if(patt3.test(this.subcategoria_store) === false){
                                 toastr.error("el nombre de  "+this.mensaje+ "no puede contener ni numeros ni caracteres especiales.")
                             }
                         }
 
                     } else if (tipo == 'actualizacion') {
-                        if(this.marca_update === ''){
+                        if(this.subcategoria_update === ''){
                             toastr.error("El campo de " +this.mensaje+" no puede estar en blanco");
                             return false;
                         } else {
-                            if(patt3.test(this.marca_update) === false){
+                            if(patt3.test(this.subcategoria_update) === false){
                                 toastr.error("el nombre de  "+this.mensaje+" no puede contener ni numeros ni caracteres especiales.");
                                 return false;
                             }
                         }
                     } else if(tipo == 'busqueda') {
-                        if(this.marca === ''){
+                        if(this.subcategoria === ''){
                             toastr.error("El campo de "+this.mensaje+" no puede estar en blanco");
                             return false;
                         } else {
-                            if(patt3.test(this.marca) === false){
+                            if(patt3.test(this.subcategoria) === false){
                                 toastr.error("el nombre de "+this.mensaje+"no puede contener ni numeros ni caracteres especiales.");
                                 return false;
                             }

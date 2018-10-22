@@ -106,9 +106,6 @@
     </div>
 @endsection
 @section('js')
-    <script src="/js/plugins/toastr.js"></script>
-    <script src="{{asset('js/axios.min.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
     <script>
         var app = new Vue ({
             el:"#productos",
