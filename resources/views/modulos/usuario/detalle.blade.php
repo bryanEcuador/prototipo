@@ -1,6 +1,24 @@
 @extends('layouts.principal')
 @section('title',"Bienvenido")
 @section('css')
+    <link rel="stylesheet" href=" {{asset('css/imagenes/normalize.css')}} " />
+
+    <link rel="stylesheet" href="{{asset('css/imagenes/demo.css')}} " />
+
+    <script src=" {{asset('js/imagenes/vendor/modernizr.js')}}"></script>
+    <script src=" {{asset('js/imagenes/vendor/jquery.js')}}"></script>
+    <!-- xzoom plugin here -->
+    <script type="text/javascript" src=" {{asset('js/imagenes/xzoom.min.js')}}"></script>
+    <link rel="stylesheet" type="text/css" href="{{asset('css/imagenes/xzoom.css')}}" media="all" />
+    <!-- hammer plugin here -->
+    <script type="text/javascript" src={{asset('js/imagenes/xzoom.min.js')}}"hammer.js/1.0.5/jquery.hammer.min.js"></script>
+    <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link type="text/css" rel="stylesheet" media="all" href="{{asset('css/imagenes/fancybox/source/jquery.fancybox.css')}}" />
+    <link type="text/css" rel="stylesheet" media="all" href="{{asset('css/imagenes/magnific-popup.css')}}" />
+    <script type="text/javascript" src="{{asset('js/imagenes/jquery.fancybox.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/imagenes/magnific-popup.js')}}"></script>
+    <script src="{{asset('js/imagenes/foundation.min.js')}}"></script>
+    <script src="{{asset('js/imagenes/setup.js')}}"></script>
 @endsection
 @section('nombre_breadcrumb')
 @endsection
@@ -8,61 +26,27 @@
 @endsection
 @section('contenido')
 <!-- SECTION -->
-<div class="section" id="detalles" v-cloak>
+<div class="section" >
     <!-- container -->
     <div class="container">
         <!-- row -->
-        <div class="row">
-            <!-- Product main img -->
+        <div class="row" id="detalles">
+            <!-- default start -->
             <div class="col-md-5 col-md-push-2">
-                <div id="product-main-img">
-                    <div class="product-preview">
-                        <img src= {{asset('img/product01.png')}} alt="error">
-                    </div>
-
-                    <div class="product-preview">
-                        <img src= {{asset('img/product03.png')}} alt="error">
-                    </div>
-
-                    <div class="product-preview">
-                        <img src= {{asset('img/product04.png')}} alt="error">>
-
-                    </div>
-
-                    <div class="product-preview">
-                        <img src= {{asset('img/product08.png')}} alt="error">
-
-                    </div>
-
-                    <div class="product-preview">
-                        <img v-bind:src="imagen5" alt="error">
-                    </div>
+                <div class="">
+                        <div class="xzoom-container">
+                            <img class="xzoom"  v-bind:src="imagen1" />
+                            <div class="xzoom-thumbs">
+                                <a v-bind:href="imagen1"><img class="xzoom-gallery" width="80" v-bind:src="imagen1"  v-bind:xpreview="imagen1" title="The description goes here"></a>
+                                <a v-bind:href="imagen2"><img class="xzoom-gallery" width="80" v-bind:src="imagen2" title="The description goes here"></a>
+                                <a v-bind:href="imagen3"><img class="xzoom-gallery" width="80" v-bind:src="imagen3" title="The description goes here"></a>
+                                <a v-bind:href="imagen4"><img class="xzoom-gallery" width="80" v-bind:src="imagen4"title="The description goes here"></a>
+                                <a v-bind:href="imagen5"><img class="xzoom-gallery" width="80" v-bind:src="imagen5" title="The description goes here"></a>
+                            </div>
+                        </div>
                 </div>
             </div>
-            <!-- /Product main img -->
-
-            <!-- Product thumb imgs -->
-            <div class="col-md-2  col-md-pull-5">
-                <div id="product-imgs">
-                    <div class="product-preview">
-                        <img src= {{asset('img/product01.png')}} alt="error">
-                    </div>
-
-                    <div class="product-preview">
-                        <img src= {{asset('img/product03.png')}} alt="error">
-                    </div>
-
-                    <div class="product-preview">
-                        <img src= {{asset('img/product04.png')}} alt="error">
-                    </div>
-
-                    <div class="product-preview">
-                        <img src= {{asset('img/product08.png')}} alt="error">
-                    </div>
-                </div>
-            </div>
-            <!-- /Product thumb imgs -->
-
+            <!-- default end -->
             <!-- Product details -->
             <div class="col-md-5">
                 <div class="product-details">
@@ -349,7 +333,6 @@
     <script src="/js/plugins/toastr.js"></script>
     <script src="{{asset('js/axios.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.0/vue.js"></script>
     <script>
         var app = new Vue ({
             el:"#detalles",
