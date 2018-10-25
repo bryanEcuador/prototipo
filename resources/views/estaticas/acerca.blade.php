@@ -10,9 +10,7 @@
 @section('contenido')
     <div>
         <h1>Acerca De</h1>
-        <p>
-
-        </p>
+        {!! $datos[0]->acerca !!}
     </div>
 @endsection
 @section('js')

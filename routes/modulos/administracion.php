@@ -2,11 +2,12 @@
 //Route::middleware(['auth'])->group(function () {
 
 Route::group(['prefix' => 'administrador' , 'as' => 'administrador.' ], function() {
-    route::get('/index','AdministracionController@index')->name('administracion.index');
-    route::get('/create','AdministracionController@create')->name('administracion.create');
+    route::get('/proveedor/index','AdministracionController@index')->name('proveedor.index');
+    route::get('/proveedor/create','AdministracionController@create')->name('proveedor.create');
     route::get('/proveedor/editar/{id}','AdministracionController@editProveedor')->name('proveedor.edit');
     route::get('/proveedor/ver/{id}','AdministracionController@showProveedor')->name('proveedor.show');
     route::post('/proveedor/actualizar','AdministracionController@updateProveedor')->name('proveedor.update');
+    route::post('/proveedor/guardar','AdministracionController@storeProveedor')->name('proveedor.store');
     route::post('/proveedor/eliminar/{id}','AdministracionController@deleteProveedor')->name('proveedor.delete');
 
     // rutas de marca
@@ -31,9 +32,11 @@ Route::group(['prefix' => 'administrador' , 'as' => 'administrador.' ], function
     route::put('/categoria/update','CategoriaController@update')->name('categorias.update');
     route::delete('/categoria/delete/{id}','CategoriaController@delete')->name('categorias.delete');
 
-    route::get('/politica','AdministracionController@politica')->name('administracion.politica');
+    // rutas de configuración
+    route::get('/politica','AdministracionController@politica')->name('politica');
     route::get('/datos-pagina','AdministracionController@datosPagina')->name('datos');
     route::get('/show/datos-pagina','AdministracionController@showDatosBasicos')->name('datos.show');
+    route::get('/consultar/datos-pagina','AdministracionController@consultarDatos')->name('datos.consultar');
     route::post('/guardar/datos-pagina','AdministracionController@storeDatosBasicos')->name('store.datos');
 
 

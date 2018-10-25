@@ -16,7 +16,7 @@
 </head>
 <body class="app sidebar-mini rtl">
 <!-- Navbar-->
-<header class="app-header"><a class="app-header__logo" href="index.html">Vali</a>
+<header class="app-header" ><a id="header" v-cloak class="app-header__logo" href="{{ url('/') }}"> @{{nombre}}</a>
     <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
@@ -71,6 +71,7 @@
         </li>
     </ul>
 </header>
+
 <!-- Sidebar menu-->
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
@@ -88,12 +89,12 @@
                 <li><a class="treeview-item" href="form-notifications.html"><i class="icon fa fa-circle-o"></i> Form Notifications</a></li>
             </ul>
         </li>
-        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Marcas</span></a></li>
-        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Categorias</span></a></li>
-        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Subcategorias</span></a></li>
-        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Proveedores</span></a></li>
-        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Productos</span></a></li>
-        <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Configuración</span></a></li>
+        <li><a class="app-menu__item" href="{{route('administrador.marca.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Marcas</span></a></li>
+        <li><a class="app-menu__item" href="{{route('administrador.categorias.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Categorias</span></a></li>
+        <li><a class="app-menu__item" href="{{route('administrador.subCategorias.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Subcategorias</span></a></li>
+        <li><a class="app-menu__item" href="{{route('administrador.proveedor.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Proveedores</span></a></li>
+        <li><a class="app-menu__item" href=""><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Productos</span></a></li>
+        <li><a class="app-menu__item" href="{{route('administrador.datos.show')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Configuración</span></a></li>
 
     </ul>
 </aside>
@@ -123,6 +124,33 @@
 <script src="/js/plugins/toastr.js"></script>
 <script src="{{asset('js/axios.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+<script>
+    var app = new Vue ({
+            el:"#header",
+            data: {
+               cmbDatos : [],
+                nombre : '',
+
+            },
+            created : function() {
+                axios.get('/administrador/consultar/datos-pagina').then(response => {
+                        this.cmbDatos = response.data,
+                        this.nombre = this.cmbDatos[0].nombre
+
+                    }).catch(error => {
+                });
+
+
+            },
+
+            methods : {
+
+
+
+            }
+        }
+    );
+</script>
 @yield('js')
 </body>
 </html>

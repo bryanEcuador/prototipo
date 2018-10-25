@@ -81,11 +81,14 @@
 @section('titulo de la pagina','Proveedores')
 @section('subtitulo','lista de proveedores')
 @section('contenido')
-    <div class="table-container">
-        <table width="700px">
-            <thead>
+        <a class="" href="{{route('administrador.proveedor.create')}}"> <button class="btn btn-primary"> crear proveedor</button> </a>
+
+
+        <div class="table-container">
+            <table width="700px">
+                <thead>
                 <tr>
-                     <th > Codigo Externo </th>
+                    <th > Codigo Externo </th>
                     <th>  Tipo de Empresa  </th>
                     <th > Ruc </th>
                     <th > Razon Social </th>
@@ -96,47 +99,44 @@
                     <th> Telefono Convencional  </th>
                     <th colspan="3">Acciones</th>
                 </tr>
-            </thead>
-            <tbody>
-            @forelse($datos as $dato)
-            <tr>
-                <td>{{$dato->codigo_externo}}</td>
-                <td>{{$dato->tipo_empresa}}</td>
-                <td>{{$dato->ruc}}</td>
-                <td>{{$dato->razon_social}}</td>
-                <td>{{$dato->representante_legal}}</td>
-                <td>{{$dato->direccion}}</td>
-                <td>{{$dato->estado}}</td>
-                <td>{{$dato->gerente_general}}</td>
-                <td>{{$dato->telefono_representante}}</td>
-                <td>
+                </thead>
+                <tbody>
+                @forelse($datos as $dato)
+                    <tr>
+                        <td>{{$dato->codigo_externo}}</td>
+                        <td>{{$dato->tipo_empresa}}</td>
+                        <td>{{$dato->ruc}}</td>
+                        <td>{{$dato->razon_social}}</td>
+                        <td>{{$dato->representante_legal}}</td>
+                        <td>{{$dato->direccion}}</td>
+                        <td>{{$dato->estado}}</td>
+                        <td>{{$dato->gerente_general}}</td>
+                        <td>{{$dato->telefono_representante}}</td>
+                        <td>
 
-                    <a href="{{route('administrador.proveedor.show',$dato->id)}}"> <button class="btn btn-primary" type="button">Ver</button> </a>
+                            <a href="{{route('administrador.proveedor.show',$dato->id)}}"> <button class="btn btn-primary" type="button">Ver</button> </a>
 
-                </td>
-                <td>
-                    <a href="{{route('administrador.proveedor.edit',$dato->id)}}"> <button class="btn btn-success" type="button">Editar</button> </a>
+                        </td>
+                        <td>
+                            <a href="{{route('administrador.proveedor.edit',$dato->id)}}"> <button class="btn btn-success" type="button">Editar</button> </a>
 
-                </td>
-                <td>
-                    <a href="{{route('administrador.proveedor.delete',$dato->id)}}"> <button class="btn btn-danger" type="button">Eliminar</button> </a>
-                </td>
+                        </td>
+                        <td>
+                            <a href="{{route('administrador.proveedor.delete',$dato->id)}}"> <button class="btn btn-danger" type="button">Eliminar</button> </a>
+                        </td>
 
 
-            </tr>
-             @empty
+                    </tr>
+                @empty
 
-            @endforelse
-            </tbody>
+                @endforelse
+                </tbody>
 
-        </table>
-    </div>
+            </table>
+        </div>
+
+
 @endsection
 @section('js')
-    <script src="/js/plugins/select2.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
-        });
-    </script>
+
 @endsection

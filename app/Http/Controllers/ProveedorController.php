@@ -324,6 +324,7 @@ class ProveedorController extends Controller
             ->get();
         return $imagenes;
     }
+
     public function consultarCategorias(){
         return \DB::table('tb_categoria')->distinct()->get();
     }
@@ -336,4 +337,6 @@ class ProveedorController extends Controller
     public function consultarColores(){
         return \DB::table('tb_colores')->distinct()->get();
     }
+
+
 }

@@ -17,7 +17,7 @@ class AdministracionController extends Controller
         return view('modulos.administracion.create');
     }
 
-    public function store(Request $request)
+    public function storeProveedor(Request $request)
     {
 
 
@@ -177,8 +177,6 @@ class AdministracionController extends Controller
     }
 
 
-
-
     public function politica(){
         return view('modulos.administracion.politica');
     }
@@ -187,33 +185,86 @@ class AdministracionController extends Controller
         return view('modulos.administracion.datos');
     }
     public function storeDatosBasicos(Request $request) {
-        //echo $request->input('ordenes');
-        //dd($request);
-         \DB::table('tb_datos_basicos')->insert([
+
+        $request->validate(
             [
+                'nombre' => 'required|max:15|min:3|string',
+                'email' => 'required|min:10|max:50|E-Mail',
+                'telefono' => 'required|min:6|max:10|string',
+                'direccion' => 'required|max:25|min:7|string',
+                'terminos' => 'required|min:10|string',
+                'politicas' => 'required|min:10|string',
+                'ordenes' => 'required|min:10|string',
+                'acerca' => 'required|min:10|string',
+            ], [
+                'nombre.required' => 'El campo nombre es requerido',
+                'email.required' => 'El campo email es requerido',
+                'telefono.required' => 'El campo telefono es requerido',
+                'direccion.required' => 'El campo dirección es requerido',
+                'terminos.required' => 'El campo terminos es requerido',
+                'politicas.required' => 'El campo politicas es requerido',
+                'ordenes.required' => 'El campo ordenes es requerido',
+                'acerca.required' => 'El campo acerca es requerido',
+
+                'nombre.max' => 'El campo nombre no puede tener más de 15 caracteres',
+                'email.max' => 'El campo email no puede tener más de 50 caracteres',
+                'telefono.max' => 'El campo telefono no puede tener más de 10 caracteres',
+                'direccion.max' => 'El campo dirección no puede tener más de 25 caracteres',
+
+                'nombre.min' => 'El campo nombre no puede tener menos de 3 caracteres',
+                'email.min' => 'El campo email no puede tener menos de 10 caracteres',
+                'telefono.min' => 'El campo telefono no puede tener menos de 6 caracteres',
+                'direccion.min' => 'El campo dirección no puede tener menos de 7 caracteres',
+                'terminos.min' => 'El campo terminos no puede tener menos de 10 caracteres',
+                'politicas.min' => 'El campo politicas no puede tener menos de 10 caracteres',
+                'ordenes.min' => 'El campo ordenes no puede tener menos de 10 caracteres',
+                'acerca.min' => 'El campo acerca no puede tener menos de 10 caracteres',
+
+                'nombre.string' => 'El campo nombre debe de ser de tipo texto',
+                'email.string' => 'El campo email debe de ser de tipo email',
+                'telefono.string' => 'El campo telefono debe de ser de tipo texto',
+                'direccion.string' => 'El campo dirección debe de ser de tipo texto',
+                'terminos.string' => 'El campo terminos debe de ser de tipo texto',
+                'politicas.string' => 'El campo politicas debe de ser de tipo texto',
+                'ordenes.string' => 'El campo ordenes debe de ser de tipo texto',
+                'acerca.string' => 'El campo acerca debe de ser de tipo texto',
+
+            ]
+        );
+        DB::table('tb_datos_basicos')
+            ->where('id',1)
+            ->update([
+
                 'nombre' => $request->input('nombre') ,
                 'email' => $request->input('email') ,
-                'telefono' => $request->input('Telefono') ,
+                'telefono' => $request->input('telefono') ,
                 'direccion' => $request->input('direccion') ,
                 'descripcion' => $request->input('descripcion') ,
                 'terminos' => $request->input('terminos') ,
                 'politica' => $request->input('politicas') ,
-                //'acerca' => $request->input('acerca') ,
+                'acerca' => $request->input('acerca') ,
                 'ordenes' => $request->input('ordenes') ,
                 //'logo' => 'logo.png'
 
-            ],
+
         ]);
+        try{
+
+            return redirect()->back()->withSuccess('Registro actualizado con exito !');
+        }catch (QueryException $exception){
+            dd($exception);
+           // return redirect()->back()->with('danger', "Error".$exception->errorInfo[1]);
+        }
+
 
         //echo $datos;
     }
     public function  showDatosBasicos() {
         $datos = \DB::table('tb_datos_basicos')->distinct()->get()->toArray();
-        //echo $datos[0]->nombre;
-        //$datos = (array) $datos;
-       //echo $datos[0]->id;
-        //dd($datos);
         return view('modulos.administracion.datos.show',compact('datos'));
+    }
+    public function consultarDatos() {
+        return DB::table('tb_datos_basicos')->distinct()->get();
     }
 
 

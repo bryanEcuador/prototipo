@@ -251,8 +251,8 @@
                     var respuesta = this.validarCampos('creacion');
 
                     if( respuesta !== false) {
-                        $url = '/administrador/marca/store';
-                        axios.post($url, {
+                        var url = '/administrador/marca/store';
+                        axios.post(url, {
                             nombre: this.marca_store.toUpperCase(),
 
                         }).then(response => {

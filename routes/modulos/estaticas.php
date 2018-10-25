@@ -1,12 +1,15 @@
 <?php
 Route::get('/terminos-condiciones', function () {
-    return view('estaticas.terminos');
+   $datos = \DB::table('tb_datos_basicos')->distinct()->get();
+    return view('estaticas.terminos',compact('datos'));
 })->name('terminos');
 
 Route::get('/politicas-privacidad', function () {
-    return view('estaticas.politicas');
+    $datos = \DB::table('tb_datos_basicos')->distinct()->get();
+    return view('estaticas.politicas',compact('datos'));
 })->name('politicas');
 
 Route::get('/acerca-de', function () {
-    return view('estaticas.acerca');
+    $datos = \DB::table('tb_datos_basicos')->distinct()->get();
+    return view('estaticas.acerca',compact('datos'));
 })->name('acerca');

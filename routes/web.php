@@ -39,8 +39,15 @@ route::get('/prueba',function() {
     return view('prueba',compact('producto','imagenes'));
 });
 
+// tienda
 route::get('/productos/{page?}','TiendaController@productos')->name('productos');
 route::get('/detalles/{id}','TiendaController@detalle')->name('detalle');
+route::get('/categorias','TiendaController@categorias')->name('categorias');
+route::get('/subcategorias','TiendaController@subCategorias')->name('subcategoria');
+route::get('/marcas','TiendaController@marcas')->name('marca');
+route::get('/filtro/{page?}','TiendaController@filtro')->name('filtro');
+
+route::get('/prueba/controler','TiendaController@categorias');
 
 
 

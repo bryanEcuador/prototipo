@@ -29,7 +29,7 @@
     @endif
 
     <div class="col-md-12" id="creacionProveedores">
-        <form action="{{route('administrador.store')}}" method="post" id="administracion">
+        <form action="{{route('administrador.proveedor.store')}}" method="post" id="administracion">
             @csrf
         <div class="tile">
            <div class="form-group row">
@@ -166,12 +166,21 @@
             </div>
                 <br>
                <!--<button type="input" class="btn btn-info" name="guardar" id="guardar">Agregar Proveedor</button> -->
-               <button type="button" class="btn btn-info" v-on:click="enviarFormulario" name="guardar" id="guardar">Agregar Proveedor</button>
+               <button type="button" class="btn btn-info" v-on:click="validarCampos" name="guardar" id="guardar">Agregar Proveedor</button>
+                <input type="hidden" v-model="estado" id="estado">
         </div>
         </form>
     </div>
 @endsection
 @section('js')
+    <script>
+        $(document).ready(function(){
+                $("#estado").val(1);
+                alert($("#estado").val());
+
+
+        });
+    </script>
     <script>
         var app = new Vue ({
                 el:"#creacionProveedores",
@@ -192,6 +201,7 @@
                     usuario:'',
                     pass:'',
                     errores : [],
+                    estado : 0,
 
                 },
                 created : function() {
@@ -216,19 +226,6 @@
 
                 methods : {
 
-                    enviarFormulario : function() {
-                        this.validarCampos();
-                        if( this.errores.length === 0) {
-                            //this.enviarFormulario()
-                            alert("sin errores");
-                        } else {
-                            var num = this.errores.length;
-                            for(i=0; i<num;i++) {
-                                toastr.error(this.errores[i]);
-                            }
-                        }
-                        this.errores = [];
-                    },
 
                    // validaciones
                     validarCampos : function() {
@@ -358,64 +355,77 @@
                     },
 
                     enviarFormulario : function(){
-                        var parametros = {
-                            "_token": "{{ csrf_token() }}",
-                            //--
-                            "codigo" : this.codigo,
-                            "empresa" : this.empresa,
-                            "ruc": this.ruc,
-                            "razon_social" : this.razon,
-                            "direccion": this.direccion,
-                            "banco" : this.banco,
-                            "cuenta_bancaria" : this.cuenta_bancaria,
-                            "representante" : this.representante,
-                            "estado" : this.estado,
-                            "gerente" : this.gerente,
-                            "telefono_convencional" : this.convencional,
-                            "telefono_representante" : this.telefono_representante,
-                            "telefono_gerente":this.telefono_gerente,
-                            "usuario":this.usuario,
-                            "pass":this.pass,
-                            "convencional" : this.convencional,
-                        };
-                        $.ajax({
-                            data : parametros,
-                            url : "guardar",
-                            type : "post",
-                            async : true,
-                            success : function(d){
-                                toastr.success('Registro guardado con exito.', 'Alerta', {timeOut: 8000});
-                            },
-                            error : function (response,jqXHR) {
+                        var url = 'guardar';
+                        axios.post(url, {
+                            codigo : this.codigo,
+                            empresa : this.empresa,
+                            ruc: this.ruc,
+                            razon_social : this.razon,
+                            direccion: this.direccion,
+                            banco : this.banco,
+                            cuenta_bancaria : this.cuenta_bancaria,
+                            representante : this.representante,
+                            estado : this.estado,
+                            gerente : this.gerente,
+                            telefono_convencional : this.convencional,
+                            telefono_representante : this.telefono_representante,
+                            telefono_gerente:this.telefono_gerente,
+                            usuario:this.usuario,
+                            pass:this.pass,
+                            convencional : this.convencional,
 
-
-                                if(response.status === 422)
-                                {
-                                    // captura los errores en una variable
-                                    var errors = $.parseJSON(response.responseText);
-                                    // recorre los errores
-                                    $.each(errors, function (key, value) {
-                                        // pasa el error del controlador
-                                        if($.isPlainObject(value)) {
-                                            $.each(value, function (key, value) {
-                                                toastr.error('Error: '+value+'', 'Error', {timeOut: 5000});
-                                                console.log(key+ " " +value);
-                                            });
-                                        }else{
-                                            // es un error general
-                                            console.log(response);
-                                            toastr.error('Error '+response+' al momento guardar el nuevo proveedor.', 'Error', {timeOut: 5000});
-                                        }
+                        }).then(response => {
+                        
+                        this.limpiar();
+                        
+                    }).catch(error => {
+                            console.log(error);
+                        if(error.status === 422)
+                        {
+                            // captura los errores en una variable
+                            var errors = $.parseJSON(error.errorText);
+                            // recorre los errores
+                            $.each(errors, function (key, value) {
+                                // pasa el error del controlador
+                                if($.isPlainObject(value)) {
+                                    $.each(value, function (key, value) {
+                                        toastr.error('Error: '+value+'', 'Error', {timeOut: 5000});
+                                        console.log(key+ " " +value);
                                     });
-                                } else {
-                                    console.log(response.responseText);
-                                    toastr.error('Error: '+response.status, 'Error', {timeOut: 5000});
+                                }else{
+                                    // es un error general
+                                    console.log(error);
+                                    toastr.error('Error '+error+' al momento guardar el nuevo proveedor.', 'Error', {timeOut: 5000});
                                 }
-                                //toastr.error('Error al momento de crear el permiso.', 'Alerta', {timeOut: 8000});
+                            });
+                        } else {
+                            console.log(error.errorText);
+                            toastr.error('Error: '+error.status, 'Error', {timeOut: 5000});
+                        }
+                        //toastr.error('Error al momento de crear el permiso.', 'Alerta', {timeOut: 8000});
 
-                            }
-                        });
+                    });
+
                     },
+                    
+                    limpiar : function() {
+                            this.codigo= '';
+                            this.empresa = '';
+                            this.ruc = 0;
+                            this.razon = '';
+                            this.representante = '';
+                            this.direccion = '';
+                            this.banco = '';
+                            this.cuenta_bancaria =0;
+                            this.estado = '';
+                            this.gerente = '';
+                            this.convencional = 0;
+                            this.telefono_representante=0;
+                            this.telefono_gerente=0;
+                            this.usuario='';
+                            this.pass='';
+                            this.errores = [];           
+                    }
 
                 }
             }

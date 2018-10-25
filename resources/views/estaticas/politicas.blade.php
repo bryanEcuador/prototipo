@@ -11,7 +11,7 @@
     <div>
         <h1>Politicas de privacidad del Sitio</h1>
         <p>
-
+            {!! $datos[0]->politica !!}
         </p>
     </div>
 @endsection

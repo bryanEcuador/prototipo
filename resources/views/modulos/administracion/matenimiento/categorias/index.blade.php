@@ -210,8 +210,6 @@
                 };
                this.loadCategoria();
 
-               toastr.error();
-                //this.obtenerPaginas();
             },
 
 

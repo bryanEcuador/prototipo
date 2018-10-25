@@ -2,7 +2,7 @@
 @section('nombre_pagina','Edición de Proveedores')
 @section('css')
 @endsection
-@section('titulo de la pagina','Creacion de Proveedores')
+@section('titulo de la pagina','Edición de Proveedores')
 @section('subtitulo','Formulario de actualización de  proveedores')
 
 @section('contenido')
@@ -400,7 +400,9 @@
                             type : "post",
                             async : true,
                             success : function(d){
-                                toastr.success('Registro guardado con exito.', 'Alerta', {timeOut: 8000});
+                                    toastr.success('Registro actualizado con exito.', 'Alerta', {timeOut: 8000});
+
+
                             },
                             error : function (response,jqXHR) {
 
