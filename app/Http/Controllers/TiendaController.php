@@ -105,8 +105,6 @@ class TiendaController extends Controller
           $datos =  DB::table('tb_producto')
                 ->where([
                     ['id_categoria','in',[1]],
-                    ['id_sub_categoria','in',[1]],
-                    ['id_marca','in',[1]],
                 ])
                 ->get();
             dd($datos);
