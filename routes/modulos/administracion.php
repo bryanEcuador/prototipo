@@ -38,7 +38,8 @@ Route::group(['prefix' => 'administrador' , 'as' => 'administrador.' ], function
     route::get('/show/datos-pagina','AdministracionController@showDatosBasicos')->name('datos.show');
     route::get('/consultar/datos-pagina','AdministracionController@consultarDatos')->name('datos.consultar');
     route::post('/guardar/datos-pagina','AdministracionController@storeDatosBasicos')->name('store.datos');
-
+//rutas dee modificacion
+    route::get('/producto/index','AdministracionController@producto_index')->name('producto_index');
 
 });
 
