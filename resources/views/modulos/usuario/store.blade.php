@@ -83,12 +83,18 @@
             <div>
                 <p>Categorias</p>
                     <div >
-                       <label v-for="dato in cmbCategorias"><input  type="checkbox" v-model="categoria" :value="dato.id" v-on:change="filtro()"> @{{dato.nombre}}</label>
+                        <select class="form-control" v-model="categoria" v-on:change="cambioCategoria">
+                            <option value="0">SIN FILTRO</option>
+                            <option v-for="dato in cmbCategorias" :value="dato.id"> @{{ dato.nombre }}</option>
+                        </select>
                     </div>
                 <hr>
                 <p>Subcategoria</p>
-                <div >
-                    <label v-for="dato in cmbSubCategorias"><input  type="checkbox" v-model="subcategoria" :value="dato.id" v-on:change="filtro()"> @{{dato.nombre}}</label>
+                <div v-if="categoria ==! 0">
+                    <select class="form-control" v-model="subcategoria" v-on:change="filtro()" >
+                        <option value="0">SIN FILTRO</option>
+                        <option v-for="dato in cmbSubCategorias" :value="dato.id"> @{{ dato.nombre }}</option>
+                    </select>
                 </div>
                 <hr>
                 <p>Marcas</p>
@@ -227,7 +233,7 @@
         var app = new Vue ({
             el:"#productos",
             data: {
-                categoria : [],
+                categoria : 0,
                 marca : [],
                 subcategoria : [],
                 cmbCategorias : [],
@@ -294,8 +300,6 @@
                 this.obtenerPaginas();
                 this.consultarCategorias();
                 this.consultarMarcas();
-                this.consultarSubCategorias();
-
             },
 
 
@@ -399,15 +403,6 @@
                         this.consultarCategorias();
                      });
                  },
-                consultarSubCategorias : function() {
-                    var url = '/subcategorias' ;
-                    axios.get(url).then(response => {
-                            this.cmbSubCategorias= response.data;
-                        }).catch(error => {
-                            console.log(error);
-                            this.consultarSubCategorias();
-                    });
-                },
                 consultarMarcas : function() {
                     var url = '/marcas' ;
                     axios.get(url).then(response => {
@@ -418,12 +413,21 @@
                             this.consultarMarcas();
                     });
                 },
+                cambioCategoria : function () {
+                    var url = '/subcategorias/'+this.categoria ;
+                    axios.get(url).then(response => {
+                            this.cmbSubCategorias= response.data;
+                        }).catch(error => {
+                            console.log(error);
+                            this.cambioCategoria();
+                    });
+                },
                 //------------------/consultas/------------------------- //
                 filtro : function (page) {
                     console.log("filtro");
                     var url = page !== undefined ?  '/filtro/'+page : '/filtro';
                     axios.post(url,{
-                        categoria : this.categoria,
+                       // categoria : this.categoria,
                         subcategoria : this.subcategoria,
                         marca : this.marca
                     }).then(response => {

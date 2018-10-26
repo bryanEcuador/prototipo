@@ -32,20 +32,19 @@ Route::get('/tienda', function () {
 });
 
 route::get('/prueba',function() {
-    $id = 10;
-    $producto =\DB::table('tb_producto')->where('id',$id)->get();
-    //dd($producto);
-    $imagenes =\DB::table('tb_imagenes')->where('producto_id',$id)->get();
-    return view('prueba',compact('producto','imagenes'));
+    $datos = DB::table('tb_producto')
+        ->where('id_marca','=', [gi2])->get();
+    dd($datos);
 });
 
 // tienda
 route::get('/productos/{page?}','TiendaController@productos')->name('productos');
 route::get('/detalles/{id}','TiendaController@detalle')->name('detalle');
 route::get('/categorias','TiendaController@categorias')->name('categorias');
-route::get('/subcategorias','TiendaController@subCategorias')->name('subcategoria');
+route::get('/subcategorias/{categoria?}','TiendaController@subCategorias')->name('subcategoria');
 route::get('/marcas','TiendaController@marcas')->name('marca');
 route::get('/filtro/{page?}','TiendaController@filtro')->name('filtro');
+route::post('/consultar/colores','TiendaController@consultarColores')->name('colores');
 
 route::get('/prueba/controler','TiendaController@categorias');
 

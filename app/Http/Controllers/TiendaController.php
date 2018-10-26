@@ -87,8 +87,8 @@ class TiendaController extends Controller
       return  $this->ProveedorController->consultarCategorias();
     }
 
-    public function subCategorias(){
-        return  $this->ProveedorController->consultarSubCategorias();
+    public function subCategorias($categoria){
+        return  DB::table('tb_sub_categoria')->where('categoria_id',$categoria)->get();
     }
 
     public function marcas(){
@@ -125,6 +125,10 @@ class TiendaController extends Controller
         $datos = new LengthAwarePaginator($datos, $total, $paginacion, $page);
         $datos->setPath('blog'); // es una ruta X
         return $datos;
+    }
+
+    public function consultarColores(Request $resquest) {
+       return DB::table('tb_colores')->whereIn('id',$resquest->input('colores'))->get();
     }
 
 
