@@ -1,51 +1,29 @@
 <?php
-if(isset($_GET['usuario']) && intval($_GET['usuario'])&&isset($_GET['contraseña']) && intval($_GET['contraseña'])) {
+include('../database/dbconection.php');
+srs= mysql_query($conn,"select* from tb_proveedores");
+$objproveedores= new stdClass();
+$listaProveedores=[];
+while ( $row= mysqli_fetch_array($rs,mysql_assoc))
+{
 
-        /* utilizar la variable que nos viene o establecerla nosotros */
-        $number_of_posts = isset($_GET['num']) ? intval($_GET['num']) : 10; //10 es por defecto
-        $format = strtolower($_GET['format']) == 'json' ? 'json' : 'xml'; //xml es por defecto
-        $user_id = intval($_GET['user']); 
-
-        /* conectamos a la bd */
-        $link = mysql_connect('localhost:330','root','isaac1998') or die('No se puede conectar a la BD');
-        mysql_select_db('sistema',$link) or die('No se puede seleccionar la BD');
-
-        /* sacamos los posts de bd */
-        $query = "SELECT post_title, guid FROM wp_posts WHERE post_author = $user_id AND post_status = 'publish' ORDER BY ID DESC LIMIT $number_of_posts";
-        $result = mysql_query($query,$link) or die('Query no funcional:  '.$query);
-
-        /* creamos el array con los datos */
-        $posts = array();
-        if(mysql_num_rows($result)) {
-                while($post = mysql_fetch_assoc($result)) {
-                        $posts[] = array('post'=>$post);
-                }
-        }
-
-        /* formateamos el resultado */
-        if($format == 'json') {
-                header('Content-type: application/json');
-                echo json_encode(array('posts'=>$posts));
-        }
-        else {
-                header('Content-type: text/xml');
-                echo '';
-                foreach($posts as $index => $post) {
-                        if(is_array($post)) {
-                                foreach($post as $key => $value) {
-                                        echo '<',$key,'>';
-                                        if(is_array($value)) {
-                                                foreach($value as $tag => $val) {
-                                                        echo '<',$tag,'>',htmlentities($val),'';
-                                                }
-                                        }
-                                        echo '';
-                                }
-                        }
-                }
-                echo '';
-        }
-
-        /* nos desconectamos de la bd */
-        @mysql_close($link);
+        $proveedor =new stdClass();
+        $proveedor->id=$row['id'];
+        $proveedor->codigo_externo=$row['codigo_externo'];
+        $proveedor->tipo_empresa=$row['tipo_empresa'];
+        $proveedor->ruc=$row['ruc'];
+        $proveedor->razon_social=$row['razon_social'];
+        $proveedor->representante_legal=$row['representante_legal'];
+        $proveedor->direccion=$row['direccion'];
+        $proveedor->banco=$row['banco'];
+        $proveedor->cuenta_bancaria=$row['cuenta_bancaria'];
+        $proveedor->estado=$row['estado'];
+        $proveedor->gerente_general=$row['gerente_general'];
+        $proveedor->telefono_representante=$row['telefono_representante'];
+         $proveedor->telefono_gerente=$row['telefono_gerente'];
+         $proveedor->usuario=$row['usuario'];
+         $proveedor->contraseña=$row['contraseña'];
+         $listaProveedores []=$proveedor;
 }
+$objproveedores->listaProveedores=$listaProveedores;
+mysqli_close($conn);
+echo json_encode($objproveedores);
