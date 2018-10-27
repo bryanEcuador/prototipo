@@ -2,6 +2,11 @@
 //Route::middleware(['auth'])->group(function () {
 
 Route::group(['prefix' => 'administrador' , 'as' => 'administrador.' ], function() {
+    route::get('/index',function (){
+        return view('modulos.administracion.index');
+    });
+
+
     route::get('/proveedor/index','AdministracionController@index')->name('proveedor.index');
     route::get('/proveedor/create','AdministracionController@create')->name('proveedor.create');
     route::get('/proveedor/editar/{id}','AdministracionController@editProveedor')->name('proveedor.edit');
@@ -34,7 +39,6 @@ Route::group(['prefix' => 'administrador' , 'as' => 'administrador.' ], function
 
     // rutas de configuración
     route::get('/politica','AdministracionController@politica')->name('politica');
-    route::get('/datos-pagina','AdministracionController@datosPagina')->name('datos');
     route::get('/show/datos-pagina','AdministracionController@showDatosBasicos')->name('datos.show');
     route::get('/consultar/datos-pagina','AdministracionController@consultarDatos')->name('datos.consultar');
     route::post('/guardar/datos-pagina','AdministracionController@storeDatosBasicos')->name('store.datos');

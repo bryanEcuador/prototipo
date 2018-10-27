@@ -236,12 +236,21 @@
                             id : this.categoria_id
 
                             }).then(response => {
+                            if(response.data[0] == "Error") {
+                                if(response.data[1] == 1062) {
+                                    toastr.error("El nombre se encuentra duplicado");
+                                } else {
+                                    toastr.error("Error al actualizar "+this.mensaje);
+                                }
+                            }else {
                                 $('#editarModal').modal('hide');
                                 toastr.success(this.mensaje2+" actualizada con exito");
                                 this.limpiar();
                                 this.loadCategoria();
+                            }
                             }).catch(error => {
                                 console.log(error);
+                                toastr.error("Error al actualizar "+this.mensaje);
                         });
                     }
 
@@ -258,12 +267,36 @@
                             nombre: this.categoria_store.toUpperCase(),
 
                             }).then(response => {
-                                $('#crearModal').modal('hide');
-                                toastr.success(this.mensaje2+" guardada con extito");
-                                this.limpiar();
-                                this.loadCategoria();
-                            }).catch(error => {
-                                console.log(error);
+                                if(response.data[0] == "Error") {
+                                    if(response.data[1] == 1062) {
+                                        toastr.error("El nombre se encuentra duplicado");
+                                    } else {
+                                        toastr.error("Error al guardar "+this.mensaje);
+                                    }
+                                } else {
+                                    $('#crearModal').modal('hide');
+                                    toastr.success(this.mensaje2+" guardada con extito");
+                                    this.limpiar();
+                                    this.loadCategoria();
+                                 }
+
+                            }).catch(response => {
+                                toastr.success( "Error al momento de guardar "+this.mensaje);
+                                console.log(response);
+                                if(response.status === 422)
+                                {
+                                    var errors = $.parseJSON(response.responseText);
+                                    $.each(errors, function (key, value) {
+                                        if($.isPlainObject(value)) {
+                                            $.each(value, function (key, value) {
+                                                toastr.error('Error en el controlador: '+value+'', 'Error', {timeOut: 5000});
+                                                console.log(key+ " " +value);
+                                            });
+                                        }else{
+                                            toastr.error('Error '+response+' al momento de crear el permiso.', 'Error', {timeOut: 5000});
+                                        }
+                                    });
+                                }
                         });
                     }
 
@@ -286,9 +319,15 @@
                             axios.delete(url, {
 
                                 }).then(response => {
-                                    this.loadCategoria();
+                                    console.log(response);
+                                    if(response.data[0] == "Error") {
+                                        toastr.error("Error al eliminar "+this.mensaje);
+                                    }else {
+                                        this.loadCategoria();
+                                    }
                                 }).catch(error => {
                                     console.log(error);
+                                toastr.error("Error al eliminar "+this.mensaje);
                             });
                             swal("Eliminado! La imagen ha sido eliminada!", {
                                 icon: "success",
@@ -303,7 +342,7 @@
 
                     var url = page !== undefined ?  '/administrador/categoria/load/'+page : '/administrador/categoria/load';
                     axios.get(url).then(response => {
-                        console.log(response);
+
                         this.datos = response.data;
                         this.cmbCategorias = this.datos.data
 
@@ -397,32 +436,42 @@
                     var er_numeros = /^[0-9,]+$/;
 
                    if(tipo == 'creacion'){
+                       this.categoria_store = this.categoria_store.trim();
                         if(this.categoria_store === ''){
                             toastr.error("El campo de categoria no puede estar en blanco")
+                            return false;
                         } else {
-                            if(patt3.test(this.categoria_store) === false){
+                            if(datos_sin_numeros.test(this.categoria_store) === false){
                                 toastr.error("el nombre de la categoria no puede contener ni numeros ni caracteres especiales.")
+                                return false;
+                            } else {
+                                return true;
                             }
                         }
 
                    } else if (tipo == 'actualizacion') {
+                       this.categoria_update = this.categoria_update.trim();
                        if(this.categoria_update === ''){
                            toastr.error("El campo de categoria no puede estar en blanco");
                            return false;
                        } else {
-                           if(patt3.test(this.categoria) === false){
+                           if(datos_sin_numeros.test(this.categoria_update) === false){
                                toastr.error("el nombre de la categoria no puede contener ni numeros ni caracteres especiales.");
                                return false;
+                           } else{
+                               return true;
                            }
                        }
                    } else if(tipo == 'busqueda') {
+                       this.categoria= this.categoria.trim();
                        if(this.categoria === ''){
-                           toastr.error("El campo de categoria no puede estar en blanco");
-                           return false;
+                           return true;
                        } else {
-                           if(patt3.test(this.categoria) === false){
+                           if(datos_sin_numeros.test(this.categoria) === false){
                                toastr.error("el nombre de la categoria no puede contener ni numeros ni caracteres especiales.");
                                return false;
+                           } else {
+                               return true;
                            }
                        }
                    }

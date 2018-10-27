@@ -253,13 +253,23 @@
                             categoria : this.cmb_categoria
 
                         }).then(response => {
+                            if(response.data[0] == "Error") {
+                            if(response.data[1] == 1062) {
+                                toastr.error("El nombre se encuentra duplicado");
+                            } else {
+                                toastr.error("Error al acttualizar "+this.mensaje);
+                            }
+                        }else {
                             $('#editarModal').modal('hide');
-                        toastr.success(this.mensaje2+" actualizada con exito");
-                        this.limpiar();
-                        this.loadSubCategoria();
-                    }).catch(error => {
-                            console.log(error);
-                    });
+                            toastr.success(this.mensaje2+" actualizada con exito");
+                            this.limpiar();
+                            this.loadSubCategoria();
+                        }
+
+                        }).catch(error => {
+                                console.log(error);
+                                toastr.error("Error al actualizar "+this.mensaje);
+                        });
                     }
 
 
@@ -276,12 +286,21 @@
                             categoria : this.cmb_categoria
 
                         }).then(response => {
+                            if(response.data[0] == "Error") {
+                            if(response.data[1] == 1062) {
+                                toastr.error("El nombre se encuentra duplicado");
+                            } else {
+                                toastr.error("Error al guardar "+this.mensaje);
+                            }
+                        } else {
                             $('#crearModal').modal('hide');
-                        toastr.success(this.mensaje2+" guardada con extito");
-                        this.limpiar();
-                        this.loadSubCategoria();
+                            toastr.success(this.mensaje2+" guardada con extito");
+                            this.limpiar();
+                            this.loadSubCategoria();
+                        }
                     }).catch(error => {
                             console.log(error);
+                            toastr.error("Error al guardar "+this.mensaje);
                     });
                     }
 
@@ -304,8 +323,14 @@
                             axios.delete(url, {
 
                             }).then(response => {
+                                if(response.data[0] == "Error") {
+                                toastr.error("Error al eliminar "+this.mensaje);
+                            }else {
                                 this.loadSubCategoria();
+                            }
+
                         }).catch(error => {
+                                toastr.error("Error al eliminar "+this.mensaje);
                                 console.log(error);
                         });
                             swal("Eliminado! La subcategoria se ha sido eliminada!", {
@@ -425,32 +450,53 @@
                     var er_numeros = /^[0-9,]+$/;
 
                     if(tipo == 'creacion'){
+                        this.subcategoria_store = this.subcategoria_store.trim();
                         if(this.subcategoria_store === ''){
                             toastr.error("El campo de " +this.mensaje+ " no puede estar en blanco")
+                            return false;
                         } else {
-                            if(patt3.test(this.subcategoria_store) === false){
-                                toastr.error("el nombre de  "+this.mensaje+ "no puede contener ni numeros ni caracteres especiales.")
+                            if(this.cmb_categoria == 0) {
+                                toastr.error("Debe elegir una categoria");
+                                return false;
+                            } else {
+                                if(datos_sin_numeros.test(this.subcategoria_store) === false){
+                                    toastr.error("el nombre de  "+this.mensaje+ "no puede contener ni numeros ni caracteres especiales.")
+                                    return false;
+                                } else {
+                                    return true;
+                                }
                             }
+
                         }
 
                     } else if (tipo == 'actualizacion') {
+                        this.subcategoria_update = this.subcategoria_update.trim();
                         if(this.subcategoria_update === ''){
                             toastr.error("El campo de " +this.mensaje+" no puede estar en blanco");
                             return false;
                         } else {
-                            if(patt3.test(this.subcategoria_update) === false){
+                            if(datos_sin_numeros.test(this.subcategoria_update) === false){
                                 toastr.error("el nombre de  "+this.mensaje+" no puede contener ni numeros ni caracteres especiales.");
                                 return false;
+                            } else {
+                                if(this.cmb_categoria == 0){
+                                    toastr.error("Debes de seleccionar una categoria");
+                                } else {
+                                    return true
+                                }
+
                             }
                         }
                     } else if(tipo == 'busqueda') {
+                            this.subcategoria = this.subcategoria.trim();
                         if(this.subcategoria === ''){
-                            toastr.error("El campo de "+this.mensaje+" no puede estar en blanco");
-                            return false;
+                            return true;
                         } else {
-                            if(patt3.test(this.subcategoria) === false){
+                            if(datos_sin_numeros.test(this.subcategoria) === false){
                                 toastr.error("el nombre de "+this.mensaje+"no puede contener ni numeros ni caracteres especiales.");
                                 return false;
+                            } else {
+                                return true;
                             }
                         }
                     }

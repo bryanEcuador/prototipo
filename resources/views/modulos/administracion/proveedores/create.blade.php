@@ -166,7 +166,7 @@
             </div>
                 <br>
                <!--<button type="input" class="btn btn-info" name="guardar" id="guardar">Agregar Proveedor</button> -->
-               <button type="button" class="btn btn-info" v-on:click="validarCampos" name="guardar" id="guardar">Agregar Proveedor</button>
+               <button type="button" class="btn btn-info" v-on:click="guardar"  id="guardar">Agregar Proveedor</button>
                 <input type="hidden" v-model="estado" id="estado">
         </div>
         </form>
@@ -354,6 +354,20 @@
                         }
                     },
 
+                    guardar : function(){
+                      this.espaciosBlanco();
+                      this.validarCampos();
+                      if(this.errores.length == 0){
+                          this.enviarFormulario();
+                      }else {
+                          var num = this.errores.length;
+                          for(var i=0; i<num;i++) {
+                              toastr.error(this.errores[i]);
+                          }
+                          this.errores = [];
+                      }
+                    },
+
                     enviarFormulario : function(){
                         var url = 'guardar';
                         axios.post(url, {
@@ -406,6 +420,24 @@
 
                     });
 
+                    },
+
+                    espaciosBlanco : function() {
+                        this.codigo= this.codigo.trim();
+                        this.empresa = this.empresa.trim();
+                        this.ruc = this.ruc.trim();
+                        this.razon = this.razon.trim();
+                        this.representante = this.representante.trim();
+                        this.direccion = this.direccion.trim();
+                        this.banco = this.banco.trim();
+                        this.cuenta_bancaria = this.cuenta_bancaria.trim();
+                        this.estado = this.estado.trim();
+                        this.gerente = this.gerente.trim();
+                        this.convencional = this.convencional.trim();
+                        this.telefono_representante = this.telefono_representante.trim();
+                        this.telefono_gerente = this.telefono_gerente.trim();
+                        this.usuario = this.usuario.trim();
+                        this.pass=this.usuario.trim();
                     },
                     
                     limpiar : function() {

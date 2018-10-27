@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Pagination\LengthAwarePaginator;
-
+use App\Core\Procedimientos\CategoriaProcedure;
 class CategoriaController extends Controller
 {
+    protected $CategoriaProcedure;
+    public function __construct(CategoriaProcedure $categoriaProcedure)
+    {
+        $this->CategoriaProcedure  = $categoriaProcedure;
+    }
+
     public function index(){
         return view('modulos.administracion.matenimiento.categorias.index');
 
@@ -25,9 +30,11 @@ class CategoriaController extends Controller
             ]
         );
         try{
-             return "hola"; //DB::table('tb_categoria')->insert(['nombre' => $request->input('nombre')]);
+            $this->CategoriaProcedure->guardar($request->input('nombre'));
+            return  $array = array("exito");
         }catch (QueryException $exception){
-            return $exception->getMessage();
+            $array = array("Error" , $exception->errorInfo[1]);
+            return $array;
         }
     }
 
@@ -41,25 +48,28 @@ class CategoriaController extends Controller
             ]
         );
         try{
-            DB::table('tb_categoria')->where('id',$request->input('id'))->update(['nombre' => $request->input('nombre')]);
+            $this->CategoriaProcedure->actualizar($request->input('id'),$request->input('nombre'));
+            return  $array = array("exito");
         }catch (QueryException $exception){
-            return $exception->getMessage();
+            $array = array("Error" , $exception->errorInfo[1]);
+            return $array;
         }
     }
 
     public function delete($id) {
         try{
-
-            DB::table('tb_categoria')->where('id',$id)->update(['estado' => 0]);
+           $this->CategoriaProcedure->eliminar($id);
+            return  $array = array("exito");
         }catch (QueryException $exception){
-            return $exception->getMessage();
+            $array = array("Error" , $exception->errorInfo[1]);
+            return $array;
         }
     }
 
     public function loadData($pagina = 0,$nombre = null) {
         if($nombre == null) {
             //\DB::select('Call spEstadisticaRegistrosIngresoHospitalizacionYears');
-            $datos = \DB::select(\DB::raw('CALL prototipo.spConsultarCategoriasTodos()'));
+            $datos = $this->CategoriaProcedure->consultarCategoriasTodos();
             return  $this->paginacion($pagina,$datos);
         } else {
             return $this->search($nombre,$pagina);
@@ -68,7 +78,7 @@ class CategoriaController extends Controller
     }
 
     public function search($nombre,$pagina = 0) {
-        $datos = DB::select('Call spConsultarCategorias(?)',array($nombre));
+        $datos = $this->CategoriaProcedure->consultarCategorias($nombre);
         return  $this->paginacion($pagina,$datos);
     }
 

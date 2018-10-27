@@ -7,9 +7,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Core\Procedimientos\SubCategoriaProcedure;
 
 class SubCategoriaController extends Controller
 {
+    protected $SubCategoriaProcedure;
+    public function __construct(SubCategoriaProcedure $subCategoriaProcedure)
+    {
+        $this->SubCategoriaProcedure= $subCategoriaProcedure;
+    }
+
    public function index(){
         return view('modulos.administracion.matenimiento.subCategorias.index');
     }
@@ -27,9 +34,12 @@ class SubCategoriaController extends Controller
             ]
         );
         try{
-            DB::table('tb_sub_categoria')->insert(['nombre' => $request->input('nombre') , 'categoria_id' => $request->input('categoria')]);
+
+            $this->SubCategoriaProcedure->guardar($request->input('nombre'),$request->input('categoria'));
+            return  $array = array("exito");
         }catch (QueryException $exception){
-            return $exception->getMessage();
+            $array = array("Error" , $exception->errorInfo[1]);
+            return $array;
         }
     }
 
@@ -47,26 +57,28 @@ class SubCategoriaController extends Controller
             ]
         );
         try{
-            DB::table('tb_sub_categoria')
-                ->where('id',$request->input('id'))
-                ->update(['nombre' => $request->input('nombre') , 'categoria_id' => $request->input('categoria')]);
+            $this->SubCategoriaProcedure->actualizar($request->input('id'),$request->input('nombre'),$request->input('categoria'));
+            return  $array = array("exito");
         }catch (QueryException $exception){
-            return $exception->getMessage();
+            $array = array("Error" , $exception->errorInfo[1]);
+            return $array;
         }
     }
 
-    public function delete(Request $request) {
+    public function delete($id) {
         try{
-            DB::table('tb_sub_categoria')->where('id',$request->input('id'))->update(['estado' => 0]);
+            $this->SubCategoriaProcedure->eliminar($id);
+            return  $array = array("exito");
         }catch (QueryException $exception){
-            return $exception->getMessage();
+            $array = array("Error" , $exception->errorInfo[1]);
+            return $array;
         }
     }
 
     public function loadData($pagina = 0,$nombre = null) {
         if($nombre == null) {
-            //\DB::select('Call spEstadisticaRegistrosIngresoHospitalizacionYears');
-            $datos = \DB::select(\DB::raw('CALL prototipo.spConsultarSubCategoriaTodos()'));
+
+            $datos = $this->SubCategoriaProcedure->consultarSubCategoriasCategoriasTodos();
             return  $this->paginacion($pagina,$datos);
         } else {
             return $this->search($nombre,$pagina);
@@ -75,7 +87,7 @@ class SubCategoriaController extends Controller
     }
 
     public function search($nombre,$pagina = 0) {
-        $datos = DB::select('Call spConsultarSubCategoria(?)',array($nombre));
+        $datos = $this->SubCategoriaProcedure->consultarSubCategorias($nombre);
         return  $this->paginacion($pagina,$datos);
     }
 
@@ -92,6 +104,6 @@ class SubCategoriaController extends Controller
 
     public function categorias()
     {
-        return db::select('call spConsultarCategoriasTodos()');
+        return $this->SubCategoriaProcedure->categorias();
     }
 }

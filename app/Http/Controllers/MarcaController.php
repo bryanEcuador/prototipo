@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Core\Procedimientos\MarcaProcedure;
+
 
 class MarcaController extends Controller
 {
+    protected $MarcaProcedure;
+    public function __construct(MarcaProcedure $marcaProcedure)
+    {
+        $this->MarcaProcedure  = $marcaProcedure;
+    }
     public function index(){
         return view('modulos.administracion.matenimiento.Marcas.index');
     }
@@ -23,10 +30,13 @@ class MarcaController extends Controller
                 'nombre.min' => 'EL nombre no puede contener menos de 3 caracteres',
             ]
         );
+
             try{
-                DB::table('tb_marca')->insert(['nombre' => $request->input('nombre')]);
+               $this->MarcaProcedure->guardar($request->input('nombre'));
+                return  $array = array("exito");
             }catch (QueryException $exception){
-                return $exception->getMessage();
+                $array = array("Error" , $exception->errorInfo[1]);
+                return $array;
             }
     }
 
@@ -40,24 +50,27 @@ class MarcaController extends Controller
             ]
         );
         try{
-            DB::table('tb_marca')->where('id',$request->input('id'))->update(['nombre' => $request->input('nombre')]);
+            $this->MarcaProcedure->actualizar($request->input('id'),$request->input('nombre'));
+            return  $array = array("exito");
         }catch (QueryException $exception){
-            return $exception->getMessage();
+            $array = array("Error" , $exception->errorInfo[1]);
+            return $array;
         }
     }
 
     public function delete($id) {
         try{
-            DB::table('tb_marca')->where('id',$id)->update(['estado' => 0]);
+            $this->MarcaProcedure->eliminar($id);
+            return  $array = array("exito");
         }catch (QueryException $exception){
-            return $exception->getMessage();
+            $array = array("Error" , $exception->errorInfo[1]);
+            return $array;
         }
     }
 
     public function loadData($pagina = 0,$nombre = null) {
         if($nombre == null) {
-            //\DB::select('Call spEstadisticaRegistrosIngresoHospitalizacionYears');
-            $datos = \DB::select(\DB::raw('CALL prototipo.spConsultarMarcasTodos()'));
+            $datos =  $this->MarcaProcedure->consultarMarcasTodos();
             return  $this->paginacion($pagina,$datos);
         } else {
             return $this->search($nombre,$pagina);
@@ -66,7 +79,7 @@ class MarcaController extends Controller
     }
 
     public function search($nombre,$pagina = 0) {
-        $datos = DB::select('Call spConsultarMarcas(?)',array($nombre));
+        $datos = $this->MarcaProcedure->consultarMarcas($nombre);
         return  $this->paginacion($pagina,$datos);
     }
 

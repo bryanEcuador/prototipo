@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use App\Core\Procedimientos\ConfiguracionProcedure;
 
 class AdministracionController extends Controller
 {
+    protected  $ConfiguracionProcedure;
+    public function __construct(ConfiguracionProcedure $configuracionProcedure)
+    {
+        $this->ConfiguracionProcedure = $configuracionProcedure;
+    }
+
     //
     public function index(){
         $datos = DB::table('tb_proveedores')->get();
-     return view('modulos.administracion.index',compact('datos'));
+     return view('modulos.administracion.proveedores.index',compact('datos'));
     }
     public function create(){
         return view('modulos.administracion.create');
@@ -19,8 +26,6 @@ class AdministracionController extends Controller
 
     public function storeProveedor(Request $request)
     {
-
-
         $request->validate([
             'codigo' => 'required|max:25|string',
             'empresa' => 'required|max:10|string',
@@ -249,11 +254,13 @@ class AdministracionController extends Controller
 
         ]);
         try{
-
+            $this->ConfiguracionProcedure->guadarDatosPagina($request->input('nombre') ,$request->input('email') ,$request->input('telefono') ,
+                $request->input('direccion') ,$request->input('descripcion') ,$request->input('terminos') ,$request->input('politicas') ,
+                $request->input('acerca') ,$request->input('ordenes') );
             return redirect()->back()->withSuccess('Registro actualizado con exito !');
         }catch (QueryException $exception){
             dd($exception);
-           // return redirect()->back()->with('danger', "Error".$exception->errorInfo[1]);
+            return redirect()->back()->with('danger', "Error".$exception->errorInfo[1]);
         }
 
 
@@ -266,7 +273,6 @@ class AdministracionController extends Controller
     public function consultarDatos() {
         return DB::table('tb_datos_basicos')->distinct()->get();
     }
-
     public function producto_index(){
         return view('modulos.administracion.producto_index');
 

@@ -82,7 +82,7 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="input-group">
-                            <input class="form-control" placeholder="nombre de la marca" type="text" autocomplete="off" maxlength="15" v-model="marca_store">
+                            <input class="form-control" placeholder="nombre de la marca" type="text" autocomplete="off" maxlength="15" v-model="marca_store" v-on:keyup.13="storeMarca">
                         </div>
                     </div>
 
@@ -128,6 +128,7 @@
     </div>
 @endsection
 @section('js')
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         var app = new Vue ({
             el:"#marca",
@@ -234,12 +235,36 @@
                             id : this.marca_id
 
                         }).then(response => {
-                            $('#editarModal').modal('hide');
-                        toastr.success(this.mensaje2+" actualizada con exito");
-                        this.limpiar();
-                        this.loadMarca();
-                    }).catch(error => {
-                            console.log(error);
+
+                            if(response.data[0] == "Error") {
+                                if(response.data[1] == 1062) {
+                                    toastr.error("El nombre se encuentra duplicado");
+                                } else {
+                                    toastr.error("Error al guardar la marca");
+                                }
+                            }else {
+                                $('#editarModal').modal('hide');
+                                toastr.success(this.mensaje2+" actualizada con exito");
+                                this.limpiar();
+                                this.loadMarca();
+                            }
+
+                    }).catch(response=> {
+                            console.log(response);
+                        if(response.status === 422)
+                        {
+                            var errors = $.parseJSON(response.responseText);
+                            $.each(errors, function (key, value) {
+                                if($.isPlainObject(value)) {
+                                    $.each(value, function (key, value) {
+                                        toastr.error('Error en el controlador: '+value+'', 'Error', {timeOut: 5000});
+                                        console.log(key+ " " +value);
+                                    });
+                                }else{
+                                    toastr.error('Error '+response+' al momento de crear el permiso.', 'Error', {timeOut: 5000});
+                                }
+                            });
+                        }
                     });
                     }
 
@@ -251,29 +276,51 @@
                     var respuesta = this.validarCampos('creacion');
 
                     if( respuesta !== false) {
+
                         var url = '/administrador/marca/store';
                         axios.post(url, {
                             nombre: this.marca_store.toUpperCase(),
 
-                        }).then(response => {
-                            $('#crearModal').modal('hide');
-                        toastr.success(this.mensaje2+" guardada con extito");
-                        this.limpiar();
-                        this.loadMarca();
-                    }).catch(error => {
-                            console.log(error);
+                            }).then(response => {
+
+                                if(response.data[0] == "Error") {
+                                    if(response.data[1] == 1062) {
+                                        toastr.error("El nombre se encuentra duplicado");
+                                    } else {
+                                        toastr.error("Error al guardar la marca");
+                                    }
+                                }else {
+                                    $('#crearModal').modal('hide');
+                                    toastr.success(this.mensaje2+" guardada con extito");
+                                    this.limpiar();
+                                    this.loadMarca();
+                                }
+                            }).catch(response => {
+                            toastr.success( "Error al momento de guardar "+this.mensaje);
+                        if(response.status === 422)
+                        {
+                            var errors = $.parseJSON(response.responseText);
+                            $.each(errors, function (key, value) {
+                                if($.isPlainObject(value)) {
+                                    $.each(value, function (key, value) {
+                                        toastr.error('Error en el controlador: '+value+'', 'Error', {timeOut: 5000});
+                                        console.log(key+ " " +value);
+                                    });
+                                }else{
+                                    toastr.error('Error '+response+' al momento de crear el permiso.', 'Error', {timeOut: 5000});
+                                }
+                            });
+                        }
                     });
+
                     }
-
-
-
                 },
 
                 deleteMarca : function(id) {
 
                     swal({
                         title: "Eliminar!",
-                        text: "Esta seguro que desea eliminar esre registro",
+                        text: "Esta seguro que desea eliminar este registro",
                         icon: "warning",
                         buttons: true,
                         dangerMode: true,
@@ -284,9 +331,16 @@
                             axios.delete(url, {
 
                             }).then(response => {
+
+                                if(response.data[0] == "Error") {
+                                    toastr.error("Error al eliminar la marca");
+                                }else {
+
                                 this.loadMarca();
+                                }
                         }).catch(error => {
                                 console.log(error);
+                                toastr.error("al momento de eliminar "+this.mensaje)
                         });
                             swal("Eliminado! La marca se ha sido eliminada!", {
                                 icon: "success",
@@ -301,7 +355,7 @@
 
                     var url = page !== undefined ?  '/administrador/marca/load/'+page : '/administrador/marca/load';
                     axios.get(url).then(response => {
-                        console.log(response);
+
                     this.datos = response.data;
                     this.cmbMarcas = this.datos.data
 
@@ -358,24 +412,23 @@
                     var respuesta = this.validarCampos('busqueda');
 
                     if( respuesta !== false) {
-                        var url = page !== undefined ?  '/administrador/marca/load/'+0+'/'+this.marca : '/administrador/marca/load'+page+'/'+this.marca;
-                        axios.get(url).then(response => {
-                            console.log(response);
-                        this.datos = response.data;
-                        this.cmbMarcas = this.datos.data
-
-                        this.paginacion.total = this.datos.total;
-                        if(page == undefined) {
-                            this.paginacion.current_page = this.datos.current_page;
-                        }
-                        this.paginacion.per_page = this.datos.per_page;
-                        this.paginacion.last_page = this.datos.last_page;
-                        this.paginacion.from = this.datos.from;
-                        this.paginacion.to = this.datos.to;
-                    }).catch(error => {
-                            console.log(error);
-                        this.consultarNombreMarca (page);
-                    });
+                            console.log('exito');
+                            var url = page !== undefined ?  '/administrador/marca/load/'+0+'/'+this.marca : '/administrador/marca/load'+page+'/'+this.marca;
+                            axios.get(url).then(response => {
+                                    this.datos = response.data;
+                                    this.cmbMarcas = this.datos.data
+                                    this.paginacion.total = this.datos.total;
+                                    if(page == undefined) {
+                                        this.paginacion.current_page = this.datos.current_page;
+                                    }
+                                    this.paginacion.per_page = this.datos.per_page;
+                                    this.paginacion.last_page = this.datos.last_page;
+                                    this.paginacion.from = this.datos.from;
+                                    this.paginacion.to = this.datos.to;
+                                }).catch(error => {
+                                    console.log(error);
+                                    this.consultarNombreMarca (page);
+                            });
                     }
 
 
@@ -390,37 +443,48 @@
                 //--------------------------------------Validaciones -----------------------------------------------//
 
                 validarCampos : function(tipo) {
-                    var datos_sin_numeros =  /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/; // para la afinidad
-                    var patt3 = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,\s0-9]+$/; //para la observación
+                    var datos_sin_numeros =  /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/;
+                    var patt3 = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,\s0-9]+$/;
                     var er_numeros = /^[0-9,]+$/;
 
                     if(tipo == 'creacion'){
+                        this.marca_store = this.marca_store.trim();
                         if(this.marca_store === ''){
-                            toastr.error("El campo de " +this.mensaje+ " no puede estar en blanco")
+                            toastr.error("El campo de " +this.mensaje+ " no puede estar en blanco");
+                            return false;
                         } else {
-                            if(patt3.test(this.marca_store) === false){
-                                toastr.error("el nombre de  "+this.mensaje+ "no puede contener ni numeros ni caracteres especiales.")
+                            if(datos_sin_numeros .test(this.marca_store) === false){
+                                toastr.error("el nombre de  "+this.mensaje+ " no puede contener ni numeros ni caracteres especiales.");
+                                return false;
+                            } else {
+                                return true;
                             }
                         }
 
                     } else if (tipo == 'actualizacion') {
+                        this.marca_update = this.marca_update.trim();
                         if(this.marca_update === ''){
                             toastr.error("El campo de " +this.mensaje+" no puede estar en blanco");
                             return false;
                         } else {
-                            if(patt3.test(this.marca_update) === false){
+                            if(datos_sin_numeros .test(this.marca_update) === false){
                                 toastr.error("el nombre de  "+this.mensaje+" no puede contener ni numeros ni caracteres especiales.");
                                 return false;
+                            }else {
+                                return true;
                             }
                         }
                     } else if(tipo == 'busqueda') {
+                        this.marca = this.marca.trim();
                         if(this.marca === ''){
-                            toastr.error("El campo de "+this.mensaje+" no puede estar en blanco");
-                            return false;
+                            //toastr.error("El campo de "+this.mensaje+" no puede estar en blanco");
+                            return true;
                         } else {
-                            if(patt3.test(this.marca) === false){
-                                toastr.error("el nombre de "+this.mensaje+"no puede contener ni numeros ni caracteres especiales.");
+                            if(datos_sin_numeros.test(this.marca) === false){
+                                toastr.error("el nombre de "+this.mensaje+" no puede contener ni numeros ni caracteres especiales.");
                                 return false;
+                            } else {
+                                return true;
                             }
                         }
                     }

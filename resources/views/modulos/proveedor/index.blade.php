@@ -2,11 +2,11 @@
 @section('nombre_pagina','proveedor')
 @section('css')
 @endsection
-@section('titulo de la pagina','Principal')
+@section('titulo de la pagina','Productos')
 @section('contenido')
     <div class="col-md-12">
         <div class="tile">
-            <button class=" btn btn-outline-primary"> Crear nuevo producto</button>
+          <a href="{{route('proveedor.create')}}"><button class=" btn btn-outline-primary"> Crear nuevo producto</button></a>
             <br><br>
             <div class="tile-body">
                 <table class="table table-hover table-bordered table-responsive" id="sampleTable">
