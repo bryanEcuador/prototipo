@@ -89,6 +89,32 @@ class ProveedorController extends Controller
 
 
     }
+
+    /*
+    public function validarImagenes(){
+        // creamos un array con el nombre de todos los archivos de imagenes
+        for($i = 0 ; $i<$archivos;$i++)
+        {
+            $n = $i + 1;
+            array_push($nombre_imagenes,"img".$n);
+        }
+        // si el numero no coincide redirigimos de nuevo a la vista de create
+        if($archivos !== $colores){
+            return redirect()->route ('proveedor.create')->with('danger', "El numero de colores elegidos no coinciden con el numero de archivos cargados");
+        } else {
+            foreach ($nombre_imagenes as $valor)
+            {
+                // verificamos que todos los archivos tengan entre 3 y 5  imagenes
+                $numero  = count($request->file($valor));
+                if($numero < 3 )
+                {
+                    return redirect()->route ('proveedor.create')->with('danger', "Debe que subir minimo 3 imagenes por color");
+                } else if($numero > 5 ){
+                    return redirect()->route ('proveedor.create')->with('danger', "Debe que subir maximo 5 imagenes por color");
+                }
+            }
+        }
+    } */
     public function store(Request $request){
 
         //dd($request);
@@ -132,6 +158,8 @@ class ProveedorController extends Controller
         $archivos = count($request->file()); // numero de archivos pasados
         $colores_valor = $request->input('colores'); // colores elegidos
         $colores = count($request->input('colores')); // numero de colores elegidos
+
+        $this->validarImagenes();
 
 
         // creamos un array con el nombre de todos los archivos de imagenes
@@ -200,10 +228,10 @@ class ProveedorController extends Controller
                     \DB::table('tb_imagenes')->insert([
                         'producto_id' => $producto_id,
                         'color_id' => $colores_valor[$x],
-                        'imagen1' => $nombre_imagenes[0],
-                        'imagen2' => $nombre_imagenes[1],
-                        'imagen3' => $nombre_imagenes[2],
-                        'imagen4' => $nombre_imagenes[3],
+                        'imagen1' => $imagenes[0],
+                        'imagen2' => $imagenes[1],
+                        'imagen3' => $imagenes[2],
+                        'imagen4' => $imagenes[3],
 
 
                     ]);
@@ -211,11 +239,11 @@ class ProveedorController extends Controller
                     \DB::table('tb_imagenes')->insert([
                         'producto_id' => $producto_id,
                         'color_id' => $colores_valor[$x],
-                        'imagen1' => $nombre_imagenes[0],
-                        'imagen2' => $nombre_imagenes[1],
-                        'imagen3' => $nombre_imagenes[2],
-                        'imagen4' => $nombre_imagenes[3],
-                        'imagen5' => $nombre_imagenes[4],
+                        'imagen1' => $imagenes[0],
+                        'imagen2' => $imagenes[1],
+                        'imagen3' => $imagenes[2],
+                        'imagen4' => $imagenes[3],
+                        'imagen5' => $imagenes[4],
                     ]);
 
                 }
