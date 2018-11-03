@@ -95,13 +95,14 @@
         <li><a class="app-menu__item" href="{{route('administrador.proveedor.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Proveedores</span></a></li>
         <li><a class="app-menu__item" href=""><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Productos</span></a></li>
         <li><a class="app-menu__item" href="{{route('administrador.datos.show')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Configuración</span></a></li>
-
+        <li><a class="app-menu__item" href="{{route('seguridad.permisos.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Permisos</span></a></li>
+        
     </ul>
 </aside>
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-dashboard"></i> @yield('titulo de la pagina')</h1>
+            <h1> @yield('icono') @yield('titulo de la pagina')</h1>
             <p>@yield('subtitulo')</p>
         </div>
         <ul class="app-breadcrumb breadcrumb">

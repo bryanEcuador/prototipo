@@ -162,6 +162,7 @@ return [
 
         // paquetes descargados
         Unisharp\Ckeditor\ServiceProvider::class,
+        Caffeinated\Shinobi\ShinobiServiceProvider::class
 
     ],
 

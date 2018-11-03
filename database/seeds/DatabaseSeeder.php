@@ -18,7 +18,10 @@ class DatabaseSeeder extends Seeder
             ColoresTableSeeder::class,
             MarcasTableSeeder::class,
             CategoriasTableSeeder::class,
-            SubCategoriasTableSeeder::class
+            SubCategoriasTableSeeder::class,
+            PermissionsTableSeeder::class,
+            RolesTableSeeder::class,
+            
         ]);
     }
 }

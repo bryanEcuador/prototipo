@@ -444,7 +444,7 @@
 
                 validarCampos : function(tipo) {
                     var datos_sin_numeros =  /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/;
-                    var patt3 = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,\s0-9]+$/;
+                    var patt3 = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s0-9]+$/;
                     var er_numeros = /^[0-9,]+$/;
 
                     if(tipo == 'creacion'){

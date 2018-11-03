@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Core\Procedimientos\MarcaProcedure;
 
-
 class MarcaController extends Controller
 {
     protected $MarcaProcedure;
