@@ -125,7 +125,10 @@ class PermisosController extends Controller
         $page = Input::get('page'); // solo es un nombre
         $total = count($datos);
         $datos = array_slice($datos, $pagina , $paginacion); // 1: datos , 2: desde que posicion  , 3: cuantos datos
+        //Echo $total.'-'.$paginacion.'-'.$page;
         $datos = new LengthAwarePaginator($datos, $total, $paginacion, $page);
+
+
         $datos->setPath('blog'); // es una ruta X
         return $datos;
     }

@@ -6,6 +6,8 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 class RegisterController extends Controller
 {
@@ -27,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -36,7 +38,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest'); /* TODO */
     }
 
     /**
@@ -50,7 +52,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
         ]);
     }
 
@@ -62,10 +64,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+
+
+         try{
+            
+            $usuario = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'estado' => 1,
+            ]);
+            $id = $usuario->id;
+            $rol = $data['rol'];
+            
+            DB::table('role_user')->insert([
+                'role_id' => $rol,'user_id' => $id
+            ]);
+
+            return $usuario;
+        }catch (QueryException $e){
+            $array = array("Error" , $e->errorInfo[1]);
+            return $array;
+        }
     }
 }

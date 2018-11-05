@@ -1,8 +1,8 @@
 @extends('layouts.admin')
-@section('nombre_pagina','Permsisos')
+@section('nombre_pagina','Permisos')
 @section('css')
 @endsection
-@section('titulo de la pagina','Permsisos')
+@section('titulo de la pagina','Permisos')
 @section('contenido')
 <div class="col-md-12" id="permisos" v-cloak>
         <div class="tile">
@@ -291,6 +291,7 @@
                     'to': 0,
                 },
                 offset: 3,
+                datos :[],
 
                 /* busqueda */
                 permiso : '',
@@ -353,7 +354,7 @@
     },
 
     created : function() {
-
+        /* TODO  toastr*/
         this.loadPermisos();
         //this.cantidadPorPagina2;
     },

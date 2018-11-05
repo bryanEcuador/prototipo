@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/index', 'InicioSecionController@index')->name('index');
+Route::get('/index', 'Auth\RegisterController@index')->name('index');
 
 // prueba , link para realizar prueba de las distintas vistas
 
