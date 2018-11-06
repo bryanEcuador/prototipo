@@ -22,10 +22,10 @@ Route::group(['prefix' => 'seguridad' , 'as' => 'seguridad.' ], function() {
      route::get('validar/update/rol/{name}/{id}/name','RolesController@uniqueNameUpdate')->name('validar.rol.update.name');
 
      /* pendientes de saber para que son TODO */
-     route::get('/validar/rol/{name}/slug','Seguridad\RolController@uniqueSlug')->name('validar.rol.slug')->middleware('permission:roles.index');
-     route::get('/validar/rol/{name}/name','Seguridad\RolController@uniqueName')->name('validar.rol.name')->middleware('permission:roles.index');
-     route::get('/rolespermisos/{id}','Seguridad\RolController@rolesPermisos')->name('roles.permisos');
-     route::post('/roles/{id}/delete','Seguridad\RolController@destroy')->name('roles.estado')->middleware('permission:roles.index');
+    // route::get('/validar/rol/{name}/slug','Seguridad\RolController@uniqueSlug')->name('validar.rol.slug')->middleware('permission:roles.index');
+    // route::get('/validar/rol/{name}/name','Seguridad\RolController@uniqueName')->name('validar.rol.name')->middleware('permission:roles.index');
+    // route::get('/rolespermisos/{id}','Seguridad\RolController@rolesPermisos')->name('roles.permisos');
+    // route::post('/roles/{id}/delete','Seguridad\RolesController@destroy')->name('roles.estado')->middleware('permission:roles.index');
 
     // Usuarios
         Route::get('usuarios','UserController@index')->name('permisos.index');

@@ -14,6 +14,7 @@ require __DIR__ . '/modulos/proveedores.php';
 require __DIR__ . '/modulos/administracion.php';
 require __DIR__ . '/modulos/estaticas.php';
 require __DIR__ . '/modulos/seguridad.php';
+require __DIR__ . '/modulos/tienda.php';
 Route::get('/', function () {
 
     //$datos = \DB::table('tbdatosdecontacto')->get();
@@ -32,9 +33,7 @@ Route::get('/tienda', function () {
 });
 
 route::get('/prueba',function() {
-    $datos = DB::table('tb_producto')
-        ->where('id_marca','=', [gi2])->get();
-    dd($datos);
+    echo "hola";
 });
 
 
