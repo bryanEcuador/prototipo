@@ -28,7 +28,7 @@ Route::group(['prefix' => 'seguridad' , 'as' => 'seguridad.' ], function() {
     // route::post('/roles/{id}/delete','Seguridad\RolesController@destroy')->name('roles.estado')->middleware('permission:roles.index');
 
     // Usuarios
-        Route::get('usuarios','UserController@index')->name('permisos.index');
+        Route::get('usuarios','UserController@index')->name('user.index');
         Route::get('usuarios/datos/{paginacion}/{page?}/{rol?}/{name?}','UserController@loadData');
         Route::post('usuarios/store','UserController@store')->name('user.guardar');
         Route::put('usuarios/update','UserController@update')->name('user.update');     

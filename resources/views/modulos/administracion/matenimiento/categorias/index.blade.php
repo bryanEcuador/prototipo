@@ -3,6 +3,9 @@
 @section('css')
 @endsection
 @section('titulo de la pagina','Categorias')
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('categorias') }}
+@endsection
 @section('contenido')
 
         <div class="col-md-12" id="categoria" v-cloak >

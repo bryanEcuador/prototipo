@@ -273,8 +273,9 @@ class AdministracionController extends Controller
     public function consultarDatos() {
         return DB::table('tb_datos_basicos')->distinct()->get();
     }
-    public function producto_index(){
-        return view('modulos.administracion.producto_index');
+
+    public function producto(){
+        return view('modulos.administracion.productos.index');
 
     }
 

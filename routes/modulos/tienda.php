@@ -1,5 +1,6 @@
 <?php
 // tienda
+Route::get('/','TiendaController@inicio')->name('welcome');
 route::get('/productos/{page?}','TiendaController@productos')->name('productos');
 route::get('/detalles/{id}','TiendaController@detalle')->name('detalle');
 route::get('/categorias','TiendaController@categorias')->name('categorias');
@@ -13,4 +14,6 @@ Route::get('/tienda', function () {
 })->name('tienda');
 Route::get('/comentarios/producto/{id}/{pagina?}','TiendaController@consultarComentarios');
 Route::get('/promedio/producto/{id}','TiendaController@consultarPromedioProductos');
+Route::get('/top/productos','TiendaController@consultarProductosTop');
+Route::get('/productos/vendidos','TiendaController@consultarProductosTopVentas');
 Route::post('/guardar/comentarios','TiendaController@guardarComentarios');

@@ -80,6 +80,9 @@
 @endsection
 @section('titulo de la pagina','Proveedores')
 @section('subtitulo','lista de proveedores')
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('proveedores') }}
+@endsection
 @section('contenido')
         <a class="" href="{{route('administrador.proveedor.create')}}"> <button class="btn btn-primary"> crear proveedor</button> </a>
 

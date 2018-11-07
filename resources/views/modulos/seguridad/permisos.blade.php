@@ -3,6 +3,9 @@
 @section('css')
 @endsection
 @section('titulo de la pagina','Permisos')
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('permisos') }}
+@endsection
 @section('contenido')
 <div class="col-md-12" id="permisos" v-cloak>
         <div class="tile">

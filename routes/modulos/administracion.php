@@ -43,7 +43,7 @@ Route::group(['prefix' => 'administrador' , 'as' => 'administrador.' ], function
     route::get('/consultar/datos-pagina','AdministracionController@consultarDatos')->name('datos.consultar');
     route::post('/guardar/datos-pagina','AdministracionController@storeDatosBasicos')->name('store.datos');
     //rutas dee modificacion
-    route::get('/producto/index','AdministracionController@producto_index')->name('producto_index');
+    route::get('/producto/index','AdministracionController@producto')->name('producto.index');
 
 });
 
