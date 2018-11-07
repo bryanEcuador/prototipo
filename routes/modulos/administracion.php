@@ -4,7 +4,7 @@
 Route::group(['prefix' => 'administrador' , 'as' => 'administrador.' ], function() {
     route::get('/index',function (){
         return view('modulos.administracion.index');
-    });
+    })->name('index');
 
 
     route::get('/proveedor/index','AdministracionController@index')->name('proveedor.index');

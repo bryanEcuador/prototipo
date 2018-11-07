@@ -8,7 +8,7 @@
 
     </style>
     <link rel="stylesheet" href=" {{asset('css/imagenes/normalize.css')}} " />
-
+    <link rel="stylesheet" type="text/css" href="/css/toastr.css">
     <link rel="stylesheet" href="{{asset('css/imagenes/demo.css')}} " />
 
     <script src=" {{asset('js/imagenes/vendor/modernizr.js')}}"></script>
@@ -34,18 +34,18 @@
 <!-- SECTION -->
 <div class="section" >
     <!-- container -->
-    <div class="container" id="detalles">
+    <div class="container" id="detalles" v-cloak="">
         <!-- row -->
             <!-- default start -->
             <div class="col-md-8 ">
                         <div class="xzoom-container">
                             <img class="xzoom"  v-bind:src="imagen1" />
                             <div class="xzoom-thumbs">
-                                <a v-bind:href="imagen1"><img class="xzoom-gallery" width="80" v-bind:src="imagen1"  v-bind:xpreview="imagen1" title="The description goes here"></a>
-                                <a v-bind:href="imagen2"><img class="xzoom-gallery" width="80" v-bind:src="imagen2" title="The description goes here"></a>
-                                <a v-bind:href="imagen3"><img class="xzoom-gallery" width="80" v-bind:src="imagen3" title="The description goes here"></a>
-                                <a v-bind:href="imagen4"><img class="xzoom-gallery" width="80" v-bind:src="imagen4"title="The description goes here"></a>
-                                <a v-bind:href="imagen5"><img class="xzoom-gallery" width="80" v-bind:src="imagen5" title="The description goes here"></a>
+                                <a v-bind:href="imagen1"><img class="xzoom-gallery" width="80" v-bind:src="imagen1"  v-bind:xpreview="imagen1" ></a>
+                                <a v-bind:href="imagen2"><img class="xzoom-gallery" width="80" v-bind:src="imagen2" ></a>
+                                <a v-bind:href="imagen3"><img class="xzoom-gallery" width="80" v-bind:src="imagen3" ></a>
+                                <a v-bind:href="imagen4"><img class="xzoom-gallery" width="80" v-bind:src="imagen4"></a>
+                                <a v-bind:href="imagen5"><img class="xzoom-gallery" width="80" v-bind:src="imagen5" ></a>
                             </div>
                         </div>
             </div>
@@ -53,19 +53,47 @@
             <!-- Product details -->
             <div class="col-md-4">
                 <div class="product-details">
-                    <h2 class="product-name"> {{$producto[0]->nombre}}</h2>
+                    <h2 class="product-name"> {{$producto[0]->nombre}} </h2>
                     <div>
-                        <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                        <a class="review-link" href="#">10 Comentarios del prodcuto(s) | Agrega tu comentario</a>
+                                        <div v-if="promedio == 5" class="rating-stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <div v-else-if="promedio == 4" class="rating-stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <div v-else-if="promedio == 3" class="rating-stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>                                    
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <div v-else-if="promedio == 2" class="rating-stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>                                    
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                         <div v-else-if="promedio == 1" class="rating-stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>                                    
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                        <a class="review-link" href="#"> @{{total}} Comentarios del prodcuto(s)</a>
                     </div>
                     <div>
-                        <h3 class="product-price"> <span>$</span> {{$producto[0]->precio}} <del class="product-old-price">$990.00</del></h3>
+                        <h3 class="product-price"> <span>$</span> {{$producto[0]->precio}} </h3>
                         <span class="product-available">En Stock</span>
                     </div>
                     <p>{{$producto[0]->descripcion}}</p>
@@ -87,9 +115,9 @@
                         <div class="qty-label">
                             Cantidad
                             <div class="input-number">
-                                <input type="number">
-                                <span class="qty-up">+</span>
-                                <span class="qty-down">-</span>
+                                <input type="number" min="0" v-model="valor" readonly>
+                                <span class="qty-up" v-on:click="cantidad('s')">+</span>
+                                <span class="qty-down"  v-on:click="cantidad('r')">-</span>
                             </div>
                         </div>
 
@@ -97,7 +125,7 @@
                     </div>
                     <ul class="product-links">
                         <li>Categoria:</li>
-                        <li><a href="#">Headphones/subcategoria</a></li>
+                        <li>  <del>sp</del>          <a href="#"></a></li>
                     </ul>
 
                 </div>
@@ -113,7 +141,7 @@
                 <ul class="tab-nav">
                     <li class="active"><a data-toggle="tab" href="#tab1">Descripcion</a></li>
                     <li><a data-toggle="tab" href="#tab2">Detalles</a></li>
-                    <li><a data-toggle="tab" href="#tab3">Comentarios (3)</a></li>
+                    <li><a data-toggle="tab" href="#tab3">Comentarios (@{{total}})</a></li>
                 </ul>
                 <!-- /product tab nav -->
 
@@ -146,12 +174,40 @@
                             <div class="col-md-3">
                                 <div id="rating">
                                     <div class="rating-avg">
-                                        <span>4.5</span>
-                                        <div class="rating-stars">
+                                        <span>@{{promedio}}</span>
+                                        <div v-if="promedio == 5" class="rating-stars">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <div v-else-if="promedio == 4" class="rating-stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <div v-else-if="promedio == 3" class="rating-stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>                                    
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <div v-else-if="promedio == 2" class="rating-stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>                                    
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                         <div v-else-if="promedio == 1" class="rating-stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>                                    
                                             <i class="fa fa-star-o"></i>
                                         </div>
                                     </div>
@@ -165,9 +221,9 @@
                                                 <i class="fa fa-star"></i>
                                             </div>
                                             <div class="rating-progress">
-                                                <div style="width: 80%;"></div>
+                                                <div :style="{'width':porcen5+'%'}"></div>
                                             </div>
-                                            <span class="sum">3</span>
+                                            <span class="sum">@{{quinto}}</span>
                                         </li>
                                         <li>
                                             <div class="rating-stars">
@@ -178,9 +234,9 @@
                                                 <i class="fa fa-star-o"></i>
                                             </div>
                                             <div class="rating-progress">
-                                                <div style="width: 60%;"></div>
+                                                <div :style="{'width':porcen4+'%'}"></div>
                                             </div>
-                                            <span class="sum">2</span>
+                                            <span class="sum">@{{cuarto}}</span>
                                         </li>
                                         <li>
                                             <div class="rating-stars">
@@ -191,9 +247,9 @@
                                                 <i class="fa fa-star-o"></i>
                                             </div>
                                             <div class="rating-progress">
-                                                <div></div>
+                                                <div :style="{'width':porcen3+'%'}"></div>
                                             </div>
-                                            <span class="sum">0</span>
+                                            <span class="sum">@{{tercero}}</span>
                                         </li>
                                         <li>
                                             <div class="rating-stars">
@@ -204,9 +260,9 @@
                                                 <i class="fa fa-star-o"></i>
                                             </div>
                                             <div class="rating-progress">
-                                                <div></div>
+                                                <div :style="{'width':porcen2+'%'}"></div>
                                             </div>
-                                            <span class="sum">0</span>
+                                            <span class="sum"></span>@{{segundo}}</span>
                                         </li>
                                         <li>
                                             <div class="rating-stars">
@@ -217,9 +273,9 @@
                                                 <i class="fa fa-star-o"></i>
                                             </div>
                                             <div class="rating-progress">
-                                                <div></div>
+                                                <div :style="{'width':porcen1+'%'}"></div>
                                             </div>
-                                            <span class="sum">0</span>
+                                            <span class="sum">@{{primero}}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -230,10 +286,10 @@
                             <div class="col-md-6">
                                 <div id="reviews">
                                     <ul class="reviews">
-                                        <li>
+                                        <li v-for="item in comentarios">
                                             <div class="review-heading">
-                                                <h5 class="name">John</h5>
-                                                <p class="date">27 DEC 2018, 8:0 PM</p>
+                                                <h5 class="name"> @{{item.usuario}}</h5>
+                                                <p class="date">@{{item.updated_at}}</p>
                                                 <div class="review-rating">
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
@@ -243,48 +299,24 @@
                                                 </div>
                                             </div>
                                             <div class="review-body">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="review-heading">
-                                                <h5 class="name">John</h5>
-                                                <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                <div class="review-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o empty"></i>
-                                                </div>
-                                            </div>
-                                            <div class="review-body">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="review-heading">
-                                                <h5 class="name">John</h5>
-                                                <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                <div class="review-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o empty"></i>
-                                                </div>
-                                            </div>
-                                            <div class="review-body">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                                                <p>@{{item.comentario}}</p>
                                             </div>
                                         </li>
                                     </ul>
                                     <ul class="reviews-pagination">
-                                        <li class="active">1</li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                    <li class="page-item" v-if="paginacion.current_page > 1">
+                                        <a  href="#" @click.prevent="changePage(paginacion.current_page - 1 )" >
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                    </li>
+                                     <li  v-for="page in pagesNumber" v-bind:class="[ page == isActived ? 'active' : '']">
+                                        <a href="#" @click.prevent="changePage(page)"  >@{{page}}</a>
+                                    </li>
+                                    <li  v-if="paginacion.current_page < paginacion.last_page"  >
+                                        <a  href="#"  @click.prevent="changePage(paginacion.current_page + 1 )">
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
                                     </ul>
                                 </div>
                             </div>
@@ -294,18 +326,19 @@
                             <div class="col-md-3">
                                 <div id="review-form">
                                     <form class="review-form">
-                                        <textarea class="input" placeholder="tu calificación"></textarea>
+                                        <input type="text" v-model="usuario" class="input" placeholder="nombre del usuario" maxlength="10">
+                                        <textarea class="input"  maxlength="80" placeholder="tu calificación" v-model="comentarioProducto"></textarea>
                                         <div class="input-rating">
                                             <span>Tu calificación: </span>
                                             <div class="stars">
-                                                <input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
-                                                <input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
-                                                <input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
-                                                <input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
-                                                <input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
+                                                <input id="star5" name="rating" v-model="raiting" value="5" type="radio"><label for="star5"></label>
+                                                <input id="star4" name="rating" v-model="raiting" value="4" type="radio"><label for="star4"></label>
+                                                <input id="star3" name="rating" v-model="raiting" value="3" type="radio"><label for="star3"></label>
+                                                <input id="star2" name="rating" v-model="raiting" value="2" type="radio"><label for="star2"></label>
+                                                <input id="star1" name="rating" v-model="raiting" value="1" type="radio"><label for="star1"></label>
                                             </div>
                                         </div>
-                                        <button class="primary-btn">Enviar</button>
+                                        <button class="primary-btn"type="button"  v-on:click="enviarComentario">Enviar</button>
                                     </form>
                                 </div>
                             </div>
@@ -331,6 +364,7 @@
         var app = new Vue ({
             el:"#detalles",
             data: {
+                /* carga de las imagenes y colores */
                 cmbproductos : [],
                 cmbImagenes : [],
                 imagen1 : '',
@@ -340,6 +374,47 @@
                 imagen5 : '',
                 colores : [],
                 cmbColores : [],
+
+                /* carga de comentarios */
+                id_producto : 0 ,
+                comentarios : [],
+                calificacion : [],
+                promedio :'',
+                total : 0,
+                primero : 0,
+                segundo : 0,
+                tercero : 0,
+                cuarto : 0,
+                quinto : 0,
+                porcen1 : 0,
+                porcen2 : 0,
+                porcen3 : 0,
+                porcen4 : 0,
+                porcen5 : 0,
+
+                /* comentarios del producto */
+                comentarioProducto : '',
+                usuario : '',
+                raiting : '',
+
+                /* ERRORES */
+                errores : [],
+
+                /* paginacion */
+                paginacion : {
+                    'total' : 0,
+                    'current_page' : 0,
+                    'per_page' : 0,
+                    'last_page' : 0,
+                    'from' : 0,
+                    'to': 0,
+                },
+                offset: 3,
+                //datos : [],
+                sinComentarios : false,
+
+                /*  */
+                valor :0,
             },
             created : function() {
                 toastr.options = {
@@ -365,6 +440,7 @@
                     this.cmbproductos  = response.data
                 })
 
+                    this.id_producto = @json($producto[0]->id);
                     this.cmbImagenes = @json($imagenes);
                     this.archivosMultimedias = this.cmbImagenes.length;
                     this.imagen1 = this.cmbImagenes[0].imagen1;
@@ -389,12 +465,57 @@
                             console.log(error);
                      });
 
-
-
-
+                this.cargarPromedioComentarios();
+                this.cargarComentarios();
+            
             },
 
+             computed : {
+                isActived : function () {
+                    return this.paginacion.current_page;
+                },
+                pagesNumber: function() {
 
+                    if(!this.paginacion.to){
+                        return [];
+                    }
+                    var from = this.paginacion.current_page - this.offset;
+                    if(from < 1){
+                        from = 1;
+                    }
+                    var to = from + (this.offset * 2);
+                    if(to >= this.paginacion.last_page){
+                        to = this.paginacion.last_page;
+                    }
+                    var pagesArray = [];
+                    while(from <= to){
+                        pagesArray.push(from);
+                        from++;
+                    }
+                    return pagesArray;
+                },
+                datosNumber : function() {
+
+                    return this.paginacionTable.length;
+                },
+                cantidadPorPagina : function () {
+                
+                   var inicial = 0;
+                    var datos = [];
+
+                   while(true) {
+                         inicial = inicial + 5;
+                        if(this.paginacion.total <= inicial) { 
+                           break;
+                       } else {
+                           this.datosPorPagina = 5;
+                         datos.push(inicial)
+                       }
+                      
+                   }  
+                    return datos;           
+                },
+            },
             methods : {
 
                 cambioImagen : function(id_color){
@@ -407,8 +528,145 @@
                             this.imagen5 = this.cmbImagenes[prop].imagen5;
                         }
                     }
+                },
+
+                cargarComentarios : function(page){
+                    var url = page == undefined ? '/comentarios/producto/'+this.id_producto : '/comentarios/producto/'+this.id_producto+'/'+page;
+                    axios.get(url).then(response => {
+                        console.log(response);
+                        this.datos = response.data
+
+                         if(this.datos == 0) {
+                             this.sinComentarios = true;
+                         } else {
+                                             this.comentarios = this.datos.data
+                                            this.paginacion.total = this.datos.total;
+                                            if (page == undefined) {
+                                                this.paginacion.current_page = this.datos.current_page;
+                                            }
+                                            this.paginacion.per_page = this.datos.per_page;
+                                            this.paginacion.last_page = this.datos.last_page;
+                                            this.paginacion.from = this.datos.from;
+                                            this.paginacion.to = this.datos.to;
+                         }  
+
+                        }).catch(error => {
+                            console.log(error);
+                            this.cargarComentarios();
+                    });
+                },
+
+                cargarPromedioComentarios : function() {
+                    var url = '/promedio/producto/'+this.id_producto;
+                    axios.get(url).then(response => {
+                        console.log(response);
+                        this.calificacion = response.data,
+                        this.promedio = this.calificacion[0].promedio,
+                        this.total = this.calificacion[0].total,
+                        this.primero = this.calificacion[0].primero,
+                        this.segundo = this.calificacion[0].segundo,
+                        this.tercero = this.calificacion[0].tercero,
+                        this.cuarto = this.calificacion[0].cuarto,
+                        this.quinto = this.calificacion[0].quinto
+
+                        this.porcen1 = (this.primero *100) / this.total,
+                        this.porcen2 = (this.segundo *100) / this.total,
+                        this.porcen3 = (this.tercero *100) / this.total,
+                        this.porcen4 = (this.cuarto *100) / this.total,
+                        this.porcen5 = (this.quinto *100) / this.total,
+                         
+
+                        this.promedio = parseInt(this.promedio); /* TODO */
+
+
+                        }).catch(error => {
+                            console.log(error);
+                            this.cargarPromedioComentarios();
+                    });
+                },
+
+                enviarComentario : function () {
+
+                    if(this.usuario == ''){
+                        this.errores.push("el nombre no puede estar vacio")
+                    }
+
+                    if(this.comentarioProducto == ''){
+                        this.errores.push("Debe agregar un comentario")
+                    }
+
+                    if(this.raiting == ''){
+                         this.errores.push("Debe agregar la calificación del producto")
+                    }
+
+                    if( this.errores.length === 0) {
+                        
+                        this.guardarComentario();
+                        } else {
+                        var num = this.errores.length;
+                        for(i=0; i<num;i++) {
+                            toastr.error(this.errores[i]);
+                        }
+                    }
+                    this.errores = [];
+                },
+                
+                guardarComentario : function() {
+                    $url = '/guardar/comentarios';
+                        axios.post($url, {
+                                usuario : this.usuario.toLowerCase(),
+                                comentario : this.comentarioProducto.toLowerCase(),
+                                calificacion : this.raiting,
+                                producto : this.id_producto ,
+                        
+                            }).then(response => {
+                                    toastr.success('Comentario grabado.', 'Exito', {timeOut: 5000});
+                                    this.limpiar();
+                                    this.cargarComentarios();
+
+                            }).catch(response => {
+                                toastr.error( "Error al momento de guardar el comentario ");
+                                console.log(response);
+                                if(response.status === 422)
+                                {
+                                    var errors = $.parseJSON(response.responseText);
+                                    $.each(errors, function (key, value) {
+                                        if($.isPlainObject(value)) {
+                                            $.each(value, function (key, value) {
+                                                toastr.error('Error en el controlador: '+value+'', 'Error', {timeOut: 5000});
+                                                console.log(key+ " " +value);
+                                            });
+                                        }else{
+                                            toastr.error('Error '+response+' al momento de crear el permiso.', 'Error', {timeOut: 5000});
+                                        }
+                                    });
+                                }
+                        });
+
+                },
+
+                limpiar : function() {
+                     this.usuario = '',
+                     this.comentarioProducto = '',
+                    this.raiting = ''
+                },
+
+                 changePage: function(page) {
+                    this.paginacion.current_page = page;
+                     this.cargarComentarios(page);
+                },
+
+                cantidad : function(operacion) {
+                    if(operacion == "s"){
+                        this.valor = this.valor +1;
+                    }else {
+                        if(this.valor !== 0){
+                            this.valor = this.valor -1;
+                        }
+                        
+                    }
                 }
-            }
+            }    
         });
     </script>
 @endsection
