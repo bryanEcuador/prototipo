@@ -19,7 +19,7 @@ Route::get('/', function () {
 
     //$datos = \DB::table('tbdatosdecontacto')->get();
     return view('welcome');
-});
+})->name('welcome');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -28,9 +28,7 @@ Route::get('/index', 'Auth\RegisterController@index')->name('index');
 // prueba , link para realizar prueba de las distintas vistas
 
 
-Route::get('/tienda', function () {
-    return view('modulos.usuario.store');
-});
+
 
 route::get('/prueba',function() {
     echo "hola";

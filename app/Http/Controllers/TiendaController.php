@@ -8,57 +8,23 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\ProveedorController;
+use App\Core\Procedimientos\TiendaProcedure;
 
-class TiendaController extends Controller
-{
+class TiendaController extends Controller {
+
     protected $ProveedorController;
+    protected $TiendaProcedure;
     public  $categorias;
     public  $subcategorias;
     public  $marca;
-    public function __construct(ProveedorController $proveedorController)
+   
+    public function __construct(ProveedorController $proveedorController, TiendaProcedure $tiendaProcedure)
     {
         $this->ProveedorController  = $proveedorController;
-    }
-
-    public function index()
-    {
-        //
-
+        $this->TiendaProcedure = $tiendaProcedure;
     }
 
 
-    public function create()
-    {
-        //
-    }
-
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
 
     public function productos($pagina = 0) {
 
@@ -131,5 +97,55 @@ class TiendaController extends Controller
        return DB::table('tb_colores')->whereIn('id',$resquest->input('colores'))->get();
     }
 
+    public function consultarComentarios($producto_id,$pagina=0){
+        $datos =  $this->TiendaProcedure->consultarComentarios($producto_id,$pagina);   
+         return  $this->paginacionComentarios($pagina,$datos);
+    }
 
+    public function consultarPromedioProductos($producto_id){
+        return  $this->TiendaProcedure->consultarPromedioProductos($producto_id);
+          
+    }
+
+    public function guardarComentarios(Request $request) {
+  
+        
+        $request->validate(
+            ['usuario' => 'required|string|max:15|min:3|',
+              'comentario' => 'required|string',
+              'calificacion' => 'required',   
+              'producto' => 'required'
+
+            ]
+        );
+        try{
+            $this->TiendaProcedure->guardarComentario($request->input('usuario'),$request->input('comentario'),$request->input('calificacion'),$request->input('producto'));
+            return  $array = array("exito");
+        }catch (QueryException $exception){
+            $array = array("Error" , $exception->errorInfo[1]);
+            return $array;
+        }
+    }
+
+      public function loadData($pagina = 0) {
+            $datos =  $this->SeguridadProcedure->consultarPermisosTodos();
+    }
+
+    public function paginacionComentarios($pagina,$datos) {
+        $paginacion = 4; // cuantos datos tenemos que recresar por pagina
+        $pagina != 0 ? $pagina = ($pagina - 1) * $paginacion : $pagina  = 0; // se hace el calculo de los resultados quqe debe devolver
+        $page = Input::get('page'); // solo es un nombre
+        $total = count($datos);
+        if($total == 0){
+            return "sin datos";
+        }
+        $datos = array_slice($datos, $pagina , $paginacion); // 1: datos , 2: desde que posicion  , 3: cuantos datos
+        //Echo $total.'-'.$paginacion.'-'.$page;
+        $datos = new LengthAwarePaginator($datos, $total, $paginacion, $page);
+
+
+        $datos->setPath('blog'); // es una ruta X
+        return $datos;
+
+    }
 }
