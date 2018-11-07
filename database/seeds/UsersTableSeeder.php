@@ -16,5 +16,15 @@ class UsersTableSeeder extends Seeder
             'email' => str_random(10).'@gmail.com',
             'password' => bcrypt('secret'),
         ]);
+
+        public function run()
+    {
+        factory(App\User::class, 20)->create();
+
+        Role::create([
+            'name'      => 'Admin',
+            'slug'      => 'slug',
+            'special'   => 'all-access'
+        ]);
     }
 }

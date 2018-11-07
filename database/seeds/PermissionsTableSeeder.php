@@ -19,11 +19,5 @@ class PermissionsTableSeeder extends Seeder
                         
         ]);
         
-        Permission::create([
-            'name'           => 'navegar proveedor',
-            'slug'           => 'proveedor.index',
-            'description'    => 'navegar por el menu del proveedor',
-                        
-        ]);
-    }
+       }
 }

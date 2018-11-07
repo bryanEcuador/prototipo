@@ -158,7 +158,9 @@
                         </ul>
                     </div>
                     <!-- /store top filter -->
-                    <div><p class="text-center filtro"> <label for="check" >Filtros</label></p></div>
+                    <div>
+                        <label for="check" >Filtros</label>
+                    </div>
                     <!-- store products -->
                     <div class="row">
                         <!-- product -->

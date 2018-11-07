@@ -10,6 +10,9 @@
     @yield('css')
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
     <!-- Bootstrap -->
     <link type="text/css" rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}"/>
@@ -22,6 +25,17 @@
     <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="{{asset('css/style.css')}}"/>
+<!---------------------------------------------------------------------->
+    <link type="text/css" rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}"/>
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="{{asset('css/animate.css')}}"/>
+    <link type="text/css" rel="stylesheet" href="{{asset('css/hamburgers.min.css')}}"/>
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="{{asset('css/select2.min.css')}}"/>
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="{{asset('css/util.css')}}">
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="{{asset('css/main1.css')}}"/>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,6 +52,7 @@
     <div id="top-header">
         <div class="container">
             <ul class="header-links pull-right">
+                <li>Iniciar Sesion </li>
                 <li><a href="#"><i class="fa fa-user-o"></i> Mi cuenta</a></li>
             </ul>
         </div>
@@ -204,8 +219,75 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
+<!----modal-->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="images/img-01.png" alt="IMG">
+                </div>
 
+                <form class="login100-form validate-form">
+                    <span class="login100-form-title">
+                        Member Login
+                    </span>
 
+                    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" name="email" placeholder="Email">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                        <input class="input100" type="password" name="pass" placeholder="Password">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-12">
+                        <span class="txt1">
+                            Forgot
+                        </span>
+                        <a class="txt2" href="#">
+                            Username / Password?
+                        </a>
+                    </div>
+
+                    <div class="text-center p-t-136">
+                        <a class="txt2" href="#">
+                            Create your Account
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+<!----modal-->
 <!-- FOOTER -->
 <footer id="footer">
     <!-- top footer -->
@@ -310,6 +392,17 @@
 <script src=" {{asset('/js/jquery.zoom.min.js')}}"></script>
 <script src=" {{asset('/js/main_detalles.js')}}"></script>
 
+<script src=" {{asset('/js/jquery-3.2.1.min.js')}}"></script>
+<script src=" {{asset('/js/popper.js')}}"></script>
+<script src=" {{asset('/js/bootstrap1.min.js')}}"></script>
+<script src=" {{asset('/js/select2.min.js')}}"></script>
+<script src=" {{asset('/js/tilt.jquery.min.js')}}"></script>
+<script >
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+<script src=" {{asset('/js/main1.js')}}"></script>
 
 
 

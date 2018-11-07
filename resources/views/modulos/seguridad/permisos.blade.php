@@ -4,32 +4,34 @@
 @endsection
 @section('titulo de la pagina','Permsisos')
 @section('contenido')
+
 <div class="col-md-12" id="permisos" v-cloak>
         <div class="tile">
             
             <div class="col-md-12">
                 <button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#crearPermiso"> Crear </button>
+              <center>
                <div>
-                   <input  type="text"   class="col-md-4 form-control" placeholder="Buscar permiso por nombre" name="name" v-model="permiso" v-on:keyup.13="consultarNombrePermisos">
+                   <input  type="text"  class="col-md-4 form-control " placeholder="Buscar permiso por nombre" name="name" v-model="permiso" v-on:keyup.13="consultarNombrePermisos">
                </div>
+               </center>
             </div>
             <br>
             <div>
                 <div class="form-inline">
-                 <div class="form-group col-md-3 mb-2">
-                    <label>Mostrar:</label>
+                 <div class="form-group col-md-1.5 mb-2" style="border: #06CDF9 5px outset;">
+                    <label> Mostrar : </label>
                     <select v-on:change="changeNumberPage" v-model="datosPorPagina">
-                       <option  v-for="cantidad in cantidadPorPagina"> @{{cantidad}} </option> 
+                       <option  v-for="cantidad in cantidadPorPagina">   @{{cantidad}}   </option> 
                     </select>
                 </div>
-
-                <div  class="form-group col-md-3 mb-2">
-                    <label>Ordenar:</label>
+                <div  class="form-group col-md-2.5 mb-2" style="border: #06CDF9 5px outset;">
+                    <label> Ordenar : </label>
                     <select v-on:change="ordenar" v-model="orden">
                         <option value="asc">Ascendente</option>
                         <option value="desc">Descendente</option>
                     </select>
-                </div>
+            </div>
             </div>
            
             <hr>
