@@ -42,8 +42,12 @@ Route::group(['prefix' => 'administrador' , 'as' => 'administrador.' ], function
     route::get('/show/datos-pagina','AdministracionController@showDatosBasicos')->name('datos.show');
     route::get('/consultar/datos-pagina','AdministracionController@consultarDatos')->name('datos.consultar');
     route::post('/guardar/datos-pagina','AdministracionController@storeDatosBasicos')->name('store.datos');
-    //rutas dee modificacion
+    
+    //rutas de productos
     route::get('/producto/index','AdministracionController@producto')->name('producto.index');
+    route::get('producto/ver/{id}','AdministracionController@show')->name('producto.show');
+    route::get('producto/editar/{id}','AdministracionController@edit')->name('producto.edit');
+
 
 });
 
