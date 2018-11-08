@@ -2,6 +2,13 @@
 //Route::middleware(['auth'])->group(function () {
 
 Route::group(['prefix' => 'proveedor' , 'as' => 'proveedor.' ], function() {
+    route::get('/',function() {
+        return view('modulos.proveedor.principal');
+    })->name('principal');
+    route::get('/configuracion',function() {
+        return view('modulos.proveedor.configuracion');
+    })->name('configuracion');
+
     route::get('/index','ProveedorController@index')->name('index');
     route::get('/create','ProveedorController@create')->name('create');
     route::post('/guardar','ProveedorController@store')->name('store');

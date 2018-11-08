@@ -52,11 +52,7 @@
     <div id="top-header">
         <div class="container">
             <ul class="header-links pull-right">
-<<<<<<< HEAD
-                <li>iniciar sesion</li>
-=======
-                <li>Iniciar Sesion </li>
->>>>>>> 9897c397d71f43d130157f59d6922f6aad5a0d65
+                <li><a href="#"><i class="fa fa-user-o"> </i>Iniciar Sesion </a></li>
                 <li><a href="#"><i class="fa fa-user-o"></i> Mi cuenta</a></li>
             </ul>
         </div>

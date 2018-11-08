@@ -52,6 +52,20 @@ Breadcrumbs::for('permisos', function ($trail) {
     $trail->parent('administracion');
     $trail->push('Permisos', route('seguridad.permisos.index'));
 });
+
+Breadcrumbs::for('proveedor', function ($trail) {
+    $trail->push('Proveedor', route('proveedor.principal'));
+});
+
+Breadcrumbs::for('productos_proveedor', function ($trail) {
+    $trail->parent('proveedor');
+    $trail->push('Productos', route('proveedor.index'));
+});
+
+Breadcrumbs::for('configuracion_proveedor', function ($trail) {
+    $trail->parent('proveedor');
+    $trail->push('Configuración', route('proveedor.configuracion'));
+});
 /*
 /*
 // Inicio > Generos
