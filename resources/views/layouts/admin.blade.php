@@ -92,21 +92,20 @@
         </div>
     </div>
     <ul class="app-menu">
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Seguridad</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shield"></i><span class="app-menu__label">Seguridad</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-                <li><a class="treeview-item" href="{{route('seguridad.user.index')}}"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
-                <li><a class="treeview-item" href="{{route('seguridad.roles.index')}}"><i class="icon fa fa-circle-o"></i> Roles</a></li>
-                <li><a class="treeview-item" href="{{route('seguridad.permisos.index')}}"><i class="icon fa fa-circle-o"></i> Permisos</a></li>
+                <li><a class="treeview-item" href="{{route('seguridad.user.index')}}"><i class="icon fa fa-user"></i> Usuarios</a></li>
+                <li><a class="treeview-item" href="{{route('seguridad.roles.index')}}"><i class="icon fa fa-users"></i> Roles</a></li>
+                <li><a class="treeview-item" href="{{route('seguridad.permisos.index')}}"><i class="icon fa fa-unlock"></i> Permisos</a></li>
             </ul>
         </li>
-        <li><a class="app-menu__item" href="{{route('administrador.marca.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Marcas</span></a></li>
-        <li><a class="app-menu__item" href="{{route('administrador.categorias.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Categorias</span></a></li>
-        <li><a class="app-menu__item" href="{{route('administrador.subCategorias.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Subcategorias</span></a></li>
-        <li><a class="app-menu__item" href="{{route('administrador.proveedor.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Proveedores</span></a></li>
-        <li><a class="app-menu__item" href="{{route('administrador.producto.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Productos</span></a></li>
-        <li><a class="app-menu__item" href="{{route('administrador.datos.show')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Configuración</span></a></li>
-        <li><a class="app-menu__item" href="{{route('seguridad.permisos.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Permisos</span></a></li>
-        
+        <li><a class="app-menu__item" href="{{route('administrador.marca.index')}}"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Marcas</span></a></li>
+        <li><a class="app-menu__item" href="{{route('administrador.categorias.index')}}"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Categorias</span></a></li>
+        <li><a class="app-menu__item" href="{{route('administrador.subCategorias.index')}}"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Subcategorias</span></a></li>
+        <li><a class="app-menu__item" href="{{route('administrador.proveedor.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Proveedores</span></a></li>
+        <li><a class="app-menu__item" href="{{route('administrador.producto.index')}}"><i class="app-menu__icon fa fa-shopping-bag"></i><span class="app-menu__label">Productos</span></a></li>
+        <li><a class="app-menu__item" href="{{route('administrador.datos.show')}}"><i class="app-menu__icon fa fa-cog"></i><span class="app-menu__label">Configuración</span></a></li>
+
     </ul>
 </aside>
 <main class="app-content">

@@ -89,8 +89,8 @@
         </div>
     </div>
     <ul class="app-menu">
-        <li><a class="app-menu__item" href="{{route('proveedor.index')}}"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Productos</span></a></li>
-        <li><a class="app-menu__item" href="{{route('proveedor.configuracion')}}"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Configuración</span></a></li>
+        <li><a class="app-menu__item" href="{{route('proveedor.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Productos</span></a></li>
+        <li><a class="app-menu__item" href="{{route('proveedor.configuracion')}}"><i class="app-menu__icon fa fa-cog"></i><span class="app-menu__label">Configuración</span></a></li>
     </ul>
 </aside>
 <main class="app-content">
