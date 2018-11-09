@@ -4,6 +4,9 @@
 @endsection
 @section('titulo de la pagina','información basica')
 @section('subtitulo','Edición de datos')
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('configuracion') }}
+@endsection
 @section('contenido')
     @if ($errors->any())
         <div class="alert alert-danger">

@@ -24,7 +24,11 @@ class TiendaController extends Controller {
         $this->TiendaProcedure = $tiendaProcedure;
     }
 
-
+    public function inicio(){
+        $top = $this->consultarProductosTop();
+        $vendidos = $this->consultarProductosTopVentas();
+        return view('welcome',compact('top','vendidos'));
+    }
 
     public function productos($pagina = 0) {
 
@@ -147,5 +151,14 @@ class TiendaController extends Controller {
         $datos->setPath('blog'); // es una ruta X
         return $datos;
 
+    }
+
+    public function consultarProductosTop(){
+
+        return  $this->TiendaProcedure->consultarProductosTop();
+    }
+
+    public function consultarProductosTopVentas(){
+        return  $this->TiendaProcedure->consultarProductosTopVentas();
     }
 }

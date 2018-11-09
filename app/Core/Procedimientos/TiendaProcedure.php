@@ -9,6 +9,7 @@ class TiendaProcedure extends Model
 {
     public function consultarComentarios($producto) {
         return DB::select('Call spConsultarComentario(?)',array($producto));
+        return DB::select('Call spConsultarComentario(?)',array($producto));
     }
 
       public function consultarPromedioProductos($producto){
@@ -24,5 +25,13 @@ class TiendaProcedure extends Model
             'estado'        => 1
 
             ]);
+    }
+
+    public function consultarProductosTop(){
+        return DB::select('Call spConsultarProductosTop()');
+    }
+
+    public function consultarProductosTopVentas(){
+        return DB::select('Call spConsultarProductosMasVendidos()');
     }
 }

@@ -13,3 +13,7 @@ Route::get('/acerca-de', function () {
     $datos = \DB::table('tb_datos_basicos')->distinct()->get();
     return view('estaticas.acerca',compact('datos'));
 })->name('acerca');
+
+route::get('/info/basica',function() {
+    return \DB::table('tb_datos_basicos')->distinct()->get();
+});

@@ -3,6 +3,9 @@
 @section('css')
 @endsection
 @section('titulo de la pagina','Productos')
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('productos_proveedor') }}
+@endsection
 @section('contenido')
     <div class="col-md-12">
         <div class="tile">

@@ -273,9 +273,34 @@ class AdministracionController extends Controller
     public function consultarDatos() {
         return DB::table('tb_datos_basicos')->distinct()->get();
     }
-    public function producto_index(){
-        return view('modulos.administracion.producto_index');
 
+    public function producto(){
+        $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')->get();
+        return view('modulos.administracion.productos.index',compact('datos'));
+
+    }
+
+     public function  show($id) {
+
+        $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')
+            ->where('id',$id)
+            ->get();
+        $imagenes = \DB::table('tb_imagenes')->select('color_id','imagen1','imagen2','imagen3','imagen4','imagen5')
+            ->where('producto_id',$id)
+            ->get();
+        //dd($imagenes);
+        return view('modulos.administracion.productos.show',compact('datos','imagenes'));
+    }
+
+    public function  edit($id) {
+
+        $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')
+            ->where('id',$id)
+            ->get();
+        $imagenes = \DB::table('tb_imagenes')->select('id','producto_id','color_id','imagen1','imagen2','imagen3','imagen4','imagen5')
+            ->where('producto_id',$id)
+            ->get();
+        return view('modulos.administracion.productos.edit',compact('datos','imagenes'));
     }
 
 

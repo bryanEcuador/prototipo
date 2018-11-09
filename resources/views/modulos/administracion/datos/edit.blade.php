@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('nombre_pagina','Datos de pagina')
+@section('nombre_pagina','Datos de pag')
 @section('css')
 @endsection
 @section('titulo de la pagina','Datos de la pagina')

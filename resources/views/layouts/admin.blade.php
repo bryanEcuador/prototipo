@@ -21,7 +21,7 @@
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
         <!--Notification Menu-->
-        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="fa fa-bell-o fa-lg"></i></a>
+        <li class="dropdown" style="display: none;"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="fa fa-bell-o fa-lg"></i></a>
             <ul class="app-notification dropdown-menu dropdown-menu-right">
                 <li class="app-notification__title">You have 4 new notifications.</li>
                 <div class="app-notification__content">
@@ -92,19 +92,18 @@
         </div>
     </div>
     <ul class="app-menu">
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Forms</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">Seguridad</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-                <li><a class="treeview-item" href="form-components.html"><i class="icon fa fa-circle-o"></i> Form Components</a></li>
-                <li><a class="treeview-item" href="form-custom.html"><i class="icon fa fa-circle-o"></i> Custom Components</a></li>
-                <li><a class="treeview-item" href="form-samples.html"><i class="icon fa fa-circle-o"></i> Form Samples</a></li>
-                <li><a class="treeview-item" href="form-notifications.html"><i class="icon fa fa-circle-o"></i> Form Notifications</a></li>
+                <li><a class="treeview-item" href="{{route('seguridad.user.index')}}"><i class="icon fa fa-circle-o"></i> Usuarios</a></li>
+                <li><a class="treeview-item" href="{{route('seguridad.roles.index')}}"><i class="icon fa fa-circle-o"></i> Roles</a></li>
+                <li><a class="treeview-item" href="{{route('seguridad.permisos.index')}}"><i class="icon fa fa-circle-o"></i> Permisos</a></li>
             </ul>
         </li>
         <li><a class="app-menu__item" href="{{route('administrador.marca.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Marcas</span></a></li>
         <li><a class="app-menu__item" href="{{route('administrador.categorias.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Categorias</span></a></li>
         <li><a class="app-menu__item" href="{{route('administrador.subCategorias.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Subcategorias</span></a></li>
         <li><a class="app-menu__item" href="{{route('administrador.proveedor.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Proveedores</span></a></li>
-        <li><a class="app-menu__item" href=""><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Productos</span></a></li>
+        <li><a class="app-menu__item" href="{{route('administrador.producto.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Productos</span></a></li>
         <li><a class="app-menu__item" href="{{route('administrador.datos.show')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Configuración</span></a></li>
         <li><a class="app-menu__item" href="{{route('seguridad.permisos.index')}}"><i class="app-menu__icon fa fa-asterisk"></i><span class="app-menu__label">Permisos</span></a></li>
         
@@ -116,10 +115,9 @@
             <h1> @yield('icono') @yield('titulo de la pagina')</h1>
             <p>@yield('subtitulo')</p>
         </div>
-        <ul class="app-breadcrumb breadcrumb">
-            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-            <li class="breadcrumb-item"><a href="#">Blank Page</a></li>
-        </ul>
+
+        @yield('breadcrumbs')
+
     </div>
     <div class="row">
         @yield('contenido')

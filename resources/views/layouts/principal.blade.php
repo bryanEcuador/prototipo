@@ -52,7 +52,7 @@
     <div id="top-header">
         <div class="container">
             <ul class="header-links pull-right">
-                <li>Iniciar Sesion </li>
+                <li><a href="#"><i class="fa fa-user-o"> </i>Iniciar Sesion </a></li>
                 <li><a href="#"><i class="fa fa-user-o"></i> Mi cuenta</a></li>
             </ul>
         </div>
@@ -282,11 +282,16 @@
   
 </div>
 
+<<<<<<< HEAD
+
+
+=======
 <!----modal-->
+>>>>>>> 9897c397d71f43d130157f59d6922f6aad5a0d65
 <!-- FOOTER -->
-<footer id="footer">
+<footer id="footer" >
     <!-- top footer -->
-    <div class="section">
+    <div class="section" id="info">
         <!-- container -->
         <div class="container">
             <!-- row -->
@@ -294,11 +299,11 @@
                 <div class="col-md-4 col-xs-6">
                     <div class="footer">
                         <h3 class="footer-title">Acerca de</h3>
-                        <p>Descripción de la pagina web</p>
+                        <p>@{{descripcion }}</p>
                         <ul class="footer-links">
-                            <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-                            <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-                            <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+                            <li><a href="#"><i class="fa fa-map-marker"></i>@{{direccion}}</a></li>
+                            <li><a href="#"><i class="fa fa-phone"></i>@{{telefono}}</a></li>
+                            <li><a href="#"><i class="fa fa-envelope-o"></i>@{{email}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -324,8 +329,6 @@
                         <h3 class="footer-title">Servicios</h3>
                         <ul class="footer-links">
                             <li><a href="#">Mi cuenta</a></li>
-                            <li><a href="#">View Cart</a></li>
-                            <li><a href="#">Lista de deseos</a></li>
                             <li><a href="#">Estado de mi orden</a></li>
                             <li><a href="#">Ayuda</a></li>
                         </ul>
@@ -387,6 +390,46 @@
 <script src=" {{asset('/js/jquery.zoom.min.js')}}"></script>
 <script src=" {{asset('/js/main_detalles.js')}}"></script>
 
+<<<<<<< HEAD
+<script src="{{asset('js/axios.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+
+<script>
+    var Vue = new Vue ({
+       el:"#info" ,
+        data : {
+            cmbDatos : [],
+            nombre : '',
+            descripcion : '',
+            email : '',
+            telefono : '',
+            direccion : '',
+         },
+       created : function() {
+           this.cargarInfo()
+       },
+
+        methods : {
+           cargarInfo : function() {
+               axios.get('/info/basica').then(response => {
+                   this.cmbDatos = response.data,
+                   this.nombre = this.cmbDatos[0].nombre,
+                   this.descripcion = this.cmbDatos[0].descripcion,
+                   this.email = this.cmbDatos[0].email,
+                   this.telefono= this.cmbDatos[0].telefono,
+                   this.direccion = this.cmbDatos[0].direccion
+           }).catch(error => {
+               });
+
+           }
+        }
+
+    });
+
+
+</script>
+
+=======
 <script src=" {{asset('/js/jquery-3.2.1.min.js')}}"></script>
 <script src=" {{asset('/js/popper.js')}}"></script>
 <script src=" {{asset('/js/bootstrap1.min.js')}}"></script>
@@ -398,6 +441,7 @@
         })
     </script>
 <script src=" {{asset('/js/main1.js')}}"></script>
+>>>>>>> 9897c397d71f43d130157f59d6922f6aad5a0d65
 
 
 
