@@ -19,13 +19,13 @@
             <br>
             <div>
                 <div class="form-inline">
-                 <div class="form-group col-md-1.5 mb-2" style="border: #06CDF9 5px outset;">
+                 <div class="form-group col-md-1.5 mb-2" style="border: #06CDF9 5px outset;margin-left:60px" style="">
                     <label> Mostrar : </label>
                     <select v-on:change="changeNumberPage" v-model="datosPorPagina">
                        <option  v-for="cantidad in cantidadPorPagina">   @{{cantidad}}   </option> 
                     </select>
                 </div>
-                <div  class="form-group col-md-2.5 mb-2" style="border: #06CDF9 5px outset;">
+                <div  class="form-group col-md-2.5 mb-2" style="border: #06CDF9 5px outset;margin-left:510px" style="">
                     <label> Ordenar : </label>
                     <select v-on:change="ordenar" v-model="orden">
                         <option value="asc">Ascendente</option>

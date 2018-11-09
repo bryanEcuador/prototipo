@@ -12,24 +12,26 @@
             <div class="form-group-row colmd-8">
 
             </div>
+            
             <div v-if="vistaBusqueda == true" class="form-group row">
-                <label class="form-control-label col-md-1 " for="name">Buscar:</label>
+                <label class="form-control-label col-md-1" for="name">Buscar:</label>
                 <select class="col-md-4 form-control" v-model="rol_consulta" id="b_roles" v-on:change = "consultarNombreUsuario(undefined)">
                     <option value="0"></option>
                     <option v-for="item in cmbRoles" :value="item.id"> @{{item.name}}</option>
                 </select>
+
                 <input  type="text"   class="col-md-3 form-control" placeholder="nombre" v-model="usuario_consulta" v-on:keyup.13="consultarNombreUsuario(undefined)">
             </div>
             <br>
             <div>
                 <div  v-if="vistaOpcionesTabla == true" class="form-inline">
-                     <div class="form-group col-md-3 mb-2">
+                     <div class="form-group col-md-3 mb-2"  style="margin-left:60px">
                         <label>Mostrar:</label>
                         <select v-on:change="changeNumberPage" v-model="datosPorPagina">
                            <option  v-for="cantidad in cantidadPorPagina"> @{{cantidad}} </option>
                         </select>
                     </div>
-                    <div  class="form-group col-md-3 mb-2">
+                    <div  class="form-group col-md-3 mb-2"  style="margin-left:410px">
                         <label>Ordenar:</label>
                         <select v-on:change="ordenar" v-model="orden">
                             <option value="asc">Ascendente</option>
