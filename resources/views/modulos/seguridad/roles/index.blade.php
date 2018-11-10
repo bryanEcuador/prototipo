@@ -9,10 +9,10 @@
 @section('contenido')
     <div class="col-md-12" id="">
         <div class="tile">
-            <a href="{{route('seguridad.roles.create')}}"> <button class=" form-control col-md-2 btn btn-info">CREAR</button></a>
+            <a href="{{route('seguridad.roles.create')}}"> <button class=" form-control col-md-2 btn btn-info pull-right">CREAR</button></a>
             <br>
             <br>
-            <div class="col-md-12">
+                <div class="col-sm-12 col-sm-offset-6" style="background-color:white;">
                 <table class="table table-hover table-bordered" id="sampleTable">
                     <thead>
                     <tr>
@@ -44,18 +44,15 @@
                             </td>
                             <th>
                                 <a href="{{route('seguridad.roles.edit',[$dato->id])}}"> <button class="btn btn-success" >EDITAR</button></a>
+
                                 <a href="{{route('seguridad.roles.show',[$dato->id])}}"> <button class="btn btn-primary">VER</button></a>
                             </th>
                         </tr>
                     @empty
                         <p> Error al momento de cargar la información </p>
                     @endforelse
-
-
                     </tbody>
-
                 </table>
-                
             </div>
         </div>
     </div>
@@ -69,7 +66,7 @@
             {
                 "scrollX": true,
                 "language": {
-                    search: "Buscar:",
+                       
                     "lengthMenu": "Mostrar _MENU_ registros por pagina",
                     "zeroRecords": "Ningun registro encontrado ",
                     "info": "Mostrando pagina _PAGE_ de _PAGES_",

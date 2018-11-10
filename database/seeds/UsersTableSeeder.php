@@ -28,3 +28,8 @@ class UsersTableSeeder extends Seeder
         ]);
     }
 }
+public function run()
+    {
+        Model::unguard();
+        $this->call('PostTableSeeder');
+    }

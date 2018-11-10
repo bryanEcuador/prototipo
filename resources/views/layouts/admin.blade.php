@@ -21,7 +21,7 @@
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
         <!--Notification Menu-->
-        <li class="dropdown" style="display: none;"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="fa fa-bell-o fa-lg"></i></a>
+        <li class="dropdown" style="display: none;background:#06CDF9"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="fa fa-bell-o fa-lg"></i></a>
             <ul class="app-notification dropdown-menu dropdown-menu-right">
                 <li class="app-notification__title">You have 4 new notifications.</li>
                 <div class="app-notification__content">

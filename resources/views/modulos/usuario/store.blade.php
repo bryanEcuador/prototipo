@@ -67,7 +67,7 @@
             display: none;
         }
         .filtro{
-            background: #06CDF9;
+            background:#06CDF9;
             font-size: 18px;
             
         }
@@ -160,7 +160,7 @@
                     </div>
                     <!-- /store top filter -->
                     <div>
-                        <label for="check" >Filtro</label>
+                        <label for="check" style="background:#06CDF9; border-radius: 15px;font-size: 18px;width:100px;text-align: center;" >Filtros</label>
                     </div>
                     <!-- store products -->
                     <div class="row">

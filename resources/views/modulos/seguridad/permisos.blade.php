@@ -12,7 +12,7 @@
         <div class="tile">
             
             <div class="col-md-12">
-                <button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#crearPermiso"> Crear </button>
+                <button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#crearPermiso" style="background:#06CDF9 "> Crear </button>
               <center>
                <div>
                    <input  type="text"  class="col-md-4 form-control " placeholder="Buscar permiso por nombre" name="name" v-model="permiso" v-on:keyup.13="consultarNombrePermisos">
@@ -22,15 +22,15 @@
             <br>
             <div>
                 <div class="form-inline">
-                 <div class="form-group col-md-1.5 mb-2" style="border: #06CDF9 5px outset;margin-left:60px" style="">
+                 <div class="form-group col-md-1.5 mb-2" style="margin-left:60px" style="">
                     <label> Mostrar : </label>
-                    <select v-on:change="changeNumberPage" v-model="datosPorPagina">
+                    <select v-on:change="changeNumberPage" v-model="datosPorPagina" class="form-control">
                        <option  v-for="cantidad in cantidadPorPagina">   @{{cantidad}}   </option> 
                     </select>
                 </div>
-                <div  class="form-group col-md-2.5 mb-2" style="border: #06CDF9 5px outset;margin-left:510px" style="">
+                <div  class="form-group col-md-2.5 mb-2" style="margin-left:510px" style="">
                     <label> Ordenar : </label>
-                    <select v-on:change="ordenar" v-model="orden">
+                    <select v-on:change="ordenar" v-model="orden" class="form-control">
                         <option value="asc">Ascendente</option>
                         <option value="desc">Descendente</option>
                     </select>

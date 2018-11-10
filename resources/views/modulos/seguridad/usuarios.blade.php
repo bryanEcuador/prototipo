@@ -27,16 +27,16 @@
             </div>
             <br>
             <div>
-                <div  v-if="vistaOpcionesTabla == true" class="form-inline">
+                <div  v-if="vistaOpcionesTabla == true" class="form-inline ">
                      <div class="form-group col-md-3 mb-2"  style="margin-left:60px">
                         <label>Mostrar:</label>
-                        <select v-on:change="changeNumberPage" v-model="datosPorPagina">
+                        <select v-on:change="changeNumberPage" v-model="datosPorPagina" class="form-control">
                            <option  v-for="cantidad in cantidadPorPagina"> @{{cantidad}} </option>
                         </select>
                     </div>
                     <div  class="form-group col-md-3 mb-2"  style="margin-left:410px">
                         <label>Ordenar:</label>
-                        <select v-on:change="ordenar" v-model="orden">
+                        <select v-on:change="ordenar" v-model="orden" class="form-control">
                             <option value="asc">Ascendente</option>
                             <option value="desc">Descendente</option>
                         </select>
