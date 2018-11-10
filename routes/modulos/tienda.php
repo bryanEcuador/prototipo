@@ -17,3 +17,4 @@ Route::get('/promedio/producto/{id}','TiendaController@consultarPromedioProducto
 Route::get('/top/productos','TiendaController@consultarProductosTop');
 Route::get('/productos/vendidos','TiendaController@consultarProductosTopVentas');
 Route::post('/guardar/comentarios','TiendaController@guardarComentarios');
+Route::get('/web','TiendaController@webService');
