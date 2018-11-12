@@ -1,8 +1,11 @@
 @extends('layouts.admin')
-@section('titulo')
-    <p><a href="{{route('seguridad.roles.index')}}">Roles</a>/Ver</p>
+@section('nombre_pagina','Rol')
+@section('css')
 @endsection
-@section('title','Roles')
+@section('titulo de la pagina','Roles/Show')
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('roles-show',$resultado[0]->name) }}
+@endsection
 @section('contenido')
     <div class="col-md-12" id="">
         <div class="tile">

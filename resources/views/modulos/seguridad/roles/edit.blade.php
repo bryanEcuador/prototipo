@@ -1,8 +1,11 @@
 @extends('layouts.admin')
-@section('titulo')
-    <p><a href="{{route('seguridad.roles.index')}}">Roles</a>/Editar</p>
+@section('nombre_pagina','Rol')
+@section('css')
 @endsection
-@section('title','Roles')
+@section('titulo de la pagina','Roles/Edit')
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('roles-edit',$resultado[0]->name) }}
+@endsection
 @section('contenido')
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -56,7 +59,7 @@
                     @endforeach
                 </ul>
                     <hr>
-                    <button class="btn btn-primary" type="button" @click="validar">Guarda2r</button>
+                    <button class="btn btn-primary" type="button" @click="validar">Guardar</button>
             </form>
                 </div>
         </div>

@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             CategoriasTableSeeder::class,
             SubCategoriasTableSeeder::class,
             //PermissionsTableSeeder::class,
-            //RolesTableSeeder::class,
+            RolesTableSeeder::class,
             //CommentsTableSeeder::class,
             
         ]);

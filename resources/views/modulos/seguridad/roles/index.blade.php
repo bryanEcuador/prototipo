@@ -7,6 +7,16 @@
     {{ Breadcrumbs::render('roles') }}
 @endsection
 @section('contenido')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @include('flash::message')
     <div class="col-md-12" id="">
         <div class="tile">
             <a href="{{route('seguridad.roles.create')}}"> <button class=" form-control col-md-2 btn btn-info pull-right">CREAR</button></a>
@@ -43,9 +53,9 @@
                                     @endif
                             </td>
                             <th>
-                                <a href="{{route('seguridad.roles.edit',[$dato->id])}}"> <button class="btn btn-success" >EDITAR</button></a>
+                                <a href="{{route('seguridad.roles.edit', [ encrypt($dato->id)  ] )}}"> <button class="btn btn-success" >EDITAR</button></a>
 
-                                <a href="{{route('seguridad.roles.show',[$dato->id])}}"> <button class="btn btn-primary">VER</button></a>
+                                <a href="{{route('seguridad.roles.show',[ encrypt($dato->id) ])}}"> <button class="btn btn-primary">VER</button></a>
                             </th>
                         </tr>
                     @empty

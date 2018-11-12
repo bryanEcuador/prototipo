@@ -98,6 +98,7 @@ class RolesController extends Controller
     }
     public function show($id)
     {
+        $id = decrypt($id);
         $resultado = DB::table('roles')->where('id',$id)->get();
         $permisos = \DB::select('Call spPermisosRol(?)',array($id));
         return view('modulos.seguridad.roles.show',compact('resultado','permisos'));
@@ -105,6 +106,7 @@ class RolesController extends Controller
 
     public function edit($id)
     {
+        $id = decrypt($id);
         $resultado = DB::table('roles')->where('id',$id)->get();
         $permisos = \DB::select('Call spPermisosRol(?)',array($id));
         $permisosF = \DB::select('Call spPermisosRolFaltantes(?)',array($id));
@@ -193,7 +195,7 @@ class RolesController extends Controller
                     }
                 }
                 flash()->success('se ha actualizado el rol con exito');
-                return redirect()->route('seguridad.roles.edit',['edit'=>$id]);
+                return redirect()->route('seguridad.roles.index');
             }catch (QueryException $e){
                 //echo "error";
                 flash()->error("Error".$e->errorInfo[1]);

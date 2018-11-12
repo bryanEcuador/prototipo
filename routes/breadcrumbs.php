@@ -47,6 +47,17 @@ Breadcrumbs::for('roles', function ($trail) {
     $trail->push('Roles', route('seguridad.roles.index'));
 });
 
+Breadcrumbs::for('roles-show', function ($trail,$rol) {
+    $trail->parent('roles');
+    $trail->push($rol, route('seguridad.roles.show',$rol));
+});
+
+Breadcrumbs::for('roles-edit', function ($trail,$rol) {
+    $trail->parent('roles');
+    $trail->push($rol, route('seguridad.roles.edit',$rol));
+});
+
+
 
 Breadcrumbs::for('permisos', function ($trail) {
     $trail->parent('administracion');
@@ -68,11 +79,7 @@ Breadcrumbs::for('configuracion_proveedor', function ($trail) {
 });
 /*
 /*
-// Inicio > Generos
-Breadcrumbs::for('genres', function ($trail) {
-    $trail->parent('home');
-    $trail->push('Generos', route('genres'));
-});
+
 
 // Inicio > Generos > [Genero]
 Breadcrumbs::for('genre', function ($trail, $genre) {
