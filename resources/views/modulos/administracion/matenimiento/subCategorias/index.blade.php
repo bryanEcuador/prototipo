@@ -12,12 +12,27 @@
         <div class="tile">
             <div class="col-md-12">
                 <button class="btn btn-primary btn-lg pull-right" v-on:click="createSubCategoria"> Crear </button>
-                <div v-if="subcategoriasNumber !== 0">
+                <div >
                     <label  class="form-control-label" for="name">Burcar:</label>
                     <input  type="text"   class="col-md-4 form-control" placeholder="nombre de la SubCategoria" name="name" v-model="subcategoria" v-on:keyup.13="consultarNombreSubCategoria">
                 </div>
             </div>
             <br>
+            <div class="form-inline" >
+                <div class="form-group col-md-1.5 mb-2" v-if="paginacion.total > 5">
+                    <label> Mostrar : </label>
+                    <select class="form-control" v-on:change="changeNumberPage" v-model="datosPorPagina" class="form-control">
+                        <option  v-for="cantidad in cantidadPorPagina">   @{{cantidad}}   </option>
+                    </select>
+                </div>
+                <div  class="form-group col-md-2.5 mb-2" v-if="subcategoriasNumber  !== 0">
+                    <label> Ordenar : </label>
+                    <select class="form-control" v-on:change="ordenar" v-model="orden" class="form-control">
+                        <option value="asc">Ascendente</option>
+                        <option value="desc">Descendente</option>
+                    </select>
+                </div>
+            </div>
             <hr>
             <div class="col-sm-12 col-sm-offset-2" style="background-color:white;">
                 <table class="table table-hover table-bordered" v-if="subcategoriasNumber !== 0" >
@@ -171,6 +186,10 @@
                     'to': 0,
                 },
                 offset: 3,
+                /* orden de la tabla */
+                orden :'asc',
+                datosPagina : [],
+                datosPorPagina : 5,
 
             },
             computed : {
@@ -201,8 +220,25 @@
                 subcategoriasNumber : function() {
 
                     return this.cmbSubCategorias.length;
-                }
+                },
 
+                cantidadPorPagina : function () {
+
+                    var inicial = 0;
+                    var datos = [];
+
+                    while(true) {
+                        inicial = inicial + 5;
+                        if(this.paginacion.total <= inicial) {
+                            break;
+                        } else {
+                            this.datosPorPagina = 5;
+                            datos.push(inicial)
+                        }
+
+                    }
+                    return datos;
+                },
 
             },
             created : function() {
@@ -347,7 +383,7 @@
 
                 loadSubCategoria : function(page) {
 
-                    var url = page !== undefined ?  '/administrador/subcategoria/load/'+page : '/administrador/subcategoria/load';
+                    var url = page !== undefined ?  '/administrador/subcategoria/load/'+this.datosPorPagina+'/'+page : '/administrador/subcategoria/load/'+this.datosPorPagina;
                     axios.get(url).then(response => {
                         console.log(response);
                     this.datos = response.data;
@@ -406,7 +442,7 @@
                     var respuesta = this.validarCampos('busqueda');
 
                     if( respuesta !== false) {
-                        var url = page !== undefined ?  '/administrador/subcategoria/load/'+0+'/'+this.subcategoria : '/administrador/subcategoria/load'+page+'/'+this.subcategoria;
+                        var url = page !== undefined ?  '/administrador/subcategoria/load/'+this.datosPorPagina+'/'+0+'/'+this.subcategoria : '/administrador/subcategoria/load/'+this.datosPorPagina+'/'+page+'/'+this.subcategoria;
                         axios.get(url).then(response => {
                             console.log(response);
                         this.datos = response.data;
@@ -430,6 +466,35 @@
                 },
                 //---------------------- /CONSULTAS----------------------------------------//
 
+                //----------------------FUNCIONES----------------------------------------//
+
+                ordenar : function() {
+                    if(this.orden == 'asc' ) {
+                        this.cmbcategorias.sort(function (a, b) {
+                            if (a.nombre > b.nombre) {
+                                return 1;
+                            }
+                            if (a.nombre < b.nombre) {
+                                return -1;
+                            }
+                            // a must be equal to b
+                            return 0;
+                        });
+
+                    } else if(this.orden == 'desc') {
+                        this.cmbCategorias.sort(function (a, b) {
+                            if (a.nombre < b.nombre) {
+                                return 1;
+                            }
+                            if (a.nombre > b.nombre) {
+                                return -1;
+                            }
+                            // a must be equal to b
+                            return 0;
+                        });
+
+                    }
+                },
                 limpiar : function() {
                     this.subcategoria_store = '';
                     this.subcategoria_update = '';
@@ -444,7 +509,7 @@
                         this.cargarCombos();
                     });
                 },
-
+                //----------------------/FUNCIONES----------------------------------------//
                 //--------------------------------------Validaciones -----------------------------------------------//
 
                 validarCampos : function(tipo) {
