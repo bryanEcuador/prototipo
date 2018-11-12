@@ -17,7 +17,7 @@ Route::group(['prefix' => 'administrador' , 'as' => 'administrador.' ], function
 
     // rutas de marca
     route::get('/marca/index','MarcaController@index')->name('marca.index');
-    route::get('/marca/load/{page?}/{nombre?}','MarcaController@loadData')->name('marca.load');
+    route::get('/marca/load/{paginacion}/{page?}/{nombre?}','MarcaController@loadData')->name('marca.load');
     route::post('/marca/store','MarcaController@store')->name('marcas.store');
     route::put('/marca/update','MarcaController@update')->name('marcas.update');
     route::delete('/marca/delete/{id}','MarcaController@delete')->name('marcas.delete');
@@ -25,14 +25,14 @@ Route::group(['prefix' => 'administrador' , 'as' => 'administrador.' ], function
     // rutas de subcategoria
     route::get('/subcategoria/index','SubCategoriaController@index')->name('subCategorias.index');
     route::get('/subcategoria/categorias','SubCategoriaController@categorias')->name('subCategorias.categorias');
-    route::get('/subcategoria/load/{page?}/{nombre?}','SubcategoriaController@loadData')->name('subcategoria.load');
+    route::get('/subcategoria/load/{paginacion}/{page?}/{nombre?}','SubcategoriaController@loadData')->name('subcategoria.load');
     route::post('/subcategoria/store','SubcategoriaController@store')->name('subcategorias.store');
     route::put('/subcategoria/update','SubcategoriaController@update')->name('subcategorias.update');
     route::delete('/subcategoria/delete/{id}','SubcategoriaController@delete')->name('subcategorias.delete');
 
     // rutas de categoria
     route::get('/categoria/index','CategoriaController@index')->name('categorias.index');
-    route::get('/categoria/load/{page?}/{nombre?}','CategoriaController@loadData')->name('categoria.load');
+    route::get('/categoria/load/{paginacion}/{page?}/{nombre?}','CategoriaController@loadData')->name('categoria.load');
     route::post('/categoria/store','CategoriaController@store')->name('categorias.store');
     route::put('/categoria/update','CategoriaController@update')->name('categorias.update');
     route::delete('/categoria/delete/{id}','CategoriaController@delete')->name('categorias.delete');

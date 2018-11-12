@@ -12,10 +12,17 @@ class CategoriasTableSeeder extends Seeder
     public function run()
     {
         DB::table('tb_categoria')->insert([
-            'nombre' => 'categoria1'
-        ],
-            [
-                'nombre' => 'categoria2'
-            ]);
+            ['nombre' => 'TELEFONOS'],
+            ['nombre' => 'ROPA'],
+            ['nombre' => 'ELECTRODOMESTICOS'],
+            ['nombre' => 'COMPUTADORAS'],
+            ['nombre' => 'TECNOLOGIA'],
+            ['nombre' => 'MUEBLES'],
+            ['nombre' => 'LENTES'],
+            ['nombre' => 'HOGAR'],
+            ['nombre' => 'VARIOS'],
+            ['nombre' => 'BEBE'],
+            ['nombre' => 'CONSTRUCCION'],
+        ]);
     }
 }

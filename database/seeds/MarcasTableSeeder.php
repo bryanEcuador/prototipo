@@ -12,7 +12,17 @@ class MarcasTableSeeder extends Seeder
     public function run()
     {
         DB::table('tb_marca')->insert([
-            'nombre' => 'marca1'
+            ['nombre' => 'NIKE'],
+            ['nombre' => 'APPLE'],
+            ['nombre' => 'SAMSUNG'],
+            ['nombre' => 'SONY'],
+            ['nombre' => 'TOSHIBA'],
+            ['nombre' => 'IBM'],
+            ['nombre' => 'QRG'],
+            ['nombre' => 'LINKEN'],
+            ['nombre' => 'DUREX'],
+            ['nombre' => 'SANDER'],
+            ['nombre' => 'SPLUT'],
         ]);
     }
 }

@@ -12,24 +12,67 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
+            [
             'name' => str_random(10),
-            'email' => str_random(10).'@gmail.com',
+            'email' => str_random(10) . '@gmail.com',
             'password' => bcrypt('secret'),
+            ],
+            [
+                'name' => str_random(10),
+                'email' => str_random(10) . '@gmail.com',
+                'password' => bcrypt('secret'),
+            ],
+            [
+                'name' => str_random(10),
+                'email' => str_random(10) . '@gmail.com',
+                'password' => bcrypt('secret'),
+            ],
+            [
+                'name' => str_random(10),
+                'email' => str_random(10) . '@gmail.com',
+                'password' => bcrypt('secret'),
+            ],
+            [
+                'name' => str_random(10),
+                'email' => str_random(10) . '@gmail.com',
+                'password' => bcrypt('secret'),
+            ],
+            [
+                'name' => str_random(10),
+                'email' => str_random(10) . '@gmail.com',
+                'password' => bcrypt('secret'),
+            ],
+            [
+                'name' => str_random(10),
+                'email' => str_random(10) . '@gmail.com',
+                'password' => bcrypt('secret'),
+            ],
+            [
+                'name' => str_random(10),
+                'email' => str_random(10) . '@gmail.com',
+                'password' => bcrypt('secret'),
+            ],
+            [
+                'name' => str_random(10),
+                'email' => str_random(10) . '@gmail.com',
+                'password' => bcrypt('secret'),
+            ],
+            [
+                'name' => 'BRYAN',
+                'email' => 'bryansilva021'.'@hotmail.com',
+                'password' => bcrypt('12345678'),
+            ],
+            [
+                'name' => 'PEDRO',
+                'email' => 'pedro'.'@hotmail.com',
+                'password' => bcrypt('12345678'),
+            ],
+            [
+                'name' => 'JUAN',
+                'email' => 'juan'.'@hotmail.com',
+                'password' => bcrypt('12345678'),
+            ],
         ]);
 
-        public function run()
-    {
-        factory(App\User::class, 20)->create();
-
-        Role::create([
-            'name'      => 'Admin',
-            'slug'      => 'slug',
-            'special'   => 'all-access'
-        ]);
     }
 }
-public function run()
-    {
-        Model::unguard();
-        $this->call('PostTableSeeder');
-    }

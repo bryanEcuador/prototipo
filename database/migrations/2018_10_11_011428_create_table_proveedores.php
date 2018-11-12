@@ -27,8 +27,7 @@ class CreateTableProveedores extends Migration
         $table->string('gerente_general');
         $table->string('telefono_representante');
         $table->string('telefono_gerente');
-        $table->string('usuario');
-        $table->string('contraseña');
+        $table->integer('user_id')->references('id')->on('users');;
         });
       }
         //

@@ -67,23 +67,22 @@ class MarcaController extends Controller
         }
     }
 
-    public function loadData($pagina = 0,$nombre = null) {
+    public function loadData($paginacion,$pagina = 0,$nombre = null) {
         if($nombre == null) {
             $datos =  $this->MarcaProcedure->consultarMarcasTodos();
-            return  $this->paginacion($pagina,$datos);
+            return  $this->paginacion($paginacion,$pagina,$datos);
         } else {
-            return $this->search($nombre,$pagina);
+            return $this->search($paginacion,$nombre,$pagina);
         }
 
     }
 
-    public function search($nombre,$pagina = 0) {
+    public function search($paginacion,$nombre,$pagina = 0) {
         $datos = $this->MarcaProcedure->consultarMarcas($nombre);
-        return  $this->paginacion($pagina,$datos);
+        return  $this->paginacion($paginacion,$pagina,$datos);
     }
 
-    public function paginacion($pagina,$datos) {
-        $paginacion = 2; // cuantos datos tenemos que recresar por pagina
+    public function paginacion($paginacion,$pagina,$datos) {
         $pagina != 0 ? $pagina = ($pagina - 1) * $paginacion : $pagina  = 0; // se hace el calculo de los resultados quqe debe devolver
         $page = Input::get('page'); // solo es un nombre
         $total = count($datos);

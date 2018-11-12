@@ -13,29 +13,27 @@
             
             <div class="col-md-12">
                 <button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#crearPermiso" style="background:#06CDF9 "> Crear </button>
-              <center>
                <div>
                    <input  type="text"  class="col-md-4 form-control " placeholder="Buscar permiso por nombre" name="name" v-model="permiso" v-on:keyup.13="consultarNombrePermisos">
                </div>
-               </center>
             </div>
             <br>
             <div>
-                <div class="form-inline">
-                 <div class="form-group col-md-1.5 mb-2" style="margin-left:60px" style="">
-                    <label> Mostrar : </label>
-                    <select v-on:change="changeNumberPage" v-model="datosPorPagina" class="form-control">
-                       <option  v-for="cantidad in cantidadPorPagina">   @{{cantidad}}   </option> 
-                    </select>
-                </div>
-                <div  class="form-group col-md-2.5 mb-2" style="margin-left:510px" style="">
-                    <label> Ordenar : </label>
-                    <select v-on:change="ordenar" v-model="orden" class="form-control">
-                        <option value="asc">Ascendente</option>
-                        <option value="desc">Descendente</option>
-                    </select>
-            </div>
-            </div>
+                    <div class="form-inline">
+                         <div class="form-group col-md-1.5 mb-2" style="margin-left:60px" style="">
+                            <label> Mostrar : </label>
+                            <select v-on:change="changeNumberPage" v-model="datosPorPagina" class="form-control">
+                               <option  v-for="cantidad in cantidadPorPagina">   @{{cantidad}}   </option>
+                            </select>
+                        </div>
+                        <div  class="form-group col-md-2.5 mb-2" style="margin-left:510px" style="">
+                            <label> Ordenar : </label>
+                            <select v-on:change="ordenar" v-model="orden" class="form-control">
+                                <option value="asc">Ascendente</option>
+                                <option value="desc">Descendente</option>
+                            </select>
+                        </div>
+                    </div>
            
             <hr>
             <div class="col-sm-12 col-sm-offset-2" style="background-color:white;">
@@ -230,15 +228,8 @@
 @section('js')
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-    Vue.component('permiso',{
-        props :['datos'] , 
-        template :
-        `   
-        
-        `
-    })
 
-    var app=new Vue({
+        var app=new Vue({
     el: '#permisos',
     data : {
                 permisosTable : [], /* contenido de la tabla principal */   
@@ -622,8 +613,6 @@
                     this.recargar();
 
                 }, //TODO
-
-
 
                 //--------------------------  /CRUD ----------------------------------------//
 

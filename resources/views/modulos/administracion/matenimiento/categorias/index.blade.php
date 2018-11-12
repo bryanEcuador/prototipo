@@ -13,12 +13,27 @@
             <div class="tile">
                 <div class="col-md-12">
                     <button class="btn btn-primary btn-lg pull-right" v-on:click="createCategoria"> Crear </button>
-                   <div v-if="categoriasNumber !== 0">
+                   <div >
                        <label  class="form-control-label" for="name">Burcar:</label>
                        <input  type="text"   class="col-md-4 form-control" placeholder="nombre de la categoria" name="name" v-model="categoria" v-on:keyup.13="consultarNombreCategoria">
                    </div>
                 </div>
                 <br>
+                <div class="form-inline" >
+                    <div class="form-group col-md-1.5 mb-2" v-if="paginacion.total > 5">
+                        <label> Mostrar : </label>
+                        <select class="form-control" v-on:change="changeNumberPage" v-model="datosPorPagina" class="form-control">
+                            <option  v-for="cantidad in cantidadPorPagina">   @{{cantidad}}   </option>
+                        </select>
+                    </div>
+                    <div  class="form-group col-md-2.5 mb-2" v-if="categoriasNumber  !== 0">
+                        <label> Ordenar : </label>
+                        <select class="form-control" v-on:change="ordenar" v-model="orden" class="form-control">
+                            <option value="asc">Ascendente</option>
+                            <option value="desc">Descendente</option>
+                        </select>
+                    </div>
+                </div>
                 <hr>
                 <div class="col-sm-12 col-sm-offset-2" style="background-color:white;">
                     <table class="table table-hover table-bordered" v-if="categoriasNumber !== 0" >
@@ -159,6 +174,10 @@
                     'to': 0,
                 },
                 offset: 3,
+                /* orden de la tabla */
+                orden :'asc',
+                datosPagina : [],
+                datosPorPagina : 5,
 
             },
             computed : {
@@ -189,7 +208,24 @@
                 categoriasNumber : function() {
 
                     return this.cmbCategorias.length;
-                }
+                },
+                cantidadPorPagina : function () {
+
+                    var inicial = 0;
+                    var datos = [];
+
+                    while(true) {
+                        inicial = inicial + 5;
+                        if(this.paginacion.total <= inicial) {
+                            break;
+                        } else {
+                            this.datosPorPagina = 5;
+                            datos.push(inicial)
+                        }
+
+                    }
+                    return datos;
+                },
 
 
             },
@@ -343,7 +379,7 @@
 
                 loadCategoria : function(page) {
 
-                    var url = page !== undefined ?  '/administrador/categoria/load/'+page : '/administrador/categoria/load';
+                    var url = page !== undefined ?  '/administrador/categoria/load/'+this.datosPorPagina+'/'+page : '/administrador/categoria/load/'+this.datosPorPagina;
                     axios.get(url).then(response => {
 
                         this.datos = response.data;
@@ -369,6 +405,9 @@
                 changePage: function(page) {
                     this.paginacion.current_page = page;
                     (this.categoria == '') ? this.loadCategoria(page) : this.consultarNombreCategoria(page);
+                },
+                changeNumberPage :function(page) {
+                    this.categoria  === '' ? this.loadCategoria(page) : this.consultarNombreCategoria(page);
                 },
                 //---------------------- /PAGINACION ----------------------------------------//
 
@@ -402,7 +441,7 @@
                     var respuesta = this.validarCampos('busqueda');
 
                     if( respuesta !== false) {
-                        var url = page !== undefined ?  '/administrador/categoria/load/'+0+'/'+this.categoria : '/administrador/categoria/load'+page+'/'+this.categoria;
+                        var url = page !== undefined ?  '/administrador/categoria/load/'+this.datosPorPagina+'/'+0+'/'+this.categoria : '/administrador/categoria/load/'+this.datosPorPagina+'/'+page+'/'+this.categoria;
                         axios.get(url).then(response => {
                             console.log(response);
                         this.datos = response.data;
@@ -426,11 +465,41 @@
                 },
                 //---------------------- /CONSULTAS----------------------------------------//
 
-                    limpiar : function() {
-                        this.categoria_store = '';
-                        this.categoria_update = '';
-                    },
+                //-------------------------------FUNCIONES -----------------------------------------------//
 
+                limpiar : function() {
+                    this.categoria_store = '';
+                    this.categoria_update = '';
+                },
+
+                ordenar : function() {
+                    if(this.orden == 'asc' ) {
+                        this.cmbcategorias.sort(function (a, b) {
+                            if (a.nombre > b.nombre) {
+                                return 1;
+                            }
+                            if (a.nombre < b.nombre) {
+                                return -1;
+                            }
+                            // a must be equal to b
+                            return 0;
+                        });
+
+                    } else if(this.orden == 'desc') {
+                        this.cmbCategorias.sort(function (a, b) {
+                            if (a.nombre < b.nombre) {
+                                return 1;
+                            }
+                            if (a.nombre > b.nombre) {
+                                return -1;
+                            }
+                            // a must be equal to b
+                            return 0;
+                        });
+
+                    }
+                },
+                //------------------------------- /FUNCIONES -----------------------------------------------//
                 //--------------------------------------Validaciones -----------------------------------------------//
 
                 validarCampos : function(tipo) {
