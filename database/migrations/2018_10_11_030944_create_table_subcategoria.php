@@ -18,6 +18,7 @@ class CreateTableSubcategoria extends Migration
         $table->unsignedInteger('categoria_id');
         $table->foreign('categoria_id')->references('id')->on('tb_categoria'); //
         $table->string('nombre');
+        $table->integer('estado')->default(1);
         }); //
     }
 

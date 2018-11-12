@@ -16,6 +16,7 @@ class CreateTableCategoria extends Migration
          Schema::create('tb_categoria',function (Blueprint $table){
         $table->increments('id');
         $table->string('nombre');
+        $table->integer('estado')->default(1);
         });
     }
 
