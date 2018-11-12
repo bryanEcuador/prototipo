@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             MarcasTableSeeder::class,
             CategoriasTableSeeder::class,
             SubCategoriasTableSeeder::class,
-            //PermissionsTableSeeder::class,
+            PermissionsTableSeeder::class,
             RolesTableSeeder::class,
             //CommentsTableSeeder::class,
             

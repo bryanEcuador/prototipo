@@ -12,7 +12,7 @@
         <div class="tile">
             
             <div class="col-md-12">
-                <button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#crearPermiso" style="background:#06CDF9 "> Crear </button>
+                <button class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#crearPermiso"> Crear </button>
                <div>
                    <input  type="text"  class="col-md-4 form-control " placeholder="Buscar permiso por nombre" name="name" v-model="permiso" v-on:keyup.13="consultarNombrePermisos">
                </div>
@@ -20,13 +20,13 @@
             <br>
             <div>
                     <div class="form-inline">
-                         <div class="form-group col-md-1.5 mb-2" style="margin-left:60px" style="">
+                         <div class="form-group col-md-1.5 mb-2" style="margin-left:60px" v-if="paginacion.total > 5" >
                             <label> Mostrar : </label>
-                            <select v-on:change="changeNumberPage" v-model="datosPorPagina" class="form-control">
+                            <select v-on:change="changeNumberPage" v-if="paginacion.total > 5" v-model="datosPorPagina" class="form-control">
                                <option  v-for="cantidad in cantidadPorPagina">   @{{cantidad}}   </option>
                             </select>
                         </div>
-                        <div  class="form-group col-md-2.5 mb-2" style="margin-left:510px" style="">
+                        <div v-if="datosNumber !== 0" class="form-group col-md-2.5 mb-2" style="margin-left:510px" >
                             <label> Ordenar : </label>
                             <select v-on:change="ordenar" v-model="orden" class="form-control">
                                 <option value="asc">Ascendente</option>
@@ -37,10 +37,9 @@
            
             <hr>
             <div class="col-sm-12 col-sm-offset-2" style="background-color:white;">
-                <table class="table table-hover table-bordered"  >
+                <table class="table table-hover table-bordered"  v-if="datosNumber !== 0">
                     <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nombres</th>
                         <th>Slug</th>
                         <th>Descripción</th>
@@ -49,7 +48,6 @@
                     </thead>
                     <tbody>
                         <tr v-for="dato in permisosTable">
-                            <td>@{{dato.id}}</td>
                             <td>@{{dato.name}}</td>
                             <td>@{{dato.slug}}</td>
                             <td>@{{dato.description}}</td>
@@ -62,7 +60,6 @@
                     </tbody>
                     <tfoot>
                     <tr>
-                        <th>Id</th>
                         <th>Nombres</th>
                         <th>Slug</th>
                         <th>Descripción</th>
@@ -70,8 +67,13 @@
                     </tr>
                     </tfoot>
                 </table>
+                <div v-else>
+                    <div class="alert alert-danger">
+                        <p> NO existen <strong>permisos</strong> registrados</p>
+                    </div>
+                </div>
             </div>
-            <div class="form-inline">
+            <div class="form-inline" v-if="datosNumber !== 0">
                 <div class="col-md-4">
                     <span> @{{ paginacion.to }} de @{{paginacion.total}} registros</span>
                 </div>
@@ -327,7 +329,7 @@
 
                 datosNumber : function() {
 
-                    return this.paginacionTable.length;
+                    return this.permisosTable.length;
                 },
 
                 cantidadPorPagina : function () {
@@ -407,7 +409,7 @@
                                      $("#crearPermiso").modal('hide');
                                     toastr.success('Permiso creado con exito.', 'Exito', {timeOut: 5000});
                                     this.limpiar();
-                                    this.recargar();
+                                    this.loadPermisos();
                                  }
 
                             }).catch(response => {
@@ -484,7 +486,7 @@
                                         $("#editarPermisos").modal('hide');
                                         toastr.success(this.mensaje2+" actualizado con exito");
                                         this.limpiar();
-                                        this.recargar();
+                                        this.loadPermisos();
                                     }
                                 }).catch(response=> {
                                     console.log(response);
@@ -610,7 +612,7 @@
                             toastr.error('Error al momento de crear el permiso.', 'Alerta', {timeOut: 8000});
                         }
                     });
-                    this.recargar();
+                    this.loadPermisos();
 
                 }, //TODO
 
