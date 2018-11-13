@@ -20,9 +20,11 @@ class CreateDatosBasicosTable extends Migration
             $table->string('email');
             $table->string('telefono');
             $table->string('direccion');
+            $table->string('logo');
             $table->longText('terminos');
             $table->longText('politica');
             $table->longText('ordenes');
+            $table->longText('acerca');
             $table->timestamps();
         });
     }
