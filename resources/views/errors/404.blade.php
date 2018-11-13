@@ -10,9 +10,9 @@
 </head>
 <body>
 <div class="col-md-12" style="height: 10px">
-    <img style="height:600px " class="img-responsive center-block" src="{{asset('imagenes/error404.png')}}">
-    <button class="btn btn-info" style="position:absolute; bottom: -400px;right: 377px;padding: 5px;"> <a href="{{route('home')}}">Regresar a la pagina principal</a>  </button>
-    <h4 style="position:absolute; bottom: -437px;right: 297px;padding: 5px;" id='CuentaAtras'></h4>
+    <img style="height:600px " class="img-responsive center-block" src="{{asset('imagenes/errores/error404.png')}}">
+    <a href="{{route('home')}}"> <button class="btn btn-info" style="position:absolute; bottom: -400px;right: 377px;padding: 5px;">Regresar a la pagina principal </button> </a>
+    <h4 style="position:absolute; bottom: -437px;right: 297px;padding: 5px;" id=''></h4>
 </div>
 <script language="JavaScript">
 

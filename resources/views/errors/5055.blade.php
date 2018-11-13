@@ -28,7 +28,10 @@
 <div class=&quot;container&quot;>
     <h2><span>500</span>Error interno del servidor</h2>
     <p>¡Vaya! Algo salió mal.<br /><br />Si el problema persiste no dudes en contactar con nosotros.</p>
-    <h4 id='CuentaAtras'></h4>
+    <a href="{{route('home')}}">
+        <button class="btn btn-info"> Regresar a la pagina principal </button>
+    </a>
+    <h4 id=''></h4>
 </div>
 
 
