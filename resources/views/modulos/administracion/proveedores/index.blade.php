@@ -84,6 +84,7 @@
     {{ Breadcrumbs::render('proveedores') }}
 @endsection
 @section('contenido')
+    @include('flash::message')
         <a class="" href="{{route('administrador.proveedor.create')}}"> <button class="btn btn-primary"> crear proveedor</button> </a>
 
 

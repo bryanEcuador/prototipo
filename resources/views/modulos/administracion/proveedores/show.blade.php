@@ -4,7 +4,9 @@
 @endsection
 @section('titulo de la pagina','vista de proveedor')
 @section('subtitulo','')
-
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('proveedores-show',$datos[0]->name) }}
+@endsection
 @section('contenido')
 
 
@@ -124,7 +126,15 @@
                     <label for="usuario">Usuario:</label>
                 </div>
                 <div class="col-md-6 ">
-                    <input class="form-control"  name="usuario"  id="usuario" placeholder="Nombre de usuario" minlength="3" maxlength="20" autocomplete="off" value="{{$datos[0]->usuario}}" readonly>
+                    <input class="form-control"  name="usuario" v-model="usuario" id="usuario" placeholder="Nombre de usuario" minlength="3" maxlength="20" autocomplete="off" readonly value="{{$datos[0]->name}}" >
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label for="usuario">Email:</label>
+                </div>
+                <div class="col-md-6 ">
+                    <input class="form-control"  name="email" v-model="email" id="email" placeholder="Nombre de usuario" minlength="3" maxlength="20" autocomplete="off" readonly value="{{$datos[0]->email}}" >
                 </div>
             </div>
 

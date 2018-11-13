@@ -27,6 +27,16 @@ Breadcrumbs::for('proveedores', function ($trail) {
     $trail->push('Proveedores', route('administrador.proveedor.index'));
 });
 
+Breadcrumbs::for('proveedores-edit', function ($trail,$dato) {
+    $trail->parent('proveedores');
+    $trail->push($dato, route('administrador.proveedor.edit',$dato));
+});
+
+Breadcrumbs::for('proveedores-show', function ($trail,$dato) {
+    $trail->parent('proveedores');
+    $trail->push($dato, route('administrador.proveedor.show',$dato));
+});
+
 Breadcrumbs::for('productos', function ($trail) {
     $trail->parent('administracion');
     $trail->push('Productos', route('administrador.proveedor.index'));

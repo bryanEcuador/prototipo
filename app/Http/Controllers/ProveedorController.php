@@ -5,8 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\QueryException;
+
 class ProveedorController extends Controller
 {
+    protected $LoginController;
+
+    public function __construct(LoginController $loginController)
+    {
+        $this->LoginController = $loginController;
+    }
+
     // funciones del crud
     public function index(){
         $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')->get();

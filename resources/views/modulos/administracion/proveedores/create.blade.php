@@ -57,7 +57,7 @@
                     <label for="nombre">Ruc :</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number"  name="ruc" v-model="ruc" id="Ruc" placeholder="ruc" minlength="13" maxlength="13">
+                   <input class="form-control" type="text"  name="ruc" v-model="ruc" id="Ruc" placeholder="ruc" minlength="13" maxlength="13">
                 </div>
             </div>
             <div class="form-group row">
@@ -101,7 +101,7 @@
                     <label for="nombre">Cuenta Bancaria:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" step="any" lang="end" name="cuenta_bancaria" v-model="cuenta_bancaria" id="cuenta"  minlength="3" maxlength="20">
+                   <input class="form-control" type="text" step="any" lang="end" name="cuenta_bancaria" v-model="cuenta_bancaria" id="cuenta"  minlength="3" maxlength="20">
                 </div>
             </div>
           <div class="form-group row ">
@@ -110,8 +110,8 @@
                     </div>
                     <div class="col-md-6">
                          <select class="form-control" v-model="estado" name="estado"  >
-                            <option value='0' > Activo</option>
-                            <option value="1"> inactivo</option>
+                            <option value='1' > Activo</option>
+                            <option value='0'> inactivo</option>
                         </select>
                     </div>
                    
@@ -156,6 +156,14 @@
                    <input class="form-control"  name="usuario" v-model="usuario" id="usuario" placeholder="Nombre de usuario" minlength="3" maxlength="20" autocomplete="off">
                 </div>
             </div>
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label for="usuario">Email:</label>
+                </div>
+                <div class="col-md-6 ">
+                    <input class="form-control"  name="email" v-model="email" id="email" placeholder="email" minlength="3" maxlength="20" autocomplete="off">
+                </div>
+            </div>
              <div class="form-group row">
                 <div class="col-md-2">
                     <label for="pass">Contraseña:</label>
@@ -165,8 +173,8 @@
                 </div>
             </div>
                 <br>
-               <!--<button type="input" class="btn btn-info" name="guardar" id="guardar">Agregar Proveedor</button> -->
-               <button type="button" class="btn btn-info" v-on:click="guardar"  id="guardar">Agregar Proveedor</button>
+               <!--<button type="input" class="btn btn-info" name="guardar" id="guardar">Agregar Proveedor</button> --><!-- v-on:click="guardar" -->
+            <button type="submit" class="btn btn-info" id="guardar">Agregar Proveedor</button>
                 <input type="hidden" v-model="estado" id="estado">
         </div>
         </form>
@@ -176,7 +184,7 @@
     <script>
         $(document).ready(function(){
                 $("#estado").val(1);
-                alert($("#estado").val());
+
 
 
         });
@@ -187,21 +195,22 @@
                 data: {
                     codigo: '',
                     empresa : '',
-                    ruc : 0,
+                    ruc : '',
                     razon : '',
                     representante : '',
                     direccion : '',
                     banco : '',
-                    cuenta_bancaria :0,
+                    cuenta_bancaria :'',
                     estado : '',
                     gerente : '',
-                    convencional : 0,
-                    telefono_representante:0,
-                    telefono_gerente:0,
+                    convencional : '',
+                    telefono_representante:'',
+                    telefono_gerente:'',
                     usuario:'',
                     pass:'',
                     errores : [],
-                    estado : 0,
+                    estado : 1,
+                    email:'',
 
                 },
                 created : function() {
@@ -235,6 +244,7 @@
                         var datos_sin_caracteres_e = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,\s0-9]+$/; //para la observación
                         var er_numeros = /^[0-9,]+$/; // solo para los numeros
                         var datos_sin_espacio = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9]+$/;
+                        var correo = /^\w+([\.\+\-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
 
                         if(this.codigo !== "") {
                             if(datos_sin_espacio.test(this.codigo) == false)
@@ -244,6 +254,8 @@
                         } else {
                             this.errores.push("El campo Codigo no puede estar vacio");
                         }
+
+
 
                         if(this.empresa !== ""){
                             if(datos_sin_caracteres_e.test(this.empresa) == false)
@@ -352,6 +364,23 @@
                         } else {
                             this.errores.push("Debe campo contraseñe no puede estar vacio");
                         }
+
+                        if(this.email === ''){
+                            this.errores.push("ingrese el email del usuario");
+                        } else {
+                            this.email= this.email.trim();
+                            if(correo.test(this.email) == false) {
+                                this.errores.push("El correo electronico ingresado no es valido");
+                            }else{
+                                // consulta a la base de datos
+                                axios.get('/seguridad/validar/usuario/'+this.email+'/email/store').then(response => {
+                                    this.respuesta2  = response.data;
+                                if(this.respuesta2.length !== 0) {
+                                    this.errores.push('El email del usuario ya se encuentra registrado');
+                                }
+                            })
+                            }
+                        }
                     },
 
                     guardar : function(){
@@ -386,6 +415,7 @@
                             telefono_gerente:this.telefono_gerente,
                             usuario:this.usuario,
                             pass:this.pass,
+                            email:this.email,
                             convencional : this.convencional,
 
                         }).then(response => {
@@ -425,13 +455,10 @@
                     espaciosBlanco : function() {
                         this.codigo= this.codigo.trim();
                         this.empresa = this.empresa.trim();
-                        this.ruc = this.ruc.trim();
                         this.razon = this.razon.trim();
                         this.representante = this.representante.trim();
                         this.direccion = this.direccion.trim();
                         this.banco = this.banco.trim();
-                        this.cuenta_bancaria = this.cuenta_bancaria.trim();
-                        this.estado = this.estado.trim();
                         this.gerente = this.gerente.trim();
                         this.convencional = this.convencional.trim();
                         this.telefono_representante = this.telefono_representante.trim();
@@ -441,6 +468,9 @@
                     },
                     
                     limpiar : function() {
+                            this.ruc = '';
+                             this.cuenta_bancaria ='';
+                             this.convencional = '';
                             this.codigo= '';
                             this.empresa = '';
                             this.ruc = 0;
@@ -462,6 +492,8 @@
                 }
             }
         );
+
+
     </script>
 @endsection
 
