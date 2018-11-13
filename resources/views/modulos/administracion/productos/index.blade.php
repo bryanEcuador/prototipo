@@ -9,7 +9,6 @@
 @section('contenido')
     <div class="col-md-12">
         <div class="tile">
-          <a href="{{route('proveedor.create')}}"><button class=" btn btn-outline-primary"> Crear nuevo producto</button></a>
             <br><br>
             <div class="tile-body">
                 <table class="table table-hover table-bordered table-responsive" id="sampleTable">
@@ -41,7 +40,7 @@
                             </td>
                         </tr>
                     @empty
-                        <p> No existen datos </p>
+                        <p class="alert alert-danger"> No existen datos </p>
                     @endforelse
                     </tbody>
 

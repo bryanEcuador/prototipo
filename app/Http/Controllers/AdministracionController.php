@@ -24,6 +24,7 @@ class AdministracionController extends Controller
         $datos = DB::table('tb_proveedores')->get();
      return view('modulos.administracion.proveedores.index',compact('datos'));
     }
+
     public function create(){
         return view('modulos.administracion.proveedores.create');
     }
@@ -303,9 +304,7 @@ class AdministracionController extends Controller
     public function producto(){
         $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')->get();
         return view('modulos.administracion.productos.index',compact('datos'));
-
     }
-
      public function  show($id) {
 
         $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')

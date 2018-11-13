@@ -8,12 +8,12 @@ use Illuminate\Database\QueryException;
 
 class ProveedorController extends Controller
 {
-    protected $LoginController;
+   // protected $LoginController;
 
-    public function __construct(LoginController $loginController)
-    {
-        $this->LoginController = $loginController;
-    }
+   // public function __construct(LoginController $loginController)
+   // {
+    //    $this->LoginController = $loginController;
+   // }
 
     // funciones del crud
     public function index(){
