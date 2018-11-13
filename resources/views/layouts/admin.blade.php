@@ -99,9 +99,16 @@
                 <li><a class="treeview-item" href="{{route('seguridad.permisos.index')}}"><i class="icon fa fa-unlock"></i> Permisos</a></li>
             </ul>
         </li>
-        <li><a class="app-menu__item" href="{{route('administrador.marca.index')}}"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Marcas</span></a></li>
-        <li><a class="app-menu__item" href="{{route('administrador.categorias.index')}}"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Categorias</span></a></li>
-        <li><a class="app-menu__item" href="{{route('administrador.subCategorias.index')}}"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Subcategorias</span></a></li>
+        <li class="treeview"> <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-cogs"></i><span class="app-menu__label">Mantenimientos</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="app-menu__item" href="{{route('administrador.marca.index')}}"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Marcas</span></a></li>
+                <li><a class="app-menu__item" href="{{route('administrador.categorias.index')}}"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Categorias</span></a></li>
+                <li><a class="app-menu__item" href="{{route('administrador.subCategorias.index')}}"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Subcategorias</span></a></li>
+                <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Colores</span></a></li>
+                <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Sugerencias</span></a></li>
+            </ul>
+        </li>
+
         <li><a class="app-menu__item" href="{{route('administrador.proveedor.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Proveedores</span></a></li>
         <li><a class="app-menu__item" href="{{route('administrador.producto.index')}}"><i class="app-menu__icon fa fa-shopping-bag"></i><span class="app-menu__label">Productos</span></a></li>
         <li><a class="app-menu__item" href="{{route('administrador.datos.show')}}"><i class="app-menu__icon fa fa-cog"></i><span class="app-menu__label">Configuración</span></a></li>

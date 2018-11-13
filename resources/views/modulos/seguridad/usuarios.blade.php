@@ -99,7 +99,9 @@
                     </div>
                 </div>
             </div>
-                <div v-else=""> sin datos</div>
+                <div v-else="">
+                  <p class="alert alert-danger">No existen <strong>usuarios</strong> registrados</p>
+                </div>
             </div>
              
            

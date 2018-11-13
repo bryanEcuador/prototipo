@@ -13,15 +13,20 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         $this->call([
-            //UsersTableSeeder::class,
-            //DatosBasicosTableSeeder::class,
-            //ColoresTableSeeder::class,
+            UsersTableSeeder::class,
+            RolesTableSeeder::class,
+            PermissionsTableSeeder::class,
+            permission_roleTableSeeder::class,
             MarcasTableSeeder::class,
             CategoriasTableSeeder::class,
             SubCategoriasTableSeeder::class,
-            PermissionsTableSeeder::class,
-            RolesTableSeeder::class,
+            //DatosBasicosTableSeeder::class,
+            //ColoresTableSeeder::class,
+
+
+
             //CommentsTableSeeder::class,
+
             
         ]);
     }
