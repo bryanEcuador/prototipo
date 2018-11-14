@@ -42,6 +42,11 @@ Breadcrumbs::for('productos', function ($trail) {
     $trail->push('Productos', route('administrador.proveedor.index'));
 });
 
+Breadcrumbs::for('colores', function ($trail) {
+    $trail->parent('administracion');
+    $trail->push('Colores', route('administrador.colores.index'));
+});
+
 Breadcrumbs::for('configuracion', function ($trail) {
     $trail->parent('administracion');
     $trail->push('Configuración', route('administrador.datos.show'));
