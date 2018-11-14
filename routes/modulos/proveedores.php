@@ -18,7 +18,7 @@ Route::group(['prefix' => 'proveedor' , 'as' => 'proveedor.' ], function() {
     route::get('/delete/{id}','ProveedorController@delete')->name('destroy');
 
     route::get('/consultar/imagenes/{id}','ProveedorController@consultarImagenes')->name('consultar.imagenes');
-    route::post('/eliminar/imagen','ProveedorController@eliminarImagen')->name('eliminar.imagenes');
+    route::post('/eliminar/imagen', 'ProveedorController@eliminarImagen')->name('eliminar.imagenes');
     route::get('/validar/eliminar/imagen/{id}','ProveedorController@validarEliminacionImagenes')->name('validar.eliminar.imagenes');
     route::post('/agregar/imagen','ProveedorController@agregarImagen')->name('agregar.imagenes');
 

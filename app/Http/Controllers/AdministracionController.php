@@ -104,12 +104,14 @@ class AdministracionController extends Controller
     }
 
     public function editProveedor($id){
+        $id = decrypt($id);
         $id = (integer) $id;
         $datos = DB::select('CALL spConsultarProveedor(?)',array($id));
         return view('modulos.administracion.proveedores.edit',compact('datos'));
     }
 
     public function showProveedor($id){
+        $id = decrypt($id);
         $id = (integer) $id;
         $datos = DB::select('CALL spConsultarProveedor(?)',array($id));
         return view('modulos.administracion.proveedores.show',compact('datos'));
@@ -305,6 +307,7 @@ class AdministracionController extends Controller
         $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')->get();
         return view('modulos.administracion.productos.index',compact('datos'));
     }
+
      public function  show($id) {
 
         $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')
@@ -318,7 +321,6 @@ class AdministracionController extends Controller
     }
 
     public function  edit($id) {
-
         $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')
             ->where('id',$id)
             ->get();

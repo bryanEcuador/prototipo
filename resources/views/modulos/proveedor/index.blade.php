@@ -7,6 +7,7 @@
     {{ Breadcrumbs::render('productos_proveedor') }}
 @endsection
 @section('contenido')
+    @include('flash::message')
     <div class="col-md-12">
         <div class="tile">
           <a href="{{route('proveedor.create')}}"><button class=" btn btn-outline-primary"> Crear nuevo producto</button></a>
@@ -36,8 +37,8 @@
                             <td>{{$dato->precio}}</td>
                             <td>{{$dato->iva}}</td>
                             <td>
-                                <a  href="{{route('proveedor.show',$dato->id)}}"> <button class="btn btn-success" > ver</button> </a>
-                                <a  href="{{route('proveedor.edit',$dato->id)}}"> <button class="btn btn-info" > Editar</button> </a>
+                                <a  href="{{route('proveedor.show', encrypt($dato->id))}}"> <button class="btn btn-success" > ver</button> </a>
+                                <a  href="{{route('proveedor.edit',encrypt($dato->id))}}"> <button class="btn btn-info" > Editar</button> </a>
                                 <a  href="{{route('proveedor.show',$dato->id)}}"> <button class="btn btn-danger" > Eliminar</button> </a>
                             </td>
                         </tr>

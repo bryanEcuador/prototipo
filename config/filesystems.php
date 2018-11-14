@@ -64,6 +64,8 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        //C:\laragon\www\prototipo\public\storage\productos\1542172715product05.png
+
     ],
 
 ];

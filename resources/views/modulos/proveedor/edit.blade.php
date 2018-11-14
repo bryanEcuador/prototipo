@@ -144,7 +144,8 @@
                                     <img v-bind:src="archivo.imagen5" alt="Cinque Terre" width="100%" height="auto"  >
 
                                 </div>
-                                <div class="col-md-3" v-if="archivo.imagen5 == null || archivo.imagen4 == null" >
+
+                                <div class="col-md-3" v-if="archivo.imagen5 == null || archivo.imagen4 == null || archivo.imagen3 == null || archivo.imagen2 == null || archivo.imagen1 == null" >
                                     <form action="{{route('proveedor.agregar.imagenes')}}" method="post" enctype="multipart/form-data"  >
                                         @csrf
                                         <input type="file"  class="form-control" v-bind:id="archivo.id"  v-bind:name="archivo.id"  >
@@ -225,7 +226,9 @@
 
                 axios.get('/proveedor/marca').then(response => {
                     this.cmbMarca  = response.data
-            })
+                }).catch(error =>{
+                    this.consultarMarca();
+                })
                 axios.get('/proveedor/categoria').then(response => {
                     this.cmbCategoria  = response.data
             })
@@ -264,12 +267,20 @@
 
             methods : {
 
+                consultarMarca : function(){
+                    axios.get('/proveedor/marca').then(response => {
+                        this.cmbMarca  = response.data
+                }).catch(error =>{
+                        this.marca();
+                })
+                },
+
                 validar : function () {
                     this.validarCampos();
                     //this.validarImagenes();
                     // mensajes de alerta
                     if( this.errores.length === 0) {
-                        //this.enviarFormulario();
+                        this.enviarFormulario();
                     } else {
                         var num = this.errores.length;
                         for(i=0; i<num;i++) {
@@ -337,9 +348,6 @@
                         this.errores.push("Debe elegir una  marca");
                     }
 
-                    if(this.colores.length == 0) {
-                        this.errores.push("Debe Seleccionar los colores del producto");
-                    }
                 },
                 validarImagenes : function() {
                     // obtenemos el numero de files creados
@@ -417,12 +425,12 @@
                         this.img  = response.data;
 
                         if(this.img <= 3) {
-                            alert("no se puede eliminar, porque solo tiene 3 imagenes");
+                           toastr.error("no se puede eliminar, porque solo tiene 3 imagenes");
                         }else {
                             var parametros = {
                                 "_token": "{{ csrf_token() }}",
                                 "id" : id,
-                                "nombre" : "imagen1"
+                                "nombre" : nombre
                             };
                             $.ajax({
                                 data : parametros,

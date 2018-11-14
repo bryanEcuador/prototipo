@@ -75,13 +75,19 @@
                     <hr>
             <div class="row">
                 <div class="col-md-3">
-                    <img src="{{$imagen->imagen1}}" class="img-thumbnail" alt="Cinque Terre" width="100%" height="auto"  >
+                    <img src="{{$imagen->imagen1}}" class="img-thumbnail" width="100%" height="auto"  >
                 </div>
                 <div class="col-md-3">
-                    <img src="{{$imagen->imagen2}}" class="img-thumbnail" alt="Cinque Terre" width="100%" height="auto"  >
+                    <img src="{{$imagen->imagen2}}" class="img-thumbnail" width="100%" height="auto"  >
                 </div>
                 <div class="col-md-3">
                     <img src="{{$imagen->imagen3}}" class="img-thumbnail" width="100%" height="auto"  >
+                </div>
+                <div class="col-md-3">
+                    <img src="{{$imagen->imagen4}}" class="img-thumbnail" width="100%" height="auto"  >
+                </div>
+                <div class="col-md-3">
+                    <img src="{{$imagen->imagen5}}" class="img-thumbnail" width="100%" height="auto"  >
                 </div>
             </div>
                     <br>
