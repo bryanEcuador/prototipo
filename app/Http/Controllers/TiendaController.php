@@ -9,19 +9,25 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\ProveedorController;
 use App\Core\Procedimientos\TiendaProcedure;
+use App\Http\Controllers\Auth;
+use App\User;
+use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Log;
 
 class TiendaController extends Controller {
 
     protected $ProveedorController;
     protected $TiendaProcedure;
+    protected $LoginController;
     public  $categorias;
     public  $subcategorias;
     public  $marca;
    
-    public function __construct(ProveedorController $proveedorController, TiendaProcedure $tiendaProcedure)
+    public function __construct(ProveedorController $proveedorController, TiendaProcedure $tiendaProcedure, LoginController $loginController)
     {
         $this->ProveedorController  = $proveedorController;
         $this->TiendaProcedure = $tiendaProcedure;
+        $this->LoginController = $loginController;
     }
 
     public function inicio(){
@@ -182,5 +188,96 @@ class TiendaController extends Controller {
         echo "<br>";
         print_r($result);
         echo PHP_EOL;
+    }
+
+    public function validarSesion() {
+       $respuesta = \Auth::check();
+       if($respuesta === true){
+           return 1;
+       }else {
+           return 0;
+       }
+    }
+
+    public function iniciarSesion(Request $request){
+        // consulta a la base de datos
+
+        $id = \DB::table('user')->where([
+            ['email',$request->input('email')],
+        ]);
+        if(count($id) !== 0 ){
+            //dd($request);
+            //Se crea variable de request
+            $requestConsulta = new Request();
+            //Se crea la propiedad email
+            $requestConsulta->request->add(array('email' => $request->input('email')));
+            $requestConsulta->request->add(array('password' => $request->input('password')));
+            //dd($requestConsulta);
+            $this->LoginController->login($request);
+        }else {
+            $url = 'https://secure.softwarekey.com/solo/webservices/XmlCustomerService.asmx?WSDL';
+            $client = new \SoapClient($url);
+
+            $xmlr = new \SimpleXMLElement("<CustomerSearch></CustomerSearch>"); // funcion
+
+            $xmlr->addChild('UserPassword',  $request->input('password'));
+            $xmlr->addChild('Email', $request->input('email'));
+
+            $params = new \stdClass();
+
+            $params->xml = $xmlr->asXML();
+
+            $result = $client->CustomerSearchS($params);
+            echo $result->CustomerSearchSResult->any;
+           // comienza a guardar en la base el usuario
+            //
+            /// / echo "<br>";
+            //print_r($result);
+            //echo PHP_EOL;
+
+
+            $this->crearUsuario($request);
+            $this->logear($request);
+        }
+
+    }
+
+    private function logear(Request $request){
+        $this->LoginController->login($request);
+    }
+
+    private function crearUsuario(Request $request){
+        // crear usuario
+
+        $id =DB::table('users')->insertGetId(
+            [
+                'name' => str_random(10),
+                'email' => str_random(10) . '@gmail.com',
+                'password' => bcrypt('secret'),
+            ]
+        );
+
+        DB::table('role_user')->insert([
+            'role_id' => 3,'user_id' => $id
+        ]);
+    }
+
+    public function comprar($producto_id) {
+
+        $datos = DB::table('tb_pedido')->where([
+           ['user_id',auth()->user()->id],['producto_id',$producto_id],['estado',1]
+        ])->get();
+        echo count($datos);
+        if(count($datos) == 0) {
+            // envia los datos al webservice
+
+            // guarda en la base de datos
+            return  1;
+        }else {
+            return 0;
+        }
+
+
+
     }
 }

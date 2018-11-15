@@ -18,3 +18,6 @@ Route::get('/top/productos','TiendaController@consultarProductosTop');
 Route::get('/productos/vendidos','TiendaController@consultarProductosTopVentas');
 Route::post('/guardar/comentarios','TiendaController@guardarComentarios');
 Route::get('/web','TiendaController@webService');
+route::get('/validar/sesion','TiendaController@validarSesion');
+route::post('/iniciar/sesion','TiendaController@iniciarSesion');
+route::get('comprar/{id}','TiendaController@comprar');

@@ -103,9 +103,9 @@
                     <label v-for="dato in cmbMarcas"><input  type="checkbox" v-model="marca" :value="dato.id" v-on:change="filtro()"> @{{dato.nombre}}</label>
                 </div>
                 <hr>
-                <p> precio</p>
+                <p style="display: none;"> precio</p>
                 <!-- aside Widget -->
-                <div class="aside">
+                <div class="aside" style="display: none;">
                     <h3 class="aside-title">Price</h3>
                     <div class="price-filter">
                         <div id="price-slider" class="noUi-target noUi-ltr noUi-horizontal">
@@ -202,7 +202,7 @@
 
                     <!-- store bottom filter -->
                     <div class="store-filter clearfix">
-                        <span class="store-qty">mostrando 1-2 productos</span>
+                        <span class="store-qty"></span>
                         <ul class="store-pagination">
                             <li v-if="paginacion.current_page > 1">
                                 <a href="#" @click.prevent="changePage(paginacion.current_page - 1 )" >

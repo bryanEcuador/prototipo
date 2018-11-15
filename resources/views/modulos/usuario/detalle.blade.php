@@ -121,7 +121,8 @@
                             </div>
                         </div>
 
-                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Comprar</button>
+                        <button class="add-to-cart-btn" v-on:click="comprar({{$producto[0]->id}})"><i class="fa fa-shopping-cart"></i> Comprar</button>
+                        <button type="button"  data-toggle="modal" id="login" data-target="#myModal">Open Modal</button>
                     </div>
                     <ul class="product-links">
                         <li>Categoria:</li>
@@ -351,7 +352,68 @@
             </div>
         </div>
         <!-- /product tab -->
+
+        <!----modal-->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="limiter">
+                    <div class="container-login100">
+                        <div class="wrap-login100">
+                            <div class="login100-pic js-tilt" data-tilt>
+                                <img src="images/img-01.png" alt="IMG">
+                            </div>
+
+                            <form class="login100-form validate-form">
+                    <span class="login100-form-title">
+                        Iniciar sesión
+                    </span>
+
+                                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                                    <input class="input100" type="text" name="email" placeholder="Email" v-model="email">
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                                </div>
+
+                                <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                                    <input class="input100" type="password" name="pass" placeholder="Password" v-model="pass">
+                                    <span class="focus-input100"></span>
+                                    <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                                </div>
+
+                                <div class="container-login100-form-btn">
+                                    <button type="button" class="login100-form-btn" v-on:click="inicarSesion">
+                                        Iniciar Sesión
+                                    </button>
+                                </div>
+
+                                <div class="text-center p-t-12">
+                        <span class="txt1">
+                           Olvidaste
+                        </span>
+                                    <a class="txt2" href="#">
+                                        tu contraseña?
+                                    </a>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+        <!----modal-->
     <!-- /container -->
+
+
 </div>
 <!-- /SECTION -->
 @endsection
@@ -365,6 +427,10 @@
         var app = new Vue ({
             el:"#detalles",
             data: {
+
+                email : '',
+                pass : '',
+
                 /* carga de las imagenes y colores */
                 cmbproductos : [],
                 cmbImagenes : [],
@@ -436,8 +502,8 @@
                     "hideMethod": "fadeOut"
                 };
                 // moment.js locale configuration
-// locale : spanish (es)
-// author : Julio Napurí : https://github.com/julionc
+                 //locale : spanish (es)
+                // author : Julio Napurí : https://github.com/julionc
                 (function (factory) {
                     factory(moment);
                 }(function (moment) {
@@ -587,6 +653,37 @@
                 },
             },
             methods : {
+
+                inicarSesion : function() {
+                    axios.post('/iniciar/sesion',{ email : this.email , password : this.pass }).then( response => {
+                        toastr.success("sesión iniciada");
+                    }).catch(error => {
+
+                    });
+                },
+
+                comprar : function() {
+                    // consulta
+                    axios.get('/validar/sesion').then( response => {
+                        if(response.data == 1){
+                        axios.get('/comprar/'+this.id_producto).then(response => {
+                            if(response.data == 1) {
+                                toastr.success("compra registrada");
+                            }else {
+                                toastr.error("Usted tiene una compra en curso");
+                            }
+                        })
+                    }else {
+                        document.getElementById("login").click();
+                    }
+                    }).catch(error => {
+                       this.comprar();
+                    });
+                        // sesion iniciada
+
+                        //sesion no iniciada
+
+                },
 
                 devolverFecha : function(fecha) {
                     moment.locale('es');
