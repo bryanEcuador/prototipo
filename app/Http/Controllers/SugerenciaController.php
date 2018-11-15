@@ -3,11 +3,75 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\LengthAwarePaginator;
+use App\Core\Procedimientos\SugerenciaProcedure;
 
 class SugerenciaController extends Controller
 {
     public function index(){
-        return view('modulos.proveedor.sugerencia');
+        return view('modulos.proveedor.sugerencias');
 
  }
+  public function indexadmin(){
+        return view('modulos.administracion.sugerenciaadmin');
+
+ }
+ public function store(Request $request) {
+        $request->validate(
+            ['nombre' => 'required|string|max:15|min:3|',
+              'sugerencia' => 'required'
+            ],
+            [   'nombre.required' => 'El nombre es requerido',
+                'nombre.string' => 'EL nombre no pued contener numeros',
+                'nombre.max' => 'EL nombre solo puede contener 15 caracteres',
+                'nombre.min' => 'EL nombre no puede contener menos de 3 caracteres',
+
+                'categoria.required' => 'El nombre es requerido',
+            ]
+        );
+        try{
+
+            $this->SugerenciaProcedure->guardar($request->input('sugerencia'),$request->input('usuario'));
+            return  $array = array("exito");
+        }catch (QueryException $exception){
+            $array = array("Error" , $exception->errorInfo[1]);
+            return $array;
+        }
+    }
+
+    public function update(Request $request) {
+        $request->validate(
+            ['sugerencia' => 'required|string|max:100|min:3|',
+                'sugerencia' => 'required'
+            ],
+            [   'sugerencia.required' => 'El nombre es requerido',
+                'sugerencia.string' => 'EL nombre no pued contener numeros',
+                'sugerencia.max' => 'EL nombre solo puede contener 100 caracteres',
+                'sugerencia.min' => 'EL nombre no puede contener menos de 3 caracteres',
+
+                'sugerencia.required' => 'El nombre es requerido',
+            ]
+        );
+        try{
+            $this->SugerenciaProcedure->actualizar($request->input('id'),$request->input('sugerencia'),$request->input('usuario'));
+            return  $array = array("exito");
+        }catch (QueryException $exception){
+            $array = array("Error" , $exception->errorInfo[1]);
+            return $array;
+        }
+    }
+
+    public function delete($id) {
+        try{
+            $this->SugerenciaProcedure->eliminar($id);
+            return  $array = array("exito");
+        }catch (QueryException $exception){
+            $array = array("Error" , $exception->errorInfo[1]);
+            return $array;
+        }
+    }
+
 }

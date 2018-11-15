@@ -26,6 +26,12 @@ Route::group(['prefix' => 'proveedor' , 'as' => 'proveedor.' ], function() {
     route::get('/categoria','ProveedorController@consultarCategorias')->name('categoria');
     route::get('/sub-categoria','ProveedorController@consultarSubCategorias')->name('subcategoria');
     route::get('/colores','ProveedorController@consultarColores')->name('colores');
+//rutas de sugerencias
+     Route::get('/Sugerencias/ver/{id}','SugerenciaController@show')->name('Sugerencias.show');
+    Route::get('/Sugerencias/edit/{id}','SugerenciaController@edit')->name('Sugerencias.edit');
+    Route::get('/Sugerencias','SugerenciaController@index')->name('Sugerencias.index');
+
+    
 });
 
 //});

@@ -3,76 +3,120 @@
 @section('css')
 @endsection
 @section('titulo de la pagina','Sugerencias')
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('productos_proveedor') }}
 @endsection
 @section('contenido')
- <script src="{{asset('js/jquery-2.1.4.min.js')}}"></script>
-  <script src="{{asset('js/jquery-migrate-1.4.1.js')}}"></script>
-  <script src="{{asset('js/spectrum.js')}}"></script>
-  <link type="text/css" rel="stylesheet" href="css/spectrum.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  </head>
+    <div class="col-md-12">
+        <!-- contenido -->
+        <div class="tile">
+<body>
 
-<ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#formulario">Categoria</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tabla">Sub_Categoria</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#formular">Marca</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#taba">Colores</a>
-                </li>
-            </ul>
+<div class="container mt-3">
+  <br>
+  <!-- Nav tabs -->
+  <br>
+  <br>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#home">Categoria</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu1">Sub_Categoria</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu2">Marca</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu3">Colores</a>
+    </li>
+  </ul>
 
-                <!-- Tab panes -->
-            <div class="tab-content" >
-                <div id="formulario" class="container tab-pane active"><br>
-                        <div class="tile-body">
-                            <div class="form-group row">
-                                <label class="control-label col-md-2" for="atencion">Nombre Categoria</label>
-                                <input class="form-control col-md-3" readonly type="text"  id="nombre_categoria">
-                            </div>
-                              <button type="button" class="btn btn-info" v-on:click="validar" name="guardar" id="guardar">Guardar</button>
-
-                   <div class="tab-content" >
-                      <div id="tabla" class="container tab-pane active"><br>
-                        <div class="form-group row ">
-                          <div class="col-md-2">
-                        <label for="banco">Sub_Categoria</label>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="home" class="container tab-pane active"><br>
+      <br>
+      <br>
+       <div class="form-group row ">
+          
+          <div class="col-md-1">
+                        <label for="categoria">Categoria:</label>
                     </div>
-                    <div class="col-md-6">
-                         <select class="form-control" v-model="banco" name="banco"  >
-                            <option value='1'> Carro </option>
+                    <div class="col-md-3 ">
+                        <input class="form-control" name="categoria" v-model="categoria" id="categoria" placeholder="Nombre de Marca" min="3" max="20">
+                    </div>
+                </div>          
+                <br>
+                <br>
+                  <button type="button" class="btn btn-info" v-on:click="enviarFormulario" name="guardar" id="guardar"> Guardar </button>
+    </div>
+    <div id="menu1" class="container tab-pane fade"><br>
+     <br>
+     <br>
+      <div class="form-group row">
+                    <div class="col-md-1">
+                        <label for="categori">Categoria </label>
+                    </div>
+                    <div class="col-md-3">
+                         <select class="form-control" v-model="categori" name="categori"  >
+                            <option value='1'></option>
                         </select>
                     </div>
+
+          <div class="col-md-2">
+                        <label for="sub_sategoria"> Sub_Categoria  </label>
+                    </div>
+                    <div class="col-md-3 ">
+                        <input class="form-control" name="sub_sategoria" v-model="sub_sategoria" id="sub_sategoria" placeholder="Nombre de Sub_Categoria" min="3" max="20">
+                    </div>
+                </div>          
+                <br>
+                <br>
+                  <button type="button" class="btn btn-info" v-on:click="enviarFormulario" name="guardar" id="guardar"> Guardar </button>
+    </div>
+    <div id="menu2" class="container tab-pane fade"><br>
+       <br>
+      <br>
+      <div class="form-group row">
+          <div class="col-md-1">
+                        <label for="marcas">Marcas:</label>
+                    </div>
+                    <div class="col-md-3 ">
+                        <input class="form-control" name="marcas" v-model="marcas" id="marcas" placeholder="Nombre de Marca" min="3" max="20">
+                    </div>
+                </div>          
+                <br>
+                <br>
+                  <button type="button" class="btn btn-info" v-on:click="enviarFormulario" name="guardar" id="guardar"> Guardar </button>
+    </div>
+    <div id="menu3" class="container tab-pane fade"><br>
+      <br>
+      <br>
+     <div class="form-group row">
+          <div class="col-md-1">
+                        <label for="marcas">Color:</label>
+                    </div>
+                    <div class="col-md-3 ">
+                        <input class="form-control" name="color" v-model="color" id="color" placeholder="Nombre de Color" min="3" max="20">
+                    </div>
+                </div>   
+                <br>
+                <br>
+                  <button type="button" class="btn btn-info" v-on:click="enviarFormulario" name="guardar" id="guardar"> Guardar </button>
+    </div>
+  </div>
+</div>
+</body>
+
             </div>
-                  <input class="form-control col-md-3" readonly type="text"  id="nombre_sub/categoria">
-                   <button type="button" class="btn btn-info" v-on:click="validar" name="guardar" id="guardar">Guardar</button>
+        </div>
 
-              <div class="tab-content" >
-                <div id="formular" class="container tab-pane active"><br>
-                        <div class="tile-body">
-                            <div class="form-group row">
-                                <label class="control-label col-md-2" for="atencion">Nombre Marca</label>
-                                <input class="form-control col-md-3" readonly type="text"  id="nombre_marca">
-                            </div>
-                              <button type="button" class="btn btn-info" v-on:click="validar" name="guardar" id="guardar">Guardar</button>
-                 <div class="tab-content" >
-                <div id="taba" class="container tab-pane active"><br>
-                        <div class="tile-body">
-            <label class="control-label col-md-2" for="atencion">Nombre Color</label>
-                                <input class="form-control col-md-3" readonly type="text"  id="nombre_color">
-                            <div id="color"><input type='text' class="colores" /></div>
-                            <button type="button" class="btn btn-info" v-on:click="validar" name="guardar" id="guardar">Guardar</button>
-                            <script>
-                 $(".colores").spectrum({color:"#f00"});
-                     </script>
-
-                            </div>
-</div>
-</div>
-</div>
+    </div>
 
 
 @endsection
