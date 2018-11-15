@@ -48,6 +48,8 @@ Route::group(['prefix' => 'administrador' , 'as' => 'administrador.' ], function
     route::get('producto/ver/{id}','AdministracionController@show')->name('producto.show');
     route::get('producto/editar/{id}','AdministracionController@edit')->name('producto.edit');
 
+        //Rutas de Sugerencias 
+    Route::get('/Sugerencias','SugerenciaController@indexadmin')->name('Sugerencias.index');
 
 });
 
