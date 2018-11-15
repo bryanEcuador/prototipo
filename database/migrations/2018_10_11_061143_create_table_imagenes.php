@@ -19,11 +19,11 @@ class CreateTableImagenes extends Migration
         $table->foreign('producto_id')->references('id')->on('tb_producto');
         $table->unsignedInteger('color_id');
         $table->foreign('color_id')->references('id')->on('tb_colores');
-        $table->string('imagen1');
-        $table->string('imagen2');
-        $table->string('imagen3');
-        $table->string('imagen4');
-        $table->string('imagen5');
+        $table->string('imagen1')->nullable();
+        $table->string('imagen2')->nullable();
+        $table->string('imagen3')->nullable();
+        $table->string('imagen4')->nullable();
+        $table->string('imagen5')->nullable();
 
         });  //
     }

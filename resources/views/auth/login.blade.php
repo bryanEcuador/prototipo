@@ -1,72 +1,134 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login V1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <center><div class="card-header" style="background-color:#06CDF9">{{ __('Login') }}</div></center>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
-                        @csrf
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-                        <div class="form-group row">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('Dirección de correo electrónico') }}</label>
+    <link rel="icon" type="image/png" href="css/auth/images/icons/favicon.ico"/>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" placeholder="Ingrese su Correo" value="{{ old('email') }}" required autofocus >
+    <link rel="stylesheet" type="text/css" href="css/auth/vendor/bootstrap/css/bootstrap.min.css">
 
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+    <link rel="stylesheet" type="text/css" href="css/auth/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Contraseña') }}</label>
+    <link rel="stylesheet" type="text/css" href="css/auth/vendor/animate/animate.css">
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : ''}}"placeholder="Ingrese su Contraseña" name="password" required>
+    <link rel="stylesheet" type="text/css" href="css/auth/vendor/css-hamburgers/hamburgers.min.css">
 
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+    <link rel="stylesheet" type="text/css" href="css/auth/vendor/select2/select2.min.css">
 
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+    <link rel="stylesheet" type="text/css" href="css/auth/css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/auth/css/main.css">
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Recordar contraseña') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+</head>
+<body>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Ingresar') }}
-                                </button>
+<div class="limiter">
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('¿Olvidaste tu contraseña?') }}
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+        @if ($errors->has('password'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('password') }}</strong>
+            </span>
+        @endif
+
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt>
+                <img src="css/auth/images/img-01.png" alt="IMG">
             </div>
+            <form method="POST" class="login100-form validate-form" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+                @csrf
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <span class="login100-form-title">
+						Inicio de sesión
+                </span>
+
+                <div class="wrap-input100 validate-input" data-validate = "Un email valido es requerido: ex@abc.xyz">
+                    <input class="input100{{ $errors->has('email') ? ' is-invalid' : '' }}"  type="email" name="email" placeholder="Email">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                    @if ($errors->has('email'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('email') }}</strong>
+                         </span>
+                    @endif
+                </div>
+
+
+
+                <div class="wrap-input100 validate-input" data-validate = "la contraseña es requerida">
+                    <input class="input100{{ $errors->has('password') ? ' is-invalid' : ''}}" type="password" name="password" placeholder="Password">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6 offset-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                            <label class="form-check-label" for="remember">
+                                {{ __('Recordar contraseña') }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="login100-form-btn">
+                        Iniciar sesion
+                    </button>
+                </div>
+
+                <div class="text-center p-t-12">
+						<span class="txt1">
+							¿ Olvidaste
+						</span>
+                    <a class="txt2" href="{{ route('password.request') }}">
+                         tu contraseña?
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-@endsection
+
+
+
+
+
+<script src="css/auth/vendor/jquery/jquery-3.2.1.min.js"></script>
+
+<script src="css/auth/vendor/bootstrap/js/popper.js"></script>
+<script src="css/auth/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<script src="css/auth/vendor/select2/select2.min.js"></script>
+
+<script src="css/auth/vendor/tilt/tilt.jquery.min.js"></script>
+<script >
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
+
+<script src="css/auth/js/main.js"></script>
+
+</body>
+</html>

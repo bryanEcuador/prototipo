@@ -26,9 +26,12 @@
 </head>
 <body>
 <div class=&quot;container&quot;>
-    <img src="{{asset('imagenes/error403.png')}}">
-    <button class="btn btn-info"> <a href="{{route('home')}}">Regresar a la pagina principal</a>  </button>
-    <h4  id='CuentaAtras'></h4>
+    <img src="{{asset('imagenes/errores/error403.png')}}">
+    <a></a>
+    <h4  id=''></h4>
+    <a href="{{route('home')}}">
+        <button class="btn btn-info"> Regresar a la pagina principal </button>
+    </a>
 </div>
 <script language="JavaScript">
 

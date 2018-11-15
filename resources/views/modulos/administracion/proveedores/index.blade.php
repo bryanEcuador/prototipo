@@ -84,6 +84,7 @@
     {{ Breadcrumbs::render('proveedores') }}
 @endsection
 @section('contenido')
+    @include('flash::message')
         <a class="" href="{{route('administrador.proveedor.create')}}"> <button class="btn btn-primary"> crear proveedor</button> </a>
 
 
@@ -117,11 +118,11 @@
                         <td>{{$dato->telefono_representante}}</td>
                         <td>
 
-                            <a href="{{route('administrador.proveedor.show',$dato->id)}}"> <button class="btn btn-primary" type="button">Ver</button> </a>
+                            <a href="{{route('administrador.proveedor.show', encrypt($dato->id) )}}"> <button class="btn btn-primary" type="button">Ver</button> </a>
 
                         </td>
                         <td>
-                            <a href="{{route('administrador.proveedor.edit',$dato->id)}}"> <button class="btn btn-success" type="button">Editar</button> </a>
+                            <a href="{{route('administrador.proveedor.edit',encrypt($dato->id))}}"> <button class="btn btn-success" type="button">Editar</button> </a>
 
                         </td>
                         <td>

@@ -18,6 +18,8 @@ class DatosBasicosTableSeeder extends Seeder
             'telefono' => 'empresa@gmail.com',
             'direccion' => 'dirección empresa',
             'terminos' => 'terminos',
+            'acerca' => 'acerca',
+            'logo' => 'logo',
             'politica' => 'condiciones',
             'ordenes' => 'politica de ordenes',
         ]);

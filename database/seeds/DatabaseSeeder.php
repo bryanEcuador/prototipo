@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             MarcasTableSeeder::class,
             CategoriasTableSeeder::class,
             SubCategoriasTableSeeder::class,
-            //DatosBasicosTableSeeder::class,
+            DatosBasicosTableSeeder::class,
             //ColoresTableSeeder::class,
 
 

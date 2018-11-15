@@ -4,7 +4,9 @@
 @endsection
 @section('titulo de la pagina','Edición de Proveedores')
 @section('subtitulo','Formulario de actualización de  proveedores')
-
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('proveedores-edit',$datos[0]->name) }}
+@endsection
 @section('contenido')
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -29,7 +31,7 @@
     @endif
 
     <div class="col-md-12" id="creacionProveedores">
-        <form method="post" id="administracion">
+        <form method="post" id="frmProveedor" action="{{route('administrador.proveedor.update')}}">
             @csrf
             <div class="tile">
                 <div class="form-group row">
@@ -124,14 +126,7 @@
                         <input class="form-control" name="gerente" v-model="gerente" id="gerente" placeholder="nombre completo del gerente general" minlength="12" maxlength="40">
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-md-2">
-                        <label for="convencional">Teléfono Convencional:</label>
-                    </div>
-                    <div class="col-md-6 ">
-                        <input class="form-control" type="tel" name="telefono_convencional" v-model="convencional" id="convencional" placeholder="Telefofono" minlength="7" maxlength="20">
-                    </div>
-                </div>
+
                 <div class="form-group row">
                     <div class="col-md-2">
                         <label for="nombre">Teléfono Representante:</label>
@@ -158,6 +153,14 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-md-2">
+                        <label for="usuario">Email:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <input class="form-control"  name="email" v-model="email" id="email" placeholder="Nombre de usuario" minlength="3" maxlength="20" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-2">
                         <label for="pass">Contraseña:</label>
                     </div>
                     <div class="col-md-6 ">
@@ -165,6 +168,8 @@
                     </div>
                 </div>
                 <br>
+                <input type="hidden" name="id" v-model="id">
+                <input type="hidden" name="user_id" v-model="user_id">
                 <!--<button type="input" class="btn btn-info" name="guardar" id="guardar">Agregar Proveedor</button> -->
                 <button type="button" class="btn btn-info" v-on:click="enviarFormulario"  id="guardar">Actualizar Proveedor</button>
             </div>
@@ -190,10 +195,12 @@
                     telefono_representante:0,
                     telefono_gerente:0,
                     usuario:'',
+                    email : '',
                     pass:'',
                     errores : [],
                     cmbDatos : [],
                     id : 0,
+                    user_id :0,
 
                 },
                 created : function() {
@@ -228,8 +235,10 @@
                         this.gerente = this.cmbDatos[0].gerente_general;
                         this.telefono_representante = this.cmbDatos[0].telefono_representante;
                         this.telefono_gerente= this.cmbDatos[0].telefono_gerente;
-                        this.usuario= this.cmbDatos[0].usuario;
+                        this.usuario= this.cmbDatos[0].name;
+                        this.email= this.cmbDatos[0].email;
                         this.id = this.cmbDatos[0].id;
+                        this.user_id = this.cmbDatos[0].user_id;
 
                 },
 
@@ -238,8 +247,8 @@
                     enviarFormulario : function() {
                         this.validarCampos();
                         if( this.errores.length === 0) {
-                            //this.enviarFormulario()
-                            alert("sin errores");
+                            //this.guardarFormulario ()
+                            document.getElementById('frmProveedor').submit();
                         } else {
                             var num = this.errores.length;
                             for(i=0; i<num;i++) {
@@ -338,14 +347,7 @@
                         } else {
                             this.errores.push("El campo gerente no puede estar vacio");
                         }
-                        if(this.convencional !== 0) {
-                            if(er_numeros .test(this.convencional) == false)
-                            {
-                                this.errores.push("El campo Convencional solo puede obtener numeros");
-                            }
-                        } else {
-                            this.errores.push("el campo convencional o puede estar vacio");
-                        }
+
                         if(this.telefono_representante !== 0) {
                             // mas validaciones
                             if(er_numeros .test(this.telefono_representante) == false)
@@ -372,7 +374,7 @@
 
                     },
 
-                    enviarFormulario : function(){
+                    guardarFormulario : function(){
                         var parametros = {
                             "_token": "{{ csrf_token() }}",
                             //--

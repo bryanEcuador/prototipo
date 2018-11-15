@@ -6,13 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use App\Core\Procedimientos\ConfiguracionProcedure;
+use  App\Http\Controllers\Auth\RegisterController;
 
 class AdministracionController extends Controller
 {
-    protected  $ConfiguracionProcedure;
-    public function __construct(ConfiguracionProcedure $configuracionProcedure)
+    protected  $RegisterController;
+    protected $ConfiguracionProcedure;
+
+    public function __construct(ConfiguracionProcedure $configuracionProcedure,RegisterController $loginController)
     {
-        $this->ConfiguracionProcedure = $configuracionProcedure;
+        $this->ConfiguracionProcedure  = $configuracionProcedure;
+        $this->RegisterController= $loginController;
     }
 
     //
@@ -20,12 +24,14 @@ class AdministracionController extends Controller
         $datos = DB::table('tb_proveedores')->get();
      return view('modulos.administracion.proveedores.index',compact('datos'));
     }
+
     public function create(){
-        return view('modulos.administracion.create');
+        return view('modulos.administracion.proveedores.create');
     }
 
     public function storeProveedor(Request $request)
     {
+
         $request->validate([
             'codigo' => 'required|max:25|string',
             'empresa' => 'required|max:10|string',
@@ -37,11 +43,11 @@ class AdministracionController extends Controller
             'cuenta_bancaria' => 'required |min:0|numeric',
             'estado' => 'required|string',
             'gerente' => 'required|max:25|string',
-            'telefono_convencional' => 'required|min:7|numeric',
             'telefono_representante' => 'required|min:7|numeric',
             'telefono_gerente' => 'required|min:7|numeric',
             'usuario' => 'required|max:25|string',
             'pass' => 'required|max:25|string',
+            'email' => 'required|email',
         ], ['codigo.required' => 'El codigo del proveedor es requerido',
             'empresa.required' => 'La empresa es requerida',
             'ruc.required' => 'El Ruc del proveedor es requerido',
@@ -52,7 +58,6 @@ class AdministracionController extends Controller
             'cuenta_bancaria.required' => 'La cuenta Bancaria es requerido',
             'estado.required' => 'El Estado del proveedor es requerido',
             'gerente.required' => 'El Gerente es requerido',
-            'telefono_convencional.required' => 'El telefono convencional es requerido',
             'telefono_representante.required' => 'El telefono del representante es requerido',
             'telefono_gerente.required' => 'El telefono del gerente es requerido',
             'usuario.required' => 'El usuario del proveedor es requerido',
@@ -60,6 +65,19 @@ class AdministracionController extends Controller
         ]);
 
         try {
+
+            $user_id = DB::table('users')->insertGetId([
+                'name' => $request->input('usuario'),
+                'email' => $request->input('email'),
+                'password' => bcrypt($request->input('pass')),
+                'estado' => 1,
+            ]);
+
+            $rol = 2;
+
+            DB::table('role_user')->insert([
+                'role_id' => $rol,'user_id' => $user_id
+            ]);
 
             DB::table('tb_proveedores')->insert([
                 "codigo_externo" => $request->input('codigo'),
@@ -74,8 +92,8 @@ class AdministracionController extends Controller
                 "gerente_general" => $request->input('gerente'),
                 "telefono_representante" => $request->input('telefono_representante'),
                 "telefono_gerente" => $request->input('telefono_gerente'),
-                "usuario" => $request->input('usuario'),
-                "contraseña" => bcrypt($request->input('pass')),
+                "user_id" => $user_id,
+
             ]);
 
         } catch (QueryException $e) {
@@ -86,20 +104,22 @@ class AdministracionController extends Controller
     }
 
     public function editProveedor($id){
+        $id = decrypt($id);
         $id = (integer) $id;
-        $datos = DB::table('tb_proveedores')->where('id',$id)->get();
+        $datos = DB::select('CALL spConsultarProveedor(?)',array($id));
         return view('modulos.administracion.proveedores.edit',compact('datos'));
     }
 
     public function showProveedor($id){
+        $id = decrypt($id);
         $id = (integer) $id;
-        $datos = DB::table('tb_proveedores')->where('id',$id)->get();
+        $datos = DB::select('CALL spConsultarProveedor(?)',array($id));
         return view('modulos.administracion.proveedores.show',compact('datos'));
     }
 
     public function updateProveedor(Request $request){
 
-
+        //dd($request);
         $request->validate([
             'codigo' => 'required|max:25|string',
             'empresa' => 'required|max:10|string',
@@ -111,10 +131,10 @@ class AdministracionController extends Controller
             'cuenta_bancaria' => 'required |min:0|numeric',
             'estado' => 'required|string',
             'gerente' => 'required|max:25|string',
-
             'telefono_representante' => 'required|min:7|numeric',
             'telefono_gerente' => 'required|min:7|numeric',
             'usuario' => 'required|max:25|string',
+            'email' => 'required|email',
 
         ], ['codigo.required' => 'El codigo del proveedor es requerido',
             'empresa.required' => 'La empresa es requerida',
@@ -126,11 +146,10 @@ class AdministracionController extends Controller
             'cuenta_bancaria.required' => 'La cuenta Bancaria es requerido',
             'estado.required' => 'El Estado del proveedor es requerido',
             'gerente.required' => 'El Gerente es requerido',
-
             'telefono_representante.required' => 'El telefono del representante es requerido',
             'telefono_gerente.required' => 'El telefono del gerente es requerido',
-            'usuario.required' => 'El usuario del proveedor es requerido',
-
+            'usuario.required' => 'El nombre de usuario es requerido',
+            'email.required' => 'El email es requerido',
         ]);
 
         try {
@@ -148,7 +167,12 @@ class AdministracionController extends Controller
                     "gerente_general" => $request->input('gerente'),
                     "telefono_representante" => $request->input('telefono_representante'),
                     "telefono_gerente" => $request->input('telefono_gerente'),
-                    "usuario" => $request->input('usuario'),
+                ]);
+
+                DB::table('users')->where('id',$request->input('user_id'))
+                ->update([
+                    "name" => $request->input('usuario') ,
+                    "email" => $request->input('email') ,
                 ]);
             } else {
                 \DB::table('tb_proveedores')->where('id',$request->input('id'))->update([
@@ -164,12 +188,17 @@ class AdministracionController extends Controller
                     "gerente_general" => $request->input('gerente'),
                     "telefono_representante" => $request->input('telefono_representante'),
                     "telefono_gerente" => $request->input('telefono_gerente'),
-                    "usuario" => $request->input('usuario'),
-                    "contraseña" => bcrypt($request->input('pass')),
                 ]);
-            }
 
-    
+                DB::table('users')->where('id',$request->input('user_id'))
+                    ->update([
+                        "name" => $request->input('usuario') ,
+                        "email" => $request->input('email') ,
+                        "password" => bcrypt($request->input('pass')),
+                    ]);
+            }
+            flash()->success('se ha actualizado el proveedor con exito');
+            return redirect()->route('administrador.proveedor.index');
         } catch (QueryException $e) {
             $array = array("Error", $e->getMessage());
             return $array;
@@ -277,7 +306,6 @@ class AdministracionController extends Controller
     public function producto(){
         $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')->get();
         return view('modulos.administracion.productos.index',compact('datos'));
-
     }
 
      public function  show($id) {
@@ -293,7 +321,6 @@ class AdministracionController extends Controller
     }
 
     public function  edit($id) {
-
         $datos = \DB::table('tb_producto')->select('id','id_categoria','id_sub_categoria','id_marca','descripcion','nombre','codigo','precio','iva')
             ->where('id',$id)
             ->get();

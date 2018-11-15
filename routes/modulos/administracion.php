@@ -48,8 +48,18 @@ Route::group(['prefix' => 'administrador' , 'as' => 'administrador.' ], function
     route::get('producto/ver/{id}','AdministracionController@show')->name('producto.show');
     route::get('producto/editar/{id}','AdministracionController@edit')->name('producto.edit');
 
+<<<<<<< HEAD
         //Rutas de Sugerencias 
     Route::get('/Sugerencias','SugerenciaController@indexadmin')->name('Sugerencias.index');
+=======
+    // rutas de colores
+    route::get('/colores/index','ColorController@index')->name('colores.index');
+    route::get('/colores/edit','ColorController@edit')->name('colores.edit');
+    route::put('/colores/update/{id}','ColorController@update')->name('colores.update');
+    route::post('/colores/store','ColorController@store')->name('colores.store');
+    route::get('/colores/load/{paginacion}/{page?}/{nombre?}','ColorController@loadData')->name('color.load');
+
+>>>>>>> e200c3fca7e7aaa14e42a4d7b748c10b91803a3a
 
 });
 

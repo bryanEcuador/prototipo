@@ -646,7 +646,7 @@
                             axios.get('/seguridad/validar/usuario/'+this.email+'/email/store').then(response => {
                                 this.respuesta2  = response.data;
 
-                                if(this.respuesta1.length !== 0) {
+                                if(this.respuesta2.length !== 0) {
                                     this.errores.push('El email del usuario ya se encuentra registrado');
                                 }
                             })
