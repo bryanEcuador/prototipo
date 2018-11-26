@@ -377,6 +377,8 @@ class ProveedorController extends Controller
     }
 
     public function guardarSugerencia(Request $request, $Sugerencia_id){
+
+
         try {
           return  \DB::table('sugerencias')->insertGetId([
                 'tipo_sugerencia' => $Sugerencia_id ,

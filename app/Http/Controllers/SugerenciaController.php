@@ -40,7 +40,7 @@ class SugerenciaController extends Controller
  }
 
  public function storeSuggestion(Request $request){
-     return 1;
+
 
     switch ($request->input('idSugerencia')){
         case 1 :
