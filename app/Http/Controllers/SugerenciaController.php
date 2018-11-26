@@ -40,10 +40,12 @@ class SugerenciaController extends Controller
  }
 
  public function storeSuggestion(Request $request){
+     return 1;
+
     switch ($request->input('idSugerencia')){
         case 1 :
             try {
-                $this->CategoriaController->store($request);
+               return $this->CategoriaController->store($request);
             }catch (QueryException $e){
                 return $e;
             }
@@ -51,27 +53,29 @@ class SugerenciaController extends Controller
             break;
         case 2 :
             try {
-                $this->SubCategoriaController->store($request);
+               return $this->SubCategoriaController->store($request);
             }catch (QueryException $e){
                 return $e;
             }
             break;
         case 3 :
             try {
-                $this->MarcaController->store($request);
+              return  $this->MarcaController->store($request);
             }catch (QueryException $e){
                 return $e;
             }
             break;
         case 4 :
             try {
-                $this->ColorController->store($request);
+              return  $this->ColorController->store($request);
             }catch (QueryException $e){
                 return $e;
             }
             break;
         default :
     }
+
+
  }
 
  public function  deleteSuggestion(Request $request){

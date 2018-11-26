@@ -424,6 +424,13 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
     <script src="{{asset('js/plugins/moment.js')}}"></script>
     <script>
+        // da click a primera imagen que se carga
+        $( document ).ready(function() {
+            var a =document.getElementById("imagen1");
+            a.click();
+        });
+    </script>
+    <script>
         var app = new Vue ({
             el:"#detalles",
             data: {
@@ -571,9 +578,7 @@
                     });
                 }));
 
-                var a =document.getElementById("imagen1");
-                a.click();
-                a.click();
+
                 //$('#acceder').click();
 
                 axios.get('/productos').then(response => {

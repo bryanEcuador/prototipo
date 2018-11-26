@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-md-6 ">
                    <input class="form-control" type="text"  name="ruc" v-model="ruc" id="Ruc" placeholder="ruc" minlength="13" maxlength="13">
-                   
+
                 </div>
             </div>
             <div class="form-group row">
