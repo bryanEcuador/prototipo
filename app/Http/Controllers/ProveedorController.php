@@ -112,7 +112,7 @@ class ProveedorController extends Controller
             'categoria'=> 'required|string',
             'sub_categoria'=> 'required|string',
             'marca'=> 'required|string',
-            'descripcion' => 'required|max:50|min:15|string',
+            'descripcion' => 'required|max:250|min:15|string',
             'precio' => 'required|min:0|numeric',
             'iva' => 'required|max:100|min:0|numeric',
             'colores' => 'required',
@@ -216,7 +216,7 @@ class ProveedorController extends Controller
                 $file = $request->file($valor); // guardo el array de la imagen
                 for($i =0 ; $i< count($file); $i++){
                     $nombre = $file[$i]->getClientOriginalName(); // obtengo el nombre de la imagen
-                    $ruta = "\storage\productos'\'";
+                    $ruta = "/storage/productos/";
                     $nombre = $ruta.time().$nombre; // le concateno el tiempo para que esta sea unica
                     Storage::disk('public')->put($nombre,  \File::get($file[$i])); // la guardo en el disco
                     array_push($imagenes,$nombre);
@@ -376,5 +376,23 @@ class ProveedorController extends Controller
         return \DB::table('tb_colores')->distinct()->get();
     }
 
+    public function guardarSugerencia(Request $request, $Sugerencia_id){
+        try {
+          return  \DB::table('sugerencias')->insertGetId([
+                'tipo_sugerencia' => $Sugerencia_id ,
+                'sugerencias' => $request->input('sugerencia'),
+                'adicional' =>    $request->input('adicional'),
+                'usuario' => 1
+            ]);
 
+        } catch( QueryException $e ) {
+            return $e->getMessage();
+        }
+
+    }
+
+    // combos
+    public function consultarIva(){
+        return \DB::table('tb_iva')->get();
+    }
 }

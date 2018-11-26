@@ -104,7 +104,7 @@
                 <li><a class="app-menu__item" href="{{route('administrador.categorias.index')}}"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Categorias</span></a></li>
                 <li><a class="app-menu__item" href="{{route('administrador.subCategorias.index')}}"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Subcategorias</span></a></li>
                 <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Colores</span></a></li>
-                <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Sugerencias</span></a></li>
+                <li><a class="app-menu__item" href="{{route('administrador.Sugerencias.index')}}"><i class="app-menu__icon fa fa-tags"></i><span class="app-menu__label">Sugerencias</span></a></li>
             </ul>
         </li>
 

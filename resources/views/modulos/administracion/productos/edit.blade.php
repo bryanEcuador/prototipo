@@ -37,21 +37,26 @@
                 @csrf
                 <h4>DATOS BASICOS</h4>
                 <hr>
+                <div class="form-group row justify-content-md-center" style="margin-bottom:0;">
+                    <label for="categoria" class="form-control-label col-md-4">Categoria:</label>
+                    <label for="subcategoria" class="form-control-label col-md-4">Sub-Categoria:</label>
+                    <label for="marca" class="form-control-label col-md-4">Marca:</label>
+                </div>
                 <div class="form-group row justify-content-md-center">
                     <div class="col-md-4">
-                        <select class="form-control col-md-8" v-model="categoria" :value="categoria" name="categoria">
+                        <select class="form-control col-md-8" id="categoria" v-model="categoria" :value="categoria" name="categoria">
                             <option value='0'  disabled >Categoria</option>
                             <option v-for="dato in cmbCategoria" :value=" dato.id" > @{{ dato.nombre }} </option>
                         </select>
                     </div>
                     <div class="col-md-4 ">
-                        <select class="form-control col-md-8" v-model="sub_categoria" :value="sub_categoria" name="sub_categoria">
+                        <select class="form-control col-md-8" v-model="sub_categoria"  id="subcategoria" :value="sub_categoria" name="sub_categoria">
                             <option value='0'  disabled>Sub-Categoria</option>
                             <option v-for="dato in cmbSubCategoria" :value=" dato.id" > @{{ dato.nombre }} </option>
                         </select>
                     </div>
                     <div class="col-md-4 ">
-                        <select class="form-control col-md-8" v-model="marca" :value="marca" name="marca">
+                        <select class="form-control col-md-8" v-model="marca" :value="marca" id="marca" name="marca">
                             <option value='0'  disabled>Marca</option>
                             <option v-for="dato in cmbMarca" :value=" dato.id" > @{{ dato.nombre }} </option>
                         </select>

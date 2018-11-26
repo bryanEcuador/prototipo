@@ -8,16 +8,74 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Core\Procedimientos\SugerenciaProcedure;
-
+use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\SubCategoriaController;
+use App\Http\Controllers\ColorController;
 class SugerenciaController extends Controller
 {
+    protected $MarcaController;
+    protected $CategoriaController;
+    protected $SubCategoriaController;
+    protected $ColorController;
+
+    public function  __construct(CategoriaController $categoriaController , SubCategoriaController $subCategoriaController, MarcaController $marcaController, ColorController $colorController)
+    {
+        $this->CategoriaController = $categoriaController;
+        $this->SubCategoriaController = $subCategoriaController;
+        $this->MarcaController = $marcaController;
+        $this->ColorController = $colorController;
+    }
+
     public function index(){
         return view('modulos.proveedor.sugerencias');
 
  }
-  public function indexadmin(){
-        return view('modulos.administracion.sugerenciaadmin');
 
+    public function managerView( ){
+        return view('modulos.administracion.sugerencias');
+    }
+  public function suggestionList($id){
+        return DB::table('sugerencias')->where('tipo_sugerencia',$id)->get();
+ }
+
+ public function storeSuggestion(Request $request){
+    switch ($request->input('idSugerencia')){
+        case 1 :
+            try {
+                $this->CategoriaController->store($request);
+            }catch (QueryException $e){
+                return $e;
+            }
+
+            break;
+        case 2 :
+            try {
+                $this->SubCategoriaController->store($request);
+            }catch (QueryException $e){
+                return $e;
+            }
+            break;
+        case 3 :
+            try {
+                $this->MarcaController->store($request);
+            }catch (QueryException $e){
+                return $e;
+            }
+            break;
+        case 4 :
+            try {
+                $this->ColorController->store($request);
+            }catch (QueryException $e){
+                return $e;
+            }
+            break;
+        default :
+    }
+ }
+
+ public function  deleteSuggestion(Request $request){
+     DB::table('sugerencias')->where('id',$request->input('id'))->delete();
  }
  public function store(Request $request) {
         $request->validate(
@@ -72,6 +130,10 @@ class SugerenciaController extends Controller
             $array = array("Error" , $exception->errorInfo[1]);
             return $array;
         }
+    }
+
+    public function  acceptSuggestion(Request $request){
+
     }
 
 }

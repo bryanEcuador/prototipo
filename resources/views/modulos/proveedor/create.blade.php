@@ -26,30 +26,33 @@
         </div>
     @endif
 
-    <div class="col-md-12" id="creacionProductos">
+    <div class="col-md-12" id="creacionProductos" v-cloak>
         <div class="tile">
-            <form action="{{route('proveedor.store')}}" method="post" enctype="multipart/form-data" id="producto">
+            <form action="{{route('proveedor.store')}}" method="post" enctype="multipart/form-data" id="producto" v-on:submit.prevent="validar">
                 @csrf
                 <h4>DATOS BASICOS</h4>
                 <hr>
                 <div class="form-group row justify-content-md-center">
-                    <div class="col-md-4">
-                        <select class="form-control col-md-8" v-model="categoria" name="categoria">
+                    <div class="col-md-4 form-group row" >
+                        <select class="form-control col-md-8" v-model="categoria" name="categoria" v-on:change="cambioCategoria">
                             <option value='0'  disabled >Categoria</option>
                             <option v-for="dato in cmbCategoria" :value=" dato.id" > @{{ dato.nombre }} </option>
                         </select>
+                        <i class="fa fa-plus fa-3x col-md-4"  aria-hidden="true" data-toggle="modal" data-target="#sugerenciaCategoria"></i>
                     </div>
-                    <div class="col-md-4 ">
+                    <div class="col-md-4 form-group row ">
                         <select class="form-control col-md-8" v-model="sub_categoria" name="sub_categoria">
                             <option value='0'  disabled>Sub-Categoria</option>
                             <option v-for="dato in cmbSubCategoria" :value=" dato.id" > @{{ dato.nombre }} </option>
                         </select>
+                        <i class="fa fa-plus fa-3x col-md-4"  aria-hidden="true" data-toggle="modal" data-target="#sugerenciaSubCategoria"></i>
                     </div>
-                    <div class="col-md-4 ">
+                    <div class="col-md-4 form-group row">
                         <select class="form-control col-md-8" v-model="marca" name="marca">
                             <option value='0'  disabled>Marca</option>
                             <option v-for="dato in cmbMarca" :value=" dato.id" > @{{ dato.nombre }} </option>
                         </select>
+                        <i class="fa fa-plus fa-3x col-md-4"  aria-hidden="true" data-toggle="modal" data-target="#sugerenciaMarca"></i>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -86,7 +89,9 @@
                         <label for="iva">Iva:</label>
                     </div>
                     <div class="col-md-2 ">
-                        <input class="form-control" type="number" placeholder="iva" name="iva" id="iva" v-model="iva" min="0" max="100">
+                        <select class="form-control" v-model="iva" >
+                            <option v-for="dato in cmbIva" v.bind:value="dato.valor"> @{{dato.valor}}</option>
+                        </select>
                     </div>
                 </div>
                 <br>
@@ -101,11 +106,131 @@
                 <div id="inputs">
                 </div>
                 <br>
-                <button type="button" class="btn btn-info" v-on:click="enviarFormulario" name="guardar" id="guardar">Agregar produto</button>
+                <button type="submit" class="btn btn-info" name="guardar" id="guardar">Agregar produto</button>
             </form>
-
         </div>
+        <!-- Modales -->
+            <!-- Creacion de categorias modal -->
+            <div class="modal fade" id="sugerenciaCategoria">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Sugerencia de categoria</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <input class="form-control" placeholder="nombre de la categoria a sugerir" type="text" autocomplete="off" maxlength="15" v-model="sugerenciaCategoria">
+                            </div>
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" v-on:click="agregarSugerencia(1)">Guardar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                        </div>
 
+                    </div>
+                </div>
+            </div>
+            <!-- //Creacion de categorias modal -->
+
+            <!-- Creacion de Marcas modal -->
+            <div class="modal fade" id="sugerenciaMarca">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Sugerencia de marca</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="nombre de la marca a sugerir" type="text" autocomplete="off" maxlength="15" v-model="sugerenciaMarca" v-on:keyup.13="agregarSugerencia(3)">
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" v-on:click="agregarSugerencia(3)">Guardar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+            <!-- //Creacion de Marcas modal -->
+
+            <!-- Creacion de colores modal -->
+            <div class="modal fade" id="sugerenciaColor">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Sugerencia de color</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="nombre del color a sugerir" type="text" autocomplete="off" maxlength="15" v-model="sugerenciaColor">
+                        </div>
+                        <label>Eliga el color:</label><br>
+                        <div class="input-group">
+                            <input class=""  type="color" autocomplete="off" maxlength="15" v-model="sugerenciaHexadecimal">
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" v-on:click="agregarSugerencia(4)">Guardar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+            <!-- //Creacion de colores modal -->
+
+            <!-- Creacion de SubCategorias modal -->
+            <div class="modal fade" id="sugerenciaSubCategoria">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Sugerencia de subcategoria</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <select class="form-control" v-model="sugerencia_Categoria" >
+                                <option v-for="dato in cmb_categorias" :value="dato.id"> @{{dato.nombre}} </option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="nombre de la subcategoria a sugerir" type="text" autocomplete="off" maxlength="15" v-model="sugerenciaSubCategoria">
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" v-on:click="agregarSugerencia(2)">Guardar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+            <!-- //Creacion de SubCategorias modal -->
     </div>
 @endsection
 @section('js')
@@ -119,6 +244,15 @@
      var app = new Vue ({
          el:"#creacionProductos",
          data: {
+             // sugerencias
+             sugerenciaCategoria : '',
+             sugerenciaSubCategoria : '',
+             sugerenciaMarca: '',
+             sugerenciaColor: '',
+             sugerenciaHexadecimal : '',
+             sugerencia_Categoria : '' ,// usada en el moda
+
+             // variables de formulario
             categoria : 0,
             sub_categoria : 0,
              marca : 0,
@@ -129,12 +263,14 @@
              colores : [],
              errores : [],
              imagenes : [],
+             cmbIva : [],
              codigo : '',
              num_imagenes : 0,
 
              // selects
              cmbMarca : [],
              cmbCategoria : [],
+             cmb_categorias : [],
              cmbSubCategoria : [],
              cmbColores : [],
 
@@ -157,30 +293,124 @@
              "showMethod": "fadeIn",
              "hideMethod": "fadeOut"
             };
-             axios.get('marca').then(response => {
-                 this.cmbMarca  = response.data
-            })
-             axios.get('categoria').then(response => {
-                 this.cmbCategoria  = response.data
-            })
-             axios.get('sub-categoria').then(response => {
-                 this.cmbSubCategoria  = response.data
-            })
-
-             axios.get('colores').then(response => {
-                 this.cmbColores  = response.data
-            })
+             this.consultarMarca();
+             this.consultarCategoria();
+             this.consultarColores();
+             this.consultarIva();
          },
 
 
          methods : {
+             /* _________________________combos________________________________ */
+             consultarIva : function(){
+                 axios.get('consultar/iva').then(response => {
+                        this.cmbIva = response.data;
+                    }).catch(error => {
+                        this.consultarIva();
+                 });
+             },
+             consultarColores : function(){
+                 axios.get('colores').then(response => {
+                     this.cmbColores  = response.data
+                    }).catch(error => {
+                     this.consultarColores();
+                 })
+             },
+             consultarMarca : function(){
+                 axios.get('marca').then(response => {
+                     this.cmbMarca  = response.data
+                    }).catch(error => {
+                     this.consultarMarca();
+                 })
+             },
+             consultarCategoria : function(){
+                 axios.get('categoria').then(response => {
+                     this.cmbCategoria  = response.data,
+                     this.cmb_categorias = response.data
+                 }).catch(error => {
+                     this.consultarCategoria();
+                 })
+             },
+             cambioCategoria : function () {
+                 var url = '/subcategorias/'+this.categoria ;
+                 axios.get(url).then(response => {
+                     this.cmbSubCategoria= response.data;
+             }).catch(error => {
+                     console.log(error);
+                 this.cambioCategoria();
+             });
+             },
+             /* _________________________/combos________________________________ */
+
+             agregarSugerencia : function(tipo) {
+                 var url = 'Sugerencias/'+tipo;
+                 switch(tipo){
+
+                     case 1 :
+                         if(this.sugerenciaCategoria.trim == ''){
+                             toastr.error("Agregue el nombre de la categoria");
+                         }else {
+                             axios.post(url, {
+                                 sugerencia : this.sugerenciaCategoria,
+                                 }).then( response => {
+                                 toastr.succes("Sugerencia registrada con exito");
+                                 }).catch(error => {
+                                 toastr.error("Error al momento de guardar la sugerencia");
+                                 })
+                         }
+
+                         break;
+                     case 2 :
+                         if(this.sugerenciaSubCategoria.trim == '' && this.sugerencia_Categoria !== ''){
+                             toastr.error("Agregue el nombre de la categoria");
+                         }else {
+                             axios.post(url, {
+                                 sugerencia : this.sugerenciaSubCategoria,
+                                 adicional : this.sugerencia_Categoria
+                             }).then( response => {
+                                 toastr.succes("Sugerencia registrada con exito");
+                         }).catch(error => {
+                                 toastr.error("Error al momento de guardar la sugerencia");
+                         })
+                         }
+                         break;
+                     case 3 :
+                         axios.post(url, {
+                             sugerencia : this.sugerenciaMarca,
+                         }).then(response => {
+                         }).catch(response => {
+                         toastr.error("Error al momento de guardar la sugerencia");
+                         });
+
+
+                         break;
+                     case 4 :
+                             if(this.sugerenciaColor.trim == '' && this.sugerenciaHexadecimal.trim !== ''){
+                                 toastr.error("Agregue el nombre de la categoria");
+                             }else {
+                                 axios.post(url, {
+                                     sugerencia : this.sugerenciaSubCategoria,
+                                     adicional : this.sugerenciaHexadecimal
+                                 }).then( response => {
+                                     toastr.succes("Sugerencia registrada con exito");
+                             }).catch(error => {
+                                     toastr.error("Error al momento de guardar la sugerencia");
+                             })
+                             }
+                         break;
+                     default:
+                         console.log("Error");
+                 }
+             },
+
 
             validar : function () {
-                //this.validarCampos();
+
+                 this.validarCampos();
                 this.validarImagenes();
                 // mensajes de alerta
                 if( this.errores.length === 0) {
-                    //this.enviarFormulario();
+                    this.enviarFormulario();
                 } else {
                     var num = this.errores.length;
                     for(i=0; i<num;i++) {
@@ -226,7 +456,7 @@
 
                  if(er_numeros .test(this.iva) == false)
                  {
-                     this.errores.push("El campo precio solo puede obtener numeros");
+                     this.errores.push("El campo iva solo puede obtener numeros");
                  }
 
 
@@ -266,19 +496,28 @@
                      } else {
                          for( var i = 0; i < x.length; i++)
                          {
+                             for(var e = 0 ; e < x[i].files.length; e++){
+                                // console.log(x[i].files[e].type);
+                                 if (x[i].files[e].type !== "image/png" && x[i].files[e].type !== "image/jpeg") {
+                                     console.log(x[i].files[e].type);
+                                    this.errores.push("Solo puede subir imagenes png/jpeg revise sus imagenes")
+                                 }
+                             }
                              if(x[i].files.length < 3){
                                  this.errores.push("EL numero de imagenes no puede ser menor a 3");
                              } else if (x[i].files.length > 5) {
                                  this.errores.push("EL numero de imagenes no puede ser mayor a 5");
                              }
+
                          }
                      }
                  }
              },
             enviarFormulario : function(){
-                var form = document.getElementById('producto');
-                producto.submit();
+                //var form = document.getElementById('producto');
+                //producto.submit();
             },
+
              crearInputs : function() {
                  // numero de colores seleccionados
                 var cantidad = this.colores.length;

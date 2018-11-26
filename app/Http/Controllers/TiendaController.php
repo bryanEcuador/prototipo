@@ -39,13 +39,13 @@ class TiendaController extends Controller {
     public function productos($pagina = 0) {
 
         $pagina != 0 ? $pagina = $pagina - 1 : $pagina  = 0;
-        $paginacion = 1;
+        $paginacion = 3;
         $total = count(\DB::select(\DB::raw('CALL prototipo.spConsultarProductosTodos()')));
         $page = Input::get('page');
 
         $posts = \DB::select(\DB::raw('CALL prototipo.spConsultarProductosTodos()'));
         $posts = array_slice($posts, $pagina , $paginacion);
-        $posts = new LengthAwarePaginator($posts, $total, 1, $page);
+        $posts = new LengthAwarePaginator($posts, $total, 3, $page);
 
         $posts->setPath('blog');
 

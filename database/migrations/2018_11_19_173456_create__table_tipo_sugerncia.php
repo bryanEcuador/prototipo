@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableSugerencias extends Migration
+class CreateTableTipoSugerncia extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateTableSugerencias extends Migration
      */
     public function up()
     {
-        //
-   Schema::create('sugerencias', function (Blueprint $table) {
+        Schema::create('tipo_sugerencia', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('sugerencias');
-            $table->int('usuario');
-            $table->timestamps();
+            $table->string('sugerencia');
+
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -29,7 +28,6 @@ class CreateTableSugerencias extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sugerencias');
+        Schema::dropIfExists('tipo_sugerencia');
     }
 }
-

@@ -30,11 +30,11 @@
 
 <div class="limiter">
 
-        @if ($errors->has('password'))
-            <span class="invalid-feedback" role="alert">
+    @if ($errors->has('password'))
+        <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('password') }}</strong>
             </span>
-        @endif
+    @endif
 
     <div class="container-login100">
         <div class="wrap-login100">
@@ -102,7 +102,7 @@
 							¿ Olvidaste
 						</span>
                     <a class="txt2" href="{{ route('password.request') }}">
-                         tu contraseña?
+                        tu contraseña?
                     </a>
                 </div>
             </form>

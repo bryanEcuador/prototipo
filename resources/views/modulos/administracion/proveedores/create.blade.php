@@ -58,6 +58,7 @@
                 </div>
                 <div class="col-md-6 ">
                    <input class="form-control" type="text"  name="ruc" v-model="ruc" id="Ruc" placeholder="ruc" minlength="13" maxlength="13">
+                   
                 </div>
             </div>
             <div class="form-group row">
@@ -184,11 +185,10 @@
     <script>
         $(document).ready(function(){
                 $("#estado").val(1);
-
-
-
         });
     </script>
+
+
     <script>
         var app = new Vue ({
                 el:"#creacionProveedores",
@@ -235,10 +235,61 @@
 
                 methods : {
 
+                    validarRuc : function() {
+                        var er_numeros = /^[0-9,]+$/; // solo para los numeros
+                        if(this.ruc !== 0) {
+                            // mas validaciones
+                            if(er_numeros .test(this.ruc) == false)
+                            {
+                                this.errores.push("El campo Ruc solo puede obtener numeros");
+                            }else {
+                                var dto = this.ruc.length;
+                                var valor;
+                                var acu=0;
+                                for (var i=0; i<dto; i++){
+                                    valor = this.ruc.substring(i,i+1);
+                                    if(valor==0||valor==1||valor==2||valor==3||valor==4||valor==5||valor==6||valor==7||valor==8||valor==9){
+                                        acu = acu+1;
+                                    }
+                                }
+                                if(acu==dto){
+                                    // modifica aquí para agregar el 002,003
+                                    while(this.ruc.substring(10,13)!=001){
+                                        alert('Los tres últimos dígitos no tienen el código del RUC 001.');
+                                        return;
+                                    }
+                                    while(this.ruc.substring(0,2)>24){
+                                        alert('Los dos primeros dígitos no pueden ser mayores a 24.');
+                                        return;
+                                    }
+                                    //this.errores.push('El RUC está escrito correctamente');
+                                    //alert('Se procederá a analizar el respectivo RUC.');
+                                    var porcion1 = this.ruc.substring(2,3);
+                                    if(porcion1<6){
+                                       // alert('El tercer dígito es menor a 6, por lo \ntanto el usuario es una persona natural.\n');
+                                    } else{
+                                        if(porcion1==6){
+                                            alert('El tercer dígito es igual a 6, por lo \ntanto el usuario es una entidad pública.\n');
+                                        }
+                                        else{
+                                            if(porcion1==9){
+                                                alert('El tercer dígito es igual a 9, por lo \ntanto el usuario es una sociedad privada.\n');
+                                            }
+                                        }
+                                    }
+                                } else{
+                                    this.errores.push("Ruc invalido");
+                                }
+                            }
+                        } else {
+                            this.errores.push("Ingrese la información sobre el ruc");
+                        }
+                    },
 
                    // validaciones
                     validarCampos : function() {
                         // expresiones regulares para evaluar información
+                        this.validarRuc();
 
                         var datos_sin_numeros =  /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/; // para la afinidad
                         var datos_sin_caracteres_e = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,\s0-9]+$/; //para la observación
@@ -264,16 +315,6 @@
                             }
                         }else {
                             this.errores.push("El campo Empresa no puede estar vacio");
-                        }
-
-                        if(this.ruc !== 0) {
-                            // mas validaciones
-                            if(er_numeros .test(this.ruc) == false)
-                            {
-                                this.errores.push("El campo Ruc solo puede obtener numeros");
-                            }
-                        } else {
-                            this.errores.push("El Ruc debe tener");
                         }
 
                         if(this.razon !== "") {

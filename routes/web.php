@@ -17,7 +17,6 @@ require __DIR__ . '/modulos/seguridad.php';
 require __DIR__ . '/modulos/tienda.php';
 
 
-
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/index', 'Auth\RegisterController@index')->name('index');
 
@@ -26,9 +25,12 @@ Route::get('/index', 'Auth\RegisterController@index')->name('index');
 
 
 
-route::get('/prueba',function() {
-    echo "hola";
-});
+         route::get('ventas/index', 'VentaController@index')->name('ventas.index');
+         route::get('ventas/consultar/{id}','VentaController@consultarProductos');
+        route::post('ventas/guardar','VentaController@guardar');
+        route::get('admin/vista','adminController@index');
+
+
 
 
 

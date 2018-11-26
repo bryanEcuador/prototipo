@@ -10,14 +10,14 @@
 
     <div class="col-md-12">
         <!-- contenido -->
-        <div class="tile">
+        <div class="tile" >
+            <div class="col-md-10 col-md-offset-1">
 
+            </div>
             </div>
         </div>
 
     </div>
 
 
-@endsection
-@section('js')
 @endsection

@@ -34,7 +34,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                            <li><a href="{{route('ventas.index')}}">Facturar</a> </li>                        &nbsp;
+                            <li> <a>Reporte</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -82,6 +83,10 @@
                 </div>
             @endif
             @yield('content')
+                <script src="/js/plugins/toastr.js"></script>
+                <script src="{{asset('js/axios.min.js')}}"></script>
+                <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+            @yield('js')
         </main>
     </div>
 </body>

@@ -41,7 +41,7 @@
                         <div class="xzoom-container">
                             <img class="xzoom"  v-bind:src="imagen1" />
                             <div class="xzoom-thumbs">
-                                <a v-bind:href="imagen1"><img class="xzoom-gallery" width="80" v-bind:src="imagen1"  v-bind:xpreview="imagen1" ></a>
+                                <a id="imagen1" v-bind:href="imagen1"><img class="xzoom-gallery" width="80" v-bind:src="imagen1"  v-bind:xpreview="imagen1" ></a>
                                 <a v-bind:href="imagen2"><img class="xzoom-gallery" width="80" v-bind:src="imagen2" ></a>
                                 <a v-bind:href="imagen3"><img class="xzoom-gallery" width="80" v-bind:src="imagen3" ></a>
                                 <a v-bind:href="imagen4"><img class="xzoom-gallery" width="80" v-bind:src="imagen4"></a>
@@ -292,11 +292,11 @@
                                                 <h5 class="name"> @{{item.usuario}}</h5>
                                                 <p class="date">@{{devolverFecha(item.updated_at)}}</p>
                                                 <div class="review-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o empty"></i>
+                                                    <i class="fa fa-star" v-if="item.calificacion >=1"></i>
+                                                    <i class="fa fa-star" v-if="item.calificacion >=2"></i>
+                                                    <i class="fa fa-star" v-if="item.calificacion >=3"></i>
+                                                    <i class="fa fa-star" v-if="item.calificacion >=4"></i>
+                                                    <i class="fa fa-star" v-if="item.calificacion >=5"></i>
                                                 </div>
                                             </div>
                                             <div class="review-body">
@@ -571,6 +571,10 @@
                     });
                 }));
 
+                var a =document.getElementById("imagen1");
+                a.click();
+                a.click();
+                //$('#acceder').click();
 
                 axios.get('/productos').then(response => {
                     this.cmbproductos  = response.data
@@ -607,6 +611,7 @@
             },
 
              computed : {
+
                 isActived : function () {
                     return this.paginacion.current_page;
                 },
@@ -837,7 +842,8 @@
                         }
                         
                     }
-                }
+                },
+
             }    
         });
     </script>
