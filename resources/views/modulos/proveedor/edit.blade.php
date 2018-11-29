@@ -173,6 +173,7 @@
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2();
         });
+
     </script>
     <script>
         var app = new Vue ({
@@ -436,13 +437,11 @@
                                 data : parametros,
                                 url : "/proveedor/eliminar/imagen",
                                 type : "post",
-                                async : true,
+                                async : false,
                                 success : function(d){
                                     toastr.success('Registro eliminado con exito.', 'Alerta', {timeOut: 8000});
                                 },
                                 error : function (response,jqXHR) {
-
-
                                     if(response.status === 422)
                                     {
                                         // captura los errores en una variable
@@ -469,7 +468,6 @@
 
                                 }
                             });
-
                             this.recargarImagenes(producto);
                         }
                     })
@@ -543,16 +541,15 @@
                         data : formData ,
                         url : "/proveedor/agregar/imagen",
                         type : "post",
-                        async : true,
+                        async : false,
                         contentType: false,
                        mimeType:"multipart/form-data",
                         processData: false,
                         success : function(d){
                             toastr.success('Imagen guardada con exito.', 'Alerta', {timeOut: 8000});
+                            //this.recargarImagenes(producto);
                         },
                         error : function (response,jqXHR) {
-
-
                             if(response.status === 422)
                             {
                                 // captura los errores en una variable
@@ -580,6 +577,7 @@
                         }
                     });
                     this.recargarImagenes(producto);
+
                 },
                 agregarImagen : function (div) {
 

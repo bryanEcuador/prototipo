@@ -89,7 +89,7 @@
                         <label for="iva">Iva:</label>
                     </div>
                     <div class="col-md-2 ">
-                        <select class="form-control" v-model="iva" >
+                        <select class="form-control" v-model="iva" name="iva" >
                             <option v-for="dato in cmbIva" v.bind:value="dato.valor"> @{{dato.valor}}</option>
                         </select>
                     </div>

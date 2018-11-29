@@ -276,8 +276,8 @@ var app = new Vue ({
             }
         },
         enviarFormulario : function(){
-            //var form = document.getElementById('producto');
-            //producto.submit();
+            const form = document.getElementById('producto');
+            form.submit();
         },
 
         crearInputs : function() {

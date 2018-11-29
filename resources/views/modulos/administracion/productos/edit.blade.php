@@ -35,7 +35,7 @@
             <form action="{{route('proveedor.update')}}" method="post" enctype="multipart/form-data" id="producto">
                 <input type="hidden" v-model="identificador" name="id_producto">
                 @csrf
-                <h4>DATOS BASICOS</h4>
+                <h4>DATOS </h4>
                 <hr>
                 <div class="form-group row justify-content-md-center" style="margin-bottom:0;">
                     <label for="categoria" class="form-control-label col-md-4">Categoria:</label>
@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <br>
-                <h4>Imagenes del producto</h4>
+                <h4>Imagenes del product</h4>
                 <hr>
                 <br>
                 <div v-if="archivosMultimedias != 0">

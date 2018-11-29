@@ -103,7 +103,7 @@ class ProveedorController extends Controller
     }
     public function store(Request $request){
 
-//
+       //dd($request);
         // verificamos los inputs
 
         $request->validate([
@@ -114,7 +114,7 @@ class ProveedorController extends Controller
             'marca'=> 'required|string',
             'descripcion' => 'required|max:250|min:15|string',
             'precio' => 'required|min:0|numeric',
-            'iva' => 'required|max:100|min:0|numeric',
+            //'iva' => 'required|max:100|min:0|numeric',
             'colores' => 'required',
             //'file' => 'required|image|mimes:png, jpeg\'',
         ],[
@@ -124,17 +124,17 @@ class ProveedorController extends Controller
             'descripcion.max' => 'La descripcion solo puede tener un maximo de 50 caracteres',
             'descripcion.min' => 'La descripcion solo puede tener un minimo de 15 caracteres',
             'precio.numeric' => 'El precio solo puede contener numeros',
-            'iva.numeric' => 'El iva solo puede contener numeros',
+            //'iva.numeric' => 'El iva solo puede contener numeros',
 
             'nombre.required' => 'El nombre del producto es requerido',
-            'codigo.required' => 'El nombre del producto es requerido',
-            'categoria.required' => 'El nombre del producto es requerido',
-            'sub_categoria.required' => 'El nombre del producto es requerido',
-            'marca.required' => 'El nombre del producto es requerido',
-            'descripcion.required' => 'El nombre del producto es requerido',
-            'precio.required' => 'El nombre del producto es requerido',
-            'iva.required' => 'El nombre del producto es requerido',
-            'colores.required' => 'El nombre del producto es requerido',
+            'codigo.required' => 'El nombre del codigo es requerido',
+            'categoria.required' => 'El nombre de la categoria es requerido',
+            'sub_categoria.required' => 'El nombre de la sub-categoria es requerido',
+            'marca.required' => 'El nombre de la marca es requerido',
+            'descripcion.required' => 'El nombre de la descripción es requerido',
+            'precio.required' => 'El precio es requerido',
+            //'iva.required' => 'El iva es requerido',
+            'colores.required' => 'Debe elegir al menos un color',
             //'file.required' => 'Las imagenes del producto son requeridas',
             'file.imagen' => 'Solo puede subir imagenes',
             'file.mine' => 'No se aceptan imagenes de ese tipo',
@@ -203,7 +203,7 @@ class ProveedorController extends Controller
                         'codigo' => $request->input('codigo') ,
                         'descripcion' => $request->input('descripcion') ,
                         'precio' => $request->input('precio') ,
-                        'iva' => $request->input('iva')
+                        'iva' =>  12//$request->input('iva')
                     ]
                 );
 
@@ -217,8 +217,9 @@ class ProveedorController extends Controller
                 for($i =0 ; $i< count($file); $i++){
                     $nombre = $file[$i]->getClientOriginalName(); // obtengo el nombre de la imagen
                     $ruta = "/storage/productos/";
-                    $nombre = $ruta.time().$nombre; // le concateno el tiempo para que esta sea unica
+                    $nombre = time().$nombre; // le concateno el tiempo para que esta sea unica
                     Storage::disk('public')->put($nombre,  \File::get($file[$i])); // la guardo en el disco
+                   $nombre =$ruta.$nombre;
                     array_push($imagenes,$nombre);
                 }
 
@@ -293,6 +294,8 @@ class ProveedorController extends Controller
 
     // funciones extras
     public function agregarImagen(Request $request) {
+
+
         $file = $request->file('imagen');
         $nombre = $file->getClientOriginalName(); // obtengo el nombre de la imagen
         $nombre = time().$nombre; // le concateno el tiempo para que esta sea unica

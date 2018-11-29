@@ -71,7 +71,7 @@
                     </div>
                 </div>
                 <br>
-                <h4>Imagenes del producto</h4>
+                <h4>Imagenes del productoo</h4>
                 <hr>
                 @forelse($imagenes as $imagen)
                     <p> {{$imagen->color_id}}</p>
