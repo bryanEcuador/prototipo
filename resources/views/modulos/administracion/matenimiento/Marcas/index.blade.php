@@ -12,13 +12,11 @@
         <div class="tile">
             <div class="col-md-12">
                 <button class="btn btn-primary btn-lg pull-right" v-on:click="createMarca"> Crear </button>
-                <div >
-                    <label  class="form-control-label" for="name">Burcar:</label>
-                    <input  type="text"   class="col-md-4 form-control" placeholder="nombre de la Marca" name="name" v-model="marca" v-on:keyup.13="consultarNombreMarca">
+                <div>
+                    <input  type="text"   class="col-md-4 form-control" placeholder="Buscar" name="name" v-model="marca" v-on:keyup.13="consultarNombreMarca">
                 </div>
             </div>
             <br>
-
             <div class="form-inline" >
                 <div class="form-group col-md-1.5 mb-2" v-if="paginacion.total > 5">
                     <label> Mostrar : </label>
@@ -34,7 +32,6 @@
                     </select>
                 </div>
             </div>
-
             <hr>
             <div class="col-sm-12 col-sm-offset-2" style="background-color:white;">
                 <table class="table table-hover table-bordered" v-if="marcasNumber !== 0" >
