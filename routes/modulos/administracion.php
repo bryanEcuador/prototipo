@@ -1,4 +1,6 @@
 <?php
+
+use Illuminate\Support\Facades\View;
 //Route::middleware(['auth'])->group(function () {
 
 Route::group(['prefix' => 'administrador' , 'as' => 'administrador.' ], function() {
@@ -62,6 +64,11 @@ Route::group(['prefix' => 'administrador' , 'as' => 'administrador.' ], function
     route::post('/colores/store','ColorController@store')->name('colores.store');
     route::get('/colores/load/{paginacion}/{page?}/{nombre?}','ColorController@loadData')->name('color.load');
 
+    route::get('/formulario', function () {
+        return View('formulario');
+    });
+
+    route::post('xml', 'AdministracionController@xml')->name('xml');
 
 
 });

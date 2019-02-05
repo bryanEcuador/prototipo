@@ -31,6 +31,36 @@ Route::get('/index', 'Auth\RegisterController@index')->name('index');
         route::get('admin/vista','adminController@index');
 
 
+        // rutas nuevas 
+        // comercio
+route::get('comercio/index', 'comercio@index');
+route::get('comercio/edit', 'comercio@edit');
+route::get('comercio/create', 'comercio@create');
+route::get('comercio/search', 'comercio@search');
+route::post('comercio/delete', 'comercio@delete');
+route::post('comercio/store', 'comercio@store');
+route::post('comercio/update', 'comercio@update');
+
+
+route::get('cliente/index', 'cliente@index');
+route::get('cliente/edit', 'cliente@index');
+route::get('cliente/create', 'cliente@index');
+route::get('cliente/search', 'cliente@index');
+route::post('cliente/delete', 'clienteo@index');
+route::post('cliente/store', 'cliente@index');
+route::post('cliente/update', 'cliente@index');
+
+
+route::get('producto/index', 'producto@index');
+route::get('producto/edit', 'producto@edit');
+route::get('producto/create', 'producto@create');
+route::get('producto/search', 'producto@search');
+route::post('producto/delete', 'productoo@delete');
+route::post('producto/store', 'producto@store');
+route::post('producto/update', 'producto@update');
+
+
+
 
 
 
