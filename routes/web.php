@@ -32,32 +32,74 @@ Route::get('/index', 'Auth\RegisterController@index')->name('index');
 
 
         // rutas nuevas 
-        // comercio
-route::get('comercio/index', 'comercio@index');
-route::get('comercio/edit', 'comercio@edit');
-route::get('comercio/create', 'comercio@create');
-route::get('comercio/search', 'comercio@search');
-route::post('comercio/delete', 'comercio@delete');
-route::post('comercio/store', 'comercio@store');
-route::post('comercio/update', 'comercio@update');
+        // Comercio
+route::get('comercio/index', 'ComercioController@index');
+route::get('comercio/edit', 'ComercioController@edit');
+route::get('comercio/create', 'ComercioController@create');
+route::get('comercio/search', 'ComercioController@search');
+route::post('comercio/delete', 'ComercioController@delete');
+route::post('comercio/store', 'ComercioController@store');
+route::post('comercio/update', 'ComercioController@update');
+route::get('comercio/show', 'ComercioController@show');
+
+route::get('cliente/index', 'clienteController@index');
+route::get('cliente/edit', 'clienteController@edit');
+route::get('cliente/create', 'clienteController@create');
+route::get('cliente/search', 'clienteController@search');
+route::post('cliente/delete', 'clienteController@delete');
+route::post('cliente/store', 'clienteController@store');
+route::post('cliente/update', 'clienteController@update');
+route::get('cliente/show', 'ComercioController@show');
+
+route::get('comercio/piso/index', 'comercioPisoController@index');
+route::get('comercio/piso/edit', 'comercioPisoController@edit');
+route::get('comercio/piso/create', 'comercioPisoController@create');
+route::get('comercio/piso/search', 'comercioPisoController@search');
+route::post('comercio/piso/delete', 'comercioPisoController@delete');
+route::post('comercio/piso/store', 'comercioPisoController@store');
+route::post('comercio/piso/update', 'comercioPisoController@update');
+route::get('comercio/piso/show', 'comercioPisoController@show');
+
+route::get('comercio/piso/propaganda/index', 'comercioPisoPropagandaControllerController@index');
+route::get('comercio/piso/propaganda/edit', 'comercioPisoPropagandaControllerController@edit');
+route::get('comercio/piso/propaganda/create', 'comercioPisoPropagandaControllerController@create');
+route::get('comercio/piso/propaganda/search', 'comercioPisoPropagandaControllerController@search');
+route::post('comercio/piso/propaganda/delete', 'comercioPisoPropagandaControllerController@delete');
+route::post('comercio/piso/propaganda/store', 'comercioPisoPropagandaControllerController@store');
+route::post('comercio/piso/propaganda/update', 'comercioPisoPropagandaControllerController@update');
+route::post('comercio/piso/propaganda/update', 'comercioPisoPropagandaController@show');
 
 
-route::get('cliente/index', 'cliente@index');
-route::get('cliente/edit', 'cliente@index');
-route::get('cliente/create', 'cliente@index');
-route::get('cliente/search', 'cliente@index');
-route::post('cliente/delete', 'clienteo@index');
-route::post('cliente/store', 'cliente@index');
-route::post('cliente/update', 'cliente@index');
+route::get('comercio/subscripcion/index', 'comercioSubscripcionController@index');
+route::get('comercio/subscripcion/edit', 'comercioSubscripcionController@edit');
+route::get('comercio/subscripcion/create', 'comercioSubscripcionController@create');
+route::get('comercio/subscripcion/search', 'comercioSubscripcionController@search');
+route::post('comercio/subscripcion/delete', 'comercioSubscripcionController@delete');
+route::post('comercio/subscripcion/store', 'comercioSubscripcionController@store');
+route::post('comercio/subscripcion/update', 'comercioSubscripcionController@update');
+route::get('comercio/subscripcion/show', 'comercioSubscripcionController@show');
+
+route::get('producto/index', 'ProductoController@index');
+route::get('producto/edit', 'ProductoController@edit');
+route::get('producto/create', 'ProductoController@create');
+route::get('producto/search', 'ProductoController@search');
+route::post('producto/delete', 'ProductoController@delete');
+route::post('producto/store', 'ProductoController@store');
+route::post('producto/update', 'ProductoController@update');
 
 
-route::get('producto/index', 'producto@index');
-route::get('producto/edit', 'producto@edit');
-route::get('producto/create', 'producto@create');
-route::get('producto/search', 'producto@search');
-route::post('producto/delete', 'productoo@delete');
-route::post('producto/store', 'producto@store');
-route::post('producto/update', 'producto@update');
+
+
+
+
+route::get('comercio/producto/index', 'comercioProductoControllerController@index');
+route::get('comercio/producto/edit', 'comercioProductoControllerController@edit');
+route::get('comercio/producto/create', 'comercioProductoControllerController@create');
+route::get('comercio/producto/search', 'comercioProductoControllerController@search');
+route::post('comercio/producto/delete', 'comercioProductoControllerController@delete');
+route::post('comercio/producto/store', 'comercioProductoControllerController@store');
+route::post('comercio/producto/update', 'comercioProductoControllerController@update');
+
 
 
 
