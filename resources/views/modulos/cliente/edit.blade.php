@@ -31,22 +31,15 @@
     <div class="col-md-12" id="creacionProveedores">
         <form action="{{route('administrador.proveedor.store')}}" method="post" id="administracion">
             @csrf
-        <div class="tile">
+              <div class="tile">
            
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Id:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
-                </div>
-            </div>            
+            
            <div class="form-group row">
                 <div class="col-md-2">
                     <label for="nombre">Tipo identificacion:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="tipo_identificacion" maxlength="20">
                 </div>
             </div>
 
@@ -55,7 +48,7 @@
                     <label for="nombre">identificacion:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="razon" v-model="razon" maxlength="20">
+                   <input class="form-control" type="text" name="razon" v-model="identificacion" maxlength="20">
                 </div>
             </div>
 
@@ -65,7 +58,7 @@
                     <label for="nombre">Nombre:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="ruc" v-model="ruc" maxlength="20">
+                   <input class="form-control" type="text" name="ruc" v-model="nombre" maxlength="20">
                 </div>
             </div>
 
@@ -74,7 +67,7 @@
                     <label for="nombre">Apellidos:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="representante" v-model="representante" maxlength="20">
+                   <input class="form-control" type="text" name="representante" v-model="apellidos" maxlength="20">
                 </div>
             </div>
 
@@ -99,10 +92,10 @@
 
             <div class="form-group row">
                 <div class="col-md-2">
-                    <label for="nombre">Email:</label>
+                    <label for="nombre">Fecha:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="email" v-model="email" maxlength="20">
+                   <input class="form-control" type="date" name="fecha" v-model="fecha" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -117,7 +110,7 @@
 
                 <br>
                <!--<button type="input" class="btn btn-info" name="guardar" id="guardar">Agregar Proveedor</button> --><!-- v-on:click="guardar" -->
-            <button type="submit" class="btn btn-info" id="guardar">Editar Cliente</button>
+            <button type="submit" class="btn btn-info" id="guardar">Agregar Cliente</button>
                 <input type="hidden" v-model="estado" id="estado">
         </div>
         </form>

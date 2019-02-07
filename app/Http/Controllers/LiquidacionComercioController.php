@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ProductoController extends Controller
+class LiquidacionComercioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +14,8 @@ class ProductoController extends Controller
     public function index()
     {
         //
+        return view('modulos.liquidacion_comercio.index');
+
     }
 
     /**
@@ -23,7 +25,7 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('modulos.producto.create');
+        return view('modulos.liquidacion_comercio.create');
     }
 
     /**
@@ -46,7 +48,8 @@ class ProductoController extends Controller
     public function show($id = null)
     {
         //
-        return view('modulos.producto.show');
+        return view('modulos.liquidacion_comercio.show');
+
     }
 
     /**
@@ -58,7 +61,8 @@ class ProductoController extends Controller
     public function edit($id = null)
     {
         //
-        return view('modulos.producto.edit');
+        return view('modulos.liquidacion_comercio.edit');
+
     }
 
     /**

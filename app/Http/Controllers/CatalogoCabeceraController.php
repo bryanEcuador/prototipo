@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ProductoController extends Controller
+class CatalogoCabeceraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +14,7 @@ class ProductoController extends Controller
     public function index()
     {
         //
+        return view('modulos.catalogo_cabecera.index');
     }
 
     /**
@@ -23,7 +24,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('modulos.producto.create');
+        //
+        return view('modulos.catalogo_cabecera.create');
     }
 
     /**
@@ -46,7 +48,7 @@ class ProductoController extends Controller
     public function show($id = null)
     {
         //
-        return view('modulos.producto.show');
+        return view('modulos.catalogo_cabecera.show');
     }
 
     /**
@@ -58,7 +60,7 @@ class ProductoController extends Controller
     public function edit($id = null)
     {
         //
-        return view('modulos.producto.edit');
+        return view('modulos.catalogo_cabecera.edit');
     }
 
     /**

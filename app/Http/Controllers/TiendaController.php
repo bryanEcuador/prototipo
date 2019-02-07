@@ -31,7 +31,7 @@ class TiendaController extends Controller {
     }
 
     public function inicio(){
-        $top = $this->consultarProductosTop();
+       $top = $this->consultarProductosTop();
         $vendidos = $this->consultarProductosTopVentas();
         return view('welcome',compact('top','vendidos'));
     }

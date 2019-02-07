@@ -68,7 +68,7 @@
                     <label for="nombre">imagen:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="representante_ci" v-model="representante_ci" maxlength="20">
+                   <input class="form-control" type="file" name="representante_ci" v-model="representante_ci" maxlength="20">
                 </div>
             </div>
             

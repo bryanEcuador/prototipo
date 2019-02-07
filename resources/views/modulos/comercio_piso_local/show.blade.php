@@ -33,82 +33,45 @@
             @csrf
         <div class="tile">
            
-           <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">producto:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
-                </div>
-            </div>
-            
-           <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">producto:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
-                </div>
-            </div>
-
-            <div class="form-group row">
+                                  <div class="form-group row">
                 <div class="col-md-2">
                     <label for="nombre">comercio:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="razon" v-model="razon" maxlength="20">
-                </div>
-            </div>
-
-            
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre"> Nombre producto:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="ruc" v-model="ruc" maxlength="20">
+                   <input class="form-control" type="text" name="ciudad" v-model="ciudad" maxlength="20">
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-2">
-                    <label for="nombre">tipo producto:</label>
+                    <label for="nombre">piso:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="representante" v-model="representante" maxlength="20">
+                   <input class="form-control" type="number" name="ciudad" v-model="ciudad" maxlength="20">
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-2">
-                    <label for="nombre">valor:</label>
+                    <label for="nombre">local:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="representante_ci" v-model="representante_ci" maxlength="20">
+                   <input class="form-control" type="number" name="ciudad" v-model="ciudad" maxlength="20">
+                </div>
+            </div>
+
+             <div class="form-group row">
+                <div class="col-md-2">
+                    <label for="nombre">imagen:</label>
+                </div>
+                <div class="col-md-6 ">
+                   <input class="form-control" type="file" name="ciudad" v-model="ciudad" maxlength="20">
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-2">
-                    <label for="nombre"> promocion:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="date" name="fecha" v-model="fecha" maxlength="20">
-                </div>
-            </div>
-
-            
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">disponible:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="direccion" v-model="direccion" maxlength="20">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">es mio:</label>
+                    <label for="nombre">activo</label>
                 </div>
                 <div class="col-md-6 ">
                    <input class="form-control" type="text" name="ciudad" v-model="ciudad" maxlength="20">
