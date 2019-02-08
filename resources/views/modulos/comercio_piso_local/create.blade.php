@@ -42,7 +42,7 @@
                     <label for="nombre">comercio:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="ciudad" v-model="ciudad" maxlength="20">
+                   <input class="form-control" type="text" name="ciudad" v-model="comercio" maxlength="20">
                 </div>
             </div>
 
@@ -51,7 +51,7 @@
                     <label for="nombre">piso:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" name="ciudad" v-model="ciudad" maxlength="20">
+                   <input class="form-control" type="number" name="ciudad" v-model="piso" maxlength="20">
                 </div>
             </div>
 
@@ -60,7 +60,7 @@
                     <label for="nombre">local:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" name="ciudad" v-model="ciudad" maxlength="20">
+                   <input class="form-control" type="number" name="ciudad" v-model="local" maxlength="20">
                 </div>
             </div>
 
@@ -78,7 +78,7 @@
                     <label for="nombre">activo</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="ciudad" v-model="ciudad" maxlength="20">
+                   <input class="form-control" type="text" name="ciudad" v-model="activo" maxlength="20">
                 </div>
             </div>
 
@@ -104,22 +104,10 @@
         var app = new Vue ({
                 el:"#creacionProveedores",
                 data: {
-                    nombre: '',
-                    ruc : '',
-                    razon : '',
-                    representante : '',
-                    representante_ci : '',
-                   identificacion : '',
-                   fecha: '',
-                    direccion : '',
-                    ciudad : '',
-                    sector : '',
-                    nombre_gerente : '',
-                    gerente_ci : '',
-                    tipo_comercio : '',
-                    email:'',
-                    telefono: '',
-                    mio: '',
+                    comercio : '',
+                    piso : '',
+                    local : '',
+                    activo : '',
                     errores : [],
                    
 
@@ -352,22 +340,12 @@
                     enviarFormulario : function(){
                         var url = 'comercio/store';
                         axios.post(url, {
-                            nombre : this.nombre,
-                            ruc: this.ruc,
-                            razon : this.razon,
-                            representante : this.representante,
-                            representante_ci : this.representante_ci,
-                            identificacion : this.identificacion,
-                            fecha : this.fecha,
-                            direccion: this.direccion,
-                            ciudad: this.ciudad,
-                            sector: this.sector,
-                            nombre_gerente: this.nombre_gerente,
-                            gerente_ci: this.gerente_ci,
-                            tipo_comercio : this.tipo_comercio,
-                            email : this.email
-                            telefono:this.telefono;
-                            mio:this.mio;
+                            comercio : this.comercio,
+                            var_pl_piso : this.piso,
+                             var_pl_local : this.local,
+                             var_pl_activo : this.activo,
+                             var_pl_imagen :  this.imagen,
+                            errores : [],
 
                         }).then(response => {
                         

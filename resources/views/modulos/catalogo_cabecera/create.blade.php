@@ -45,10 +45,10 @@
 
               <div class="form-group row">
                 <div class="col-md-2">
-                    <label for="nombre">Descriocion :</label>
+                    <label for="nombre">Descripcion :</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="descripcion" maxlength="20">
                 </div>
             </div>
 
@@ -57,7 +57,7 @@
                     <label for="nombre">etiqueta 1:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="etiqueta1" maxlength="20">
                 </div>
             </div>
              <div class="form-group row">
@@ -65,7 +65,7 @@
                     <label for="nombre">etiqueta 2:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="etiqueta2" maxlength="20">
                 </div>
             </div>
              <div class="form-group row">
@@ -73,7 +73,7 @@
                     <label for="nombre">etiqueta 3:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="etiqueta3" maxlength="20">
                 </div>
             </div>
              <div class="form-group row">
@@ -81,7 +81,7 @@
                     <label for="nombre">etiqueta 4:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="etiqueta4" maxlength="20">
                 </div>
             </div>
              <div class="form-group row">
@@ -89,7 +89,7 @@
                     <label for="nombre">etiqueta 5:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="etiqueta5" maxlength="20">
                 </div>
             </div>
              <div class="form-group row">
@@ -97,7 +97,7 @@
                     <label for="nombre">etiqueta 6:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="etiqueta6" maxlength="20">
                 </div>
             </div>
              <div class="form-group row">
@@ -105,7 +105,7 @@
                     <label for="nombre">etiqueta 7:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="etiqueta7" maxlength="20">
                 </div>
             </div>
 
@@ -130,23 +130,16 @@
         var app = new Vue ({
                 el:"#creacionProveedores",
                 data: {
-                    nombre: '',
-                    ruc : '',
-                    razon : '',
-                    representante : '',
-                    representante_ci : '',
-                   identificacion : '',
-                   fecha: '',
-                    direccion : '',
-                    ciudad : '',
-                    sector : '',
-                    nombre_gerente : '',
-                    gerente_ci : '',
-                    tipo_comercio : '',
-                    email:'',
-                    telefono: '',
-                    mio: '',
-                    errores : [],
+                    nombre : '',
+                    descripcion : '',
+                    etiqueta1 : '',
+                    etiqueta2 : '',
+                    etiqueta3 : '',
+                    etiqueta2 : '',
+                    etiqueta4 : '',
+                    etiqueta5 : '',
+                    etiqueta6 : '',
+                    etiqueta7 : '',
                    
 
                 },
@@ -378,22 +371,17 @@
                     enviarFormulario : function(){
                         var url = 'comercio/store';
                         axios.post(url, {
-                            nombre : this.nombre,
-                            ruc: this.ruc,
-                            razon : this.razon,
-                            representante : this.representante,
-                            representante_ci : this.representante_ci,
-                            identificacion : this.identificacion,
-                            fecha : this.fecha,
-                            direccion: this.direccion,
-                            ciudad: this.ciudad,
-                            sector: this.sector,
-                            nombre_gerente: this.nombre_gerente,
-                            gerente_ci: this.gerente_ci,
-                            tipo_comercio : this.tipo_comercio,
-                            email : this.email
-                            telefono:this.telefono;
-                            mio:this.mio;
+                            
+                       var_cc_nombreCatalogo     : nombre ,
+                       var_cc_descripcionCatalogo    : descripcion ,
+                       var_cc_etiqueta1     :etiqueta1 ,
+                       var_cc_etiqueta2     :etiqueta2 ,
+                        var_cc_etiqueta3   : etiqueta3 ,
+                        var_cc_etiqueta4   : etiqueta4 ,
+                        var_cc_etiqueta5   : etiqueta5 ,
+                        var_cc_etiqueta6   : etiqueta6 ,
+                        var_cc_etiqueta7   : etiqueta7 ,
+                   
 
                         }).then(response => {
                         

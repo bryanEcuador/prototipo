@@ -1,9 +1,9 @@
 @extends('layouts.admin')
-@section('nombre_pagina','Creacion de comercio')
+@section('nombre_pagina','Crear suscripción comercio')
 @section('css')
 @endsection
-@section('titulo de la pagina','Creacion de comercio')
-@section('subtitulo','Formulario de comercio')
+@section('titulo de la pagina','crear suscripción comercio')
+@section('subtitulo','')
 
 @section('contenido')
 @if ($errors->any())
@@ -31,143 +31,94 @@
     <div class="col-md-12" id="creacionProveedores">
         <form action="{{route('administrador.proveedor.store')}}" method="post" id="administracion">
             @csrf
-        <div class="tile">
-           
-            
-           <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Nombre:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
-                </div>
-            </div>
+            <div class="tile">
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">comercio:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                    <input class="form-control" type="text" name="id" v-model="comercio" maxlength="20">
+                    </div>
+                </div> 
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">piso local:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                    <input class="form-control" type="text" name="id" v-model="piso_local" maxlength="20">
+                    </div>
+                </div> 
 
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Razon social:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="razon" v-model="razon" maxlength="20">
-                </div>
-            </div>
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">Fecha inicio subscripcion:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                    <input class="form-control" type="date" name="id" v-model="fecha_suscripcion" maxlength="20">
+                    </div>
+                </div> 
 
-            
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Ruc:</label>
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">Años contratado:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                    <input class="form-control" type="number" name="id" v-model="años_contratado" maxlength="20">
+                    </div>
                 </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="ruc" v-model="ruc" maxlength="20">
-                </div>
-            </div>
+                
+                                
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">Fecha fin suscripción :</label>
+                    </div>
+                    <div class="col-md-6 ">
+                    <input class="form-control" type="date" name="id" v-model="fecha_fin_suscripcion" maxlength="20">
+                    </div>
+                </div> 
 
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Representante legal:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="representante" v-model="representante" maxlength="20">
-                </div>
-            </div>
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">Dias alerta fin suscripcion:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                    <input class="form-control" type="date" name="id" v-model="alerta" maxlength="20">
+                    </div>
+                </div> 
 
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Identificacion Representante legal:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="representante_ci" v-model="representante_ci" maxlength="20">
-                </div>
-            </div>
+                 <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">Activo:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                    <input class="form-control" type="text" name="id" v-model="activo" maxlength="20">
+                    </div>
+                </div> 
 
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre"> Fecha de creación:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="date" name="fecha" v-model="fecha" maxlength="20">
-                </div>
-            </div>
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">Tipo condición:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                    <input class="form-control" type="text" name="id" v-model="condicion" maxlength="20">
+                    </div>
+                </div> 
 
-            
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Direccion:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="direccion" v-model="direccion" maxlength="20">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Ciudad:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="ciudad" v-model="ciudad" maxlength="20">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Sector:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="sector" v-model="sector" maxlength="20">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Nombre del gerente:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre_gerente" v-model="nombre_gerente" maxlength="20">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Identificacion del gerente:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="gerente_ci" v-model="gerente_ci" maxlength="20">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Tipo Comercio:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="tipo_comercio" v-model="tipo_comercio" maxlength="20">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Email:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="email" v-model="email" maxlength="20">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Telefono:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="telefono" v-model="telefono" maxlength="20">
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Mio:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="mio" v-model="mio" maxlength="20">
-                </div>
-            </div>
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">Valor condición:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                    <input class="form-control" type="number" name="id" v-model="valor_condicion" maxlength="20">
+                    </div>
+                </div> 
 
-                <br>
-               <!--<button type="input" class="btn btn-info" name="guardar" id="guardar">Agregar Proveedor</button> --><!-- v-on:click="guardar" -->
-            <button type="submit" class="btn btn-info" id="guardar">Agregar Comercio</button>
-                <input type="hidden" v-model="estado" id="estado">
-        </div>
+
+
+                <div class="col-md-6 ">
+                    <input class="btn btn-primary" type="button" name="id" value ="guardar suscripcion" v-model="id" maxlength="20">
+                </div>
+            </div>
         </form>
     </div>
 @endsection
@@ -183,22 +134,16 @@
         var app = new Vue ({
                 el:"#creacionProveedores",
                 data: {
-                    nombre: '',
-                    ruc : '',
-                    razon : '',
-                    representante : '',
-                    representante_ci : '',
-                   identificacion : '',
-                   fecha: '',
-                    direccion : '',
-                    ciudad : '',
-                    sector : '',
-                    nombre_gerente : '',
-                    gerente_ci : '',
-                    tipo_comercio : '',
-                    email:'',
-                    telefono: '',
-                    mio: '',
+                    comercio: '',
+                    piso_local : '',
+                    fecha_suscripcion : '',
+                    años_contratado : '',
+                   fecha_fin_suscripcion : '',
+                   alerta: '',
+                    activo : '',
+                    condicion : '',
+                    valor_condicion : '',
+                   
                     errores : [],
                    
 
@@ -279,139 +224,13 @@
                    // validaciones
                     validarCampos : function() {
                         // expresiones regulares para evaluar información
-                        this.validarRuc();
-
-                        var datos_sin_numeros =  /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/; // para la afinidad
-                        var datos_sin_caracteres_e = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,\s0-9]+$/; //para la observación
-                        var er_numeros = /^[0-9,]+$/; // solo para los numeros
-                        var datos_sin_espacio = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9]+$/;
-                        var correo = /^\w+([\.\+\-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
-
-                        if(this.codigo !== "") {
-                            if(datos_sin_espacio.test(this.codigo) == false)
-                            {
-                                this.errores.push("El campo codigo no puede contener espacio");
-                            }
-                        } else {
-                            this.errores.push("El campo Codigo no puede estar vacio");
-                        }
-
-
-
-                        if(this.empresa !== ""){
-                            if(datos_sin_caracteres_e.test(this.empresa) == false)
-                            {
-                                this.errores.push("El campo empresa no puede contener caracteres especiales");
-                            }
-                        }else {
-                            this.errores.push("El campo Empresa no puede estar vacio");
-                        }
-
-                        if(this.razon !== "") {
-                            if(datos_sin_caracteres_e.test(this.razon) == false)
-                            {
-                                this.errores.push("El campo razon social no puede contener caracteres especiales");
-                            }
-                        } else {
-                            this.errores.push("La Razon social no puede estar en blanco");
-                        }
-
-
-                        if(this.representante !== "") {
-                            if(datos_sin_caracteres_e.test(this.representante) == false)
-                            {
-                                this.errores.push("El campo representante no puede contener caracteres especiales");
-                            }
-                        } else {
-                            this.errores.push("El campo representante no puede estar en blanco");
-                        }
-
-                        if(this.direccion !== "") {
-                            if(datos_sin_caracteres_e.test(this.direccion) == false)
-                            {
-                                this.errores.push("El campo dirección no puede contener caracteres especiales");
-                            }
-                        } else {
-                            this.errores.push("Debe el campo dirrección no puede contener espacios en blanco ");
-                        }
-
-                        if(this.banco !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("Debe elegir un Banco");
-                        }
-                        if(this.cuenta_bancaria !== 0) {
-                            // mas validaciones
-                            if(er_numeros .test(this.cuenta_bancaria) == false)
-                            {
-                                this.errores.push("El campo Cuenta bancaria solo puede tener numeros");
-                            }
-                        } else {
-                            this.errores.push("El campo cuenta bancaria no puede estar vacio");
-                        }
-                        if(this.estado !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("Debe elegir un Estado");
-                        }
-                        if(this.gerente !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("El campo gerente no puede estar vacio");
-                        }
-                        if(this.convencional !== 0) {
-                            if(er_numeros .test(this.convencional) == false)
-                            {
-                                this.errores.push("El campo Convencional solo puede obtener numeros");
-                            }
-                        } else {
-                            this.errores.push("el campo convencional o puede estar vacio");
-                        }
-                        if(this.telefono_representante !== 0) {
-                            // mas validaciones
-                            if(er_numeros .test(this.telefono_representante) == false)
-                            {
-                                this.errores.push("El telefono del representante solo puede contener numeros");
-                            }
-                        } else {
-                            this.errores.push("El  campo telefono_representante representante no puede estar vacio");
-                        }
-                        if(this.telefono_gerente !== 0) {
-                            // mas validaciones
-                            if(er_numeros .test(this.telefono_gerente) == false)
-                            {
-                                this.errores.push("El campo telefono gerente solo puede contener numeros");
-                            }
-                        } else {
-                            this.errores.push("El campo telefono del gerente no puede estar vacio ");
-                        }
+                      
                         if(this.usuario !== "") {
                             // mas validaciones
                         } else {
                             this.errores.push("Debe ingresar el nombre del usuario");
                         }
-                        if(this.pass !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("Debe campo contraseñe no puede estar vacio");
-                        }
 
-                        if(this.email === ''){
-                            this.errores.push("ingrese el email del usuario");
-                        } else {
-                            this.email= this.email.trim();
-                            if(correo.test(this.email) == false) {
-                                this.errores.push("El correo electronico ingresado no es valido");
-                            }else{
-                                // consulta a la base de datos
-                                axios.get('/seguridad/validar/usuario/'+this.email+'/email/store').then(response => {
-                                    this.respuesta2  = response.data;
-                                if(this.respuesta2.length !== 0) {
-                                    this.errores.push('El email del usuario ya se encuentra registrado');
-                                }
-                            })
-                            }
-                        }
                     },
 
                     guardar : function(){
@@ -431,22 +250,17 @@
                     enviarFormulario : function(){
                         var url = 'comercio/store';
                         axios.post(url, {
-                            nombre : this.nombre,
-                            ruc: this.ruc,
-                            razon : this.razon,
-                            representante : this.representante,
-                            representante_ci : this.representante_ci,
-                            identificacion : this.identificacion,
-                            fecha : this.fecha,
-                            direccion: this.direccion,
-                            ciudad: this.ciudad,
-                            sector: this.sector,
-                            nombre_gerente: this.nombre_gerente,
-                            gerente_ci: this.gerente_ci,
-                            tipo_comercio : this.tipo_comercio,
-                            email : this.email
-                            telefono:this.telefono;
-                            mio:this.mio;
+                           
+                            big_cs_idComercio = this.piso_local;
+                            big_cs_idComercioPisoLocal = this.piso_local;
+                            fch_cs_fechaInicioSuscripcion = this.fecha_suscripcion;
+                            int_cs_aniosContratados = this.años_contratado;
+                            fch_cs_fechaFinSuscripcion = this.fecha_suscripcion;
+                            int_cs_diasAlertasFinSuscripcion = this.alerta;
+                            bit_cs_activo = this.activo,
+                            var_cs_tipoComision = this.condicion;
+                            mon_cs_vañprComision = this.valor_condicion;
+
 
                         }).then(response => {
                         

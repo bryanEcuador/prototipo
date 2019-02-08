@@ -39,7 +39,7 @@
                     <label for="nombre">Cabecera:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="mio" v-model="mio" maxlength="20">
+                   <input class="form-control" type="text" name="mio" v-model="cabecera" maxlength="20">
                 </div>
             </div>
 
@@ -48,7 +48,7 @@
                     <label for="nombre">Codigo miembro:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="mio" v-model="mio" maxlength="20">
+                   <input class="form-control" type="text" name="mio" v-model="codigo_miembro" maxlength="20">
                 </div>
             </div>
 
@@ -57,7 +57,7 @@
                     <label for="nombre">Descripcion:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="mio" v-model="mio" maxlength="20">
+                   <input class="form-control" type="text" name="mio" v-model="descripcion" maxlength="20">
                 </div>
             </div>
              <div class="form-group row">
@@ -65,7 +65,7 @@
                     <label for="nombre">valor 1:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" name="mio" v-model="mio" maxlength="20">
+                   <input class="form-control" type="number" name="valor1" v-model="mio" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -73,7 +73,7 @@
                     <label for="nombre">valor 2:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" name="mio" v-model="mio" maxlength="20">
+                   <input class="form-control" type="number" name="mio" v-model="valor2" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -81,35 +81,35 @@
                     <label for="nombre">valor 3:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" name="mio" v-model="mio" maxlength="20">
+                   <input class="form-control" type="number" name="mio" v-model="valor3" maxlength="20">
                 </div>
             </div><div class="form-group row">
                 <div class="col-md-2">
                     <label for="nombre">valor 4:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" name="mio" v-model="mio" maxlength="20">
+                   <input class="form-control" type="number" name="mio" v-model="valor4" maxlength="20">
                 </div>
             </div><div class="form-group row">
                 <div class="col-md-2">
                     <label for="nombre">valor 5:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" name="mio" v-model="mio" maxlength="20">
+                   <input class="form-control" type="number" name="mio" v-model="valor5" maxlength="20">
                 </div>
             </div><div class="form-group row">
                 <div class="col-md-2">
                     <label for="nombre">valor 6:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" name="mio" v-model="mio" maxlength="20">
+                   <input class="form-control" type="number" name="mio" v-model="valor6" maxlength="20">
                 </div>
             </div><div class="form-group row">
                 <div class="col-md-2">
                     <label for="nombre">valor 7:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" name="mio" v-model="mio" maxlength="20">
+                   <input class="form-control" type="number" name="mio" v-model="valor7" maxlength="20">
                 </div>
             </div>
 
@@ -133,22 +133,16 @@
         var app = new Vue ({
                 el:"#creacionProveedores",
                 data: {
-                    nombre: '',
-                    ruc : '',
-                    razon : '',
-                    representante : '',
-                    representante_ci : '',
-                   identificacion : '',
-                   fecha: '',
-                    direccion : '',
-                    ciudad : '',
-                    sector : '',
-                    nombre_gerente : '',
-                    gerente_ci : '',
-                    tipo_comercio : '',
-                    email:'',
-                    telefono: '',
-                    mio: '',
+
+                   descripcion : '',
+                   codigo_miembro : '',
+                   cabecera : '', 
+                   valor1 : '',
+                   valor2 : '',
+                   valor3 : '',
+                   valor4 : '',
+                   valor5 : '',
+                   valor6 : '',
                     errores : [],
                    
 
@@ -381,22 +375,15 @@
                     enviarFormulario : function(){
                         var url = 'comercio/store';
                         axios.post(url, {
-                            nombre : this.nombre,
-                            ruc: this.ruc,
-                            razon : this.razon,
-                            representante : this.representante,
-                            representante_ci : this.representante_ci,
-                            identificacion : this.identificacion,
-                            fecha : this.fecha,
-                            direccion: this.direccion,
-                            ciudad: this.ciudad,
-                            sector: this.sector,
-                            nombre_gerente: this.nombre_gerente,
-                            gerente_ci: this.gerente_ci,
-                            tipo_comercio : this.tipo_comercio,
-                            email : this.email
-                            telefono:this.telefono;
-                            mio:this.mio;
+                           var_cd_descripcion    : descripcion ,
+                           var_cd_codgio_miembro    : codigo_miembro ,
+                           var_cd_cabecera    : cabecera , 
+                           var_cd_valor1    : valor1 ,
+                           var_cd_valor2    : valor2 ,
+                           var_cd_valor3    : valor3 ,
+                           var_cd_valor4    : valor4 ,
+                           var_cd_valor5    : valor5 ,
+                           var_cd_valor6    : valor6 ,
 
                         }).then(response => {
                         

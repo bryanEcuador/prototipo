@@ -42,8 +42,8 @@ route::get('cliente/search', 'clienteController@search');
 route::post('cliente/delete', 'clienteController@delete');
 route::post('cliente/store', 'clienteController@store');
 route::post('cliente/update', 'clienteController@update');
-route::get('cliente/show', 'ComercioController@show');       
-        // Comercio
+route::get('cliente/show', 'clienteController@show');       
+// Comercio
 route::get('comercio/index', 'ComercioController@index');
 route::get('comercio/edit', 'ComercioController@edit');
 route::get('comercio/create', 'ComercioController@create');
@@ -52,7 +52,8 @@ route::post('comercio/delete', 'ComercioController@delete');
 route::post('comercio/store', 'ComercioController@store');
 route::post('comercio/update', 'ComercioController@update');
 route::get('comercio/show', 'ComercioController@show');
-// producto 
+
+// producto TODO
 route::get('producto/index', 'ProductoController@index');
 route::get('producto/edit', 'ProductoController@edit');
 route::get('producto/create', 'ProductoController@create');
@@ -62,7 +63,7 @@ route::get('producto/view', 'ProductoController@show');
 route::post('producto/store', 'ProductoController@store');
 route::post('producto/update', 'ProductoController@update');
 
-// subscripcion 
+// subscripcion TODO
 
 route::get('comercio/subscripcion/index', 'comercioSubscripcionController@index');
 route::get('comercio/subscripcion/edit', 'comercioSubscripcionController@edit');

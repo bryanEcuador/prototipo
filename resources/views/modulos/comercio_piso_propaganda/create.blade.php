@@ -50,7 +50,7 @@
                     <label for="nombre">piso:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="ruc" v-model="ruc" maxlength="20">
+                   <input class="form-control" type="text" name="ruc" v-model="piso" maxlength="20">
                 </div>
             </div>
 
@@ -59,7 +59,7 @@
                     <label for="nombre">propaganda:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="representante" v-model="representante" maxlength="20">
+                   <input class="form-control" type="text" name="representante" v-model="propaganda" maxlength="20">
                 </div>
             </div>
 
@@ -68,7 +68,7 @@
                     <label for="nombre">imagen:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="file" name="representante_ci" v-model="representante_ci" maxlength="20">
+                   <input class="form-control" type="file" name="representante_ci" v-model="imagen" maxlength="20">
                 </div>
             </div>
             
@@ -77,7 +77,7 @@
                     <label for="nombre">activo:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="direccion" v-model="direccion" maxlength="20">
+                   <input class="form-control" type="text" name="direccion" v-model="activo" maxlength="20">
                 </div>
             </div>
             
@@ -101,22 +101,11 @@
         var app = new Vue ({
                 el:"#creacionProveedores",
                 data: {
-                    nombre: '',
-                    ruc : '',
-                    razon : '',
-                    representante : '',
-                    representante_ci : '',
-                   identificacion : '',
-                   fecha: '',
-                    direccion : '',
-                    ciudad : '',
-                    sector : '',
-                    nombre_gerente : '',
-                    gerente_ci : '',
-                    tipo_comercio : '',
-                    email:'',
-                    telefono: '',
-                    mio: '',
+                    comercio: '',
+                    piso : '',
+                    propaganda : '',
+                    imagen : '',
+                    activo : '',
                     errores : [],
                    
 
@@ -349,22 +338,11 @@
                     enviarFormulario : function(){
                         var url = 'comercio/store';
                         axios.post(url, {
-                            nombre : this.nombre,
-                            ruc: this.ruc,
-                            razon : this.razon,
-                            representante : this.representante,
-                            representante_ci : this.representante_ci,
-                            identificacion : this.identificacion,
-                            fecha : this.fecha,
-                            direccion: this.direccion,
-                            ciudad: this.ciudad,
-                            sector: this.sector,
-                            nombre_gerente: this.nombre_gerente,
-                            gerente_ci: this.gerente_ci,
-                            tipo_comercio : this.tipo_comercio,
-                            email : this.email
-                            telefono:this.telefono;
-                            mio:this.mio;
+                           big_pp_idComercio : this.comercio,
+                            var_pp_propaganda : this.piso ,
+                           var_pp-imagen : this.propaganda ,
+                            var_pp_imagen : this.imagen ,
+                            var bit_pp_activo : this.activo ,
 
                         }).then(response => {
                         
