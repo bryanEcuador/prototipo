@@ -29,17 +29,10 @@
     @endif
 
     <div class="col-md-12" id="creacionProveedores">
-        <form action="{{route('administrador.proveedor.store')}}" method="post" id="administracion">
+                <form action="{{route('administrador.proveedor.store')}}" method="post" id="administracion">
             @csrf
         <div class="tile">
-           <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">id:</label>
-                </div>
-                <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="id" v-model="id" maxlength="20">
-                </div>
-            </div> 
+           
             
            <div class="form-group row">
                 <div class="col-md-2">
@@ -110,7 +103,10 @@
                     <label for="nombre">Ciudad:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="ciudad" v-model="ciudad" maxlength="20">
+                    <select class="form-control"  v-model="ciudad" >
+                        <option>guayaquil</option>
+                        <option>quito</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">
@@ -118,7 +114,10 @@
                     <label for="nombre">Sector:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="sector" v-model="sector" maxlength="20">
+                    <select class="form-control"  v-model="sector" >
+                        <option>sur</option>
+                        <option>norte</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">
@@ -142,7 +141,10 @@
                     <label for="nombre">Tipo Comercio:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="tipo_comercio" v-model="tipo_comercio" maxlength="20">
+                   <select class="form-control"  v-model="tipo_comercio" >
+                        <option>ejemplo1</option>
+                        <option>ejmeplo 2</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group row">
@@ -166,13 +168,16 @@
                     <label for="nombre">Mio:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="mio" v-model="mio" maxlength="20">
+                    <select class="form-control"  v-model="mio" >
+                        <option>si</option>
+                        <option>no</option>
+                    </select>
                 </div>
             </div>
 
                 <br>
                <!--<button type="input" class="btn btn-info" name="guardar" id="guardar">Agregar Proveedor</button> --><!-- v-on:click="guardar" -->
-            <button type="submit" class="btn btn-info" id="guardar">Actualizar comercio</button>
+            <button type="buttton" class="btn btn-info" id="guardar" @click="guardar">Agregar Comercio</button>
                 <input type="hidden" v-model="estado" id="estado">
         </div>
         </form>
@@ -340,8 +345,8 @@
                     },
 
                     guardar : function(){
-                      this.espaciosBlanco();
-                      this.validarCampos();
+                      //this.espaciosBlanco();
+                      //this.validarCampos();
                       if(this.errores.length == 0){
                           this.enviarFormulario();
                       }else {
@@ -354,16 +359,15 @@
                     },
 
                     enviarFormulario : function(){
-                        var url = 'comercio/store';
+                        var url = 'comercio/update';
                         axios.post(url, {
+
+                            big_co_idComercio : this.id_comercio
                             var_co_nombreComercio : this.nombre,
-                            ruc: this.ruc,
+                            var_co_ruc: this.ruc,
                             var_co_razonSocial : this.razon,
                             var_co_representanteLegal : this.representante,
                             var_co_representante_identificacionRepresentanteLocal : this.representante_ci,
-                            
-                           
-                            
                             var_co_fechaCreacion : this.fecha,
                             var_co_direccion: this.direccion,
                             var_co_ciudad: this.ciudad,

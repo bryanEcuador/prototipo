@@ -1,9 +1,9 @@
 @extends('layouts.admin')
-@section('nombre_pagina','Creacion de comercio piso')
+@section('nombre_pagina','Edición de comercio piso')
 @section('css')
 @endsection
-@section('titulo de la pagina','Creacion de comercio piso')
-@section('subtitulo','Formulario de comercio')
+@section('titulo de la pagina','Edición de comercio piso')
+@section('subtitulo','')
 
 @section('contenido')
 @if ($errors->any())
@@ -86,7 +86,7 @@
 
                 <br>
                <!--<button type="input" class="btn btn-info" name="guardar" id="guardar">Agregar Proveedor</button> --><!-- v-on:click="guardar" -->
-            <button type="submit" class="btn btn-info" id="guardar">Agregar Comercio piso</button>
+            <button type="submit" class="btn btn-info" id="guardar">Edición Comercio piso</button>
                 <input type="hidden" v-model="estado" id="estado">
         </div>
         </form>

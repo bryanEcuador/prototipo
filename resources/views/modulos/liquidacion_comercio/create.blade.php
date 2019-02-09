@@ -39,7 +39,7 @@
                     <label for="nombre">Transaccion:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="transaccion" maxlength="20">
                 </div>
             </div>
 
@@ -48,7 +48,7 @@
                     <label for="nombre">detalle transaccion:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="detalle_transaccion" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -56,7 +56,7 @@
                     <label for="nombre">Comercio:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="comercio" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -64,7 +64,7 @@
                     <label for="nombre">comercio producto:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="comercio_producto" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -72,7 +72,7 @@
                     <label for="nombre">cliente:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="cliente" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -80,7 +80,7 @@
                     <label for="nombre">cantidad:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="number" name="nombre" v-model="cantidad" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -88,7 +88,7 @@
                     <label for="nombre">valor:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="number" name="nombre" v-model="valor" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -96,7 +96,7 @@
                     <label for="nombre">subtotal:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="number" name="nombre" v-model="subtotal" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -104,7 +104,7 @@
                     <label for="nombre">Comision:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="number" name="nombre" v-model="comision" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -112,7 +112,7 @@
                     <label for="nombre">Total:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="number" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="number" name="nombre" v-model="total" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -120,7 +120,7 @@
                     <label for="nombre">Estado:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="estado" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -128,7 +128,7 @@
                     <label for="nombre">Fecha transacción:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="date" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="date" name="nombre" v-model="fecha_transaccion" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -136,7 +136,7 @@
                     <label for="nombre">Fecha de proceso:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="date" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="date" name="nombre" v-model="fecha_proceso" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -144,7 +144,7 @@
                     <label for="nombre">Fecha liquidación:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="date" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="date" name="nombre" v-model="fecha_liquidacion" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -152,7 +152,7 @@
                     <label for="nombre">Factura:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="nombre" v-model="factura" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -204,22 +204,24 @@
         var app = new Vue ({
                 el:"#creacionProveedores",
                 data: {
-                    nombre: '',
-                    ruc : '',
-                    razon : '',
-                    representante : '',
-                    representante_ci : '',
-                   identificacion : '',
-                   fecha: '',
-                    direccion : '',
-                    ciudad : '',
-                    sector : '',
-                    nombre_gerente : '',
-                    gerente_ci : '',
-                    tipo_comercio : '',
-                    email:'',
-                    telefono: '',
-                    mio: '',
+                    transaccion: '',
+                    detalle_transaccion : '',
+                    comercio : '',
+                    comercio_producto : '',
+                    cliente : '',
+                   cantidad : '',
+                   
+                    valor : '',
+                    subtotal : '',
+                    comision : '',
+                    total : '',
+                    estado : '',
+                    fecha_transaccion : '',
+                    fecha_proceso: '',
+                    fecha_liquidacion:'',
+                    factura: '',
+                    tipo_comision: '',
+                    valor_comision: '',
                     errores : [],
                    
 
@@ -246,198 +248,17 @@
 
                 methods : {
 
-                    validarRuc : function() {
-                        var er_numeros = /^[0-9,]+$/; // solo para los numeros
-                        if(this.ruc !== 0) {
-                            // mas validaciones
-                            if(er_numeros .test(this.ruc) == false)
-                            {
-                                this.errores.push("El campo Ruc solo puede obtener numeros");
-                            }else {
-                                var dto = this.ruc.length;
-                                var valor;
-                                var acu=0;
-                                for (var i=0; i<dto; i++){
-                                    valor = this.ruc.substring(i,i+1);
-                                    if(valor==0||valor==1||valor==2||valor==3||valor==4||valor==5||valor==6||valor==7||valor==8||valor==9){
-                                        acu = acu+1;
-                                    }
-                                }
-                                if(acu==dto){
-                                    // modifica aquí para agregar el 002,003
-                                    while(this.ruc.substring(10,13)!=001){
-                                        alert('Los tres últimos dígitos no tienen el código del RUC 001.');
-                                        return;
-                                    }
-                                    while(this.ruc.substring(0,2)>24){
-                                        alert('Los dos primeros dígitos no pueden ser mayores a 24.');
-                                        return;
-                                    }
-                                    //this.errores.push('El RUC está escrito correctamente');
-                                    //alert('Se procederá a analizar el respectivo RUC.');
-                                    var porcion1 = this.ruc.substring(2,3);
-                                    if(porcion1<6){
-                                       // alert('El tercer dígito es menor a 6, por lo \ntanto el usuario es una persona natural.\n');
-                                    } else{
-                                        if(porcion1==6){
-                                            alert('El tercer dígito es igual a 6, por lo \ntanto el usuario es una entidad pública.\n');
-                                        }
-                                        else{
-                                            if(porcion1==9){
-                                                alert('El tercer dígito es igual a 9, por lo \ntanto el usuario es una sociedad privada.\n');
-                                            }
-                                        }
-                                    }
-                                } else{
-                                    this.errores.push("Ruc invalido");
-                                }
-                            }
-                        } else {
-                            this.errores.push("Ingrese la información sobre el ruc");
-                        }
-                    },
+                   
 
                    // validaciones
                     validarCampos : function() {
                         // expresiones regulares para evaluar información
-                        this.validarRuc();
 
-                        var datos_sin_numeros =  /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/; // para la afinidad
-                        var datos_sin_caracteres_e = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,\s0-9]+$/; //para la observación
-                        var er_numeros = /^[0-9,]+$/; // solo para los numeros
-                        var datos_sin_espacio = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9]+$/;
-                        var correo = /^\w+([\.\+\-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
-
-                        if(this.codigo !== "") {
-                            if(datos_sin_espacio.test(this.codigo) == false)
-                            {
-                                this.errores.push("El campo codigo no puede contener espacio");
-                            }
-                        } else {
-                            this.errores.push("El campo Codigo no puede estar vacio");
-                        }
-
-
-
-                        if(this.empresa !== ""){
-                            if(datos_sin_caracteres_e.test(this.empresa) == false)
-                            {
-                                this.errores.push("El campo empresa no puede contener caracteres especiales");
-                            }
-                        }else {
-                            this.errores.push("El campo Empresa no puede estar vacio");
-                        }
-
-                        if(this.razon !== "") {
-                            if(datos_sin_caracteres_e.test(this.razon) == false)
-                            {
-                                this.errores.push("El campo razon social no puede contener caracteres especiales");
-                            }
-                        } else {
-                            this.errores.push("La Razon social no puede estar en blanco");
-                        }
-
-
-                        if(this.representante !== "") {
-                            if(datos_sin_caracteres_e.test(this.representante) == false)
-                            {
-                                this.errores.push("El campo representante no puede contener caracteres especiales");
-                            }
-                        } else {
-                            this.errores.push("El campo representante no puede estar en blanco");
-                        }
-
-                        if(this.direccion !== "") {
-                            if(datos_sin_caracteres_e.test(this.direccion) == false)
-                            {
-                                this.errores.push("El campo dirección no puede contener caracteres especiales");
-                            }
-                        } else {
-                            this.errores.push("Debe el campo dirrección no puede contener espacios en blanco ");
-                        }
-
-                        if(this.banco !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("Debe elegir un Banco");
-                        }
-                        if(this.cuenta_bancaria !== 0) {
-                            // mas validaciones
-                            if(er_numeros .test(this.cuenta_bancaria) == false)
-                            {
-                                this.errores.push("El campo Cuenta bancaria solo puede tener numeros");
-                            }
-                        } else {
-                            this.errores.push("El campo cuenta bancaria no puede estar vacio");
-                        }
-                        if(this.estado !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("Debe elegir un Estado");
-                        }
-                        if(this.gerente !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("El campo gerente no puede estar vacio");
-                        }
-                        if(this.convencional !== 0) {
-                            if(er_numeros .test(this.convencional) == false)
-                            {
-                                this.errores.push("El campo Convencional solo puede obtener numeros");
-                            }
-                        } else {
-                            this.errores.push("el campo convencional o puede estar vacio");
-                        }
-                        if(this.telefono_representante !== 0) {
-                            // mas validaciones
-                            if(er_numeros .test(this.telefono_representante) == false)
-                            {
-                                this.errores.push("El telefono del representante solo puede contener numeros");
-                            }
-                        } else {
-                            this.errores.push("El  campo telefono_representante representante no puede estar vacio");
-                        }
-                        if(this.telefono_gerente !== 0) {
-                            // mas validaciones
-                            if(er_numeros .test(this.telefono_gerente) == false)
-                            {
-                                this.errores.push("El campo telefono gerente solo puede contener numeros");
-                            }
-                        } else {
-                            this.errores.push("El campo telefono del gerente no puede estar vacio ");
-                        }
-                        if(this.usuario !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("Debe ingresar el nombre del usuario");
-                        }
-                        if(this.pass !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("Debe campo contraseñe no puede estar vacio");
-                        }
-
-                        if(this.email === ''){
-                            this.errores.push("ingrese el email del usuario");
-                        } else {
-                            this.email= this.email.trim();
-                            if(correo.test(this.email) == false) {
-                                this.errores.push("El correo electronico ingresado no es valido");
-                            }else{
-                                // consulta a la base de datos
-                                axios.get('/seguridad/validar/usuario/'+this.email+'/email/store').then(response => {
-                                    this.respuesta2  = response.data;
-                                if(this.respuesta2.length !== 0) {
-                                    this.errores.push('El email del usuario ya se encuentra registrado');
-                                }
-                            })
-                            }
-                        }
                     },
 
                     guardar : function(){
-                      this.espaciosBlanco();
-                      this.validarCampos();
+                      //this.espaciosBlanco();
+                      //this.validarCampos();
                       if(this.errores.length == 0){
                           this.enviarFormulario();
                       }else {
@@ -450,25 +271,27 @@
                     },
 
                     enviarFormulario : function(){
-                        var url = 'comercio/store';
+                        var url = 'liquidacion/comercio/store';
                         axios.post(url, {
-                            nombre : this.nombre,
-                            ruc: this.ruc,
-                            razon : this.razon,
-                            representante : this.representante,
-                            representante_ci : this.representante_ci,
-                            identificacion : this.identificacion,
-                            fecha : this.fecha,
-                            direccion: this.direccion,
-                            ciudad: this.ciudad,
-                            sector: this.sector,
-                            nombre_gerente: this.nombre_gerente,
-                            gerente_ci: this.gerente_ci,
-                            tipo_comercio : this.tipo_comercio,
-                            email : this.email
-                            telefono:this.telefono;
-                            mio:this.mio;
-
+                           
+                           big_lc_idTransaccionBanco :this.transaccion,
+                           big_lc_idTransaccionBancoDetalle :this.detalle_transaccion, 
+                           big_lc_idComercio :this.comercio ,
+                           big_lc_idComercioProducto :this.comercio_producto ,
+                           big_lc_idCliente :this.cliente ,
+                           big_lc_cantidad :this.cantidad ,
+                            
+                           mon_lc_valor :this.valor ,
+                           mon_lc_subtotal :this.subtotal ,
+                           mon_lc_comision :this.comision ,
+                           mon_lc_total : this.total,
+                           bit_estadoLiquidacion :this.estado ,
+                           fch_lc_fechaTransaccion :this.fecha_transaccion ,
+                           fch_lc_fechaProceso :this.fecha_proceso,
+                           fch_lc_fechaLiquidacion :this.fecha_liquidacion,
+                           var_lc_factura :this.factura,
+                           var_lc_tipoComision :this.tipo_comision,
+                           mon_lc_valorComision :this.valor_comision ,
                         }).then(response => {
                         
                         //this.limpiar();

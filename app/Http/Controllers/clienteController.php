@@ -3,14 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\XmlController;
+
+ 
 
 class clienteController extends Controller
 {
+    protected $xml;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(XmlController $xml) {
+        $this->xml = $xml;
+    }
+
+
     public function index()
     {
         //
@@ -37,8 +47,10 @@ class clienteController extends Controller
     public function store(Request $request)
     {
         //
-        $xml = this . xml($request);
-        $response = this . sendData($request);
+       $datos = $this->xml->makeXml($request);
+       $response = $this->xml->sendData($datos);
+       return $this->xml->readXml($response);
+           
     }
 
     /**

@@ -144,13 +144,13 @@ route::post('transaccion/banco/update', 'TransaccionBancoController@update');
 
 
 
-route::get('comercio/producto/index', 'comercioProductoController@index');
+/* route::get('comercio/producto/index', 'comercioProductoController@index');
 route::get('comercio/producto/edit', 'comercioProductoController@edit');
 route::get('comercio/producto/create', 'comercioProductoController@create');
 route::get('comercio/producto/search', 'comercioProductoController@search');
 route::post('comercio/producto/delete', 'comercioProductoController@delete');
 route::post('comercio/producto/store', 'comercioProductoController@store');
-route::post('comercio/producto/update', 'comercioProductoController@update');
+route::post('comercio/producto/update', 'comercioProductoController@update'); */
 
 
 

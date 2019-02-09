@@ -39,7 +39,10 @@
                     <label for="nombre">Tipo identificacion:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="nombre" v-model="tipo_identificacion" maxlength="20">
+                    <select class="form-control"  v-model="tipo identificacion" >
+                            <option>cedula</option>
+                            <option>pasaporte</option>
+                    </select>                
                 </div>
             </div>
 
@@ -48,7 +51,7 @@
                     <label for="nombre">identificacion:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="razon" v-model="identificacion" maxlength="20">
+                    <input class="form-control" type="text" name="ruc" v-model="identificacion" maxlength="20">
                 </div>
             </div>
 
@@ -232,8 +235,9 @@
                     enviarFormulario : function(){
                         var url = 'cliente/update';
                         axios.post(url, {
+                            big_cl_tipo_id_cliente = this.id_cliente
                             var_cl_tipoIdentificacion= this.tipo_identificacion,
-                            thisvar_cl_identificacion= this.tipo_identificacion,
+                            var_cl_identificacion= this.identificacion,
                             var_cl_nombres =  this.nombre,
                             var_cl_apellidos = this.apellidos,
                             var_cl_ciudad = this.ciudad,

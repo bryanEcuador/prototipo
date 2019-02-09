@@ -37,7 +37,10 @@
                         <label for="nombre">comercio:</label>
                     </div>
                     <div class="col-md-6 ">
-                    <input class="form-control" type="text" name="id" v-model="comercio" maxlength="20">
+                        <select class="form-control" v-model="comercio">
+                            <option>1</option>
+                            <option>2</option>
+                        </select>
                     </div>
                 </div> 
                 <div class="form-group row">
@@ -45,7 +48,11 @@
                         <label for="nombre">piso local:</label>
                     </div>
                     <div class="col-md-6 ">
-                    <input class="form-control" type="text" name="id" v-model="piso_local" maxlength="20">
+                                            <select class="form-control" v-model="piso_local">
+                            <option>1</option>
+                            <option>2</option>
+                        </select>
+                    
                     </div>
                 </div> 
 
@@ -170,72 +177,15 @@
 
                 methods : {
 
-                    validarRuc : function() {
-                        var er_numeros = /^[0-9,]+$/; // solo para los numeros
-                        if(this.ruc !== 0) {
-                            // mas validaciones
-                            if(er_numeros .test(this.ruc) == false)
-                            {
-                                this.errores.push("El campo Ruc solo puede obtener numeros");
-                            }else {
-                                var dto = this.ruc.length;
-                                var valor;
-                                var acu=0;
-                                for (var i=0; i<dto; i++){
-                                    valor = this.ruc.substring(i,i+1);
-                                    if(valor==0||valor==1||valor==2||valor==3||valor==4||valor==5||valor==6||valor==7||valor==8||valor==9){
-                                        acu = acu+1;
-                                    }
-                                }
-                                if(acu==dto){
-                                    // modifica aquí para agregar el 002,003
-                                    while(this.ruc.substring(10,13)!=001){
-                                        alert('Los tres últimos dígitos no tienen el código del RUC 001.');
-                                        return;
-                                    }
-                                    while(this.ruc.substring(0,2)>24){
-                                        alert('Los dos primeros dígitos no pueden ser mayores a 24.');
-                                        return;
-                                    }
-                                    //this.errores.push('El RUC está escrito correctamente');
-                                    //alert('Se procederá a analizar el respectivo RUC.');
-                                    var porcion1 = this.ruc.substring(2,3);
-                                    if(porcion1<6){
-                                       // alert('El tercer dígito es menor a 6, por lo \ntanto el usuario es una persona natural.\n');
-                                    } else{
-                                        if(porcion1==6){
-                                            alert('El tercer dígito es igual a 6, por lo \ntanto el usuario es una entidad pública.\n');
-                                        }
-                                        else{
-                                            if(porcion1==9){
-                                                alert('El tercer dígito es igual a 9, por lo \ntanto el usuario es una sociedad privada.\n');
-                                            }
-                                        }
-                                    }
-                                } else{
-                                    this.errores.push("Ruc invalido");
-                                }
-                            }
-                        } else {
-                            this.errores.push("Ingrese la información sobre el ruc");
-                        }
-                    },
-
                    // validaciones
                     validarCampos : function() {
-                        // expresiones regulares para evaluar información
-                      
-                        if(this.usuario !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("Debe ingresar el nombre del usuario");
-                        }
+                       
 
                     },
 
                     guardar : function(){
-                      this.espaciosBlanco();
-                      this.validarCampos();
+                      //this.espaciosBlanco();
+                      //this.validarCampos();
                       if(this.errores.length == 0){
                           this.enviarFormulario();
                       }else {
@@ -248,10 +198,10 @@
                     },
 
                     enviarFormulario : function(){
-                        var url = 'comercio/store';
+                        var url = 'comercio/subscripcion/update';
                         axios.post(url, {
                            
-                            big_cs_idComercio = this.piso_local;
+                           /*  big_cs_idComercio = this.piso_local;
                             big_cs_idComercioPisoLocal = this.piso_local;
                             fch_cs_fechaInicioSuscripcion = this.fecha_suscripcion;
                             int_cs_aniosContratados = this.años_contratado;
@@ -259,7 +209,7 @@
                             int_cs_diasAlertasFinSuscripcion = this.alerta;
                             bit_cs_activo = this.activo,
                             var_cs_tipoComision = this.condicion;
-                            mon_cs_vañprComision = this.valor_condicion;
+                            mon_cs_vañprComision = this.valor_condicion; */
 
 
                         }).then(response => {

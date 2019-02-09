@@ -14,6 +14,7 @@ class ProductoController extends Controller
     public function index()
     {
         //
+        return view('modulos.producto.index');
     }
 
     /**

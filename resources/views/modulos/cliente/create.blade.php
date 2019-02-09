@@ -39,7 +39,10 @@
                     <label for="nombre">Tipo identificacion:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text"  v-model="tipo_identificacion" maxlength="20">
+                    <select class="form-control"  v-model="tipo identificacion" >
+                        <option>cedula</option>
+                        <option>pasaporte</option>
+                    </select>
                 </div>
             </div>
 
@@ -165,59 +168,13 @@
                    validarCampos : function() {
                 
                        
-                        if(this.tipo_identificacion !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("tipo identificacion no puede estar en blanco");
-                        }
 
-                          if(this.identificacion !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("identificacion no puede estar en blanco");
-                        }
-
-                          if(this.nombre !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("nombre no puede estar en blanco");
-                        }
-
-                          if(this.apellidos !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("apellidos no puede estar en blanco");
-                        }
-
-                          if(this.ciudad !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("ciudad no puede estar en blanco");
-                        }
-
-                          if(this.sector !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("sector no puede estar en blanco");
-                        }
-
-                          if(this.fecha !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("fecha no puede estar en blanco");
-                        }
-                          if(this.telefono !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("telefono no puede estar en blanco");
-                        }
-                       
                         
                     },
 
                  
                     guardar : function(){
-                      this.espaciosBlanco();
+                      //this.espaciosBlanco();
                       if(this.errores.length == 0){
                           this.enviarFormulario();
                       }else {
@@ -233,7 +190,7 @@
                         var url = 'cliente/store';
                         axios.post(url, {
                             var_cl_tipoIdentificacion= this.tipo_identificacion,
-                            thisvar_cl_identificacion= this.tipo_identificacion,
+                            thisvar_cl_identificacion= this.identificacion,
                             var_cl_nombres =  this.nombre,
                             var_cl_apellidos = this.apellidos,
                             var_cl_ciudad = this.ciudad,

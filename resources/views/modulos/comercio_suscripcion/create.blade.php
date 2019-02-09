@@ -37,7 +37,10 @@
                         <label for="nombre">comercio:</label>
                     </div>
                     <div class="col-md-6 ">
-                    <input class="form-control" type="text" name="id" v-model="comercio" maxlength="20">
+                        <select class="form-control" v-model="comercio">
+                            <option>1</option>
+                            <option>2</option>
+                        </select>
                     </div>
                 </div> 
                 <div class="form-group row">
@@ -45,7 +48,11 @@
                         <label for="nombre">piso local:</label>
                     </div>
                     <div class="col-md-6 ">
-                    <input class="form-control" type="text" name="id" v-model="piso_local" maxlength="20">
+                                            <select class="form-control" v-model="piso_local">
+                            <option>1</option>
+                            <option>2</option>
+                        </select>
+                    
                     </div>
                 </div> 
 
@@ -248,10 +255,10 @@
                     },
 
                     enviarFormulario : function(){
-                        var url = 'comercio/store';
+                        var url = 'comercio/subscripcion/store';
                         axios.post(url, {
                            
-                            big_cs_idComercio = this.piso_local;
+                            big_cs_idComercio = this.comercio;
                             big_cs_idComercioPisoLocal = this.piso_local;
                             fch_cs_fechaInicioSuscripcion = this.fecha_suscripcion;
                             int_cs_aniosContratados = this.años_contratado;

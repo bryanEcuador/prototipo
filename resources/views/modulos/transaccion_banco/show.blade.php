@@ -32,13 +32,15 @@
         <form action="{{route('administrador.proveedor.store')}}" method="post" id="administracion">
             @csrf
         <div class="tile">
-                           <div class="col-md-2">
+            <div class="form-group row">
+                <div class="col-md-2">
                     <label for="nombre">Subtotal:</label>
                 </div>
                 <div class="col-md-6 ">
                    <input class="form-control" type="number" name="nombre" v-model="nombre" maxlength="20">
                 </div>
-            </div>
+             </div>   
+            
             <div class="form-group row">
                 <div class="col-md-2">
                     <label for="nombre">Comisión:</label>
