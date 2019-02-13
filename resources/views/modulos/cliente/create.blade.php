@@ -29,7 +29,7 @@
     @endif
 
     <div class="col-md-12" id="creacionClientes">
-        <form action="{{route('administrador.proveedor.store')}}" method="post" id="administracion">
+        <form action="{{route('cliente.store')}}" method="post" id="administracion">
             @csrf
         <div class="tile">
            
@@ -39,9 +39,9 @@
                     <label for="nombre">Tipo identificacion:</label>
                 </div>
                 <div class="col-md-6 ">
-                    <select class="form-control"  v-model="tipo identificacion" >
-                        <option>cedula</option>
-                        <option>pasaporte</option>
+                    <select class="form-control"  v-model="tipo identificacion" name="var_cl_tipo_identificacion" >
+                        <option value="1">cedula</option>
+                        <option value="2">pasaporte</option>
                     </select>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                     <label for="nombre">identificacion:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text"  v-model="identificacion" maxlength="20">
+                   <input class="form-control" type="text"  v-model="identificacion" maxlength="20" name="var_cl_identificacion">
                 </div>
             </div>
 
@@ -61,7 +61,7 @@
                     <label for="nombre">Nombre:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="ruc" v-model="nombre" maxlength="20">
+                   <input class="form-control" type="text" name="var_cl_nombres" v-model="nombre" maxlength="20">
                 </div>
             </div>
 
@@ -70,7 +70,7 @@
                     <label for="nombre">Apellidos:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text"  v-model="apellidos" maxlength="20">
+                   <input class="form-control" type="text"  v-model="apellidos" maxlength="20" name="var_cl_apellidos">
                 </div>
             </div>
 
@@ -81,7 +81,12 @@
                     <label for="nombre">Ciudad:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="ciudad" v-model="ciudad" maxlength="20">
+                    
+                    <select class="form-control"  v-model="ciudad" name="var_cl_ciudad">
+                        <option value="1">guayaquil</option>
+                        <option value="2">quito</option>
+                    </select>
+                
                 </div>
             </div>
             <div class="form-group row">
@@ -89,7 +94,10 @@
                     <label for="nombre">Sector:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="sector" v-model="sector" maxlength="20">
+                    <select class="form-control"  v-model="sector" name="var_cl_sector" >
+                        <option value="1">Norte</option>
+                        <option value="2">Sur</option>
+                    </select>
                 </div>
             </div>
 
@@ -98,7 +106,7 @@
                     <label for="nombre">Fecha:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="date" name="fecha" v-model="fecha" maxlength="20">
+                   <input class="form-control" type="date" name="var_cl_fechaNacimiento" v-model="fecha" maxlength="20">
                 </div>
             </div>
             <div class="form-group row">
@@ -106,15 +114,23 @@
                     <label for="nombre">Telefono:</label>
                 </div>
                 <div class="col-md-6 ">
-                   <input class="form-control" type="text" name="telefono" v-model="telefono" maxlength="20">
+                   <input class="form-control" type="text" name="var_cl_telefono" v-model="telefono" name="var_cl_telefono" maxlength="20">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label for="nombre">Email:</label>
+                </div>
+                <div class="col-md-6 ">
+                   <input class="form-control" type="text"  v-model="email" name="var_cl_email" maxlength="20">
                 </div>
             </div>
             
 
                 <br>
                <!--<button type="input" class="btn btn-info" name="guardar" id="guardar">Agregar Proveedor</button> --><!-- v-on:click="guardar" -->
-            <button type="submit" class="btn btn-info" id="guardar" @click="guardar">Agregar Cliente</button>
-                <input type="hidden" v-model="estado" id="estado">
+            <button type="submit" class="btn btn-info" id="guardar" >Agregar Cliente</button>
+                
         </div>
         </form>
     </div>

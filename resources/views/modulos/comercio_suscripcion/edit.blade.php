@@ -123,7 +123,10 @@
 
 
                 <div class="col-md-6 ">
-                    <input class="btn btn-primary" type="button" name="id" value ="guardar suscripcion" v-model="id" maxlength="20">
+                    
+                    <button class="btn btn-primary">
+                        Editar
+                    </button>
                 </div>
             </div>
         </form>

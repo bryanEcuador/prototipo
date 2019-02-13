@@ -35,18 +35,18 @@ Route::get('/index', 'Auth\RegisterController@index')->name('index');
 
 
 // clientes
-route::get('cliente/index', 'clienteController@index');
-route::get('cliente/edit', 'clienteController@edit');
-route::get('cliente/create', 'clienteController@create');
+route::get('cliente/index', 'clienteController@index')->name('clientes.index');
+route::get('cliente/edit', 'clienteController@edit')->name('clientes.edit');
+route::get('cliente/create', 'clienteController@create')->name('clientes.create');
 route::get('cliente/search', 'clienteController@search');
 route::post('cliente/delete', 'clienteController@delete');
-route::post('cliente/store', 'clienteController@store');
+route::post('cliente/store', 'clienteController@store')->name('cliente.store');
 route::post('cliente/update', 'clienteController@update');
 route::get('cliente/show', 'clienteController@show');       
 // Comercio
-route::get('comercio/index', 'ComercioController@index');
-route::get('comercio/edit', 'ComercioController@edit');
-route::get('comercio/create', 'ComercioController@create');
+route::get('comercio/index', 'ComercioController@index')->name('comercio.index');
+route::get('comercio/edit', 'ComercioController@edit')->name('comercio.edit');
+route::get('comercio/create', 'ComercioController@create')->name('comercio.create');
 route::get('comercio/search', 'ComercioController@search');
 route::post('comercio/delete', 'ComercioController@delete');
 route::post('comercio/store', 'ComercioController@store');

@@ -113,19 +113,19 @@
         <li><a class="app-menu__item" href="{{route('administrador.producto.index')}}"><i class="app-menu__icon fa fa-shopping-bag"></i><span class="app-menu__label">Productos</span></a></li>
         <li><a class="app-menu__item" href="{{route('administrador.datos.show')}}"><i class="app-menu__icon fa fa-cog"></i><span class="app-menu__label">Configuración</span></a></li>
 
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shield"></i><span class="app-menu__label">Cliente</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shield"></i><span class="app-menu__label">Comercio</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-                <li><a class="treeview-item" href="{{route('seguridad.user.index')}}"><i class="icon fa fa-user"></i> crear</a></li>
-                <li><a class="treeview-item" href="{{route('seguridad.roles.index')}}"><i class="icon fa fa-users"></i> editar</a></li>
-                <li><a class="treeview-item" href="{{route('seguridad.permisos.index')}}"><i class="icon fa fa-unlock"></i> principal</a></li>
+                <li><a class="treeview-item" href="{{route('comercio.create')}}"><i class="icon fa fa-user"></i> crear</a></li>
+                <li><a class="treeview-item" href="{{route('comercio.edit')}}"><i class="icon fa fa-users"></i> editar</a></li>
+                <li><a class="treeview-item" href="{{route('comercio.index')}}"><i class="icon fa fa-unlock"></i> principal</a></li>
             </ul>
         </li>
 
-                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shield"></i><span class="app-menu__label">Comercio</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shield"></i><span class="app-menu__label">Clientes</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
-                <li><a class="treeview-item" href="{{route('seguridad.user.index')}}"><i class="icon fa fa-user"></i> crear</a></li>
-                <li><a class="treeview-item" href="{{route('seguridad.roles.index')}}"><i class="icon fa fa-users"></i> editar</a></li>
-                <li><a class="treeview-item" href="{{route('seguridad.permisos.index')}}"><i class="icon fa fa-unlock"></i> principal</a></li>
+                <li><a class="treeview-item" href="{{route('clientes.create')}}"><i class="icon fa fa-user"></i> crear</a></li>
+                <li><a class="treeview-item" href="{{route('clientes.edit')}}"><i class="icon fa fa-users"></i> editar</a></li>
+                <li><a class="treeview-item" href="{{route('clientes.index')}}"><i class="icon fa fa-unlock"></i> principal</a></li>
             </ul>
         </li>
     </ul>

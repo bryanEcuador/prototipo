@@ -1,9 +1,9 @@
 @extends('layouts.admin')
-@section('nombre_pagina','Comercio')
+@section('nombre_pagina','Comercio suscripcion')
 @section('css')
 <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 @endsection
-@section('titulo de la pagina',' Comercio')
+@section('titulo de la pagina',' Comercio suscripcion')
 @section('subtitulo','')
 
 @section('contenido')
@@ -35,7 +35,36 @@
            
            
           
-            
+            <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                  <tr>
+                    <th>nombre comercio</th>
+                    <th>piso</th>
+                    <th>propaganda</th>
+                    <th>fecha suscripcion</th>
+                    <th>fecha fin suscripcion</th>
+                    <th>valor comision</th>
+                    <th>acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>nombre comercio</td>
+                    <td>piso</td>
+                    <td>propaganda</td>
+                    <td>fecha suscripcion</td>
+                    <td>fecha fin suscripcion</td>
+                    <td>valor comision</td>
+                    
+               
+                    <td>
+                        <button>Modificar</button>
+                        <button>Eliminar</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
 
              
         </div>

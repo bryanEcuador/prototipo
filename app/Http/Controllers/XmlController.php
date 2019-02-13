@@ -20,19 +20,22 @@ class XmlController extends Controller
         $objetoXML->setIndentString("\t");
         $objetoXML->startDocument('1.0', 'utf-8'); // inicio del documento
 	// Inicio del nodo raíz
-        $objetoXML->startElement("ejemplos"); // inicio del nodo raiz
-        $objetoXML->startElement("ejemplo"); // Se inicia un elemento para cada obra.
+        $objetoXML->startElement("pr_ins_va_clientes"); // inicio del nodo raiz
+
 
         foreach ($input as $key => $value) {
                 /* echo $key . " " . $value; */
-            $objetoXML->writeAttribute($key, $value);
+            $objetoXML->startElement($key);
+            $objetoXML->writeAttribute('Type', 'System.String');
+            $objetoXML->text($value);
+            $objetoXML->fullEndElement(); // Final del elemento "obra" que cubre cada obra de la matriz.
         }
         $objetoXML->fullEndElement(); // Final del elemento "obra" que cubre cada obra de la matriz.
         $objetoXML->endElement(); // Final del nodo raíz, "ejemplos"
         $objetoXML->endDocument(); // Final del documento
         $cadenaXML = trim($objetoXML->outputMemory());
 
-        return $cadenaXml;
+         return $cadenaXML;
 
     }
 
@@ -55,8 +58,10 @@ class XmlController extends Controller
     }
 
     public function readXml($xml) {
-        
+        $arreglo = \simplexml_load_string($cadenaXML);
+        return $arreglo;
     }
 
+    //#339BA3
 
 }
