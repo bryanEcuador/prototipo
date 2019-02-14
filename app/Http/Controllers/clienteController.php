@@ -47,57 +47,18 @@ class clienteController extends Controller
     public function store(Request $request)
     {
 
-         $clerk = array(
-            "user" => "Scott",
-        );
-        $other = array('other' => 'xxxxx');
-        $clerk = arrary_merge($other, $clerk);
-        print_r($clerk); 
-      
-      
-        dd($request->all());
 
-        $parametros = [];
-
-        foreach ($request->all() as $key => $value){
-            //array_push($parametros,$value);
-            $parametros = array_merge($key, $value);
-        }
-        dd($parametros);
-
-        $input = $request->all(); // obtengo todos los datos del formulario
-
-        $objetoXML = new \XMLWriter(); // instancio la clase
+        $cabecera = "pr_ins_va_clientes ";     
+        $parametros = $this->xml->makeArray($request);
+        $datos = $this->xml->makeXml($parametros,$cabecera);
+        $cliente = $this->xml->soap();
        
-        // Estructura básica del XML
-        $objetoXML->openMemory();
-        $objetoXML->setIndent(true);
-        $objetoXML->setIndentString("\t");
-        $objetoXML->startDocument('1.0', 'utf-8'); // inicio del documento
-	// Inicio del nodo raíz
-        $objetoXML->startElement("pr_ins_va_clientes"); // inicio del nodo raiz
-        
+        // llamamos al metodo que vamos a consumir
+        $response = 'metodo';
+        return $this->xml->readXml($response);         
 
-        foreach ($input as $key => $value) {
-                /* echo $key . " " . $value; */
-            $objetoXML->startElement($key);
-            $objetoXML->writeAttribute('Type', 'System.String'); 
-            $objetoXML->text($value);
-            $objetoXML->fullEndElement(); // Final del elemento "obra" que cubre cada obra de la matriz.
-        }
-        $objetoXML->fullEndElement(); // Final del elemento "obra" que cubre cada obra de la matriz.
-        $objetoXML->endElement(); // Final del nodo raíz, "ejemplos"
-        $objetoXML->endDocument(); // Final del documento
-        $cadenaXML = trim($objetoXML->outputMemory());
-
+        //
        
-
-       // $datos = $this->xml->makeXml($request);
-      // $response = $this->xml->sendData($datos);
-      // return $this->xml->readXml($response); 
-
-        $clientes = \simplexml_load_string($cadenaXML);
-        dd($clientes);
            
     }
 

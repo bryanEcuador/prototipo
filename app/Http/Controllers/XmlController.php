@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//use Symfony\Component\HttpFoundation\Request;
 
 class XmlController extends Controller
 {
     //
 
-    public function makeXml(Request $request)
+    public function makeXml($array,$cabecera)
     {
-        $input = $request->all(); // obtengo todos los datos del formulario
+       
 
         $objetoXML = new \XMLWriter(); // instancio la clase
        
@@ -20,10 +21,10 @@ class XmlController extends Controller
         $objetoXML->setIndentString("\t");
         $objetoXML->startDocument('1.0', 'utf-8'); // inicio del documento
 	// Inicio del nodo raíz
-        $objetoXML->startElement("pr_ins_va_clientes"); // inicio del nodo raiz
+        $objetoXML->startElement($cabecera); // inicio del nodo raiz
 
 
-        foreach ($input as $key => $value) {
+        foreach ($array as $key => $value) {
                 /* echo $key . " " . $value; */
             $objetoXML->startElement($key);
             $objetoXML->writeAttribute('Type', 'System.String');
@@ -39,22 +40,11 @@ class XmlController extends Controller
 
     }
 
-    public function sendData($xml)
+    public function soap()
     {
-        
-    //url del webservice
-        $wsdl = "https://cvnet.cpd.ua.es/servicioweb/publicos/pub_gestdocente.asmx?wsdl";
-    
-    //instanciando un nuevo objeto cliente para consumir el webservice
-        $client = new nusoap_client($wsdl, 'wsdl');
 
-    //pasando los parámetros a un array
-        $param = $xml;
-
-    //llamando al método y pasándole el array con los parámetros
-        $resultado = $client->call('metodo', $param);
-
-        return $resultado;
+        $client = new SoapClient("http://<host-servidor>/webservice/services/ControlAssistencia?wsdl", array('trace' => 1));
+        return $client;
     }
 
     public function readXml($xml) {
@@ -62,6 +52,23 @@ class XmlController extends Controller
         return $arreglo;
     }
 
-    //#339BA3
+    public function makeArray(Request $request){
+        $parametros = array();
+
+        foreach ($request->all() as $key => $value) {
+            if ($key == '_token') {
+                $insertado = array('var_lg_login' => 1);
+                $parametros = array_merge($parametros, $insertado);
+            } else {
+                $insertado = array($key => $value);
+                $parametros = array_merge($parametros, $insertado);
+            }
+
+        }
+
+        return $parametros;
+    }
+
+    
 
 }
