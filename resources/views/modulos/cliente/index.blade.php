@@ -74,7 +74,7 @@
         </div>
 
         {{-- editar  --}}
-         <div id="crearCliente" class="modal fade" role="dialog" >
+         <div id="editarCliente" class="modal fade" role="dialog" >
             
             <div class="modal-dialog modal-lg">
                 <div class="col-lg-12">
@@ -83,7 +83,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Creación de clientes</h5>
+                                        <h5 class="modal-title">Edición de clientes</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                     </div>
                                     <div class="modal-body">
@@ -92,7 +92,11 @@
                                                                 <label for="nombre">Tipo identificacion:</label>
                                                             </div>
                                                             <div class="col-md-6 ">
-                                                            <input class="form-control" type="text"  v-model="e_tipo_identificacion">
+                                                                <select class="form-control" v-model="e_tipo_identificacion">
+                                                                    <option>a</option>
+                                                                    <option>b</option>
+                                                                </select>
+                                                            
                                                             </div>
                                                         </div>
 
@@ -131,7 +135,11 @@
                                                                 <label for="nombre">Ciudad:</label>
                                                             </div>
                                                             <div class="col-md-6 ">
-                                                                <input class="form-control" type="text"  v-model="e_ciudad" >
+                                                                
+                                                                <select class="form-control" v-model="e_ciudad">
+                                                                    <option>a</option>
+                                                                    <option>b</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
@@ -139,7 +147,10 @@
                                                                 <label for="nombre">Sector:</label>
                                                             </div>
                                                             <div class="col-md-6 ">
-                                                                <input class="form-control" type="text"  v-model="e_sector" >
+                                                                <select class="form-control" v-model="e_sector">
+                                                                    <option>a</option>
+                                                                    <option>b</option>
+                                                                </select>
                                                             </div>
                                                         </div>
 
@@ -294,7 +305,7 @@
     </div>
 
     {{-- crear  --}}
-         <div id="editarCliente" class="modal fade" role="dialog" >
+         <div id="crearCliente" class="modal fade" role="dialog" >
             
             <div class="modal-dialog modal-lg">
                 <div class="col-lg-12">
@@ -303,7 +314,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Edición de clientes</h5>
+                                        <h5 class="modal-title">Creación de clientes</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                     </div>
                                     <div class="modal-body">
@@ -312,7 +323,11 @@
                                                                 <label for="nombre">Tipo identificacion:</label>
                                                             </div>
                                                             <div class="col-md-6 ">
-                                                            <input class="form-control" type="text"  v-model="c_tipo_identificacion">
+                                                                <select class="form-control" v-model="c_tipo_identificacion">
+                                                                    <option>a</option>
+                                                                    <option>b</option>
+                                                                </select>
+                                                            
                                                             </div>
                                                         </div>
 
@@ -351,7 +366,10 @@
                                                                 <label for="nombre">Ciudad:</label>
                                                             </div>
                                                             <div class="col-md-6 ">
-                                                                <input class="form-control" type="text"  v-model="c_ciudad" >
+                                                                <select class="form-control" v-model="c_ciudad">
+                                                                    <option>a</option>
+                                                                    <option>b</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
@@ -359,7 +377,11 @@
                                                                 <label for="nombre">Sector:</label>
                                                             </div>
                                                             <div class="col-md-6 ">
-                                                                <input class="form-control" type="text"  v-model="c_sector" >
+                                                                <select class="form-control" v-model="c_sector">
+                                                                    <option>a</option>
+                                                                    <option>b</option>
+                                                                </select>
+                                                                
                                                             </div>
                                                         </div>
 
@@ -404,7 +426,7 @@
         </div>
     </div>
 
-        {{-- crear  --}}
+        {{-- eliminar  --}}
          <div id="eliminarCliente" class="modal fade" role="dialog" >
             
             <div class="modal-dialog modal-lg">
@@ -418,7 +440,7 @@
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                     </div>
                                    <div class="modal-body">
-                                       <h1>¿ ESTA SEGURO QUE DESEA ELIMINAR AL CLIENTE ?</h1>
+                                       <h2>¿ ESTA SEGURO QUE DESEA ELIMINAR AL CLIENTE ?</h2>
                                         <button class="btn btn-primary" id="guardar" type="button" v-on:click="actualizar">Eliminar</button>
                                         <button class="btn btn-secondary" type="button" data-dismiss="modal">cancelar</button>
                                    </div>
@@ -544,15 +566,15 @@
                             var url = 'cliente/store';
                             axios.post(url, {
                                 
-                            var_cl_tipoIdentificacion   : c_tipo_identificacion,
-                            var_cl_identificacion  : c_identificacion, 
-                            var_cl_nombres : c_nombre , 
-                            var_cl_apellidos : c_apellidos , 
-                            var_cl_ciudad   : c_ciudad,
-                            var_cl_sector  : c_sector ,
-                            var_cl_fechaNacimiento  : c_fecha ,
-                            var_cl_telefono : c_fecha ,
-                            var_cl_email : c_email ,
+                            var_cl_tipoIdentificacion   : this.c_tipo_identificacion,
+                            var_cl_identificacion  : this.c_identificacion, 
+                            var_cl_nombres : this.c_nombre , 
+                            var_cl_apellidos : this.c_apellidos , 
+                            var_cl_ciudad   : this.c_ciudad,
+                            var_cl_sector  : this.c_sector ,
+                            var_cl_fechaNacimiento  : this.c_fecha ,
+                            var_cl_telefono : this.c_fecha ,
+                            var_cl_email : this.c_email ,
 
                             }).then(response => {
                             
@@ -582,15 +604,15 @@
                            var url = 'cliente/update';
                             axios.post(url, {
                                 
-                            var_cl_tipoIdentificacion   : c_tipo_identificacion,
-                            var_cl_identificacion  : c_identificacion, 
-                            var_cl_nombres : c_nombre , 
-                            var_cl_apellidos : c_apellidos , 
-                            var_cl_ciudad   : c_ciudad,
-                            var_cl_sector  : c_sector ,
-                            var_cl_fechaNacimiento  : c_fecha ,
-                            var_cl_telefono : c_fecha ,
-                            var_cl_email : c_email ,
+                            var_cl_tipoIdentificacion   : this.e__tipo_identificacion,
+                            var_cl_identificacion  : this.e__identificacion, 
+                            var_cl_nombres : this.e__nombre , 
+                            var_cl_apellidos : this.e__apellidos , 
+                            var_cl_ciudad   : this.e__ciudad,
+                            var_cl_sector  : this.e__sector ,
+                            var_cl_fechaNacimiento  : this.e__fecha ,
+                            var_cl_telefono : this.e__fecha ,
+                            var_cl_email : this.e__email ,
 
                             }).then(response => {
                             

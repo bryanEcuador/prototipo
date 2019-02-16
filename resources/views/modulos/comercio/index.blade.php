@@ -32,6 +32,8 @@
     <div class="col-md-12" id="creacionProveedores">
         
        <div class="tile">
+                    <button class="btn btn-primary btn-lg btn-block mb-4" @click="crear"> Agregar comercio</button>
+
             <table class="table table-hover table-bordered" id="sampleTable">
                 <thead>
                   <tr>
@@ -41,7 +43,7 @@
                     <th>representante legal</th>
                     <th>identificacion representante</th>
                     <th>tipo comercio</th>
-                    <th>direccion</th>
+                   
      
                     <th>Accioes</th>
                   </tr>
@@ -54,28 +56,502 @@
                     <td>representante legal</td>
                     <td>identificacion representante</td>
                     <td>tipo comercio</td>
-                    <td>direccion</td>
+                   
                
                     <td>
-                        <button>Modificar</button>
-                        <button>Eliminar</button>
+                       <button class="btn btn-primary"  @click="editar" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>
+                        <button class="btn btn-info" @click="ver"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                        <button class="btn btn-danger"  @click="eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                     </td>
                   </tr>
 
                 </tbody>
               </table>
        </div>
+       <div class="container">
+  
+  <!-- Modal crear -->
+  <div class="modal fade"  role="dialog" id="crear">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          {{-- <button type="button" class="close" data-dismiss="modal">&times;</button> --}}
+          <h4 class="modal-title">Crear comercio</h4>
+        </div>
+        <div class="modal-body">
+           <div class="col-md-12" >
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Nombre:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                    <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                                                </div>
+                                                  <div class="col-md-2">
+                                                    <label for="nombre">Razon social:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="razon" v-model="razon" maxlength="20">
+                                                </div>
+                                            </div>
+
+                                            
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Ruc:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="ruc" v-model="ruc" maxlength="20">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Representante legal:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="representante" v-model="representante" maxlength="20">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Identificacion Representante legal:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="representante_ci" v-model="representante_ci" maxlength="20">
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <label for="nombre"> Fecha de creación:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="date" name="fecha" v-model="fecha" maxlength="20">
+                                                </div>
+                                            </div>
+
+                                          
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Direccion:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="direccion" v-model="direccion" maxlength="20">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Ciudad:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control"  v-model="ciudad" >
+                                                        <option>guayaquil</option>
+                                                        <option>quito</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Sector:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control"  v-model="sector" >
+                                                        <option>sur</option>
+                                                        <option>norte</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Nombre del gerente:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="nombre_gerente" v-model="nombre_gerente" maxlength="20">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Identificacion del gerente:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="gerente_ci" v-model="gerente_ci" maxlength="20">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Tipo Comercio:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <select class="form-control"  v-model="tipo_comercio" >
+                                                        <option>ejemplo1</option>
+                                                        <option>ejmeplo 2</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Email:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="email" v-model="email" maxlength="20">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Telefono:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="telefono" v-model="telefono" maxlength="20">
+                                                </div>
+                                            </div>
+                                            
+                                           
+
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Mio:</label>
+                                                </div>
+                                                <div class="col-md-10 ">
+                                                    <select class="form-control"  v-model="mio" >
+                                                        <option>si</option>
+                                                        <option>no</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+           </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" > Guardar       </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Modal editar -->
+  <div class="modal fade"  role="dialog" id="editar">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          {{-- <button type="button" class="close" data-dismiss="modal">&times;</button> --}}
+          <h4 class="modal-title">Editar comercio</h4>
+        </div>
+        <div class="modal-body">
+           <div class="col-md-12" >
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Nombre:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                    <input class="form-control" type="text" name="nombre" v-model="e_nombre" maxlength="20">
+                                                </div>
+                                                  <div class="col-md-2">
+                                                    <label for="nombre">Razon social:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="razon" v-model="e_razon" maxlength="20">
+                                                </div>
+                                            </div>
+
+                                            
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Ruc:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="ruc" v-model="e_ruc" maxlength="20">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Representante legal:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="representante" v-model="e_representante" maxlength="20">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Identificacion Representante legal:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="representante_ci" v-model="e_representante_ci" maxlength="20">
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <label for="nombre"> Fecha de creación:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="date" name="fecha" v-model="e_fecha" maxlength="20">
+                                                </div>
+                                            </div>
+
+                                          
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Direccion:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="direccion" v-model="e_direccion" maxlength="20">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Ciudad:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control"  v-model="e_ciudad" >
+                                                        <option>guayaquil</option>
+                                                        <option>quito</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Sector:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control"  v-model="e_sector" >
+                                                        <option>sur</option>
+                                                        <option>norte</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Nombre del gerente:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="nombre_gerente" v-model="e_nombre_gerente" maxlength="20">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Identificacion del gerente:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="gerente_ci" v-model="e_gerente_ci" maxlength="20">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Tipo Comercio:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <select class="form-control"  v-model="e_tipo_comercio" >
+                                                        <option>ejemplo1</option>
+                                                        <option>ejmeplo 2</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Email:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="email" v-model="e_email" maxlength="20">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Telefono:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="telefono" v-model="e_telefono" maxlength="20">
+                                                </div>
+                                            </div>
+                                            
+                                           
+
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Mio:</label>
+                                                </div>
+                                                <div class="col-md-10 ">
+                                                    <select class="form-control"  v-model="e_mio" >
+                                                        <option>si</option>
+                                                        <option>no</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+           </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" >Actualizar       </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+     <!-- Modal ver -->
+  <div class="modal fade"  role="dialog" id="ver">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          {{-- <button type="button" class="close" data-dismiss="modal">&times;</button> --}}
+          <h4 class="modal-title">Ver comercio</h4>
+        </div>
+        <div class="modal-body">
+           <div class="col-md-12" >
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Nombre:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                    <input class="form-control" type="text" name="nombre" v-model="v_nombre" maxlength="20">
+                                                </div>
+                                                  <div class="col-md-2">
+                                                    <label for="nombre">Razon social:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="razon" v-model="v_razon" maxlength="20">
+                                                </div>
+                                            </div>
+
+                                            
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Ruc:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="ruc" v-model="v_ruc" maxlength="20">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Representante legal:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="representante" v-model="v_representante" maxlength="20">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Identificacion Representante legal:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="representante_ci" v-model="v_representante_ci" maxlength="20">
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <label for="nombre"> Fecha de creación:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="date" name="fecha" v-model="v_fecha" maxlength="20">
+                                                </div>
+                                            </div>
+
+                                          
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Direccion:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="direccion" v-model="v_direccion" maxlength="20">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Ciudad:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control"  v-model="v_ciudad" >
+                                                        <option>guayaquil</option>
+                                                        <option>quito</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Sector:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control"  v-model="v_sector" >
+                                                        <option>sur</option>
+                                                        <option>norte</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Nombre del gerente:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="nombre_gerente" v-model="v_nombre_gerente" maxlength="20">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Identificacion del gerente:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="gerente_ci" v-model="v_gerente_ci" maxlength="20">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Tipo Comercio:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <select class="form-control"  v-model="v_tipo_comercio" >
+                                                        <option>ejemplo1</option>
+                                                        <option>ejmeplo 2</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Email:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="email" v-model="v_email" maxlength="20">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Telefono:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                <input class="form-control" type="text" name="telefono" v-model="v_telefono" maxlength="20">
+                                                </div>
+                                            </div>
+                                            
+                                           
+
+                                            <div class="form-group row">
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Mio:</label>
+                                                </div>
+                                                <div class="col-md-10 ">
+                                                    <select class="form-control"  v-model="v_mio" >
+                                                        <option>si</option>
+                                                        <option>no</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+           </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        {{-- eliminar  --}}
+         <div id="eliminar" class="modal fade" role="dialog" >
+            
+            <div class="modal-dialog modal-lg">
+                <div class="col-lg-12">
+                    <div class="bs-component">
+                        <div class="modal" style="position: relative; top: auto; right: auto; left: auto; bottom: auto; z-index: 1; display: block;">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"></h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    </div>
+                                   <div class="modal-body">
+                                       <h1>¿ ESTA SEGURO QUE DESEA ELIMINAR EL COMERCIO ?</h1>
+                                        <button class="btn btn-primary" id="guardar" type="button" v-on:click="suprimir">Eliminar</button>
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">cancelar</button>
+                                   </div>
+                                </div>
+                            </div>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
        
     </div>
+    
 @endsection
 @section('js')
-    <script>
-        $(document).ready(function(){
-                $("#estado").val(1);
-        });
-    </script>
-    <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <
     <script>
         $(document).ready( function () {
             $('#myTable').DataTable();
@@ -103,6 +579,43 @@
                     email:'',
                     telefono: '',
                     mio: '',
+
+                    e_nombre: '',
+                    e_ruc : '',
+                    e_razon : '',
+                    e_representante : '',
+                    e_representante_ci : '',
+                    e_identificacion : '',
+                    e_fecha: '',
+                    e_direccion : '',
+                    e_ciudad : '',
+                    e_sector : '',
+                    e_nombre_gerente : '',
+                    e_gerente_ci : '',
+                    e_tipo_comercio : '',
+                    e_email:'',
+                    e_telefono: '',
+                    e_mio: '',
+
+                    v_nombre: '',
+                    v_ruc : '',
+                    v_razon : '',
+                    v_representante : '',
+                    v_representante_ci : '',
+                    v_identificacion : '',
+                    v_fecha: '',
+                    v_direccion : '',
+                    v_ciudad : '',
+                    v_sector : '',
+                    v_nombre_gerente : '',
+                    v_gerente_ci : '',
+                    v_tipo_comercio : '',
+                    v_email:'',
+                    v_telefono: '',
+                    v_mio: '',
+
+
+
                     errores : [],
                    
 
@@ -129,200 +642,73 @@
 
                 methods : {
 
-                    validarRuc : function() {
-                        var er_numeros = /^[0-9,]+$/; // solo para los numeros
-                        if(this.ruc !== 0) {
-                            // mas validaciones
-                            if(er_numeros .test(this.ruc) == false)
-                            {
-                                this.errores.push("El campo Ruc solo puede obtener numeros");
-                            }else {
-                                var dto = this.ruc.length;
-                                var valor;
-                                var acu=0;
-                                for (var i=0; i<dto; i++){
-                                    valor = this.ruc.substring(i,i+1);
-                                    if(valor==0||valor==1||valor==2||valor==3||valor==4||valor==5||valor==6||valor==7||valor==8||valor==9){
-                                        acu = acu+1;
-                                    }
-                                }
-                                if(acu==dto){
-                                    // modifica aquí para agregar el 002,003
-                                    while(this.ruc.substring(10,13)!=001){
-                                        alert('Los tres últimos dígitos no tienen el código del RUC 001.');
-                                        return;
-                                    }
-                                    while(this.ruc.substring(0,2)>24){
-                                        alert('Los dos primeros dígitos no pueden ser mayores a 24.');
-                                        return;
-                                    }
-                                    //this.errores.push('El RUC está escrito correctamente');
-                                    //alert('Se procederá a analizar el respectivo RUC.');
-                                    var porcion1 = this.ruc.substring(2,3);
-                                    if(porcion1<6){
-                                       // alert('El tercer dígito es menor a 6, por lo \ntanto el usuario es una persona natural.\n');
-                                    } else{
-                                        if(porcion1==6){
-                                            alert('El tercer dígito es igual a 6, por lo \ntanto el usuario es una entidad pública.\n');
-                                        }
-                                        else{
-                                            if(porcion1==9){
-                                                alert('El tercer dígito es igual a 9, por lo \ntanto el usuario es una sociedad privada.\n');
-                                            }
-                                        }
-                                    }
-                                } else{
-                                    this.errores.push("Ruc invalido");
-                                }
-                            }
-                        } else {
-                            this.errores.push("Ingrese la información sobre el ruc");
-                        }
-                    },
+                 // validar
 
-                   // validaciones
-                    validarCampos : function() {
-                        // expresiones regulares para evaluar información
-                        this.validarRuc();
+                 validar : function () {
+                     
+                 },
 
-                        var datos_sin_numeros =  /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/; // para la afinidad
-                        var datos_sin_caracteres_e = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ,\s0-9]+$/; //para la observación
-                        var er_numeros = /^[0-9,]+$/; // solo para los numeros
-                        var datos_sin_espacio = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9]+$/;
-                        var correo = /^\w+([\.\+\-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+                 // metodos 
 
-                        if(this.codigo !== "") {
-                            if(datos_sin_espacio.test(this.codigo) == false)
-                            {
-                                this.errores.push("El campo codigo no puede contener espacio");
-                            }
-                        } else {
-                            this.errores.push("El campo Codigo no puede estar vacio");
-                        }
+                 
+                   eliminar : function () {
+                       $("#eliminar").modal('show');
+                   },
+
+                  
+                   ver : function () {
+                       $("#ver").modal('show');
+                   },
+
+                   crear : function () {
+                       $("#crear").modal('show');
+                   },
+                   
+                   
+                   editar : function () {
+                       $("#editar").modal('show');
+                   },
+
+                   suprimir : function() {
+
+                   },
 
 
+                   guardar : function(){
+                      //this.espaciosBlanco();
+                      //this.validarCampos();
 
-                        if(this.empresa !== ""){
-                            if(datos_sin_caracteres_e.test(this.empresa) == false)
-                            {
-                                this.errores.push("El campo empresa no puede contener caracteres especiales");
-                            }
-                        }else {
-                            this.errores.push("El campo Empresa no puede estar vacio");
-                        }
-
-                        if(this.razon !== "") {
-                            if(datos_sin_caracteres_e.test(this.razon) == false)
-                            {
-                                this.errores.push("El campo razon social no puede contener caracteres especiales");
-                            }
-                        } else {
-                            this.errores.push("La Razon social no puede estar en blanco");
-                        }
-
-
-                        if(this.representante !== "") {
-                            if(datos_sin_caracteres_e.test(this.representante) == false)
-                            {
-                                this.errores.push("El campo representante no puede contener caracteres especiales");
-                            }
-                        } else {
-                            this.errores.push("El campo representante no puede estar en blanco");
-                        }
-
-                        if(this.direccion !== "") {
-                            if(datos_sin_caracteres_e.test(this.direccion) == false)
-                            {
-                                this.errores.push("El campo dirección no puede contener caracteres especiales");
-                            }
-                        } else {
-                            this.errores.push("Debe el campo dirrección no puede contener espacios en blanco ");
-                        }
-
-                        if(this.banco !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("Debe elegir un Banco");
-                        }
-                        if(this.cuenta_bancaria !== 0) {
-                            // mas validaciones
-                            if(er_numeros .test(this.cuenta_bancaria) == false)
-                            {
-                                this.errores.push("El campo Cuenta bancaria solo puede tener numeros");
-                            }
-                        } else {
-                            this.errores.push("El campo cuenta bancaria no puede estar vacio");
-                        }
-                        if(this.estado !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("Debe elegir un Estado");
-                        }
-                        if(this.gerente !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("El campo gerente no puede estar vacio");
-                        }
-                        if(this.convencional !== 0) {
-                            if(er_numeros .test(this.convencional) == false)
-                            {
-                                this.errores.push("El campo Convencional solo puede obtener numeros");
-                            }
-                        } else {
-                            this.errores.push("el campo convencional o puede estar vacio");
-                        }
-                        if(this.telefono_representante !== 0) {
-                            // mas validaciones
-                            if(er_numeros .test(this.telefono_representante) == false)
-                            {
-                                this.errores.push("El telefono del representante solo puede contener numeros");
-                            }
-                        } else {
-                            this.errores.push("El  campo telefono_representante representante no puede estar vacio");
-                        }
-                        if(this.telefono_gerente !== 0) {
-                            // mas validaciones
-                            if(er_numeros .test(this.telefono_gerente) == false)
-                            {
-                                this.errores.push("El campo telefono gerente solo puede contener numeros");
-                            }
-                        } else {
-                            this.errores.push("El campo telefono del gerente no puede estar vacio ");
-                        }
-                        if(this.usuario !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("Debe ingresar el nombre del usuario");
-                        }
-                        if(this.pass !== "") {
-                            // mas validaciones
-                        } else {
-                            this.errores.push("Debe campo contraseñe no puede estar vacio");
-                        }
-
-                        if(this.email === ''){
-                            this.errores.push("ingrese el email del usuario");
-                        } else {
-                            this.email= this.email.trim();
-                            if(correo.test(this.email) == false) {
-                                this.errores.push("El correo electronico ingresado no es valido");
-                            }else{
-                                // consulta a la base de datos
-                                axios.get('/seguridad/validar/usuario/'+this.email+'/email/store').then(response => {
-                                    this.respuesta2  = response.data;
-                                if(this.respuesta2.length !== 0) {
-                                    this.errores.push('El email del usuario ya se encuentra registrado');
-                                }
-                            })
-                            }
-                        }
-                    },
-
-                    guardar : function(){
-                      this.espaciosBlanco();
-                      this.validarCampos();
                       if(this.errores.length == 0){
-                          this.enviarFormulario();
+                          
+                            var url = 'comercio/store';
+                            axios.post(url, {
+                                
+                           var_co_nombreComercio : this.nombre,
+                            ruc: this.ruc,
+                            var_co_razonSocial : this.razon,
+                            var_co_representanteLegal : this.representante,
+                            var_co_representante_identificacionRepresentanteLocal : this.representante_ci,    
+                            var_co_fechaCreacion : this.fecha,
+                            var_co_direccion: this.direccion,
+                            var_co_ciudad: this.ciudad,
+                            var_co_sector: this.sector,
+                            var_co_nombreGerente: this.nombre_gerente,
+                            var_co_identificacionGerente: this.gerente_ci,
+                            var_co_tipoComercio : this.tipo_comercio,
+                            var_co_email : this.email,
+                            var_co_telefono:this.telefono,
+                            var_co_esMio:this.mio,
+
+                            }).then(response => {
+                            
+                            //this.limpiar();
+                            
+                            }).catch(error => {
+                                    console.log(error);
+                            });
+
+
+
                       }else {
                           var num = this.errores.length;
                           for(var i=0; i<num;i++) {
@@ -332,59 +718,52 @@
                       }
                     },
 
-                    enviarFormulario : function(){
-                        var url = 'comercio/store';
-                        axios.post(url, {
-                            nombre : this.nombre,
+                    actualizar : function() {
+                         //this.espaciosBlanco();
+                      //this.validarCampos();
+
+                      if(this.errores.length == 0){
+                          
+                           var url = 'comercio/update';
+                            axios.post(url, {
+                                
+                           var_co_nombreComercio : this.nombre,
                             ruc: this.ruc,
-                            razon : this.razon,
-                            representante : this.representante,
-                            representante_ci : this.representante_ci,
-                            identificacion : this.identificacion,
-                            fecha : this.fecha,
-                            direccion: this.direccion,
-                            ciudad: this.ciudad,
-                            sector: this.sector,
-                            nombre_gerente: this.nombre_gerente,
-                            gerente_ci: this.gerente_ci,
-                            tipo_comercio : this.tipo_comercio,
-                            email : this.email
-                            telefono:this.telefono;
-                            mio:this.mio;
+                            var_co_razonSocial : this.e_razon,
+                            var_co_representanteLegal : this.e_representante,
+                            var_co_representante_identificacionRepresentanteLocal : this.e_representante_ci,    
+                            var_co_fechaCreacion : this.e_fecha,
+                            var_co_direccion: this.e_direccion,
+                            var_co_ciudad: this.e_ciudad,
+                            var_co_sector: this.e_sector,
+                            var_co_nombreGerente: this.e_nombre_gerente,
+                            var_co_identificacionGerente: this.e_gerente_ci,
+                            var_co_tipoComercio : this.e_tipo_comercio,
+                            var_co_email : this.e_email,
+                            var_co_telefono:this.e_telefono,
+                            var_co_esMio:this.e_mio,
 
-                        }).then(response => {
-                        
-                        //this.limpiar();
-                        
-                    }).catch(error => {
-                            console.log(error);
-                        if(error.status === 422)
-                        {
-                            // captura los errores en una variable
-                            var errors = $.parseJSON(error.errorText);
-                            // recorre los errores
-                            $.each(errors, function (key, value) {
-                                // pasa el error del controlador
-                                if($.isPlainObject(value)) {
-                                    $.each(value, function (key, value) {
-                                        toastr.error('Error: '+value+'', 'Error', {timeOut: 5000});
-                                        console.log(key+ " " +value);
-                                    });
-                                }else{
-                                    // es un error general
+                            }).then(response => {
+                            
+                            //this.limpiar();
+                            
+                            }).catch(error => {
                                     console.log(error);
-                                    toastr.error('Error '+error+' al momento guardar el nuevo proveedor.', 'Error', {timeOut: 5000});
-                                }
                             });
-                        } else {
-                            console.log(error.errorText);
-                            toastr.error('Error: '+error.status, 'Error', {timeOut: 5000});
-                        }
-                        //toastr.error('Error al momento de crear el permiso.', 'Alerta', {timeOut: 8000});
 
-                    });
 
+
+                      }else {
+                          var num = this.errores.length;
+                          for(var i=0; i<num;i++) {
+                              toastr.error(this.errores[i]);
+                          }
+                          this.errores = [];
+                      }
                     },
+
+
+                    
 
                     espaciosBlanco : function() {
                         this.codigo= this.codigo.trim();

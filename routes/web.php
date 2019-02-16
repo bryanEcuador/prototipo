@@ -54,7 +54,7 @@ route::post('comercio/update', 'ComercioController@update');
 route::get('comercio/show', 'ComercioController@show');
 
 // producto TODO
-route::get('producto/index', 'ProductoController@index');
+route::get('producto/index', 'ProductoController@index')->name('producto.index');
 route::get('producto/edit', 'ProductoController@edit');
 route::get('producto/create', 'ProductoController@create');
 route::get('producto/search', 'ProductoController@search');
@@ -65,7 +65,7 @@ route::post('producto/update', 'ProductoController@update');
 
 // subscripcion TODO
 
-route::get('comercio/subscripcion/index', 'comercioSubscripcionController@index');
+route::get('comercio/subscripcion/index', 'comercioSubscripcionController@index')->name('subscripcion.index');
 route::get('comercio/subscripcion/edit', 'comercioSubscripcionController@edit');
 route::get('comercio/subscripcion/create', 'comercioSubscripcionController@create');
 route::get('comercio/subscripcion/search', 'comercioSubscripcionController@search');
@@ -76,21 +76,21 @@ route::get('comercio/subscripcion/show', 'comercioSubscripcionController@show');
 
 
 // piso 
-route::get('comercio/piso/index', 'comercioPisoController@index');
-route::get('comercio/piso/edit', 'comercioPisoController@edit');
-route::get('comercio/piso/create', 'comercioPisoController@create');
+route::get('comercio/piso/index', 'comercioPisoController@index')->name('piso.index');
+route::get('comercio/piso/edit', 'comercioPisoController@edit')->name('piso.edit');
+route::get('comercio/piso/create', 'comercioPisoController@create')->name('piso.create');
 route::get('comercio/piso/search', 'comercioPisoController@search');
 route::post('comercio/piso/delete', 'comercioPisoController@delete');
 route::post('comercio/piso/store', 'comercioPisoController@store');
 route::post('comercio/piso/update', 'comercioPisoController@update');
-route::get('comercio/piso/show', 'comercioPisoController@show');
+route::get('comercio/piso/show', 'comercioPisoController@show')->name('piso.show');
 
 //propaganda
-route::get('comercio/piso/propaganda/index', 'comercioPisoPropagandaController@index');
-route::get('comercio/piso/propaganda/edit', 'comercioPisoPropagandaController@edit');
-route::get('comercio/piso/propaganda/create', 'comercioPisoPropagandaController@create');
+route::get('comercio/piso/propaganda/index', 'comercioPisoPropagandaController@index')->name('propaganda.index');
+route::get('comercio/piso/propaganda/edit', 'comercioPisoPropagandaController@edit')->name('propaganda.edit');
+route::get('comercio/piso/propaganda/create', 'comercioPisoPropagandaController@create')->name('propaganda.create');
 route::get('comercio/piso/propaganda/search', 'comercioPisoPropagandaController@search');
-route::get('comercio/piso/propaganda/show', 'comercioPisoPropagandaController@show');
+route::get('comercio/piso/propaganda/show', 'comercioPisoPropagandaController@show')->name('propaganda.show');
 route::post('comercio/piso/propaganda/delete', 'comercioPisoPropagandaController@delete');
 route::post('comercio/piso/propaganda/store', 'comercioPisoPropagandaController@store');
 route::post('comercio/piso/propaganda/update', 'comercioPisoPropagandaController@update');
@@ -98,7 +98,7 @@ route::post('comercio/piso/propaganda/update', 'comercioPisoPropagandaController
 
 //catalogo cabecera 
 
-route::get('catalogo/cabecera/index', 'CatalogoCabeceraController@index');
+route::get('catalogo/cabecera/index', 'CatalogoCabeceraController@index')->name('catalogoCabecera.index');
 route::get('catalogo/cabecera/edit', 'CatalogoCabeceraController@edit');
 route::get('catalogo/cabecera/create', 'CatalogoCabeceraController@create');
 route::get('catalogo/cabecera/search', 'CatalogoCabeceraController@search');
@@ -109,7 +109,7 @@ route::post('catalogo/cabecera/update', 'CatalogoCabeceraController@update');
 
 //catalogo detalle
 
-route::get('catalogo/detalle/index', 'CatalogoDetalleController@index');
+route::get('catalogo/detalle/index', 'CatalogoDetalleController@index')->name('catalogoDetalle.index');
 route::get('catalogo/detalle/edit', 'CatalogoDetalleController@edit');
 route::get('catalogo/detalle/create', 'CatalogoDetalleController@create');
 route::get('catalogo/detalle/search', 'CatalogoDetalleController@search');
@@ -120,7 +120,7 @@ route::post('catalogo/detalle/update', 'CatalogoDetalleController@update');
 
 //liquidacion comercio
 
-route::get('liquidacion/comercio/index', 'LiquidacionComercioController@index');
+route::get('liquidacion/comercio/index', 'LiquidacionComercioController@index')->name('liquidacion.index');
 route::get('liquidacion/comercio/edit', 'LiquidacionComercioController@edit');
 route::get('liquidacion/comercio/create', 'LiquidacionComercioController@create');
 route::get('liquidacion/comercio/search', 'LiquidacionComercioController@search');
@@ -132,7 +132,7 @@ route::post('liquidacion/comercio/update', 'LiquidacionComercioController@update
 
 // transacción banco
 
-route::get('transaccion/banco/index', 'TransaccionBancoController@index');
+route::get('transaccion/banco/index', 'TransaccionBancoController@index')->name('transaccion.index');
 route::get('transaccion/banco/edit', 'TransaccionBancoController@edit');
 route::get('transaccion/banco/create', 'TransaccionBancoController@create');
 route::get('transaccion/banco/search', 'TransaccionBancoController@search');
@@ -140,6 +140,30 @@ route::get('transaccion/banco/show', 'TransaccionBancoController@show');
 route::post('transaccion/banco/delete', 'TransaccionBancoController@delete');
 route::post('transaccion/banco/store', 'TransaccionBancoController@store');
 route::post('transaccion/banco/update', 'TransaccionBancoController@update');
+
+
+route::get('fecha/index','FechaController@index')->name('fecha.index');
+route::post('fecha/delete', 'FechaController@delete');
+route::post('fecha/store', 'FechaController@store');
+route::post('fecha/update', 'FechaController@update');
+
+route::get('feriados/index', 'FeriadoController@index')->name('feriado.index');
+route::post('feriados/delete', 'FeriadoController@delete');
+route::post('feriados/store', 'FeriadoController@store');
+route::post('feriados/update', 'FeriadoController@update');
+
+route::get('logs/index', 'LogsController@index')->name('log.index');
+route::post('logs/delete', 'LogsController@delete');
+route::post('logs/store', 'LogsController@store');
+route::post('logs/update', 'LogsController@update');
+
+
+route::get('usuarios/index', 'UsuariosController@index')->name('usuarios.index');
+route::post('usuarios/delete', 'UsuariosController@delete');
+route::post('usuarios/store', 'UsuariosController@store');
+route::post('usuarios/update', 'UsuariosController@update');
+
+
 
 
 

@@ -92,7 +92,7 @@
         </div>
     </div>
     <ul class="app-menu">
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shield"></i><span class="app-menu__label">Seguridad</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      {{--   <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shield"></i><span class="app-menu__label">Seguridad</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
                 <li><a class="treeview-item" href="{{route('seguridad.user.index')}}"><i class="icon fa fa-user"></i> Usuarios</a></li>
                 <li><a class="treeview-item" href="{{route('seguridad.roles.index')}}"><i class="icon fa fa-users"></i> Roles</a></li>
@@ -121,13 +121,31 @@
             </ul>
         </li>
 
-                <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shield"></i><span class="app-menu__label">Clientes</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shield"></i><span class="app-menu__label">Clientes</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
                 <li><a class="treeview-item" href="{{route('clientes.create')}}"><i class="icon fa fa-user"></i> crear</a></li>
                 <li><a class="treeview-item" href="{{route('clientes.edit')}}"><i class="icon fa fa-users"></i> editar</a></li>
                 <li><a class="treeview-item" href="{{route('clientes.index')}}"><i class="icon fa fa-unlock"></i> principal</a></li>
             </ul>
-        </li>
+            </li> --}}
+
+        {{-- <li><a class="app-menu__item" href="{{route('administrador.proveedor.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Proveedores</span></a></li> --}}
+            
+
+         <li><a class="app-menu__item" href="{{route('clientes.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Clientes</span></a></li>
+         <li><a class="app-menu__item" href="{{route('comercio.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Comercio</span></a></li>
+         <li><a class="app-menu__item" href="{{route('producto.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Producto</span></a></li>
+         <li><a class="app-menu__item" href="{{route('subscripcion.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Subscripcion</span></a></li>
+         <li><a class="app-menu__item" href="{{route('piso.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Piso</span></a></li>
+         <li><a class="app-menu__item" href="{{route('propaganda.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Propaganda</span></a></li>
+         <li><a class="app-menu__item" href="{{route('catalogoCabecera.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Catalogo cabecera</span></a></li>
+         <li><a class="app-menu__item" href="{{route('catalogoDetalle.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Catalogo detalle</span></a></li>
+         <li><a class="app-menu__item" href="{{route('liquidacion.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Liquidacion</span></a></li>
+         <li><a class="app-menu__item" href="{{route('transaccion.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Transaccion</span></a></li>
+         <li><a class="app-menu__item" href="{{route('fecha.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Fecha</span></a></li>
+         <li><a class="app-menu__item" href="{{route('feriado.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Feriados</span></a></li>
+         <li><a class="app-menu__item" href="{{route('log.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Logs</span></a></li>
+         <li><a class="app-menu__item" href="{{route('usuarios.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Usuarios</span></a></li>
     </ul>
 </aside>
 <main class="app-content">

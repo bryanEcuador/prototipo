@@ -83,28 +83,32 @@
                 <div class="col-md-6 ">
                    <input class="form-control" type="number" name="mio" v-model="valor3" maxlength="20">
                 </div>
-            </div><div class="form-group row">
+            </div>
+            <div class="form-group row">
                 <div class="col-md-2">
                     <label for="nombre">valor 4:</label>
                 </div>
                 <div class="col-md-6 ">
                    <input class="form-control" type="number" name="mio" v-model="valor4" maxlength="20">
                 </div>
-            </div><div class="form-group row">
+            </div>
+            <div class="form-group row">
                 <div class="col-md-2">
                     <label for="nombre">valor 5:</label>
                 </div>
                 <div class="col-md-6 ">
                    <input class="form-control" type="number" name="mio" v-model="valor5" maxlength="20">
                 </div>
-            </div><div class="form-group row">
+            </div>
+            <div class="form-group row">
                 <div class="col-md-2">
                     <label for="nombre">valor 6:</label>
                 </div>
                 <div class="col-md-6 ">
                    <input class="form-control" type="number" name="mio" v-model="valor6" maxlength="20">
                 </div>
-            </div><div class="form-group row">
+            </div>
+            <div class="form-group row">
                 <div class="col-md-2">
                     <label for="nombre">valor 7:</label>
                 </div>

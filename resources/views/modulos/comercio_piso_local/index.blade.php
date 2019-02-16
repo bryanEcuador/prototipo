@@ -32,6 +32,11 @@
     <div class="col-md-12" id="creacionProveedores">
         
         <div class="tile">
+        <button class="btn btn-primary btn-lg btn-block mb-4">
+            <a style="color:white" href="{{route('piso.create')}}"> Agregar piso </a>     
+             
+        </button>
+
             <table class="table table-hover table-bordered" id="sampleTable">
                 <thead>
                   <tr>
@@ -51,8 +56,10 @@
                     
                
                     <td>
-                        <button>Modificar</button>
-                        <button>Eliminar</button>
+                        <button class="btn btn-primary"><a style="color:white" href="{{route('piso.edit')}}"> <i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i>  </a> </button>
+                        <button class="btn btn-info" ><a href="{{route('piso.show')}}"></a><i class="fa fa-eye" aria-hidden="true"></i></button>
+                        <button class="btn btn-danger"  @click="eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+
                     </td>
                   </tr>
 
