@@ -358,7 +358,7 @@ textarea.input {
 \*----------------------------*/
 
 #breadcrumb {
-  padding: 0px 0px;
+  padding: 20px 0px;
   background: #FBFBFC;
   border-bottom: 1px solid #E4E7ED;
   margin-bottom: 30px;
@@ -446,7 +446,7 @@ textarea.input {
 #header {
   padding-top: 15px;
   padding-bottom: 15px;
-  background-color: #212929;
+  background-color: #339BA3;
 }
 
 .header-logo {
@@ -482,7 +482,7 @@ textarea.input {
 .header-search form .search-btn {
   height: 40px;
   width: 100px;
-  background: #D10024;
+  background: #000;
   color: #FFF;
   font-weight: 700;
   border: none;

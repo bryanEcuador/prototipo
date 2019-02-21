@@ -17,6 +17,15 @@ require __DIR__ . '/modulos/seguridad.php';
 require __DIR__ . '/modulos/tienda.php';
 
 
+route::get('/store', function(){
+        return view ('estaticas.store');
+});
+
+route::get('/product', function(){ 
+         return view('estaticas.product');
+});
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/index', 'Auth\RegisterController@index')->name('index');
 
