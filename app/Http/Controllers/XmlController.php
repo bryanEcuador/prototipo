@@ -11,8 +11,8 @@ class XmlController extends Controller
 
     public function makeXml($array,$cabecera)
     {
-       
-
+        //dd($cabecera);
+        
         $objetoXML = new \XMLWriter(); // instancio la clase
        
         // Estructura básica del XML
@@ -36,7 +36,7 @@ class XmlController extends Controller
         $objetoXML->endDocument(); // Final del documento
         $cadenaXML = trim($objetoXML->outputMemory());
 
-         return $cadenaXML;
+        return $cadenaXML;
 
     }
 
@@ -48,7 +48,7 @@ class XmlController extends Controller
     }
 
     public function readXml($xml) {
-        $arreglo = \simplexml_load_string($cadenaXML);
+        $arreglo = \simplexml_load_string($xml);
         return $arreglo;
     }
 

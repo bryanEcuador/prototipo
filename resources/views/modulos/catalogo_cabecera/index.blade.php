@@ -7,27 +7,7 @@
 @section('subtitulo','')
 
 @section('contenido')
-@if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('danger'))
-        <div class="alert alert-danger">
-            {{ session('danger') }}
-        </div>
-    @endif
 
     <div class="col-md-12" id="creacionProveedores">
         
@@ -366,8 +346,39 @@
         var app = new Vue ({
                 el:"#creacionProveedores",
                 data: {
-                  
-                   
+                    
+
+                   nombre : '',
+                   descripcion : '',
+                   etiqueta1 : '',
+                   etiqueta2 : '',
+                   etiqueta3 : '',
+                   etiqueta4 : '',
+                   etiqueta5 : '',
+                   etiqueta6 : '',
+                   etiqueta7 : '',
+
+                   e_id : '', 
+                   e_nombre : '',
+                   e_descripcion : '',
+                   e_etiqueta1 : '',
+                   e_etiqueta2 : '',
+                   e_etiqueta3 : '',
+                   e_etiqueta4 : '',
+                   e_etiqueta5 : '',
+                   e_etiqueta6 : '',
+                   e_etiqueta7 : '',
+
+
+                    v_nombre : '',
+                   v_descripcion : '',
+                   v_etiqueta1 : '',
+                   v_etiqueta2 : '',
+                   v_etiqueta3 : '',
+                   v_etiqueta4 : '',
+                   v_etiqueta5 : '',
+                   v_etiqueta6 : '',
+                   v_etiqueta7 : '',
 
                 },
                 created : function() {
@@ -410,6 +421,19 @@
                     ver : function () {
                        $("#ver").modal('show');
                    },
+
+                   suprimir : function() {
+                       axios.post(url, {
+                               int_cc_idCatalogoCabecera : this.e_id,
+                       
+                            }).then(response => {
+                            
+                            //this.limpiar();
+                            
+                            }).catch(error => {
+                                    console.log(error);
+                            });
+                   }
   
                    // validaciones
                     validarCampos : function() {
@@ -422,9 +446,17 @@
 
                       if(this.errores.length == 0){
                           
-                            var url = 'producto/store';
+                            var url = 'catalogo/cabecera/store';
                             axios.post(url, {
-                                
+                                var_cc_nombreCatalogo : this.nombre,
+                                var_cc_descripcionCatalogo : this.descripcion,
+                                var_cc_etiqueta1 : this.etiqueta1,    
+                                var_cc_etiqueta2 : this.etiqueta2,    
+                                var_cc_etiqueta3 : this.etiqueta3,    
+                                var_cc_etiqueta4 : this.etiqueta4,    
+                                var_cc_etiqueta5 : this.etiqueta5,    
+                                var_cc_etiqueta6 : this.etiqueta6,    
+                                var_cc_etiqueta7 : this.etiqueta7,    
                        
                             }).then(response => {
                             
@@ -451,9 +483,19 @@
 
                       if(this.errores.length == 0){
                           
-                           var url = 'producto/update';
+                           var url = 'catalogo/cabecera/update';
                             axios.post(url, {
                                 
+                                int_cc_idCatalogoCabecera : this.e_id
+                                var_cc_nombreCatalogo : this.e_nombre,
+                                var_cc_descripcionCatalogo : this.e_descripcion,
+                                var_cc_etiqueta1 : this.e_etiqueta1,    
+                                var_cc_etiqueta2 : this.e_etiqueta2,    
+                                var_cc_etiqueta3 : this.e_etiqueta3,    
+                                var_cc_etiqueta4 : this.e_etiqueta4,    
+                                var_cc_etiqueta5 : this.e_etiqueta5,    
+                                var_cc_etiqueta6 : this.e_etiqueta6,    
+                                var_cc_etiqueta7 : this.e_etiqueta7,  
                          
 
                             }).then(response => {

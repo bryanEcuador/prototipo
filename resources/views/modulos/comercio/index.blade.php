@@ -7,27 +7,6 @@
 @section('subtitulo','')
 
 @section('contenido')
-@if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('danger'))
-        <div class="alert alert-danger">
-            {{ session('danger') }}
-        </div>
-    @endif
 
     <div class="col-md-12" id="creacionProveedores">
         
@@ -580,6 +559,7 @@
                     telefono: '',
                     mio: '',
 
+                    e_id : '',
                     e_nombre: '',
                     e_ruc : '',
                     e_razon : '',
@@ -670,7 +650,17 @@
                    },
 
                    suprimir : function() {
-
+                        var url = 'comercio/delete';
+                            axios.post(url, {
+                              big_co_idComercio : this.e_id,     
+                            }).then(response => {
+                            toastr.success("registro eliminado con exito")
+                            this.consultar()
+                            }).catch(error => {
+                                    console.log(error);
+                               toastr.error("ha ocurrido un error a eliminar el registro")
+                               console.log(error)     
+                            });
                    },
 
 
@@ -684,7 +674,7 @@
                             axios.post(url, {
                                 
                            var_co_nombreComercio : this.nombre,
-                            ruc: this.ruc,
+                            var_co_ruc: this.ruc,
                             var_co_razonSocial : this.razon,
                             var_co_representanteLegal : this.representante,
                             var_co_representante_identificacionRepresentanteLocal : this.representante_ci,    
@@ -701,7 +691,8 @@
 
                             }).then(response => {
                             
-                            //this.limpiar();
+                            toastr.success("Registro guardado con exito")
+                            this.limpiar();
                             
                             }).catch(error => {
                                     console.log(error);
@@ -726,9 +717,9 @@
                           
                            var url = 'comercio/update';
                             axios.post(url, {
-                                
-                           var_co_nombreComercio : this.nombre,
-                            ruc: this.ruc,
+                           big_co_idComercio : this.e_id,     
+                           var_co_nombreComercio : this.e_nombre,
+                            var_co_ruc: this.e_ruc,
                             var_co_razonSocial : this.e_razon,
                             var_co_representanteLegal : this.e_representante,
                             var_co_representante_identificacionRepresentanteLocal : this.e_representante_ci,    
@@ -744,8 +735,9 @@
                             var_co_esMio:this.e_mio,
 
                             }).then(response => {
-                            
-                            //this.limpiar();
+
+                            toastr.success("Registro actualizado con exito")
+                            this.limpiar();
                             
                             }).catch(error => {
                                     console.log(error);
@@ -766,18 +758,7 @@
                     
 
                     espaciosBlanco : function() {
-                        this.codigo= this.codigo.trim();
-                        this.empresa = this.empresa.trim();
-                        this.razon = this.razon.trim();
-                        this.representante = this.representante.trim();
-                        this.direccion = this.direccion.trim();
-                        this.banco = this.banco.trim();
-                        this.gerente = this.gerente.trim();
-                        this.convencional = this.convencional.trim();
-                        this.telefono_representante = this.telefono_representante.trim();
-                        this.telefono_gerente = this.telefono_gerente.trim();
-                        this.usuario = this.usuario.trim();
-                        this.pass=this.usuario.trim();
+                        
                     },
                     
                     limpiar : function() {

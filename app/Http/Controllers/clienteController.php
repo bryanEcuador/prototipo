@@ -10,6 +10,7 @@ use App\Http\Controllers\XmlController;
 class clienteController extends Controller
 {
     protected $xml;
+    private $cabecera = "pr_ins_va_clientes"; 
     /**
      * Display a listing of the resource.
      *
@@ -25,6 +26,16 @@ class clienteController extends Controller
     {
         //
         return view("modulos.cliente.index");
+    }
+
+    public function search(){
+
+        $data = array('id'=> 1 ,'tipo_identificacion' => 'cedula' , 'identificacion' => '0952013225' , 'nombres' => 'bryan' , 'apellidos' => 'silva' , 'ciudad' => 'guayaquil' , 'telefono' => '09039302930' , 'email' => 'email'  );
+
+        return $data;
+        return Response::json($data);
+        //dd($data);
+
     }
 
     /**
@@ -46,56 +57,32 @@ class clienteController extends Controller
      */
     public function store(Request $request)
     {
-
-
-        $cabecera = "pr_ins_va_clientes ";     
+ 
         $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,$cabecera);
+        $datos = $this->xml->makeXml($parametros,$this->cabecera);
         $cliente = $this->xml->soap();
        
         // llamamos al metodo que vamos a consumir
-        $response = 'metodo';
+        $response = 'metodo'; //$cliente->metodo(paramaetros);
+
         return $this->xml->readXml($response);         
 
         //
-       
            
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id = null)
+  
+    public function update(Request $request)
     {
-        //
-        return view("modulos.cliente.show");
-    }
+        $parametros = $this->xml->makeArray($request);
+        $datos = $this->xml->makeXml($parametros,$this->cabecera);
+        $cliente = $this->xml->soap();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id = null)
-    {
-        //
-        return view("modulos.cliente.edit");
-    }
+        // llamamos al metodo que vamos a consumir
+        $response = 'metodo'; //$cliente->metodo(paramaetros);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return $this->xml->readXml($response);         
+
     }
 
     /**
@@ -104,15 +91,19 @@ class clienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy( Request $request)
     {
-        //
+        $parametros = $this->xml->makeArray($request);
+        $datos = $this->xml->makeXml($parametros,$this ->cabecera);
+        $cliente = $this->xml->soap();
+
+        // llamamos al metodo que vamos a consumir
+        $response = 'metodo'; //$cliente->metodo(paramaetros);
+
+        return $this->xml->readXml($response);         
     }
 
-    public function research($id)
-    {
-
-    }
+   
 
    
 }

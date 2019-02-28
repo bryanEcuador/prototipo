@@ -7,27 +7,6 @@
 @section('subtitulo','')
 
 @section('contenido')
-@if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('danger'))
-        <div class="alert alert-danger">
-            {{ session('danger') }}
-        </div>
-    @endif
 
     <div class="col-md-12" id="creacionProveedores">
         
@@ -343,7 +322,8 @@
                     disponible: '',
                     mio: '',
 
-                      e_comercio :'',
+                    e_id : ''
+                    e_comercio :'',
                    e_producto:'',
                    e_tipo_producto:'',
                    e_valor:'',
@@ -391,11 +371,20 @@
                        $("#editar").modal('show');
                    },
   
-                   // validaciones
-                    validarCampos : function() {
-                       
-                    },
-
+                  
+                    suprimir : function() {
+                        var url = 'producto/delete';
+                            axios.post(url, {
+                               big_cl_idCliente : this.e_id 
+                            }).then(response => {
+                            toastr.success("registro eliminado con exito")
+                            this.consultar()
+                            }).catch(error => {
+                                    console.log(error);
+                               toastr.error("ha ocurrido un error a eliminar el registro")
+                               console.log(error)     
+                            });
+                   },
                      guardar : function(){
                       //this.espaciosBlanco();
                       //this.validarCampos();
@@ -438,15 +427,15 @@
                       if(this.errores.length == 0){
                           
                            var url = 'producto/update';
-                            axios.post(url, {
-                                
-                           big_cp_idComercio : this.comercio ,
-                           var_cp_nombreProducto : this.producto,
-                           var_cp_tipoProducto : this.tipo_producto,
-                            var_cp_valor : this.valor,
-                           bit_cp_esPromocion : this.promocion,
-                           bit_cp_disponible: this.disponible,
-                           bit_cp_esMio : this.mio,
+                            axios.post(url, {     
+                           big_cp_idComercioProducto : this.e_id,     
+                           big_cp_idComercio : this.e_comercio ,
+                           var_cp_nombreProducto : this.e_producto,
+                           var_cp_tipoProducto : this.e_tipo_producto,
+                            var_cp_valor : this.e_valor,
+                           bit_cp_esPromocion : this.e_promocion,
+                           bit_cp_disponible: this.e_disponible,
+                           bit_cp_esMio : this.e_mio,
 
                             }).then(response => {
                             

@@ -7,27 +7,8 @@
 @section('subtitulo','')
 
 @section('contenido')
-@if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
 
-    @if (session('danger'))
-        <div class="alert alert-danger">
-            {{ session('danger') }}
-        </div>
-    @endif
 
     <div class="col-md-12" id="cliente">
         
@@ -35,7 +16,7 @@
 
         <button class="btn btn-primary btn-lg btn-block mb-4" @click="crear"> Agregar cliente</button>
            
-        <table class="table table-hover table-bordered" id="sampleTable">
+        <table class="table table-hover table-bordered" id="">
                 <thead>
                   <tr>
                     <th>tipo identificacion</th>
@@ -50,15 +31,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                     <td>tipo identificacion</td>
-                    <td>identificacion</td>
-                    <td>nombres</td>
-                    <td>apellidos</td>
-                    <td>ciudad</td>
+                  <tr v-for="dato in datos" >
+                    <td>@{{dato.tipo_identificacion}}</td>
+                    <td>@{{dato.identificacion}}</td>
+                    
+                    <td>@{{dato.nombres}}</td>
+                    <td>@{{dato.apellidos}}</td>
+                    <td>@{{dato.ciudad}}</td>
                    
-                    <td>telefono</td>
-                    <td>email</td>
+                    <td>@{{dato.telefono}}</td>
+                    <td>@{{dato.email}}</td>
                     <td>
                         <button class="btn btn-primary"  @click="editar" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>
                         <button class="btn btn-info" @click="ver"><i class="fa fa-eye" aria-hidden="true"></i></button>
@@ -506,8 +488,8 @@
                     v_email : '' ,
 
                     id : '',
-
                     errores : [],
+                    datos : [],
                    
 
                 },
@@ -529,6 +511,7 @@
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut"
                     }
+                    this.consultar()
                 },
 
                 methods : {
@@ -537,6 +520,17 @@
                        $("#eliminarCliente").modal('show');
                    },
 
+                   consultar : function(){
+                        var url = '/cliente/search';
+                            axios.get(url, {
+                                
+                            }).then(response => {
+                                this.datos = response.data;
+                                                       
+                            }).catch(error => {
+                                    console.log(error);
+                            });
+                   },
                   
                    ver : function () {
                        $("#verCliente").modal('show');
@@ -552,15 +546,25 @@
                    },
 
                    suprimir : function() {
-
+                        var url = 'cliente/delete';
+                            axios.post(url, {
+                               big_cl_idCliente : this.e_id 
+                            }).then(response => {
+                            toastr.success("registro eliminado con exito")
+                            this.consultar()
+                            }).catch(error => {
+                                    console.log(error);
+                               toastr.error("ha ocurrido un error a eliminar el registro")
+                               console.log(error)     
+                            });
                    },
                    
                    // validaciones
                   
                     guardar : function(){
-                      //this.espaciosBlanco();
-                      //this.validarCampos();
-
+                        
+                        this.validar('g')
+                        this.espaciosBlanco()
                       if(this.errores.length == 0){
                           
                             var url = 'cliente/store';
@@ -578,10 +582,12 @@
 
                             }).then(response => {
                             
-                            //this.limpiar();
-                            
+                            this.limpiar();
+                            toastr.success("registro guardado con exito")
                             }).catch(error => {
                                     console.log(error);
+                               toastr.error("ha ocurrido un error al insertar los datos")
+                               console.log(error)     
                             });
 
 
@@ -596,14 +602,13 @@
                     },
 
                     actualizar : function() {
-                         //this.espaciosBlanco();
-                      //this.validarCampos();
-
+                        this.validar('a')
+                        this.espaciosBlanco()
                       if(this.errores.length == 0){
-                          
+                          |
                            var url = 'cliente/update';
                             axios.post(url, {
-                                
+                             big_cl_idCliente : this.e_id ,             
                             var_cl_tipoIdentificacion   : this.e__tipo_identificacion,
                             var_cl_identificacion  : this.e__identificacion, 
                             var_cl_nombres : this.e__nombre , 
@@ -615,8 +620,8 @@
                             var_cl_email : this.e__email ,
 
                             }).then(response => {
-                            
-                            //this.limpiar();
+                            toastr.success("Registro actualizado con exito")
+                            this.limpiar();
                             
                             }).catch(error => {
                                     console.log(error);
@@ -635,13 +640,107 @@
 
                    
                     espaciosBlanco : function() {
-                        
+                        // espacios en blanco para crear
+                            this.c_tipo_identificacion = this.c_tipo_identificacion.trim(); 
+                            this.c_identificacion = this.c_identificacion.trim() 
+                            this.c_nombre  = this.c_nombre.trim()
+                            this.c_apellidos  = this.c_apellidos.trim()
+                            this.c_ciudad = this.c_ciudad.trim()
+                            this.c_sector = this.c_sector.trim()
+                            this.c_fecha = this.c_fecha.trim()
+                            this.c_email = this.c_email.trim()
+
+                        // espacios en blanco para actualizar
+
                     },
                     
                     limpiar : function() {
+                            this.c_tipo_identificacion = ""
+                            this.c_identificacion = "" 
+                            this.c_nombre  = ""
+                            this.c_apellidos  = ""
+                            this.c_ciudad = ""
+                            this.c_sector = ""
+                            this.c_fecha = ""
+                            this.c_email = ""
 
                             this.errores = [];           
+                    }, 
+
+                    validar : function(tipo) {
+
+                        if(tipo == 'g'){
+                            if(this.c_tipo_identificacion = ""){
+                                this.errores.push("ingrese el tipo identificación")
+                            }
+
+                             if(this.c_identificacion = ""){
+                                this.errores.push("ingrese la identificación")
+                            }
+
+                              if(this.c_nombre = ""){
+                                this.errores.push("ingrese los nombres")
+                            }
+
+                             if(this.c_apellidos = ""){
+                                this.errores.push("ingrese  los apellidos")
+                            }
+
+                             if(this.c_ciudad = ""){
+                                this.errores.push("ingrese la ciudad")
+                            }
+
+                             if(this.c_sector = ""){
+                                this.errores.push("ingrese el sector")
+                            }
+
+                             if(this.c_fecha = ""){
+                                this.errores.push("ingrese la fecha")
+                            }
+
+                            
+                             if(this.c_email = ""){
+                                this.errores.push("ingrese el email")
+                            }
+                            
+                        } else {
+                            
+                            if(this.c_tipo_identificacion = ""){
+                                this.errores.push("ingrese el tipo identificación")
+                            }
+
+                             if(this.c_identificacion = ""){
+                                this.errores.push("ingrese la identificación")
+                            }
+
+                              if(this.c_nombre = ""){
+                                this.errores.push("ingrese los nombres")
+                            }
+
+                             if(this.c_apellidos = ""){
+                                this.errores.push("ingrese  los apellidos")
+                            }
+
+                             if(this.c_ciudad = ""){
+                                this.errores.push("ingrese la ciudad")
+                            }
+
+                             if(this.c_sector = ""){
+                                this.errores.push("ingrese el sector")
+                            }
+
+                             if(this.c_fecha = ""){
+                                this.errores.push("ingrese la fecha")
+                            }
+
+                            
+                             if(this.c_email = ""){
+                                this.errores.push("ingrese el email")
+                            }
+                        } 
                     }
+
+                   
 
                 }
             }

@@ -7,27 +7,6 @@
 @section('subtitulo','')
 
 @section('contenido')
-@if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('danger'))
-        <div class="alert alert-danger">
-            {{ session('danger') }}
-        </div>
-    @endif
 
     <div class="col-md-12" id="creacionProveedores">
         
@@ -609,6 +588,7 @@
                     condicion : '',
                     valor_condicion : '',
 
+                    e_big_cs_idComercioSuscripcion
                      e_comercio: '',
                     e_piso_local : '',
                     e_fecha_suscripcion : '',
@@ -676,6 +656,22 @@
                     ver : function () {
                        $("#ver").modal('show');
                    },
+
+
+                   suprimir : function(){
+                       var url = 'comercio/subscripcion/delete';
+                            axios.post(url, {
+                            big_cs_idComercioSuscripcion : this.e_id,
+                           
+
+                            }).then(response => {
+                            
+                            //this.limpiar();
+                            
+                            }).catch(error => {
+                                    console.log(error);
+                            });
+                   }
   
                    // validaciones
                     validarCampos : function() {
@@ -690,7 +686,7 @@
                           
                             var url = 'comercio/subscripcion/store';
                             axios.post(url, {
-                       big_cs_idComercio : this.comercio,
+                            big_cs_idComercio : this.comercio,
                             big_cs_idComercioPisoLocal : this.piso_local,
                             fch_cs_fechaInicioSuscripcion : this.fecha_suscripcion,
                             int_cs_aniosContratados : this.años_contratado,
@@ -703,7 +699,7 @@
                             }).then(response => {
                             
                             //this.limpiar();
-                            
+                            toastr.success("Registro guardado con exito ")
                             }).catch(error => {
                                     console.log(error);
                             });
@@ -728,21 +724,22 @@
                            var url = 'comercio/subscripcion/update';
                             axios.post(url, {
                                 
-                         big_cs_idComercio : this.comercio,
-                            big_cs_idComercioPisoLocal : this.piso_local,
-                            fch_cs_fechaInicioSuscripcion : this.fecha_suscripcion,
-                            int_cs_aniosContratados : this.años_contratado,
-                            fch_cs_fechaFinSuscripcion : this.fecha_suscripcion,
-                            int_cs_diasAlertasFinSuscripcion : this.alerta,
-                            bit_cs_activo : this.activo,
-                            var_cs_tipoComision : this.condicion,
-                            mon_cs_vañprComision : this.valor_condicion,
+                            big_cs_idComercioSuscripcion : this.e_id,    
+                            big_cs_idComercio : this.e_comercio,
+                            big_cs_idComercioPisoLocal : this.e_piso_local,
+                            fch_cs_fechaInicioSuscripcion : this.e_fecha_suscripcion,
+                            int_cs_aniosContratados : this.e_años_contratado,
+                            fch_cs_fechaFinSuscripcion : this.e_fecha_suscripcion,
+                            int_cs_diasAlertasFinSuscripcion : this.e_alerta,
+                            bit_cs_activo : this.e_activo,
+                            var_cs_tipoComision : this.e_condicion,
+                            mon_cs_vañprComision : this.e_valor_condicion,
 
 
                             }).then(response => {
                             
                             //this.limpiar();
-                            
+                            toastr.success("registro actualizado con exito ")
                             }).catch(error => {
                                     console.log(error);
                             });

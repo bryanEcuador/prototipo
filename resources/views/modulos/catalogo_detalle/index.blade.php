@@ -7,27 +7,6 @@
 @section('subtitulo','')
 
 @section('contenido')
-@if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('danger'))
-        <div class="alert alert-danger">
-            {{ session('danger') }}
-        </div>
-    @endif
 
     <div class="col-md-12" id="creacionProveedores">
         
@@ -377,7 +356,41 @@
                 el:"#creacionProveedores",
                 data: {
                    
-                   
+                   cabecera : '',
+                   codigo_miembro : '',
+                   descripcion : '',
+                   valor1 : '',
+                   valor2 : '',
+                   valor3 : '',
+                   valor4 : '',
+                   valor5 : '',
+                   valor6 : '',
+                   valor7 : '',
+
+                   e_id : '', 
+                   e_cabecera : '',
+                   e_codigo_miembro : '',
+                   e_descripcion : '',
+                   e_valor1 : '',
+                   e_valor2 : '',
+                   e_valor3 : '',
+                   e_valor4 : '',
+                   e_valor5 : '',
+                   e_valor6 : '',
+                   e_valor7 : '',
+
+                   v_cabecera : '',
+                   v_codigo_miembro : '',
+                   v_descripcion : '',
+                   v_valor1 : '',
+                   v_valor2 : '',
+                   v_valor3 : '',
+                   v_valor4 : '',
+                   v_valor5 : '',
+                   v_valor6 : '',
+                   v_valor7 : '',
+
+
 
                 },
                 created : function() {
@@ -420,6 +433,105 @@
                     ver : function () {
                        $("#ver").modal('show');
                    },
+
+
+                   actualizar : function() {
+                         //this.espaciosBlanco();
+                      //this.validarCampos();
+
+                      if(this.errores.length == 0){
+                          
+                           var url = 'catalogo/cabecera/update';
+                            axios.post(url, {
+                                
+                               int_cd_idCatalogoDetalle :  this.id,
+                                int_cd_idCatalogoCabecera : this.cabecera ,
+                                var_cd_codigoMiembro : this.codigo_miembro ,
+                                var_cd_descripcion : this.descripcion ,
+                                var_cd_valor1 : this.valor1 ,
+                                var_cd_valor2 : this.valor2 ,
+                                var_cd_valor3 :this.valor3 ,
+                                var_cd_valor4 :this.valor4 ,
+                                var_cd_valor5 :this.valor5 ,
+                                var_cd_valor6 :this.valor6 ,
+                               var_cd_valor7 : this.valor7 ,
+                         
+
+                            }).then(response => {
+                            
+                            //this.limpiar();
+                            
+                            }).catch(error => {
+                                    console.log(error);
+                            });
+
+
+
+                      }else {
+                          var num = this.errores.length;
+                          for(var i=0; i<num;i++) {
+                              toastr.error(this.errores[i]);
+                          }
+                          this.errores = [];
+                      }
+                    },
+                
+
+                    suprimir : function() {
+                       axios.post(url, {
+                               int_cc_idCatalogoCabecera : this.e_id,
+                       
+                            }).then(response => {
+                            
+                            //this.limpiar();
+                            
+                            }).catch(error => {
+                                    console.log(error);
+                            });
+                   }
+  
+                   // validaciones
+                    validarCampos : function() {
+                       
+                    },
+
+                     guardar : function(){
+                      //this.espaciosBlanco();
+                      //this.validarCampos();
+
+                      if(this.errores.length == 0){
+                          
+                            var url = 'catalogo/cabecera/store';
+                            axios.post(url, {
+                                int_cd_idCatalogoCabecera : this.cabecera ,
+                                var_cd_codigoMiembro : this.codigo_miembro ,
+                                var_cd_descripcion : this.descripcion ,
+                                var_cd_valor1 : this.valor1 ,
+                                var_cd_valor2 : this.valor2 ,
+                                var_cd_valor3 :this.valor3 ,
+                                var_cd_valor4 :this.valor4 ,
+                                var_cd_valor5 :this.valor5 ,
+                                var_cd_valor6 :this.valor6 ,
+                               var_cd_valor7 : this.valor7 , 
+                       
+                            }).then(response => {
+                            
+                            //this.limpiar();
+                            
+                            }).catch(error => {
+                                    console.log(error);
+                            });
+
+
+
+                      }else {
+                          var num = this.errores.length;
+                          for(var i=0; i<num;i++) {
+                              toastr.error(this.errores[i]);
+                          }
+                          this.errores = [];
+                      }
+                    },    
                  
 
                 }
