@@ -624,7 +624,19 @@
                  
                   
                    ver : function (id) {
-                       this.selecionado = id
+                      var selecionado = id
+                      data = this.tabla.filter(function (dato) { 
+                          return dato.id ==  selecionado        
+                          });
+                      
+                            this.e_tipo_identificacion = 1
+                            this.e_identificacion = data[0].identificacion 
+                            this.e_nombre  = data[0].nombres
+                            this.e_apellidos  = data[0].apellidos
+                            this.e_ciudad = 1
+                            this.e_sector = 1
+                            this.e_fecha = ""
+                            this.e_email = data[0].email
                        $("#verCliente").modal('show');
                    },
 
@@ -636,22 +648,27 @@
                    
                    editar : function (id) {
                        //var obj
-                       //this.selecionado = id
-                      // console.log(this.selecionado)
-                      // console.log(this.tabla)
-                      //data = this.tabla.filter(function (dato) { return dato.id == this.selecionado });
-                      //console.log(obj);
-                     /*  for ( var i in this.table) {
-                            console.log(this.table[i]) 
-                        }  */
-                      //console.log(data)
+                       var selecionado = id
+                      data = this.tabla.filter(function (dato) { 
+                          return dato.id ==  selecionado        
+                          });
+                      
+                            this.e_tipo_identificacion = 1
+                            this.e_identificacion = data[0].identificacion 
+                            this.e_nombre  = data[0].nombres
+                            this.e_apellidos  = data[0].apellidos
+                            this.e_ciudad = 1
+                            this.e_sector = 1
+                            this.e_fecha = ""
+                            this.e_email = data[0].email
+                      
                        $("#editarCliente").modal('show');
                    },
 
-                   suprimir : function(id) {
+                   suprimir : function() {
                         var url = '/cliente/delete';
                             axios.post(url, {
-                               big_cl_idCliente : this.e_id 
+                               big_cl_idCliente : this.selecionado 
                             }).then(response => {
                             
                            if(response.data == this.correcto){
@@ -781,6 +798,15 @@
                             this.c_sector = ""
                             this.c_fecha = ""
                             this.c_email = ""
+
+                                this.e_tipo_identificacion = ""
+                                this.e_identificacion = "" 
+                                this.e_nombre  = ""
+                                this.e_apellidos  = ""
+                                this.e_ciudad = ""
+                                this.e_sector = ""
+                                this.e_fecha = ""
+                                this.e_email = ""
 
                             this.errores = [];           
                     }, 
