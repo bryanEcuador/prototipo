@@ -32,50 +32,50 @@ class clienteController extends Controller
         return view("modulos.cliente.index");
     }
 
-    public function search($pagina = 0, $paginacion = 5, $nombre = null){
+    public function search($paginacion = 5, $pagina=0){
 
         $datos = array(
-            ['identificacion' => '0952013225', 'nombres' => 'bryan' , 
+            ['id' => 1, 'identificacion' => '0952013225', 'nombres' => 'bryan' , 
             'apellidos' => 'silva mercado' , 'ciudad' => 'guayaquil', 
             'telefono' => '747474' , 'email' => 'bryan@hotmail.com' ],
-            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+            ['id' => 2 ,'identificacion' => '0952013225', 'nombres' => 'bryan',
                 'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
                 'telefono' => '747474', 'email' => 'bryan@hotmail.com' ],
-            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+            ['id' => 3 ,'identificacion' => '0952013225', 'nombres' => 'bryan',
                 'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
                 'telefono' => '747474', 'email' => 'bryan@hotmail.com' ],
-            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+            ['id' =>  4 ,'identificacion' => '0952013225', 'nombres' => 'bryan',
                 'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
                 'telefono' => '747474', 'email' => 'bryan@hotmail.com' ],
 
-            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+            ['id' => 5,'identificacion' => '0952013225', 'nombres' => 'bryan',
                 'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
                 'telefono' => '747474', 'email' => 'bryan@hotmail.com' ],
-            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+            ['id' => 6,'identificacion' => '0952013225', 'nombres' => 'bryan',
                 'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
                 'telefono' => '747474', 'email' => 'SILVA@hotmail.com' ],
-            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+            ['id' => 7,'identificacion' => '0952013225', 'nombres' => 'bryan',
                 'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
                 'telefono' => '747474', 'email' => 'SILVA@hotmail.com' ],
 
-            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+            ['id' => 8,'identificacion' => '0952013225', 'nombres' => 'bryan',
                 'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
                 'telefono' => '747474', 'email' => 'SILVA@hotmail.com' ],
-            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+            ['id' => 9,'identificacion' => '0952013225', 'nombres' => 'bryan',
                 'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
                 'telefono' => '747474', 'email' => 'SILVA@hotmail.com' ],
-            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+            ['id' => 10,'identificacion' => '0952013225', 'nombres' => 'bryan',
                 'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
                 'telefono' => '747474', 'email' => 'SILVA@hotmail.com' ],
 
         );
         
         $respuesta = $this->paginacion->paginacion($pagina,$datos,$paginacion);
-        dd($respuesta);
+        //dd($respuesta);
+        return response()
+            ->json( $respuesta) ;
 
-        //return $data;
-        //return Response::json($data);
-        //dd($data);
+       
 
     }
 
@@ -98,15 +98,17 @@ class clienteController extends Controller
      */
     public function store(Request $request)
     {
+
+        return 0;
  
-        $parametros = $this->xml->makeArray($request);
+        /* $parametros = $this->xml->makeArray($request);
         $datos = $this->xml->makeXml($parametros,$this->cabecera);
         $cliente = $this->xml->soap();
        
         // llamamos al metodo que vamos a consumir
         $response = 'metodo'; //$cliente->metodo(paramaetros);
 
-        return $this->xml->readXml($response);         
+        return $this->xml->readXml($response);          */
 
         //
            
@@ -115,14 +117,16 @@ class clienteController extends Controller
   
     public function update(Request $request)
     {
-        $parametros = $this->xml->makeArray($request);
+        return 1;
+ 
+       /*  $parametros = $this->xml->makeArray($request);
         $datos = $this->xml->makeXml($parametros,$this->cabecera);
         $cliente = $this->xml->soap();
 
         // llamamos al metodo que vamos a consumir
         $response = 'metodo'; //$cliente->metodo(paramaetros);
 
-        return $this->xml->readXml($response);         
+        return $this->xml->readXml($response);          */
 
     }
 
@@ -134,14 +138,15 @@ class clienteController extends Controller
      */
     public function destroy( Request $request)
     {
-        $parametros = $this->xml->makeArray($request);
+        return 0;
+        /* $parametros = $this->xml->makeArray($request);
         $datos = $this->xml->makeXml($parametros,$this ->cabecera);
         $cliente = $this->xml->soap();
 
         // llamamos al metodo que vamos a consumir
         $response = 'metodo'; //$cliente->metodo(paramaetros);
 
-        return $this->xml->readXml($response);         
+        return $this->xml->readXml($response);    */      
     }
 
    

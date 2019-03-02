@@ -10,301 +10,26 @@
 
 
 
-    <div class="col-md-12" id="cliente">
-        
-        <div class="tile">
+    <div class="col-md-12" id="cliente" >
 
-        <button class="btn btn-primary btn-lg btn-block mb-4" @click="crear"> Agregar cliente</button>
-         <input type="text" class="form-control" placeholder="texto a consultar"><br>  
-        <table class="table table-striped table-responsive " id="">
-                <thead>
-                  <tr>
-                    
-                    <th>identificacion</th>
-                    <th>nombres</th>
-                    <th>apellidos</th>
-                    <th>ciudad</th>
-                   
-                    <th>telefono</th>
-                    <th>email</th>
-                    <th>Accioes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="dato in datos" >
-                    
-                    <td>@{{dato.identificacion}}</td>
-                    
-                    <td>@{{dato.nombres}}</td>
-                    <td>@{{dato.apellidos}}</td>
-                    <td>@{{dato.ciudad}}</td>
-                   
-                    <td>@{{dato.telefono}}</td>
-                    <td>@{{dato.email}}</td>
-                    <td>
-                        <button class="btn btn-primary"  @click="editar" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>
-                        <button class="btn btn-info" @click="ver"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                        <button class="btn btn-danger"  @click="eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                    </td>
-                  </tr>
-
-                </tbody>
-              </table>
-            
-
-             
-        </div>
-
-        {{-- editar  --}}
-         <div id="editarCliente" class="modal fade" role="dialog" >
-            
-            <div class="modal-dialog modal-lg">
-                <div class="col-lg-12">
-                    <div class="bs-component">
-                        <div class="modal" style="position: relative; top: auto; right: auto; left: auto; bottom: auto; z-index: 1; display: block;">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Edición de clientes</h5>
-                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                    </div>
-                                    <div class="modal-body">
-                                       <div class="form-group row">
-                                                            <div class="col-md-4">
-                                                                <label for="nombre">Tipo identificacion:</label>
-                                                            </div>
-                                                            <div class="col-md-6 ">
-                                                                <select class="form-control" v-model="e_tipo_identificacion">
-                                                                    <option>a</option>
-                                                                    <option>b</option>
-                                                                </select>
-                                                            
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row">
-                                                            <div class="col-md-4">
-                                                                <label for="nombre">identificacion:</label>
-                                                            </div>
-                                                            <div class="col-md-6 ">
-                                                            <input class="form-control" type="text"  v-model="e_identificacion">
-                                                            </div>
-                                                        </div>
-
-                                                        
-                                                        <div class="form-group row">
-                                                            <div class="col-md-4">
-                                                                <label for="nombre">Nombre:</label>
-                                                            </div>
-                                                            <div class="col-md-6 ">
-                                                            <input class="form-control" type="text" v-model="e_nombre">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row">
-                                                            <div class="col-md-4">
-                                                                <label for="nombre">Apellidos:</label>
-                                                            </div>
-                                                            <div class="col-md-6 ">
-                                                            <input class="form-control" type="text"  v-model="e_apellidos" >
-                                                            </div>
-                                                        </div>
-
-                                                        
-
-                                                        <div class="form-group row">
-                                                            <div class="col-md-4">
-                                                                <label for="nombre">Ciudad:</label>
-                                                            </div>
-                                                            <div class="col-md-6 ">
-                                                                
-                                                                <select class="form-control" v-model="e_ciudad">
-                                                                    <option>a</option>
-                                                                    <option>b</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-md-4">
-                                                                <label for="nombre">Sector:</label>
-                                                            </div>
-                                                            <div class="col-md-6 ">
-                                                                <select class="form-control" v-model="e_sector">
-                                                                    <option>a</option>
-                                                                    <option>b</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row">
-                                                            <div class="col-md-4">
-                                                                <label for="nombre">Fecha:</label>
-                                                            </div>
-                                                            <div class="col-md-6 ">
-                                                            <input class="form-control" type="date"  v-model="e_fecha" >
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-md-4">
-                                                                <label for="nombre">Telefono:</label>
-                                                            </div>
-                                                            <div class="col-md-6 ">
-                                                            <input class="form-control" type="text"  v-model="e_telefono">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-md-4">
-                                                                <label for="nombre">Email:</label>
-                                                            </div>
-                                                            <div class="col-md-6 ">
-                                                            <input class="form-control" type="text"  v-model="e_email">
-                                                            </div>
-                                                        </div>
-                                                             
-                                       
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-primary" id="Actualizar" type="button" v-on:click="guardar">Editar</button>
-                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cerrar</button>
-                                    </div>
-                                </div>
-                            </div>
-                          </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-       
-    </div>
-
-    {{-- ver  --}}
-         <div id="verCliente" class="modal fade" role="dialog" >
-            
-            <div class="modal-dialog modal-lg">
-                <div class="col-lg-12">
-                    <div class="bs-component">
-                        <div class="modal" style="position: relative; top: auto; right: auto; left: auto; bottom: auto; z-index: 1; display: block;">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Ver clientes</h5>
-                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group row">
-                                                <div class="col-md-4">
-                                                    <label for="nombre">Tipo identificacion:</label>
-                                                </div>
-                                                <div class="col-md-6 ">
-                                                   <input class="form-control" type="text"  v-model="v_tipo_identificacion">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <div class="col-md-4">
-                                                    <label for="nombre">identificacion:</label>
-                                                </div>
-                                                <div class="col-md-6 ">
-                                                <input class="form-control" type="text"  v-model="v_identificacion">
-                                                </div>
-                                            </div>
-
-                                            
-                                            <div class="form-group row">
-                                                <div class="col-md-4">
-                                                    <label for="nombre">Nombre:</label>
-                                                </div>
-                                                <div class="col-md-6 ">
-                                                <input class="form-control" type="text" v-model="v_nombre">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <div class="col-md-4">
-                                                    <label for="nombre">Apellidos:</label>
-                                                </div>
-                                                <div class="col-md-6 ">
-                                                <input class="form-control" type="text"  v-model="v_apellidos" >
-                                                </div>
-                                            </div>
-
-                                            
-
-                                            <div class="form-group row">
-                                                <div class="col-md-4">
-                                                    <label for="nombre">Ciudad:</label>
-                                                </div>
-                                                <div class="col-md-6 ">
-                                                    <input class="form-control" type="text"  v-model="v_ciudad" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-md-4">
-                                                    <label for="nombre">Sector:</label>
-                                                </div>
-                                                <div class="col-md-6 ">
-                                                    <input class="form-control" type="text"  v-model="v_sector" >
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <div class="col-md-4">
-                                                    <label for="nombre">Fecha:</label>
-                                                </div>
-                                                <div class="col-md-6 ">
-                                                <input class="form-control" type="date"  v-model="v_fecha" >
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-md-4">
-                                                    <label for="nombre">Telefono:</label>
-                                                </div>
-                                                <div class="col-md-6 ">
-                                                <input class="form-control" type="text"  v-model="v_telefono">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-md-4">
-                                                    <label for="nombre">Email:</label>
-                                                </div>
-                                                <div class="col-md-6 ">
-                                                <input class="form-control" type="text"  v-model="v_email">
-                                                </div>
-                                            </div>
-                                       
-                                    </div>
-                                   
-                                </div>
-                            </div>
-                          </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-       
-    </div>
-
-    {{-- crear  --}}
+        {{-- crear  --}}
          <div id="crearCliente" class="modal fade" role="dialog" >
-            
-            <div class="modal-dialog modal-lg">
-                <div class="col-lg-12">
-                    <div class="bs-component">
+             <div class="modal-dialog modal-lg">
+                 <div class="col-lg-12">
+                     <div class="bs-component">
                         <div class="modal" style="position: relative; top: auto; right: auto; left: auto; bottom: auto; z-index: 1; display: block;">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-header">
+                                     <div class="modal-header">
                                         <h5 class="modal-title">Creación de clientes</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                     </div>
                                     <div class="modal-body">
                                                         <div class="form-group row">
-                                                            <div class="col-md-4">
-                                                                <label for="nombre">Tipo identificacion:</label>
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">Tipo identificación</label>
                                                             </div>
-                                                            <div class="col-md-6 ">
+                                                            <div class="col-md-8 ">
                                                                 <select class="form-control" v-model="c_tipo_identificacion">
                                                                     <option>a</option>
                                                                     <option>b</option>
@@ -314,40 +39,40 @@
                                                         </div>
 
                                                         <div class="form-group row">
-                                                            <div class="col-md-4">
-                                                                <label for="nombre">identificacion:</label>
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">identificación</label>
                                                             </div>
-                                                            <div class="col-md-6 ">
-                                                            <input class="form-control" type="text"  v-model="c_identificacion">
+                                                            <div class="col-md-8 ">
+                                                            <input class="form-control" type="text" placeholder="0952013259"  v-model="c_identificacion">
                                                             </div>
                                                         </div>
 
                                                         
                                                         <div class="form-group row">
-                                                            <div class="col-md-4">
-                                                                <label for="nombre">Nombre:</label>
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">Nombres</label>
                                                             </div>
-                                                            <div class="col-md-6 ">
-                                                            <input class="form-control" type="text" v-model="c_nombre">
+                                                            <div class="col-md-8 ">
+                                                            <input class="form-control" type="text" v-model="c_nombre" placeholder="juan pablo">
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group row">
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-3">
                                                                 <label for="nombre">Apellidos:</label>
                                                             </div>
-                                                            <div class="col-md-6 ">
-                                                            <input class="form-control" type="text"  v-model="c_apellidos" >
+                                                            <div class="col-md-8 ">
+                                                            <input class="form-control" type="text" placeholder="carrera cevallos"  v-model="c_apellidos" >
                                                             </div>
                                                         </div>
 
                                                         
 
                                                         <div class="form-group row">
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-3">
                                                                 <label for="nombre">Ciudad:</label>
                                                             </div>
-                                                            <div class="col-md-6 ">
+                                                            <div class="col-md-8 ">
                                                                 <select class="form-control" v-model="c_ciudad">
                                                                     <option>a</option>
                                                                     <option>b</option>
@@ -355,10 +80,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-3">
                                                                 <label for="nombre">Sector:</label>
                                                             </div>
-                                                            <div class="col-md-6 ">
+                                                            <div class="col-md-8 ">
                                                                 <select class="form-control" v-model="c_sector">
                                                                     <option>a</option>
                                                                     <option>b</option>
@@ -367,48 +92,159 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group row">
-                                                            <div class="col-md-4">
-                                                                <label for="nombre">Fecha:</label>
-                                                            </div>
-                                                            <div class="col-md-6 ">
-                                                            <input class="form-control" type="date"  v-model="c_fecha" >
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-md-4">
-                                                                <label for="nombre">Telefono:</label>
-                                                            </div>
-                                                            <div class="col-md-6 ">
-                                                            <input class="form-control" type="text"  v-model="c_telefono">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-md-4">
+                                                        <div class="form-group row">  
+                                                             <div class="col-md-3">
                                                                 <label for="nombre">Email:</label>
                                                             </div>
-                                                            <div class="col-md-6 ">
+                                                            <div class="col-md-8 ">
                                                             <input class="form-control" type="text"  v-model="c_email">
                                                             </div>
-                                                        </div>
-                                                
-                                       
+                                                        </div>                                        
+                                        <div class="form-group row">
+                                            <div class="col-md-1">
+                                                <label for="nombre">Fecha</label>
+                                            </div>
+                                            <div class="col-md-5 ">
+                                                <input class="form-control" type="date"  v-model="c_fecha" >
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="nombre">Teléfono</label>
+                                            </div>
+                                            <div class="col-md-4 ">
+                                                <input class="form-control" type="text"  v-model="c_telefono">
+                                            </div>
+                                        </div>                      
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-primary" id="guardar" type="button" v-on:click="actualizar">Actualizar</button>
+                                        <button class="btn btn-primary" id="guardar" type="button" @click="guardar">Guardar</button>
                                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cerrar</button>
                                     </div>
-                                </div>
+                                </div>   
                             </div>
-                          </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                        </div>   
+                     </div>
+                 </div>           
+             </div>  
+          </div>
+          
+          {{-- editar --}}
+           
+         <div id="editarCliente" class="modal fade" role="dialog" >
+             <div class="modal-dialog modal-lg">
+                 <div class="col-lg-12">
+                     <div class="bs-component">
+                        <div class="modal" style="position: relative; top: auto; right: auto; left: auto; bottom: auto; z-index: 1; display: block;">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                     <div class="modal-header">
+                                        <h5 class="modal-title">Acualización de clientes</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                                        <div class="form-group row">
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">Tipo identificación</label>
+                                                            </div>
+                                                            <div class="col-md-8 ">
+                                                                <select class="form-control" v-model="e_tipo_identificacion">
+                                                                    <option>a</option>
+                                                                    <option>b</option>
+                                                                </select>
+                                                            
+                                                            </div>
+                                                        </div>
 
-        {{-- eliminar  --}}
+                                                        <div class="form-group row">
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">identificación</label>
+                                                            </div>
+                                                            <div class="col-md-8 ">
+                                                            <input class="form-control" type="text" placeholder="0952013259"  v-model="e_identificacion">
+                                                            </div>
+                                                        </div>
+
+                                                        
+                                                        <div class="form-group row">
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">Nombres</label>
+                                                            </div>
+                                                            <div class="col-md-8 ">
+                                                            <input class="form-control" type="text" v-model="e_nombre" placeholder="juan pablo">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">Apellidos:</label>
+                                                            </div>
+                                                            <div class="col-md-8 ">
+                                                            <input class="form-control" type="text" placeholder="carrera cevallos"  v-model="e_apellidos" >
+                                                            </div>
+                                                        </div>
+
+                                                        
+
+                                                        <div class="form-group row">
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">Ciudad:</label>
+                                                            </div>
+                                                            <div class="col-md-8 ">
+                                                                <select class="form-control" v-model="e_ciudad">
+                                                                    <option>a</option>
+                                                                    <option>b</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">Sector:</label>
+                                                            </div>
+                                                            <div class="col-md-8 ">
+                                                                <select class="form-control" v-model="e_sector">
+                                                                    <option>a</option>
+                                                                    <option>b</option>
+                                                                </select>
+                                                                
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">  
+                                                             <div class="col-md-3">
+                                                                <label for="nombre">Email:</label>
+                                                            </div>
+                                                            <div class="col-md-8 ">
+                                                            <input class="form-control" type="text"  v-model="e_email">
+                                                            </div>
+                                                        </div>                                        
+                                        <div class="form-group row">
+                                            <div class="col-md-1">
+                                                <label for="nombre">Fecha</label>
+                                            </div>
+                                            <div class="col-md-5 ">
+                                                <input class="form-control" type="date"  v-model="e_fecha" >
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="nombre">Teléfono</label>
+                                            </div>
+                                            <div class="col-md-4 ">
+                                                <input class="form-control" type="text"  v-model="e_telefono">
+                                            </div>
+                                        </div>                      
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-primary" id="guardar" type="button" @click="actualizar">actualizar</button>
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>   
+                            </div>
+                        </div>   
+                     </div>
+                 </div>           
+             </div>  
+          </div>
+          {{-- eliminar --}}
+
+          {{-- eliminar  --}}
          <div id="eliminarCliente" class="modal fade" role="dialog" >
             
             <div class="modal-dialog modal-lg">
@@ -422,19 +258,213 @@
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                     </div>
                                    <div class="modal-body">
-                                       <h2>¿ ESTA SEGURO QUE DESEA ELIMINAR AL CLIENTE ?</h2>
-                                        <button class="btn btn-primary" id="guardar" type="button" v-on:click="actualizar">Eliminar</button>
+                                       <h4>¿ ESTA SEGURO QUE DESEA ELIMINAR ESTE REGISTRO ?</h2>
+                                        <button class="btn btn-primary" id="guardar" type="button" v-on:click="suprimir">Eliminar</button>
                                         <button class="btn btn-secondary" type="button" data-dismiss="modal">cancelar</button>
                                    </div>
-                                </div>
+                                </div>      
                             </div>
-                          </form>
+                          
                         </div>
                     </div>
                 </div>
+            </div> 
+         </div>      
+            
+
+          {{-- ver --}}
+          <div id="verCliente" class="modal fade" role="dialog" >
+             <div class="modal-dialog modal-lg">
+                 <div class="col-lg-12">
+                     <div class="bs-component">
+                        <div class="modal" style="position: relative; top: auto; right: auto; left: auto; bottom: auto; z-index: 1; display: block;">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                     <div class="modal-header">
+                                        <h5 class="modal-title"></h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                                        <div class="form-group row">
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">Tipo identificación</label>
+                                                            </div>
+                                                            <div class="col-md-8 ">
+                                                                <select class="form-control" v-model="e_tipo_identificacion">
+                                                                    <option>a</option>
+                                                                    <option>b</option>
+                                                                </select>
+                                                            
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">identificación</label>
+                                                            </div>
+                                                            <div class="col-md-8 ">
+                                                            <input class="form-control" type="text" placeholder="0952013259"  v-model="e_identificacion">
+                                                            </div>
+                                                        </div>
+
+                                                        
+                                                        <div class="form-group row">
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">Nombres</label>
+                                                            </div>
+                                                            <div class="col-md-8 ">
+                                                            <input class="form-control" type="text" v-model="e_nombre" placeholder="juan pablo">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">Apellidos:</label>
+                                                            </div>
+                                                            <div class="col-md-8 ">
+                                                            <input class="form-control" type="text" placeholder="carrera cevallos"  v-model="e_apellidos" >
+                                                            </div>
+                                                        </div>
+
+                                                        
+
+                                                        <div class="form-group row">
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">Ciudad:</label>
+                                                            </div>
+                                                            <div class="col-md-8 ">
+                                                                <select class="form-control" v-model="e_ciudad">
+                                                                    <option>a</option>
+                                                                    <option>b</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-md-3">
+                                                                <label for="nombre">Sector:</label>
+                                                            </div>
+                                                            <div class="col-md-8 ">
+                                                                <select class="form-control" v-model="e_sector">
+                                                                    <option>a</option>
+                                                                    <option>b</option>
+                                                                </select>
+                                                                
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">  
+                                                             <div class="col-md-3">
+                                                                <label for="nombre">Email:</label>
+                                                            </div>
+                                                            <div class="col-md-8 ">
+                                                            <input class="form-control" type="text"  v-model="e_email">
+                                                            </div>
+                                                        </div>                                        
+                                        <div class="form-group row">
+                                            <div class="col-md-1">
+                                                <label for="nombre">Fecha</label>
+                                            </div>
+                                            <div class="col-md-5 ">
+                                                <input class="form-control" type="date"  v-model="e_fecha" >
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="nombre">Teléfono</label>
+                                            </div>
+                                            <div class="col-md-4 ">
+                                                <input class="form-control" type="text"  v-model="e_telefono">
+                                            </div>
+                                        </div>                      
+                                    </div>
+                                   
+                                </div>   
+                            </div>
+                        </div>   
+                     </div>
+                 </div>           
+             </div>  
+          </div>
+
+          
+            
+           
+        
+        
+          <div class="tile">
+
+        <button class="btn btn-primary btn-lg btn-block mb-4" @click="crear" > Agregar cliente</button>
+         <input type="text" class="form-control" placeholder="texto a consultar"><br>  
+        <div>
+         <table class="table table-striped table-responsive " id="">
+                <thead>
+                  <tr>
+                    <th>identificacion</th>
+                    <th>nombres</th>
+                    <th>apellidos</th>
+                    <th>ciudad</th>
+                   
+                    <th>telefono</th>
+                    <th>email</th>
+                    <th>Accioes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="dato in tabla" >
+                    
+                    <td>@{{dato.identificacion}}</td>
+                    
+                    <td>@{{dato.nombres}}</td>
+                    <td>@{{dato.apellidos}}</td>
+                    <td>@{{dato.ciudad}}</td>
+                   
+                    <td>@{{dato.telefono}}</td>
+                    <td>@{{dato.email}}</td>
+                    <td>
+                        <button class="btn btn-primary"  @click="editar(dato.id)" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>
+                        <button class="btn btn-info" @click="ver(dato.id)"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                        <button class="btn btn-danger"  @click="eliminar(dato.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+              
+              <div class="form-inline" v-if="datosNumber !== 0">
+                <div class="col-md-4">
+                    <span> @{{ paginacion.to }} de @{{paginacion.total}} registros</span>
+                </div>
+
+                <div class="col-md-8">
+                    <div>
+                         <!-- corregir -->
+                        <ul class="pagination">
+                            <li class="page-item" v-if="paginacion.current_page > 1">
+                                <a class="page-link" href="#" @click.prevent="changePage(paginacion.current_page - 1 )" >
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item" v-for="page in pagesNumber" v-bind:class="[ page == isActived ? 'page-item active' : 'page-item']">
+                                <a class="page-link" href="#" @click.prevent="changePage(page)"  >@{{page}}</a>
+                            </li>
+                            <li class="page-item" v-if="paginacion.current_page < paginacion.last_page"  >
+                                <a class="page-link" href="#"  @click.prevent="changePage(paginacion.current_page + 1 )">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> 
             </div>
+        </div>      
+            
+            
+
+             
         </div>
+
        
+       
+        </div>
+
     </div>
 @endsection
 @section('js')
@@ -455,6 +485,11 @@
         var app = new Vue ({
                 el:"#cliente",
                 data: {
+
+                    /* configuracion */
+                    correcto : 0,
+
+                    /*  */
                     c_tipo_identificacion : '',
                     c_identificacion : '',
                     c_nombre : '' ,
@@ -462,7 +497,7 @@
                     c_ciudad : '',
                     c_sector : '' ,
                     c_fecha : '' ,
-                    c_telefono : '' ,
+                    c_telefono : 'que paso' ,
                     c_email : '' ,
 
                     e_id : '',
@@ -501,13 +536,15 @@
                     'from' : 0,
                     'to': 0,
                 },
+                datosPorPagina : 5,
                 offset: 3,
                 datos :[],
+                tabla : [],
                    
 
                 },
 
-                 computed : {
+    computed : {
                 
                 isActived : function () {
                     return this.paginacion.current_page;
@@ -535,7 +572,7 @@
 
                 datosNumber : function() {
 
-                    return this.permisosTable.length;
+                    return this.tabla.length;
                 },
 
                 cantidadPorPagina : function () {
@@ -555,7 +592,7 @@
                    }  
                     return datos;           
                 },
-    },
+    }, 
                 created : function() {
                     toastr.options = {
                         "closeButton": true,
@@ -563,7 +600,7 @@
                         "newestOnTop": false,
                         "progressBar": true,
                         "positionClass": "toast-top-right",
-                        "preventDuplicates": false,
+                        "preventDuplicates": true,
                         "onclick": null,
                         "showDuration": "600",
                         "hideDuration": "3000",
@@ -574,47 +611,56 @@
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut"
                     }
-                    this.consultar()
+                    this.load()
                 },
 
                 methods : {
 
-                   eliminar : function () {
+                   eliminar : function (id) {
+                       this.selecionado = id
                        $("#eliminarCliente").modal('show');
                    },
 
-                   consultar : function(){
-                        var url = '/cliente/search';
-                            axios.get(url, {
-                                
-                            }).then(response => {
-                                this.datos = response.data;
-                                                       
-                            }).catch(error => {
-                                    console.log(error);
-                            });
-                   },
+                 
                   
-                   ver : function () {
+                   ver : function (id) {
+                       this.selecionado = id
                        $("#verCliente").modal('show');
                    },
 
                    crear : function () {
+                       
                        $("#crearCliente").modal('show');
                    },
                    
                    
-                   editar : function () {
+                   editar : function (id) {
+                       //var obj
+                       //this.selecionado = id
+                      // console.log(this.selecionado)
+                      // console.log(this.tabla)
+                      //data = this.tabla.filter(function (dato) { return dato.id == this.selecionado });
+                      //console.log(obj);
+                     /*  for ( var i in this.table) {
+                            console.log(this.table[i]) 
+                        }  */
+                      //console.log(data)
                        $("#editarCliente").modal('show');
                    },
 
-                   suprimir : function() {
-                        var url = 'cliente/delete';
+                   suprimir : function(id) {
+                        var url = '/cliente/delete';
                             axios.post(url, {
                                big_cl_idCliente : this.e_id 
                             }).then(response => {
-                            toastr.success("registro eliminado con exito")
-                            this.consultar()
+                            
+                           if(response.data == this.correcto){
+                                     toastr.success("registro eliminado con exito")
+                                     this.limpiar();
+                                     $("#eliminarCliente").modal('hide');
+                                }else {
+                                    toastr.error("Ha ocurrido un error al eliminar el registro")
+                                }
                             }).catch(error => {
                                     console.log(error);
                                toastr.error("ha ocurrido un error a eliminar el registro")
@@ -626,13 +672,13 @@
                   
                     guardar : function(){
                         
-                        this.validar('g')
+                      
                         this.espaciosBlanco()
+                        this.validar('g')
                       if(this.errores.length == 0){
                           
-                            var url = 'cliente/store';
-                            axios.post(url, {
-                                
+                            var url = '/cliente/store';
+                            axios.post(url, {                                
                             var_cl_tipoIdentificacion   : this.c_tipo_identificacion,
                             var_cl_identificacion  : this.c_identificacion, 
                             var_cl_nombres : this.c_nombre , 
@@ -644,13 +690,18 @@
                             var_cl_email : this.c_email ,
 
                             }).then(response => {
-                            
-                            this.limpiar();
-                            toastr.success("registro guardado con exito")
+                                if(response.data == this.correcto){
+                                     toastr.success("registro guardado con exito")
+                                     this.limpiar();
+                                     $("#crearCliente").modal('hide');
+                                }else {
+                                    toastr.error("Ha ocurrido un error al crear el cliente")
+                                }
+                                                       
                             }).catch(error => {
                                     console.log(error);
-                               toastr.error("ha ocurrido un error al insertar los datos")
-                               console.log(error)     
+                               toastr.error("Ha ocurrido un error al crear el cliente")
+                               
                             });
 
 
@@ -665,11 +716,10 @@
                     },
 
                     actualizar : function() {
-                        this.validar('a')
                         this.espaciosBlanco()
+                        this.validar('a')
                       if(this.errores.length == 0){
-                          |
-                           var url = 'cliente/update';
+                           var url = '/cliente/update';
                             axios.post(url, {
                              big_cl_idCliente : this.e_id ,             
                             var_cl_tipoIdentificacion   : this.e__tipo_identificacion,
@@ -683,8 +733,13 @@
                             var_cl_email : this.e__email ,
 
                             }).then(response => {
-                            toastr.success("Registro actualizado con exito")
-                            this.limpiar();
+                            if(response.data == this.correcto){
+                                     toastr.success("registro actualizado con exito")
+                                     this.limpiar();
+                                     $("#editarCliente").modal('hide');
+                                }else {
+                                    toastr.error("Ha ocurrido un error al actualizar el cliente")
+                                }
                             
                             }).catch(error => {
                                     console.log(error);
@@ -733,85 +788,86 @@
                     validar : function(tipo) {
 
                         if(tipo == 'g'){
-                            if(this.c_tipo_identificacion = ""){
+                            if(this.c_tipo_identificacion == ""){
                                 this.errores.push("ingrese el tipo identificación")
+                                
                             }
 
-                             if(this.c_identificacion = ""){
+                             if(this.c_identificacion == ""){
                                 this.errores.push("ingrese la identificación")
                             }
 
-                              if(this.c_nombre = ""){
+                              if(this.c_nombre == ""){
                                 this.errores.push("ingrese los nombres")
                             }
 
-                             if(this.c_apellidos = ""){
+                             if(this.c_apellidos == ""){
                                 this.errores.push("ingrese  los apellidos")
                             }
 
-                             if(this.c_ciudad = ""){
+                             if(this.c_ciudad == ""){
                                 this.errores.push("ingrese la ciudad")
                             }
 
-                             if(this.c_sector = ""){
+                             if(this.c_sector == ""){
                                 this.errores.push("ingrese el sector")
                             }
 
-                             if(this.c_fecha = ""){
+                             if(this.c_fecha == ""){
                                 this.errores.push("ingrese la fecha")
                             }
 
                             
-                             if(this.c_email = ""){
+                             if(this.c_email == ""){
                                 this.errores.push("ingrese el email")
                             }
                             
                         } else {
                             
-                            if(this.c_tipo_identificacion = ""){
+                            if(this.e_tipo_identificacion == ""){
                                 this.errores.push("ingrese el tipo identificación")
                             }
 
-                             if(this.c_identificacion = ""){
+                             if(this.e_identificacion == ""){
                                 this.errores.push("ingrese la identificación")
                             }
 
-                              if(this.c_nombre = ""){
+                              if(this.e_nombre == ""){
                                 this.errores.push("ingrese los nombres")
                             }
 
-                             if(this.c_apellidos = ""){
+                             if(this.e_apellidos == ""){
                                 this.errores.push("ingrese  los apellidos")
                             }
 
-                             if(this.c_ciudad = ""){
+                             if(this.e_ciudad == ""){
                                 this.errores.push("ingrese la ciudad")
                             }
 
-                             if(this.c_sector = ""){
+                             if(this.e_sector == ""){
                                 this.errores.push("ingrese el sector")
                             }
 
-                             if(this.c_fecha = ""){
+                             if(this.e_fecha == ""){
                                 this.errores.push("ingrese la fecha")
                             }
 
                             
-                             if(this.c_email = ""){
+                             if(this.e_email == ""){
                                 this.errores.push("ingrese el email")
                             }
                         } 
                     },
 
 
-                     //--------------------- PAGINACION ---------------------------------------//
-                loadPermisos : function(page) {
+                      //--------------------- PAGINACION ---------------------------------------//
+                load : function(page) {
 
-                   // var url = page !== undefined ?  '/seguridad/permisos/datos/'+this.datosPorPagina+'/'+page : '/seguridad/permisos/datos/'+this.datosPorPagina;
+                   var url = page !== undefined ?  '/cliente/search/'+this.datosPorPagina+'/'+page : '/cliente/search/'+this.datosPorPagina;
                     axios.get(url).then(response => {
 
                     this.datos = response.data;
-                    this.permisosTable = this.datos.data
+                    this.tabla = this.datos.data
 
                     this.paginacion.total = this.datos.total;
                     if(page == undefined) {
@@ -823,23 +879,23 @@
                     this.paginacion.to = this.datos.to;
                 }).catch(error => {
                         console.log(error);
-                    this.loadPermisos();
+                    this.load();
                 });
                 },
 
                  changePage: function(page) {
-                    this.paginacion.current_page = page;
-                    this.permiso === '' ? this.loadPermisos(page) : this.consultarNombrePermisos(page);
+                     this.paginacion.current_page = page;
+                    this.load(page) 
                 },
 
                 changeNumberPage :function(page) {
-                    this.permiso === '' ? this.loadPermisos(page) : this.consultarNombrePermisos(page);                    
+                   this.load(page)
                 }
 
                 
                 //--------------------- PAGINACION ---------------------------------------//
 
-                   
+                    
 
                 }
             }
