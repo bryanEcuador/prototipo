@@ -44,6 +44,9 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- iconos -->
+    <link type="text/css" rel="stylesheet" href="{{asset('css/font-awesome.css')}}"/>
+
 </head>
 <body>
 <!-- HEADER -->
@@ -56,7 +59,7 @@
                <!-- <li><a href="#"><i class="fa fa-user-o"></i> Mi cuenta</a></li> -->
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link" style="font-size: 18px;" href="{{ route('login') }}">Iniciar Sesión</a>
                     </li>
                     @else
                         <li class="nav-item dropdown">
@@ -104,8 +107,9 @@
                     <div class="header-search">
                         <form>
                             <input class="input" placeholder="Buscar aquí">
-                            <button class="search-btn">Buscar</button>
+                            <span  class="fa fa-search fa-2x span-search" aria-hidden="true"> </span>
                         </form>
+
                     </div>
                 </div>
                 <!-- /SEARCH BAR -->
@@ -213,10 +217,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h3 class="breadcrumb-header"> @yield('nombre_breadcrumb')</h3>
-                <ul class="breadcrumb-tree">
-                    <li><a href="#">Home</a></li>
-                    @yield('breadcrumb_tree')
-                </ul>
+
             </div>
         </div>
         <!-- /row -->
@@ -305,7 +306,7 @@
 <!----modal-->
 
 <!-- FOOTER -->
-<footer id="footer" >
+<footer id="footer" style="font-size: 16" >
     <!-- top footer -->
     <div class="section" id="info">
         <!-- container -->
@@ -373,7 +374,7 @@
                     </ul>
                     <span class="copyright">
 								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+							<!--	Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 							</span>
 
@@ -406,7 +407,7 @@
 <script src=" {{asset('/js/jquery.zoom.min.js')}}"></script>
 <script src=" {{asset('/js/main_detalles.js')}}"></script>
 
-<<<<<<< HEAD
+
 <script src="{{asset('js/axios.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
 
@@ -445,7 +446,6 @@
 
 </script>
 
-=======
 <script src=" {{asset('/js/jquery-3.2.1.min.js')}}"></script>
 <script src=" {{asset('/js/popper.js')}}"></script>
 <script src=" {{asset('/js/bootstrap1.min.js')}}"></script>

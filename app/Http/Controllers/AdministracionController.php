@@ -8,6 +8,7 @@ use Illuminate\Database\QueryException;
 use App\Core\Procedimientos\ConfiguracionProcedure;
 use  App\Http\Controllers\Auth\RegisterController;
 
+
 class AdministracionController extends Controller
 {
     protected  $RegisterController;
@@ -329,6 +330,33 @@ class AdministracionController extends Controller
             ->get();
         return view('modulos.administracion.productos.edit',compact('datos','imagenes'));
     }
+
+    public function xml(Request $request){
+       $input = $request->all(); // obtengo todos los datos del formulario
+
+        $objetoXML = new \XMLWriter(); // instancio la clase
+       
+        // Estructura básica del XML
+        $objetoXML->openMemory();
+        $objetoXML->setIndent(true);
+        $objetoXML->setIndentString("\t");
+        $objetoXML->startDocument('1.0', 'utf-8'); // inicio del documento
+	// Inicio del nodo raíz
+            $objetoXML->startElement("ejemplos"); // inicio del nodo raiz
+            $objetoXML->startElement("ejemplo"); // Se inicia un elemento para cada obra.
+
+            foreach ($input as $key => $value) {
+                /* echo $key . " " . $value; */
+                $objetoXML->writeAttribute($key, $value);
+            }
+            $objetoXML->fullEndElement(); // Final del elemento "obra" que cubre cada obra de la matriz.
+            $objetoXML->endElement(); // Final del nodo raíz, "ejemplos"
+        $objetoXML->endDocument(); // Final del documento
+        $cadenaXML = trim($objetoXML->outputMemory());
+
+        dd($cadenaXML);
+    }
+    
 
 
 }

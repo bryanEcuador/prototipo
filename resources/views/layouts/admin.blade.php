@@ -8,11 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Main CSS-->
-    @yield('css')
+
     <link rel="stylesheet" type="text/css" href="/css/main-proveedor.css">
     <link rel="stylesheet" type="text/css" href="/css/toastr.css">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    @yield('css')
 </head>
 <body class="app sidebar-mini rtl">
 <!-- Navbar-->
@@ -91,7 +92,7 @@
         </div>
     </div>
     <ul class="app-menu">
-        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shield"></i><span class="app-menu__label">Seguridad</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      {{--   <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shield"></i><span class="app-menu__label">Seguridad</span><i class="treeview-indicator fa fa-angle-right"></i></a>
             <ul class="treeview-menu">
                 <li><a class="treeview-item" href="{{route('seguridad.user.index')}}"><i class="icon fa fa-user"></i> Usuarios</a></li>
                 <li><a class="treeview-item" href="{{route('seguridad.roles.index')}}"><i class="icon fa fa-users"></i> Roles</a></li>
@@ -112,6 +113,39 @@
         <li><a class="app-menu__item" href="{{route('administrador.producto.index')}}"><i class="app-menu__icon fa fa-shopping-bag"></i><span class="app-menu__label">Productos</span></a></li>
         <li><a class="app-menu__item" href="{{route('administrador.datos.show')}}"><i class="app-menu__icon fa fa-cog"></i><span class="app-menu__label">Configuración</span></a></li>
 
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shield"></i><span class="app-menu__label">Comercio</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="{{route('comercio.create')}}"><i class="icon fa fa-user"></i> crear</a></li>
+                <li><a class="treeview-item" href="{{route('comercio.edit')}}"><i class="icon fa fa-users"></i> editar</a></li>
+                <li><a class="treeview-item" href="{{route('comercio.index')}}"><i class="icon fa fa-unlock"></i> principal</a></li>
+            </ul>
+        </li>
+
+            <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shield"></i><span class="app-menu__label">Clientes</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="{{route('clientes.create')}}"><i class="icon fa fa-user"></i> crear</a></li>
+                <li><a class="treeview-item" href="{{route('clientes.edit')}}"><i class="icon fa fa-users"></i> editar</a></li>
+                <li><a class="treeview-item" href="{{route('clientes.index')}}"><i class="icon fa fa-unlock"></i> principal</a></li>
+            </ul>
+            </li> --}}
+
+        {{-- <li><a class="app-menu__item" href="{{route('administrador.proveedor.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Proveedores</span></a></li> --}}
+            
+
+         <li><a class="app-menu__item" href="{{route('clientes.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Clientes</span></a></li>
+         <li><a class="app-menu__item" href="{{route('comercio.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Comercio</span></a></li>
+         <li><a class="app-menu__item" href="{{route('producto.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Producto</span></a></li>
+         <li><a class="app-menu__item" href="{{route('subscripcion.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Subscripcion</span></a></li>
+         <li><a class="app-menu__item" href="{{route('piso.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Piso</span></a></li>
+         <li><a class="app-menu__item" href="{{route('propaganda.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Propaganda</span></a></li>
+         <li><a class="app-menu__item" href="{{route('catalogoCabecera.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Catalogo cabecera</span></a></li>
+         <li><a class="app-menu__item" href="{{route('catalogoDetalle.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Catalogo detalle</span></a></li>
+         <li><a class="app-menu__item" href="{{route('liquidacion.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Liquidacion</span></a></li>
+         <li><a class="app-menu__item" href="{{route('transaccion.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Transaccion</span></a></li>
+         <li><a class="app-menu__item" href="{{route('fecha.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Fecha</span></a></li>
+         <li><a class="app-menu__item" href="{{route('feriado.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Feriados</span></a></li>
+         <li><a class="app-menu__item" href="{{route('log.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Logs</span></a></li>
+         <li><a class="app-menu__item" href="{{route('usuarios.index')}}"><i class="app-menu__icon fa fa-id-badge"></i><span class="app-menu__label">Usuarios</span></a></li>
     </ul>
 </aside>
 <main class="app-content">
@@ -137,6 +171,9 @@
 <!-- The javascript plugin to display page loading on top-->
 <script src="/js/plugins/pace.min.js"></script>
 <script src="/js/plugins/toastr.js"></script>
+<script src=" {{asset('js/plugins/jquery.dataTables.min.js')}}"></script>
+    <script src=" {{asset('js/plugins/dataTables.bootstrap.min.js')}}"></script>
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
 <script src="{{asset('js/axios.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
 <script>

@@ -12,8 +12,8 @@
         <div class="tile">
           <a href="{{route('proveedor.create')}}"><button class=" btn btn-outline-primary"> Crear nuevo producto</button></a>
             <br><br>
-            <div class="tile-body">
-                <table class="table table-hover table-bordered table-responsive" id="sampleTable">
+            <div class="col-sm-12 col-sm-offset-2">
+                <table class="table table-responsive" id="sampleTable">
                     <thead>
                     <tr>
                         <th>Nombre</th>
@@ -46,7 +46,6 @@
                         <p> No existen datos </p>
                     @endforelse
                     </tbody>
-
                 </table>
             </div>
         </div>

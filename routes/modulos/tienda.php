@@ -1,6 +1,8 @@
 <?php
 // tienda
 Route::get('/','TiendaController@inicio')->name('welcome');
+
+
 route::get('/productos/{page?}','TiendaController@productos')->name('productos');
 route::get('/detalles/{id}','TiendaController@detalle')->name('detalle');
 route::get('/categorias','TiendaController@categorias')->name('categorias');

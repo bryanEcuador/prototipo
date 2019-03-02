@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class TiendaProcedure extends Model
 {
     public function consultarComentarios($producto) {
-        return DB::select('Call spConsultarComentario(?)',array($producto));
+        
         return DB::select('Call spConsultarComentario(?)',array($producto));
     }
 
