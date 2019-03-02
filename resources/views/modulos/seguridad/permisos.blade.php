@@ -1,7 +1,13 @@
 @extends('layouts.admin')
 @section('nombre_pagina','Permisos')
 @section('css')
+    <style>
+         [v-cloak] > * { display:none; }
+            [v-cloak]::before { content: "loading..."; }
+    </style>
 @endsection
+    
+   
 @section('titulo de la pagina','Permisos')
 @section('breadcrumbs')
     {{ Breadcrumbs::render('permisos') }}

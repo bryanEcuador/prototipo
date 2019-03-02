@@ -10,7 +10,7 @@
 
 
 
-    <div class="col-md-12" id="cliente" >
+    <div class="col-md-12" id="cliente" v-cloak >
 
         {{-- crear  --}}
          <div id="crearCliente" class="modal fade" role="dialog" >
@@ -392,19 +392,18 @@
           <div class="tile">
 
         <button class="btn btn-primary btn-lg btn-block mb-4" @click="crear" > Agregar cliente</button>
-         <input type="text" class="form-control" placeholder="texto a consultar"><br>  
-        <div>
-         <table class="table table-striped table-responsive " id="">
+         {{-- <input type="text" class="form-control" placeholder="texto a consultar"><br> --}}  
+        <div class="table-responsive">
+         <table class="table table-striped" id="">
                 <thead>
                   <tr>
-                    <th>identificacion</th>
-                    <th>nombres</th>
-                    <th>apellidos</th>
-                    <th>ciudad</th>
-                   
-                    <th>telefono</th>
-                    <th>email</th>
-                    <th>Accioes</th>
+                    <th>IDENTIFICACION</th>
+                    <th>NOMBRES</th>
+                    <th>APELLIDOS</th>
+                    <th>CIUDAD</th>
+                    <th>TELÉFONO</th>
+                    <th>EMAIL</th>
+                    <th>ACCIONES</th>
                   </tr>
                 </thead>
                 <tbody>
