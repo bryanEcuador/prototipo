@@ -320,7 +320,7 @@
                                 big_us_idSistema  : this.sistema,
                                 var_us_login  : this.login,
                                 var_us_pws  : this.password,
-                                var_us_tipoUsuario : tipo_usuario,
+                                var_us_tipoUsuario : this.tipo_usuario,
                             }).then(response => {
                             
                             //this.limpiar();
@@ -349,7 +349,7 @@
                            var url = 'usuarios/update';
                             axios.post(url, {
                                 
-                                  // big_fc_idFecha   : this.id,
+                                
                                big_us_idUsuario  : this.e_usuario,
                                 big_us_idSistema  : this.e_sistema,
                                 var_us_login  : this.e_login,

@@ -195,7 +195,7 @@
                   fecha : '',
                   fecha_feriado : '',
 
-                    
+                  e_fechaFeriado : '',  
                   e_fecha : '',
                   e_fecha_feriado : '',
 
@@ -240,6 +240,37 @@
                    editar : function () {
                        $("#editar").modal('show');
                    },
+
+                   suprimir :  function() {
+                       guardar : function(){
+                      //this.espaciosBlanco();
+                      //this.validarCampos();
+
+                      if(this.errores.length == 0){
+                          
+                            var url = 'feriados/delete';
+                            axios.post(url, {
+                               big_ff_idFechaFeriado   : this.e_fechaFeriado,
+
+                            }).then(response => {
+                            
+                            //this.limpiar();
+                            
+                            }).catch(error => {
+                                    console.log(error);
+                            });
+
+
+
+                      }else {
+                          var num = this.errores.length; 
+                          for(var i=0; i<num;i++) {
+                              toastr.error(this.errores[i]);
+                          }
+                          this.errores = [];
+                      }
+                    },
+                   }
   
                   
 
@@ -249,7 +280,7 @@
 
                       if(this.errores.length == 0){
                           
-                            var url = 'fecha/store';
+                            var url = 'feriados/store';
                             axios.post(url, {
                                // big_fc_idFecha   : this.id,
                                 big_ff_idFechaFeriado   : this.fecha,
@@ -280,10 +311,10 @@
 
                       if(this.errores.length == 0){
                           
-                           var url = 'fecha/update';
+                           var url = 'feriados/update';
                             axios.post(url, {
                                 
-                                  // big_fc_idFecha   : this.id,
+                                  big_ff_idFechaFeriado   : this.e_fechaFeriado,
                                  big_ff_idFechaFeriado   : this.e_fecha,
                                  fch_ff_fecha   : this.e_feriado,
 

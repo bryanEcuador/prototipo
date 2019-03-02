@@ -15,11 +15,11 @@
         <div class="tile">
 
         <button class="btn btn-primary btn-lg btn-block mb-4" @click="crear"> Agregar cliente</button>
-           
-        <table class="table table-hover table-bordered" id="">
+         <input type="text" class="form-control" placeholder="texto a consultar"><br>  
+        <table class="table table-striped table-responsive " id="">
                 <thead>
                   <tr>
-                    <th>tipo identificacion</th>
+                    
                     <th>identificacion</th>
                     <th>nombres</th>
                     <th>apellidos</th>
@@ -32,7 +32,7 @@
                 </thead>
                 <tbody>
                   <tr v-for="dato in datos" >
-                    <td>@{{dato.tipo_identificacion}}</td>
+                    
                     <td>@{{dato.identificacion}}</td>
                     
                     <td>@{{dato.nombres}}</td>
@@ -489,10 +489,73 @@
 
                     id : '',
                     errores : [],
-                    datos : [],
+
+
+                    
+                /* paginacion */
+                paginacion : {
+                    'total' : 0,
+                    'current_page' : 0,
+                    'per_page' : 0,
+                    'last_page' : 0,
+                    'from' : 0,
+                    'to': 0,
+                },
+                offset: 3,
+                datos :[],
                    
 
                 },
+
+                 computed : {
+                
+                isActived : function () {
+                    return this.paginacion.current_page;
+                },
+                pagesNumber: function() {
+
+                    if(!this.paginacion.to){
+                        return [];
+                    }
+                    var from = this.paginacion.current_page - this.offset;
+                    if(from < 1){
+                        from = 1;
+                    }
+                    var to = from + (this.offset * 2);
+                    if(to >= this.paginacion.last_page){
+                        to = this.paginacion.last_page;
+                    }
+                    var pagesArray = [];
+                    while(from <= to){
+                        pagesArray.push(from);
+                        from++;
+                    }
+                    return pagesArray;
+                },
+
+                datosNumber : function() {
+
+                    return this.permisosTable.length;
+                },
+
+                cantidadPorPagina : function () {
+                
+                   var inicial = 0;
+                    var datos = [];
+
+                   while(true) {
+                         inicial = inicial + 5;
+                        if(this.paginacion.total <= inicial) { 
+                           break;
+                       } else {
+                           this.datosPorPagina = 5;
+                         datos.push(inicial)
+                       }
+                      
+                   }  
+                    return datos;           
+                },
+    },
                 created : function() {
                     toastr.options = {
                         "closeButton": true,
@@ -738,7 +801,43 @@
                                 this.errores.push("ingrese el email")
                             }
                         } 
+                    },
+
+
+                     //--------------------- PAGINACION ---------------------------------------//
+                loadPermisos : function(page) {
+
+                   // var url = page !== undefined ?  '/seguridad/permisos/datos/'+this.datosPorPagina+'/'+page : '/seguridad/permisos/datos/'+this.datosPorPagina;
+                    axios.get(url).then(response => {
+
+                    this.datos = response.data;
+                    this.permisosTable = this.datos.data
+
+                    this.paginacion.total = this.datos.total;
+                    if(page == undefined) {
+                        this.paginacion.current_page = this.datos.current_page;
                     }
+                    this.paginacion.per_page = this.datos.per_page;
+                    this.paginacion.last_page = this.datos.last_page;
+                    this.paginacion.from = this.datos.from;
+                    this.paginacion.to = this.datos.to;
+                }).catch(error => {
+                        console.log(error);
+                    this.loadPermisos();
+                });
+                },
+
+                 changePage: function(page) {
+                    this.paginacion.current_page = page;
+                    this.permiso === '' ? this.loadPermisos(page) : this.consultarNombrePermisos(page);
+                },
+
+                changeNumberPage :function(page) {
+                    this.permiso === '' ? this.loadPermisos(page) : this.consultarNombrePermisos(page);                    
+                }
+
+                
+                //--------------------- PAGINACION ---------------------------------------//
 
                    
 

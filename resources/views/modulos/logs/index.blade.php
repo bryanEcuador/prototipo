@@ -299,7 +299,6 @@
                        $("#editar").modal('show');
                    },
   
-                  
 
                      guardar : function(){
                       //this.espaciosBlanco();
@@ -307,11 +306,15 @@
 
                       if(this.errores.length == 0){
                           
-                            var url = 'fecha/store';
+                            var url = 'logs/store';
                             axios.post(url, {
                                // big_fc_idFecha   : this.id,
-                                big_ff_idFechaFeriado   : this.fecha,
-                                 fch_ff_fecha   : this.feriado,
+                                var_lg_accion   : this.accion,
+                                 var_lg_login   : this.login,
+                                 var_lg_valor : this.valor ,
+                                 var_lg_fechaHora : this.fecha_hora ,
+
+               
 
                             }).then(response => {
                             
