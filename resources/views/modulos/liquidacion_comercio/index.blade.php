@@ -6,28 +6,6 @@
 @section('titulo de la pagina','liquidacion comercio')
 @section('subtitulo','')
 
-@section('contenido')
-@if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('danger'))
-        <div class="alert alert-danger">
-            {{ session('danger') }}
-        </div>
-    @endif
 
     <div class="col-md-12" id="creacionProveedores">
         
@@ -578,6 +556,7 @@
                     tipo_comision: '',
                     valor_comision: '',
 
+                    e_id : '',
                     e_transaccion: '',
                     e_detalle_transaccion : '',
                     e_comercio : '',
@@ -718,7 +697,7 @@
                           
                            var url = 'comercio/update';
                             axios.post(url, {
-                                
+                           big_lc_idLiquidacion : this.e_id,          
                            big_lc_idTransaccionBanco :this.transaccion,
                            big_lc_idTransaccionBancoDetalle :this.detalle_transaccion, 
                            big_lc_idComercio :this.comercio ,

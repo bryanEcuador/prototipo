@@ -104,12 +104,13 @@ class PermisosController extends Controller
          //  return $result;
     }
 
-     public function loadData($pagination,$pagina = 0,$nombre = null) {
+     public function loadData($pagina = 0,$paginacion = 10,$nombre = null) {
         if($nombre == null) {
             $datos =  $this->SeguridadProcedure->consultarPermisosTodos();
-            return $this->paginacion($pagina,$datos,$pagination);
+            dd($datos);
+            return $this->paginacion($pagina,$datos,$paginacion);
         } else {
-            return $this->search($nombre,$pagina,$pagination);
+            return $this->search($nombre,$pagina,$paginacion);
         }
 
     }
@@ -121,7 +122,7 @@ class PermisosController extends Controller
 
     public function paginacion($pagina,$datos,$pagination) {
         $paginacion = $pagination; // cuantos datos tenemos que recresar por pagina
-        $pagina != 0 ? $pagina = ($pagina - 1) * $paginacion : $pagina  = 0; // se hace el calculo de los resultados quqe debe devolver
+        $pagina != 0 ? $pagina = ($pagina - 1) * $paginacion : $pagina  = 0; // se hace el calculo de los resultados que debe devolver
         $page = Input::get('page'); // solo es un nombre
         $total = count($datos);
         $datos = array_slice($datos, $pagina , $paginacion); // 1: datos , 2: desde que posicion  , 3: cuantos datos

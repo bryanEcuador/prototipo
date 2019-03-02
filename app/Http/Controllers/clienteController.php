@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\XmlController;
+use App\Http\Controllers\PaginacionController;
 
  
 
 class clienteController extends Controller
 {
     protected $xml;
+    protected $paginacion;
+
     private $cabecera = "pr_ins_va_clientes"; 
     /**
      * Display a listing of the resource.
@@ -17,8 +20,9 @@ class clienteController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(XmlController $xml) {
+    public function __construct(XmlController $xml , PaginacionController $paginacion) {
         $this->xml = $xml;
+        $this->paginacion = $paginacion;
     }
 
 
@@ -28,12 +32,49 @@ class clienteController extends Controller
         return view("modulos.cliente.index");
     }
 
-    public function search(){
+    public function search($pagina = 0, $paginacion = 5, $nombre = null){
 
-        $data = array('id'=> 1 ,'tipo_identificacion' => 'cedula' , 'identificacion' => '0952013225' , 'nombres' => 'bryan' , 'apellidos' => 'silva' , 'ciudad' => 'guayaquil' , 'telefono' => '09039302930' , 'email' => 'email'  );
+        $datos = array(
+            ['identificacion' => '0952013225', 'nombres' => 'bryan' , 
+            'apellidos' => 'silva mercado' , 'ciudad' => 'guayaquil', 
+            'telefono' => '747474' , 'email' => 'bryan@hotmail.com' ],
+            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+                'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
+                'telefono' => '747474', 'email' => 'bryan@hotmail.com' ],
+            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+                'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
+                'telefono' => '747474', 'email' => 'bryan@hotmail.com' ],
+            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+                'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
+                'telefono' => '747474', 'email' => 'bryan@hotmail.com' ],
 
-        return $data;
-        return Response::json($data);
+            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+                'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
+                'telefono' => '747474', 'email' => 'bryan@hotmail.com' ],
+            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+                'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
+                'telefono' => '747474', 'email' => 'SILVA@hotmail.com' ],
+            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+                'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
+                'telefono' => '747474', 'email' => 'SILVA@hotmail.com' ],
+
+            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+                'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
+                'telefono' => '747474', 'email' => 'SILVA@hotmail.com' ],
+            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+                'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
+                'telefono' => '747474', 'email' => 'SILVA@hotmail.com' ],
+            ['identificacion' => '0952013225', 'nombres' => 'bryan',
+                'apellidos' => 'silva mercado', 'ciudad' => 'guayaquil',
+                'telefono' => '747474', 'email' => 'SILVA@hotmail.com' ],
+
+        );
+        
+        $respuesta = $this->paginacion->paginacion($pagina,$datos,$paginacion);
+        dd($respuesta);
+
+        //return $data;
+        //return Response::json($data);
         //dd($data);
 
     }

@@ -3,9 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\XmlController;
 
 class LiquidacionComercioController extends Controller
 {
+     protected $xml;
+    private $cabecera = "pr_ins_va_clientes";
+
+    public function __construct(XmlController $xml)
+    {
+        $this->xml = $xml;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,73 +26,46 @@ class LiquidacionComercioController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('modulos.liquidacion_comercio.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
-        //
+        $parametros = $this->xml->makeArray($request);
+        $datos = $this->xml->makeXml($parametros,$this ->cabecera);
+        $cliente = $this->xml->soap();
+
+        // llamamos al metodo que vamos a consumir
+        $response = 'metodo'; //$cliente->metodo(paramaetros);
+
+        return $this->xml->readXml($response);              
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id = null)
-    {
-        //
-        return view('modulos.liquidacion_comercio.show');
 
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id = null)
+   
+    public function update(Request $request)
     {
-        //
-        return view('modulos.liquidacion_comercio.edit');
+        $parametros = $this->xml->makeArray($request);
+        $datos = $this->xml->makeXml($parametros,$this ->cabecera);
+        $cliente = $this->xml->soap();
+
+        // llamamos al metodo que vamos a consumir
+        $response = 'metodo'; //$cliente->metodo(paramaetros);
+
+        return $this->xml->readXml($response);         
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy( Request $request)
     {
-        //
+        $parametros = $this->xml->makeArray($request);
+        $datos = $this->xml->makeXml($parametros,$this ->cabecera);
+        $cliente = $this->xml->soap();
+
+        // llamamos al metodo que vamos a consumir
+        $response = 'metodo'; //$cliente->metodo(paramaetros);
+
+        return $this->xml->readXml($response);         
+
     }
 }

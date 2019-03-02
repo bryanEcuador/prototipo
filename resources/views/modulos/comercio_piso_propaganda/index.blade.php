@@ -6,29 +6,6 @@
 @section('titulo de la pagina',' Comercio piso propaganda')
 @section('subtitulo','')
 
-@section('contenido')
-@if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if (session('danger'))
-        <div class="alert alert-danger">
-            {{ session('danger') }}
-        </div>
-    @endif
-
     <div class="col-md-12" id="creacionProveedores">
         
         <div class="tile">

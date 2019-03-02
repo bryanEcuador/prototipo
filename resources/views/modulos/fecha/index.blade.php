@@ -287,6 +287,20 @@
                        
                     },
 
+                    suprimir : function() {
+                        var url = 'fecha/delete';
+                            axios.post(url, {
+                               big_fc_idFecha   : this.e_id,
+                                
+                            }).then(response => {
+                            toastr.success("registro eliminado con exito")
+                            //this.limpiar();
+                            
+                            }).catch(error => {
+                                    console.log(error);
+                            });
+                    }
+
                      guardar : function(){
                       //this.espaciosBlanco();
                       //this.validarCampos();
@@ -295,14 +309,14 @@
                           
                             var url = 'fecha/store';
                             axios.post(url, {
-                               // big_fc_idFecha   : this.id,
+                               // big_fc_idFecha   : this.e_id,
                                 fch_fc_fecha   : this.fecha,
                                 fch_fc_fechaProceso : this.fecha_proceso,
                                  var_fc_dia   : this.dia,
                                  var_fc_feriado   : this.feriado,
 
                             }).then(response => {
-                            
+                            toastr.success("registro guardado con exito")
                             //this.limpiar();
                             
                             }).catch(error => {
@@ -329,15 +343,15 @@
                            var url = 'fecha/update';
                             axios.post(url, {
                                 
-                                  // big_fc_idFecha   : this.id,
+                                big_fc_idFecha   : this.e_id,
                                 fch_fc_fecha   : this.e_fecha,
                                 fch_fc_fechaProceso : this.e_fecha_proceso,
                                 var_fc_dia   : this.e_dia,
                                 var_fc_feriado   : this.e_feriado,
 
                             }).then(response => {
-                            
-                            //this.limpiar();
+                                toastr.success("registro guardado con exito")
+                                this.limpiar();
                             
                             }).catch(error => {
                                     console.log(error);
