@@ -11,45 +11,81 @@
     <div class="col-md-12" id="creacionProveedores">
         
        <div class="tile">
-                    <button class="btn btn-primary btn-lg btn-block mb-4" @click="crear"> Agregar comercio</button>
+            <button class="btn btn-primary btn-lg btn-block mb-4" @click="crear"> Agregar comercio</button>
+            <input type="text" class="form-control" v-model="consulta" v-on:keyup.13="consultar" placeholder="Ingrese el nombre del comercio a consultar y presione la tecla enter"><br>  
 
-            <table class="table table-hover table-bordered" id="sampleTable">
+            <div class="table-responsive">
+
+                 <table class="table table-striped" >
                 <thead>
                   <tr>
-                    <th>nombre comercio</th>
-                    <th>razon social</th>
-                    <th>ruc</th>
-                    <th>representante legal</th>
-                    <th>identificacion representante</th>
-                    <th>tipo comercio</th>
-                   
-     
-                    <th>Accioes</th>
+                    <th>NOMBRE COMERCIO</th>
+                    <th>RAZÓN SOCIAL</th>
+                    <th>RUC</th>
+                    <th>REPRESENTANTE LEGAL</th>
+                    <th>IDENTIFICACIÓN</th>
+                    <th>TIPO COMERCIO</th>
+                    <th colspan="3">ACCIONES</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                     <td>nombre comercio</td>
-                    <td>razon social</td>
-                    <td>ruc</td>
-                    <td>representante legal</td>
-                    <td>identificacion representante</td>
-                    <td>tipo comercio</td>
-                   
-               
+                  <tr v-for="dato in tabla">
+                     <td>@{{dato.var_co_nombreComercio}}</td>
+                    <td>@{{dato.var_co_razonSocial}}</td>
+                    <td>@{{dato.var_co_ruc}}</td>
+                    <td>@{{dato.var_co_representanteLegal}}</td>
+                    <td>@{{dato.var_co_identificacionRepresentanteLegal}}</td>
+                    <td>@{{dato.var_co_tipoComercio}}</td>
                     <td>
-                       <button class="btn btn-primary"  @click="editar" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>
-                        <button class="btn btn-info" @click="ver"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                        <button class="btn btn-danger"  @click="eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                       <button class="btn btn-primary"  @click="editar(dato.big_co_idComercio)" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" @click="ver(dato.big_co_idComercio)"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger"  @click="eliminar(dato.big_co_idComercio)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                     </td>
                   </tr>
 
                 </tbody>
-              </table>
-       </div>
-       <div class="container">
-  
-  <!-- Modal crear -->
+            </table>
+
+              <div class="form-inline" v-if="datosNumber !== 0">
+                <div class="col-md-4">
+                    <span> @{{ paginacion.to }} de @{{paginacion.total}} registros</span>
+                </div>
+
+                <div class="col-md-8">
+                    <div>
+                         <!-- corregir -->
+                        <ul class="pagination">
+                            <li class="page-item" v-if="paginacion.current_page > 1">
+                                <a class="page-link" href="#" @click.prevent="changePage(paginacion.current_page - 1 )" >
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item" v-for="page in pagesNumber" v-bind:class="[ page == isActived ? 'page-item active' : 'page-item']">
+                                <a class="page-link" href="#" @click.prevent="changePage(page)"  >@{{page}}</a>
+                            </li>
+                            <li class="page-item" v-if="paginacion.current_page < paginacion.last_page"  >
+                                <a class="page-link" href="#"  @click.prevent="changePage(paginacion.current_page + 1 )">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> 
+            </div>
+
+            </div>   
+       
+        </div>
+       
+
+
+
+
+         <!-- Modal crear -->
   <div class="modal fade"  role="dialog" id="crear">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -67,7 +103,7 @@
                                                     <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
                                                 </div>
                                                   <div class="col-md-2">
-                                                    <label for="nombre">Razon social:</label>
+                                                    <label for="nombre">Razón social:</label>
                                                 </div>
                                                 <div class="col-md-4 ">
                                                 <input class="form-control" type="text" name="razon" v-model="razon" maxlength="20">
@@ -92,7 +128,7 @@
 
                                             <div class="form-group row">
                                                 <div class="col-md-2">
-                                                    <label for="nombre">Identificacion Representante legal:</label>
+                                                    <label for="nombre">Identificacion representante legal:</label>
                                                 </div>
                                                 <div class="col-md-4 ">
                                                 <input class="form-control" type="text" name="representante_ci" v-model="representante_ci" maxlength="20">
@@ -109,7 +145,7 @@
                                           
                                             <div class="form-group row">
                                                 <div class="col-md-2">
-                                                    <label for="nombre">Direccion:</label>
+                                                    <label for="nombre">Dirección:</label>
                                                 </div>
                                                 <div class="col-md-4 ">
                                                 <input class="form-control" type="text" name="direccion" v-model="direccion" maxlength="20">
@@ -166,13 +202,13 @@
                                                     <label for="nombre">Email:</label>
                                                 </div>
                                                 <div class="col-md-4 ">
-                                                <input class="form-control" type="text" name="email" v-model="email" maxlength="20">
+                                                <input class="form-control" type="email" name="email" v-model="email" maxlength="20">
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <label for="nombre">Telefono:</label>
+                                                    <label for="nombre">Teléfono:</label>
                                                 </div>
                                                 <div class="col-md-4 ">
-                                                <input class="form-control" type="text" name="telefono" v-model="telefono" maxlength="20">
+                                                <input class="form-control" type="telf" name="telefono" v-model="telefono" maxlength="20">
                                                 </div>
                                             </div>
                                             
@@ -417,11 +453,9 @@
                                                 <div class="col-md-2">
                                                     <label for="nombre">Ciudad:</label>
                                                 </div>
+                                                
                                                 <div class="col-md-4 ">
-                                                    <select class="form-control"  v-model="v_ciudad" >
-                                                        <option>guayaquil</option>
-                                                        <option>quito</option>
-                                                    </select>
+                                                    <input class="form-control" type="text" v-model="v_ciudad">    
                                                 </div>
                                             </div>
                                         
@@ -430,10 +464,7 @@
                                                     <label for="nombre">Sector:</label>
                                                 </div>
                                                 <div class="col-md-4 ">
-                                                    <select class="form-control"  v-model="v_sector" >
-                                                        <option>sur</option>
-                                                        <option>norte</option>
-                                                    </select>
+                                                    <input class="form-control" type="text" v-model="v_sector">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <label for="nombre">Nombre del gerente:</label>
@@ -454,10 +485,7 @@
                                                     <label for="nombre">Tipo Comercio:</label>
                                                 </div>
                                                 <div class="col-md-4 ">
-                                                <select class="form-control"  v-model="v_tipo_comercio" >
-                                                        <option>ejemplo1</option>
-                                                        <option>ejmeplo 2</option>
-                                                    </select>
+                                                    <input class="form-control" type="text"  v-model="v_tipo_comercio" maxlength="20">
                                                 </div>
                                             </div>
 
@@ -483,10 +511,7 @@
                                                     <label for="nombre">Mio:</label>
                                                 </div>
                                                 <div class="col-md-10 ">
-                                                    <select class="form-control"  v-model="v_mio" >
-                                                        <option>si</option>
-                                                        <option>no</option>
-                                                    </select>
+                                                    <input class="form-control" type="text"  v-model="v_mio" maxlength="20">
                                                 </div>
                                             </div>
            </div>
@@ -512,7 +537,7 @@
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                     </div>
                                    <div class="modal-body">
-                                       <h1>¿ ESTA SEGURO QUE DESEA ELIMINAR EL COMERCIO ?</h1>
+                                       <h4>¿ ESTA SEGURO QUE DESEA ELIMINAR EL COMERCIO ?</h4>
                                         <button class="btn btn-primary" id="guardar" type="button" v-on:click="suprimir">Eliminar</button>
                                         <button class="btn btn-secondary" type="button" data-dismiss="modal">cancelar</button>
                                    </div>
@@ -524,6 +549,8 @@
                 </div>
             </div>
         </div>
+  
+
        
     </div>
     
@@ -559,6 +586,7 @@
                     telefono: '',
                     mio: '',
 
+                    ver_editar : '',
                     e_id : '',
                     e_nombre: '',
                     e_ruc : '',
@@ -577,6 +605,8 @@
                     e_telefono: '',
                     e_mio: '',
 
+                    ver_datos : '',
+                    v_id : '',
                     v_nombre: '',
                     v_ruc : '',
                     v_razon : '',
@@ -597,6 +627,22 @@
 
 
                     errores : [],
+
+
+                /* paginacion */
+                paginacion : {
+                    'total' : 0,
+                    'current_page' : 0,
+                    'per_page' : 0,
+                    'last_page' : 0,
+                    'from' : 0,
+                    'to': 0,
+                },
+                datosPorPagina : 10,
+                offset: 3,
+                datos :[],
+                tabla : [],
+                consulta :'',
                    
 
                 },
@@ -618,25 +664,210 @@
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut"
                     }
+                     this.load()
                 },
+
+    computed : {
+                
+                isActived : function () {
+                    return this.paginacion.current_page;
+                },
+                pagesNumber: function() {
+
+                    if(!this.paginacion.to){
+                        return [];
+                    }
+                    var from = this.paginacion.current_page - this.offset;
+                    if(from < 1){
+                        from = 1;
+                    }
+                    var to = from + (this.offset * 2);
+                    if(to >= this.paginacion.last_page){
+                        to = this.paginacion.last_page;
+                    }
+                    var pagesArray = [];
+                    while(from <= to){
+                        pagesArray.push(from);
+                        from++;
+                    }
+                    return pagesArray;
+                },
+
+                datosNumber : function() {
+
+                    return this.tabla.length;
+                },
+
+                cantidadPorPagina : function () {
+                
+                   var inicial = 0;
+                    var datos = [];
+
+                   while(true) {
+                         inicial = inicial + 5;
+                        if(this.paginacion.total <= inicial) { 
+                           break;
+                       } else {
+                           this.datosPorPagina = 5;
+                         datos.push(inicial)
+                       }
+                      
+                   }  
+                    return datos;           
+                },
+    }, 
 
                 methods : {
 
                  // validar
 
-                 validar : function () {
-                     
+                 validarCampos : function (tipo) {
+
+                     if(tipo == 'g'){
+
+                        if(this.nombre == ''){
+                            this.errores.push("El campo nombre no puede estar en vacio")
+                        }
+                        if(this.ruc == ''){
+                            this.errores.push("El campo ruc no puede estar en vacio")
+                        }
+                        if(this.razon == ''){
+                            this.errores.push("El campo razón no puede estar en vacio")
+                        }
+                        if(this.representante == ''){
+                            this.errores.push("El campo representante legal no puede estar en vacio")
+                        }
+                        if(this.representante_ci == ''){
+                            this.errores.push("El campo identificación del representante  no puede estar en vacio")
+                        }
+                        if(this.identificacion == ''){
+                            this.errores.push("El campo nombre no puede estar en vacio")
+                        }
+                        if(this.fecha == ''){
+                            this.errores.push("El campo fecha no puede estar en vacio")
+                        }
+                        if(this.direccion == ''){
+                            this.errores.push("El campo dirección no puede estar en vacio")
+                        }
+                        if(this.ciudad == ''){
+                            this.errores.push("El campo ciudad no puede estar en vacio")
+                        }
+                        if(this.sector == ''){
+                            this.errores.push("El campo sector no puede estar en vacio")
+                        }
+                        if(this.nombre_gerente == ''){
+                            this.errores.push("El campo nombre del gerente no puede estar en vacio")
+                        }
+                        if(this.gerente_ci == ''){
+                            this.errores.push("El campo nombre identificación del gerente puede estar en vacio")
+                        }
+                        if(this.tipo_comercio == ''){
+                            this.errores.push("El campo tipo de comercio no puede estar en vacio")
+                        }
+                        if(this.email == ''){
+                            this.errores.push("El campo email no puede estar en vacio")
+                        }
+                        if(this.telefono == ''){
+                            this.errores.push("El campo telefono no puede estar en vacio")
+                        }
+                        if(this.mio == ''){
+                            this.errores.push("El campo mio no puede estar en vacio")
+                        }
+                     }else {
+                         if(this.e_nombre == ''){
+                            this.errores.push("El campo nombre no puede estar en vacio")
+                        }
+                        if(this.e_ruc == ''){
+                            this.errores.push("El campo ruc no puede estar en vacio")
+                        }
+                        if(this.e_razon == ''){
+                            this.errores.push("El campo razón no puede estar en vacio")
+                        }
+                        if(this.e_representante == ''){
+                            this.errores.push("El campo representante legal no puede estar en vacio")
+                        }
+                        if(this.e_representante_ci == ''){
+                            this.errores.push("El campo identificación del representante  no puede estar en vacio")
+                        }
+                        if(this.e_identificacion == ''){
+                            this.errores.push("El campo nombre no puede estar en vacio")
+                        }
+                        if(this.e_fecha == ''){
+                            this.errores.push("El campo fecha no puede estar en vacio")
+                        }
+                        if(this.e_direccion == ''){
+                            this.errores.push("El campo dirección no puede estar en vacio")
+                        }
+                        if(this.e_ciudad == ''){
+                            this.errores.push("El campo ciudad no puede estar en vacio")
+                        }
+                        if(this.sector == ''){
+                            this.errores.push("El campo sector no puede estar en vacio")
+                        }
+                        if(this.nombre_gerente == ''){
+                            this.errores.push("El campo nombre del gerente no puede estar en vacio")
+                        }
+                        if(this.gerente_ci == ''){
+                            this.errores.push("El campo nombre identificación del gerente puede estar en vacio")
+                        }
+                        if(this.tipo_comercio == ''){
+                            this.errores.push("El campo tipo de comercio no puede estar en vacio")
+                        }
+                        if(this.e_email == ''){
+                            this.errores.push("El campo email no puede estar en vacio")
+                        }
+                        if(this.e_telefono == ''){
+                            this.errores.push("El campo telefono no puede estar en vacio")
+                        }
+                        if(this.e_mio == ''){
+                            this.errores.push("El campo mio no puede estar en vacio")
+                        }
+                     }
+
+
+                   
+                   
+                   
                  },
 
                  // metodos 
 
                  
-                   eliminar : function () {
+                   eliminar : function (id) {
                        $("#eliminar").modal('show');
                    },
 
                   
-                   ver : function () {
+                   ver : function (id) {
+                           var url = '/comercio/consult/'+id
+                        axios.get(url).then(response => {
+                            
+                            this.datos_ver = response.data
+                            this.v_id = data[0].big_co_idComercio
+                            this.v_nombre= data[0].var_co_nombreComercio
+                            this.v_ruc = data[0].var_co_ruc
+                            this.v_razon = data[0].var_co_razonSocial
+                            this.v_representante = data[0].var_co_representanteLegal
+                            this.v_representante_ci = data[0].var_co_identificacionRepresentanteLegal
+                            
+                            this.v_fecha= data[0].var_co_fechaCreacion
+                            this.v_direccion = data[0].var_co_direccion
+                            this.v_ciudad = data[0].var_co_ciudad
+                            this.v_sector = data[0].var_co_sector
+                            this.v_nombre_gerente = data[0].var_co_nombreGerente
+                            this.v_gerente_ci = data[0].var_co_identificacionGerente
+                            this.v_tipo_comercio = data[0].var_co_tipoComercio
+                            this.v_email=data[0].var_co_email
+                            this.v_telefono= data[0].var_co_telefono
+                            this.v_mio= data[0].var_co_esMio
+                            
+                         
+                            
+                        }).catch(error => {
+                            toastr.error("Error al consultar los datos.")
+                            
+                         });
+                        
                        $("#ver").modal('show');
                    },
 
@@ -645,17 +876,48 @@
                    },
                    
                    
-                   editar : function () {
+                   editar : function (id) {
+
+                             var url = '/comercio/consult/'+id
+                        axios.get(url).then(response => {
+                            
+                             this.datos_editar = response.data
+                            this.e_id = data[0].big_co_idComercio
+                            this.e_nombre= data[0].var_co_nombreComercio
+                            this.e_ruc = data[0].var_co_ruc
+                            this.e_razon = data[0].var_co_razonSocial
+                            this.e_representante = data[0].var_co_representanteLegal
+                            this.e_representante_ci = data[0].var_co_identificacionRepresentanteLegal
+                            
+                            this.e_fecha= data[0].var_co_fechaCreacion
+                            this.e_direccion = data[0].var_co_direccion
+                            this.e_ciudad = data[0].var_co_ciudad
+                            this.e_sector = data[0].var_co_sector
+                            this.e_nombre_gerente = data[0].var_co_nombreGerente
+                            this.e_gerente_ci = data[0].var_co_identificacionGerente
+                            this.e_tipo_comercio = data[0].var_co_tipoComercio
+                            this.e_email=data[0].var_co_email
+                            this.e_telefono= data[0].var_co_telefono
+                            this.e_mio= data[0].var_co_esMio
+                            
+                         
+                            
+                        }).catch(error => {
+                            toastr.error("Error al consultar los datos.")
+                            
+                         });
+                            
+                           
+
                        $("#editar").modal('show');
                    },
 
                    suprimir : function() {
-                        var url = 'comercio/delete';
+                        var url = '/comercio/delete';
                             axios.post(url, {
                               big_co_idComercio : this.e_id,     
                             }).then(response => {
                             toastr.success("registro eliminado con exito")
-                            this.consultar()
                             }).catch(error => {
                                     console.log(error);
                                toastr.error("ha ocurrido un error a eliminar el registro")
@@ -665,12 +927,12 @@
 
 
                    guardar : function(){
-                      //this.espaciosBlanco();
-                      //this.validarCampos();
+                      this.espaciosBlanco();
+                      this.validarCampos("g");
 
                       if(this.errores.length == 0){
                           
-                            var url = 'comercio/store';
+                            var url = '/comercio/store';
                             axios.post(url, {
                                 
                            var_co_nombreComercio : this.nombre,
@@ -709,9 +971,10 @@
                       }
                     },
 
+                   
                     actualizar : function() {
-                         //this.espaciosBlanco();
-                      //this.validarCampos();
+                         this.espaciosBlanco();
+                        this.validarCampos("a");
 
                       if(this.errores.length == 0){
                           
@@ -754,11 +1017,42 @@
                       }
                     },
 
-
-                    
-
                     espaciosBlanco : function() {
                         
+                        this.nombre= this.nombre.trim()
+                        this.ruc = this.ruc.trim()
+                        this.razon = this.razon.trim() 
+                        this.representante =  this.representante.trim() 
+                        this.representante_ci = this.representante_ci.trim()
+                        this.identificacion = this.identificacion.trim() 
+                        this.fecha= this.fecha.trim()
+                        this.direccion = this.direccion.trim()
+                        this.ciudad = this.ciudad.trim()
+                        this.sector = this.sector.trim()
+                        this.nombre_gerente = this.nombre_gerente.trim()
+                        this.gerente_ci = this.gerente_ci.trim() 
+                        this.tipo_comercio = this.tipo_comercio.trim() 
+                        this.email = this.email.trim()
+                        this.telefono = this.telefono.trim()
+                        this.mio= this.mio.trim()
+
+                        this.e_id =  this.e_id.trim()
+                        this.e_nombre= this.e_nombre.trim()
+                        this.e_ruc = this.e_ruc.trim() 
+                        this.e_razon = this.e_razon.trim()
+                        this.e_representante = this.e_representante.trim()
+                        this.e_representante_ci = this.e_representante_ci.trim()
+                        this.e_identificacion = this.e_identificacion.trim()
+                        this.e_fecha= this.e_fecha.trim()
+                        this.e_direccion = this.e_direccion.trim()
+                        this.e_ciudad = this.e_ciudad.trim()
+                        this.e_sector = this.e_sector.trim()
+                        this.e_nombre_gerente = this.e_nombre_gerente.trim()
+                        this.e_gerente_ci = this.e_gerente_ci.trim()
+                        this.e_tipo_comercio = this.e_tipo_comercio.trim()
+                        this.e_email = this.e_email.trim()
+                        this.e_telefono = this.e_telefono.trim()
+                        this.e_mio= this.e_mio.trim()
                     },
                     
                     limpiar : function() {
@@ -781,7 +1075,78 @@
                             this.usuario='';
                             this.pass='';
                             this.errores = [];           
+
+                    } ,
+
+
+
+
+                     //--------------------- PAGINACION ---------------------------------------//
+               
+               
+                load : function(page, consulta) {
+
+                   var url = page !== undefined ?  '/comercio/search/'+this.datosPorPagina+'/'+page : '/comercio/search/'+this.datosPorPagina;
+
+                   if(page !== undefined && consulta !== undefined){
+                        // 1 1
+                        var url = '/comercio/search/'+this.datosPorPagina+'/'+page+'/'+consulta
+                   }else if(page !== undefined && consulta == undefined )
+                   {
+                     // 1 0
+                      var url = '/comercio/search/'+this.datosPorPagina+'/'+page;
+                   }else if(page == undefined && consulta !== undefined){
+                        
+                        var url = '/comercio/search/'+this.datosPorPagina+'/'+0+'/'+consulta;
+                   }else if(page == undefined && consulta == undefined ){
+                     // 0 0
+                     var url = '/comercio/search/'+this.datosPorPagina
+                   }
+
+                    axios.get(url).then(response => {
+
+                    this.datos = response.data;
+                    this.tabla = this.datos.data
+
+                    this.paginacion.total = this.datos.total;
+                    if(page == undefined) {
+                        this.paginacion.current_page = this.datos.current_page;
                     }
+                    this.paginacion.per_page = this.datos.per_page;
+                    this.paginacion.last_page = this.datos.last_page;
+                    this.paginacion.from = this.datos.from;
+                    this.paginacion.to = this.datos.to;
+                }).catch(error => {
+                        console.log(error);
+                    this.load();
+                });
+                },
+
+                 changePage: function(page) {
+                     this.paginacion.current_page = page;
+                     if(this.consulta == ''){
+                        this.load(page) 
+                     }else {
+                           this.load(page,this.consulta) 
+                     }
+                     
+                    
+                },
+
+                changeNumberPage :function(page) {
+                   if(this.consulta == ''){
+                        this.load(page) 
+                     }else {
+                           this.load(page,this.consulta) 
+                     }
+                },
+
+                
+                //--------------------- PAGINACION ---------------------------------------//
+
+                consultar : function(){
+                     this.load(0,this.consulta) 
+                },    
 
                 }
             }

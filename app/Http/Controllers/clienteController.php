@@ -13,7 +13,7 @@ class clienteController extends Controller
     protected $xml;
     protected $paginacion;
 
-    private $cabecera = "pr_ins_va_clientes"; 
+     
     /**
      * Display a listing of the resource.
      *
@@ -79,6 +79,8 @@ class clienteController extends Controller
 
     }
 
+   
+
     /**
      * Show the form for creating a new resource.
      *
@@ -102,7 +104,7 @@ class clienteController extends Controller
         return 0;
  
         /* $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,$this->cabecera);
+        $datos = $this->xml->makeXml($parametros,'pr_ins_va_clientes');
         $cliente = $this->xml->soap();
        
         // llamamos al metodo que vamos a consumir
@@ -120,7 +122,7 @@ class clienteController extends Controller
         return 1;
  
        /*  $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,$this->cabecera);
+        $datos = $this->xml->makeXml($parametros,'pr_upd_va_clientes');
         $cliente = $this->xml->soap();
 
         // llamamos al metodo que vamos a consumir
@@ -140,13 +142,24 @@ class clienteController extends Controller
     {
         return 0;
         /* $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,$this ->cabecera);
+        $datos = $this->xml->makeXml($parametros,'pr_del_va_clientes');
         $cliente = $this->xml->soap();
 
         // llamamos al metodo que vamos a consumir
         $response = 'metodo'; //$cliente->metodo(paramaetros);
 
         return $this->xml->readXml($response);    */      
+    }
+
+    public function consult($id){
+        /*  $parametros = $this->xml->makeArray($request);
+        $datos = $this->xml->makeXml($parametros,$this->cabecera);
+        $cliente = $this->xml->soap();
+
+        // llamamos al metodo que vamos a consumir
+        $response = 'metodo'; //$cliente->metodo(paramaetros);
+
+        return $this->xml->readXml($response);          */
     }
 
    

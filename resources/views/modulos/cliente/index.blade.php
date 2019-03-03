@@ -11,7 +11,7 @@
 
 
     <div class="col-md-12" id="cliente" v-cloak >
-
+        {{-- MODALES --}}
         {{-- crear  --}}
          <div id="crearCliente" class="modal fade" role="dialog" >
              <div class="modal-dialog modal-lg">
@@ -50,23 +50,16 @@
                                                         
                                                         <div class="form-group row">
                                                             <div class="col-md-3">
-                                                                <label for="nombre">Nombres</label>
+                                                                <label for="nombre">Nombre</label>
                                                             </div>
-                                                            <div class="col-md-8 ">
+                                                            <div class="col-md-4 ">
                                                             <input class="form-control" type="text" v-model="c_nombre" placeholder="juan pablo">
                                                             </div>
-                                                        </div>
-
-                                                        <div class="form-group row">
-                                                            <div class="col-md-3">
-                                                                <label for="nombre">Apellidos:</label>
+                                                            <div class="col-md-4 ">
+                                                                 <input class="form-control" type="text" placeholder="carrera cevallos"  v-model="c_apellidos" >
                                                             </div>
-                                                            <div class="col-md-8 ">
-                                                            <input class="form-control" type="text" placeholder="carrera cevallos"  v-model="c_apellidos" >
-                                                            </div>
-                                                        </div>
-
-                                                        
+                                                           
+                                                        </div>    
 
                                                         <div class="form-group row">
                                                             <div class="col-md-3">
@@ -99,19 +92,33 @@
                                                             <div class="col-md-8 ">
                                                             <input class="form-control" type="text"  v-model="c_email">
                                                             </div>
-                                                        </div>                                        
+                                                        </div>
+                                                        
                                         <div class="form-group row">
-                                            <div class="col-md-1">
-                                                <label for="nombre">Fecha</label>
+                                            <div class="col-md-3">
+                                                <label for="nombre">Fecha de nacimiento</label>
                                             </div>
-                                            <div class="col-md-5 ">
+                                            <div class="col-md-8 ">
                                                 <input class="form-control" type="date"  v-model="c_fecha" >
                                             </div>
-                                            <div class="col-md-2">
+                                        </div>              
+                                        <div class="form-group row">
+                                            <div class="col-md-3">
                                                 <label for="nombre">Teléfono</label>
                                             </div>
-                                            <div class="col-md-4 ">
+                                            <div class="col-md-8 ">
                                                 <input class="form-control" type="text"  v-model="c_telefono">
+                                            </div>
+                                        </div>    
+                                        <div class="form-group row">
+                                            <div class="col-md-3">
+                                                <label for="nombre">Estado</label>
+                                            </div>
+                                            <div class="col-md-8 ">
+                                               <select class="form-control" v-model="c_estado" > 
+                                                    <option>a</option>
+                                                    <option>b</option>
+                                                </select>
                                             </div>
                                         </div>                      
                                     </div>
@@ -129,7 +136,8 @@
           
           {{-- editar --}}
            
-         <div id="editarCliente" class="modal fade" role="dialog" >
+         
+          <div id="editarCliente" class="modal fade" role="dialog" >
              <div class="modal-dialog modal-lg">
                  <div class="col-lg-12">
                      <div class="bs-component">
@@ -163,26 +171,19 @@
                                                             </div>
                                                         </div>
 
-                                                        
                                                         <div class="form-group row">
                                                             <div class="col-md-3">
-                                                                <label for="nombre">Nombres</label>
+                                                                <label for="nombre">Nombre</label>
                                                             </div>
-                                                            <div class="col-md-8 ">
+                                                            <div class="col-md-4 ">
                                                             <input class="form-control" type="text" v-model="e_nombre" placeholder="juan pablo">
                                                             </div>
-                                                        </div>
-
-                                                        <div class="form-group row">
-                                                            <div class="col-md-3">
-                                                                <label for="nombre">Apellidos:</label>
+                                                            <div class="col-md-4 ">
+                                                                 <input class="form-control" type="text" placeholder="carrera cevallos"  v-model="e_apellidos" >
                                                             </div>
-                                                            <div class="col-md-8 ">
-                                                            <input class="form-control" type="text" placeholder="carrera cevallos"  v-model="e_apellidos" >
-                                                            </div>
-                                                        </div>
-
-                                                        
+                                                           
+                                                        </div>  
+                                                         
 
                                                         <div class="form-group row">
                                                             <div class="col-md-3">
@@ -215,21 +216,35 @@
                                                             <div class="col-md-8 ">
                                                             <input class="form-control" type="text"  v-model="e_email">
                                                             </div>
-                                                        </div>                                        
+                                                        </div>  
                                         <div class="form-group row">
-                                            <div class="col-md-1">
-                                                <label for="nombre">Fecha</label>
+                                            <div class="col-md-3">
+                                                <label for="nombre">Fecha de nacimiento</label>
                                             </div>
-                                            <div class="col-md-5 ">
+                                            <div class="col-md-8 ">
                                                 <input class="form-control" type="date"  v-model="e_fecha" >
                                             </div>
-                                            <div class="col-md-2">
+                                        </div>                                                             
+                                        <div class="form-group row">
+                                            <div class="col-md-3">
                                                 <label for="nombre">Teléfono</label>
                                             </div>
-                                            <div class="col-md-4 ">
+                                            <div class="col-md-8 ">
                                                 <input class="form-control" type="text"  v-model="e_telefono">
                                             </div>
-                                        </div>                      
+                                        </div> 
+                                        <div class="form-group row">
+                                            <div class="col-md-3">
+                                                <label for="nombre">Estado</label>
+                                            </div>
+                                            <div class="col-md-8 ">
+                                                <select class="form-control" v-model="e_estado" > 
+                                                    <option>a</option>
+                                                    <option>b</option>
+                                                </select>
+                                                
+                                            </div>
+                                        </div>                           
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-primary" id="guardar" type="button" @click="actualizar">actualizar</button>
@@ -246,7 +261,6 @@
 
           {{-- eliminar  --}}
          <div id="eliminarCliente" class="modal fade" role="dialog" >
-            
             <div class="modal-dialog modal-lg">
                 <div class="col-lg-12">
                     <div class="bs-component">
@@ -290,53 +304,39 @@
                                                                 <label for="nombre">Tipo identificación</label>
                                                             </div>
                                                             <div class="col-md-8 ">
-                                                                <select class="form-control" v-model="e_tipo_identificacion">
-                                                                    <option>a</option>
-                                                                    <option>b</option>
-                                                                </select>
+                                                                <input class="form-control" type="text"  v-model="v_tipo_identificacion">
                                                             
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group row">
                                                             <div class="col-md-3">
-                                                                <label for="nombre">identificación</label>
+                                                                <label for="nombre">Identificación</label>
                                                             </div>
                                                             <div class="col-md-8 ">
-                                                            <input class="form-control" type="text" placeholder="0952013259"  v-model="e_identificacion">
-                                                            </div>
-                                                        </div>
-
-                                                        
-                                                        <div class="form-group row">
-                                                            <div class="col-md-3">
-                                                                <label for="nombre">Nombres</label>
-                                                            </div>
-                                                            <div class="col-md-8 ">
-                                                            <input class="form-control" type="text" v-model="e_nombre" placeholder="juan pablo">
+                                                            <input class="form-control" type="text" placeholder="0952013259"  v-model="v_identificacion">
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group row">
                                                             <div class="col-md-3">
-                                                                <label for="nombre">Apellidos:</label>
+                                                                <label for="nombre">Nombre</label>
                                                             </div>
-                                                            <div class="col-md-8 ">
-                                                            <input class="form-control" type="text" placeholder="carrera cevallos"  v-model="e_apellidos" >
+                                                            <div class="col-md-4 ">
+                                                            <input class="form-control" type="text" v-model="v_nombre" placeholder="juan pablo">
                                                             </div>
-                                                        </div>
-
-                                                        
+                                                            <div class="col-md-4 ">
+                                                                 <input class="form-control" type="text" placeholder="carrera cevallos"  v-model="v_apellidos" >
+                                                            </div>
+                                                           
+                                                        </div>  
 
                                                         <div class="form-group row">
                                                             <div class="col-md-3">
                                                                 <label for="nombre">Ciudad:</label>
                                                             </div>
                                                             <div class="col-md-8 ">
-                                                                <select class="form-control" v-model="e_ciudad">
-                                                                    <option>a</option>
-                                                                    <option>b</option>
-                                                                </select>
+                                                                <input class="form-control" v-model="v_ciudad">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
@@ -344,11 +344,7 @@
                                                                 <label for="nombre">Sector:</label>
                                                             </div>
                                                             <div class="col-md-8 ">
-                                                                <select class="form-control" v-model="e_sector">
-                                                                    <option>a</option>
-                                                                    <option>b</option>
-                                                                </select>
-                                                                
+                                                                <input class="form-control" v-model="v_sector">
                                                             </div>
                                                         </div>
 
@@ -357,23 +353,33 @@
                                                                 <label for="nombre">Email:</label>
                                                             </div>
                                                             <div class="col-md-8 ">
-                                                            <input class="form-control" type="text"  v-model="e_email">
+                                                            <input class="form-control" type="emai"  v-model="v_email">
                                                             </div>
-                                                        </div>                                        
+                                                        </div> 
                                         <div class="form-group row">
-                                            <div class="col-md-1">
-                                                <label for="nombre">Fecha</label>
+                                            <div class="col-md-3">
+                                                <label for="nombre">Fecha de nacimiento</label>
                                             </div>
-                                            <div class="col-md-5 ">
-                                                <input class="form-control" type="date"  v-model="e_fecha" >
+                                            <div class="col-md-8 ">
+                                                <input class="form-control" type="date"  v-model="v_fecha" >
                                             </div>
-                                            <div class="col-md-2">
+                                        </div>                                        
+                                        <div class="form-group row">
+                                            <div class="col-md-3">
                                                 <label for="nombre">Teléfono</label>
                                             </div>
-                                            <div class="col-md-4 ">
-                                                <input class="form-control" type="text"  v-model="e_telefono">
+                                            <div class="col-md-8 ">
+                                                <input class="form-control" type="telf"  v-model="v_telefono">
                                             </div>
-                                        </div>                      
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-3">
+                                                <label for="nombre">Estado</label>
+                                            </div>
+                                            <div class="col-md-8 ">
+                                                <input class="form-control" type="text"  v-model="e_estado">
+                                            </div>
+                                        </div>                            
                                     </div>
                                    
                                 </div>   
@@ -384,7 +390,7 @@
              </div>  
           </div>
 
-          
+          {{-- /MODALES --}}
             
            
         
@@ -392,9 +398,9 @@
           <div class="tile">
 
         <button class="btn btn-primary btn-lg btn-block mb-4" @click="crear" > Agregar cliente</button>
-         {{-- <input type="text" class="form-control" placeholder="texto a consultar"><br> --}}  
+          <input type="text" class="form-control" placeholder="Ingrese el nombre del cliente a consultar y presione la tecla enter"><br>  
         <div class="table-responsive">
-         <table class="table table-striped" id="">
+         <table class="table table-striped" id="tabla-grande">
                 <thead>
                   <tr>
                     <th>IDENTIFICACION</th>
@@ -403,7 +409,7 @@
                     <th>CIUDAD</th>
                     <th>TELÉFONO</th>
                     <th>EMAIL</th>
-                    <th>ACCIONES</th>
+                    <th colspan="3" >ACCIONES</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -419,13 +425,20 @@
                     <td>@{{dato.email}}</td>
                     <td>
                         <button class="btn btn-primary"  @click="editar(dato.id)" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>
+                    </td>
+                    <td>
                         <button class="btn btn-info" @click="ver(dato.id)"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                    </td>
+                    <td>
                         <button class="btn btn-danger"  @click="eliminar(dato.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                     </td>
                   </tr>
 
                 </tbody>
-              </table>
+        </table>
+
+      
+        
               
               <div class="form-inline" v-if="datosNumber !== 0">
                 <div class="col-md-4">
@@ -453,6 +466,8 @@
                     </div>
                 </div> 
             </div>
+        
+        
         </div>      
             
             
@@ -496,7 +511,7 @@
                     c_ciudad : '',
                     c_sector : '' ,
                     c_fecha : '' ,
-                    c_telefono : 'que paso' ,
+                    c_telefono : '' ,
                     c_email : '' ,
 
                     e_id : '',
@@ -509,6 +524,7 @@
                     e_fecha : '' ,
                     e_telefono : '' ,
                     e_email : '' ,
+                    datos_editar : [],
 
                     v_id : '',
                     v_tipo_identificacion : '',
@@ -520,6 +536,7 @@
                     v_fecha : '' ,
                     v_telefono : '' ,
                     v_email : '' ,
+                    datos_ver : [],
 
                     id : '',
                     errores : [],
@@ -623,19 +640,25 @@
                  
                   
                    ver : function (id) {
-                      var selecionado = id
-                      data = this.tabla.filter(function (dato) { 
-                          return dato.id ==  selecionado        
-                          });
-                      
-                            this.e_tipo_identificacion = 1
-                            this.e_identificacion = data[0].identificacion 
-                            this.e_nombre  = data[0].nombres
-                            this.e_apellidos  = data[0].apellidos
-                            this.e_ciudad = 1
-                            this.e_sector = 1
-                            this.e_fecha = ""
-                            this.e_email = data[0].email
+                     
+                         var url = 'cliente/consult/'+id
+                        axios.get(url).then(response => {
+                            this.datos_ver = response.data
+
+                            this.v_id = data[0].big_cl_idCliente
+                            this.v_tipo_identificacion = data[0].var_cl_tipoIdenticacion 
+                            this.v_identificacion = data[0].var_cl_identificacion 
+                            this.v_nombre  = data[0].var_cl_nombres
+                            this.v_apellidos  = data[0].var_cl_apellidos
+                            this.v_ciudad = data[0].var_cl_ciudad
+                            this.v_sector = data[0].var_cl_sector
+                            this.v_fecha = data[0].var_cl_telefono
+                            this.v_email = data[0].var_cl_email
+                            this.v_telegono = data[0].var_cl_telefono
+                        }).catch(error => {
+                            toastr.error("Error al consultar los datos.")
+                            this.load();
+                         });
                        $("#verCliente").modal('show');
                    },
 
@@ -646,20 +669,24 @@
                    
                    
                    editar : function (id) {
-                       //var obj
-                       var selecionado = id
-                      data = this.tabla.filter(function (dato) { 
-                          return dato.id ==  selecionado        
-                          });
-                      
-                            this.e_tipo_identificacion = 1
-                            this.e_identificacion = data[0].identificacion 
-                            this.e_nombre  = data[0].nombres
-                            this.e_apellidos  = data[0].apellidos
-                            this.e_ciudad = 1
-                            this.e_sector = 1
-                            this.e_fecha = ""
-                            this.e_email = data[0].email
+                       var url = 'cliente/consult/'+id
+                    axios.get(url).then(response => {
+                        this.datos_editar = response.data
+
+                            this.e_id = data[0].big_cl_idCliente
+                            this.e_tipo_identificacion = data[0].var_cl_tipoIdenticacion 
+                            this.e_identificacion = data[0].var_cl_identificacion 
+                            this.e_nombre  = data[0].var_cl_nombres
+                            this.e_apellidos  = data[0].var_cl_apellidos
+                            this.e_ciudad = data[0].var_cl_ciudad
+                            this.e_sector = data[0].var_cl_sector
+                            this.e_fecha = data[0].var_cl_telefono
+                            this.e_email = data[0].var_cl_email
+                            this.e_telegono = data[0].var_cl_telefono
+                }).catch(error => {
+                        toastr.error("Error al consultar los datos.")
+                    this.load();
+                });
                       
                        $("#editarCliente").modal('show');
                    },
@@ -785,7 +812,14 @@
                             this.c_email = this.c_email.trim()
 
                         // espacios en blanco para actualizar
-
+                            this.e_tipo_identificacion = this.e_tipo_identificacion.trim(); 
+                            this.e_identificacion = this.e_identificacion.trim() 
+                            this.e_nombre  = this.e_nombre.trim()
+                            this.e_apellidos  = this.e_apellidos.trim()
+                            this.e_ciudad = this.e_ciudad.trim()
+                            this.e_sector = this.e_sector.trim()
+                            this.e_fecha = this.e_fecha.trim()
+                            this.e_email = this.e_email.trim()
                     },
                     
                     limpiar : function() {
@@ -797,16 +831,6 @@
                             this.c_sector = ""
                             this.c_fecha = ""
                             this.c_email = ""
-
-                                this.e_tipo_identificacion = ""
-                                this.e_identificacion = "" 
-                                this.e_nombre  = ""
-                                this.e_apellidos  = ""
-                                this.e_ciudad = ""
-                                this.e_sector = ""
-                                this.e_fecha = ""
-                                this.e_email = ""
-
                             this.errores = [];           
                     }, 
 

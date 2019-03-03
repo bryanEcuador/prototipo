@@ -31,7 +31,9 @@ Route::get('/index', 'Auth\RegisterController@index')->name('index');
 
 // prueba , link para realizar prueba de las distintas vistas
 
-
+/* pruebas */
+route::get('cliente/create', 'clienteController@create')->name('clientes.create');
+/* /preubas */
 
 
          route::get('ventas/index', 'VentaController@index')->name('ventas.index');
@@ -45,30 +47,25 @@ Route::get('/index', 'Auth\RegisterController@index')->name('index');
 
 // clientes
 route::get('cliente/index', 'clienteController@index')->name('clientes.index');
-route::get('cliente/edit', 'clienteController@edit')->name('clientes.edit');
-route::get('cliente/create', 'clienteController@create')->name('clientes.create');
+route::get( 'cliente/consult/{id}','clienteController@consult');
 route::get('cliente/search/{paginacion?}/{pagina?}', 'clienteController@search');
 route::post('cliente/delete', 'clienteController@destroy');
 route::post('cliente/store', 'clienteController@store')->name('cliente.store');
 route::post('cliente/update', 'clienteController@update');
-route::get('cliente/show', 'clienteController@show');       
+    
 // Comercio
 route::get('comercio/index', 'ComercioController@index')->name('comercio.index');
-route::get('comercio/edit', 'ComercioController@edit')->name('comercio.edit');
-route::get('comercio/create', 'ComercioController@create')->name('comercio.create');
-route::get('comercio/search', 'ComercioController@search');
+route::get( 'comercio/search/{paginacion?}/{pagina?}/{consulta?}', 'ComercioController@search');
 route::post('comercio/delete', 'ComercioController@delete');
 route::post('comercio/store', 'ComercioController@store');
 route::post('comercio/update', 'ComercioController@update');
-route::get('comercio/show', 'ComercioController@show');
+route::get('comercio/consult', 'ComercioController@consult');
 
 // producto TODO
 route::get('producto/index', 'ProductoController@index')->name('producto.index');
-route::get('producto/edit', 'ProductoController@edit');
-route::get('producto/create', 'ProductoController@create');
-route::get('producto/search', 'ProductoController@search');
+route::get( 'producto/search/{paginacion?}/{pagina?}/{consulta?}', 'ProductoController@search');
 route::post('producto/delete', 'ProductoController@delete');
-route::get('producto/view', 'ProductoController@show');
+route::post('producto/consult', 'ProductoController@consult');
 route::post('producto/store', 'ProductoController@store');
 route::post('producto/update', 'ProductoController@update');
 
@@ -172,6 +169,7 @@ route::post('usuarios/delete', 'UsuariosController@delete');
 route::post('usuarios/store', 'UsuariosController@store');
 route::post('usuarios/update', 'UsuariosController@update');
 
+http://localhost:42678/ServiciosVeryApe.svc/ServiciosVeryApe.svc
 
 
 

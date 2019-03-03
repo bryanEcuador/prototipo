@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\XmlController;
+use App\Http\Controllers\PaginacionController;
+
 
 class ComercioController extends Controller
 {
     protected $xml;
-    private $cabecera = "pr_ins_va_clientes";
+    protected $paginacion;
+    private $cabecera = "pr_ins_va_comercios";
 
-    public function __construct(XmlController $xml)
+    public function __construct(XmlController $xml , PaginacionController $paginacion)
     {
         $this->xml = $xml;
+        $this->paginacion = $paginacion;
     }
 
     /**
@@ -41,8 +45,6 @@ class ComercioController extends Controller
         //
      
     }
-
-  
 
     public function update(Request $request)
     {
@@ -74,7 +76,19 @@ class ComercioController extends Controller
         return $this->xml->readXml($response);  
     }
 
-    public function research() {
+    public function search() {
+
+//        $cliente = $this->xml->soap();
+
+        // llamamos al metodo que vamos a consumir
+  //      $response = 'metodo'; //$cliente->metodo(paramaetros);
+
+    //    return $this->xml->readXml($response);  
+    }
+
+
+    public function consult($id)
+    { 
 
     }
 
