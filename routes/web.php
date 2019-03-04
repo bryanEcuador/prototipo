@@ -36,10 +36,10 @@ route::get('cliente/create', 'clienteController@create')->name('clientes.create'
 /* /preubas */
 
 
-         route::get('ventas/index', 'VentaController@index')->name('ventas.index');
-         route::get('ventas/consultar/{id}','VentaController@consultarProductos');
-        route::post('ventas/guardar','VentaController@guardar');
-        route::get('admin/vista','adminController@index');
+//         route::get('ventas/index', 'VentaController@index')->name('ventas.index');
+//         route::get('ventas/consultar/{id}','VentaController@consultarProductos');
+//        route::post('ventas/guardar','VentaController@guardar');
+//        route::get('admin/vista','adminController@index');
 
 
         // rutas nuevas 
@@ -63,10 +63,12 @@ route::get('comercio/consult', 'ComercioController@consult');
 
 // producto TODO
 route::get('producto/index', 'ProductoController@index')->name('producto.index');
-route::get( 'producto/search/{paginacion?}/{pagina?}/{consulta?}', 'ProductoController@search');
+route::get('producto/create', 'ProductoController@create')->name('producto.create');
+route::get('producto/edit', 'ProductoController@edit')->name('producto.edit');
+route::get('producto/show', 'ProductoController@show')->name('producto.show');
 route::post('producto/delete', 'ProductoController@delete');
 route::post('producto/consult', 'ProductoController@consult');
-route::post('producto/store', 'ProductoController@store');
+route::post('producto/store', 'ProductoController@store')->name('producto.store');;
 route::post('producto/update', 'ProductoController@update');
 
 // subscripcion TODO
@@ -100,8 +102,7 @@ route::post('comercio/piso/propaganda/store', 'comercioPisoPropagandaController@
 route::post('comercio/piso/propaganda/update', 'comercioPisoPropagandaController@update');
 
 
-//catalogo cabecera 
-
+//catalogo cabecera
 route::get('catalogo/cabecera/index', 'CatalogoCabeceraController@index')->name('catalogoCabecera.index');
 route::get('catalogo/cabecera/edit', 'CatalogoCabeceraController@edit');
 route::get('catalogo/cabecera/create', 'CatalogoCabeceraController@create');
@@ -112,7 +113,6 @@ route::post('catalogo/cabecera/store', 'CatalogoCabeceraController@store');
 route::post('catalogo/cabecera/update', 'CatalogoCabeceraController@update');
 
 //catalogo detalle
-
 route::get('catalogo/detalle/index', 'CatalogoDetalleController@index')->name('catalogoDetalle.index');
 route::get('catalogo/detalle/edit', 'CatalogoDetalleController@edit');
 route::get('catalogo/detalle/create', 'CatalogoDetalleController@create');
@@ -123,7 +123,6 @@ route::post('catalogo/detalle/store', 'CatalogoDetalleController@store');
 route::post('catalogo/detalle/update', 'CatalogoDetalleController@update');
 
 //liquidacion comercio
-
 route::get('liquidacion/comercio/index', 'LiquidacionComercioController@index')->name('liquidacion.index');
 route::get('liquidacion/comercio/edit', 'LiquidacionComercioController@edit');
 route::get('liquidacion/comercio/create', 'LiquidacionComercioController@create');
@@ -135,17 +134,22 @@ route::post('liquidacion/comercio/update', 'LiquidacionComercioController@update
 
 
 // transacción banco
+route::get('transaccion/banco/detalle/index', 'TransaccionBancoController@index')->name('transaccion.cabecera');
+route::get('transaccion/banco/detalle/search', 'TransaccionBancoController@search');
+route::post('transaccion/banco/detalle/delete', 'TransaccionBancoController@delete');
+route::post('transaccion/banco/detalle/store', 'TransaccionBancoController@store');
+route::post('transaccion/banco/detalle/update', 'TransaccionBancoController@update');
+route::post('transaccion/banco/detalle/consult', 'TransaccionBancoController@consult');
 
-route::get('transaccion/banco/index', 'TransaccionBancoController@index')->name('transaccion.index');
-route::get('transaccion/banco/edit', 'TransaccionBancoController@edit');
-route::get('transaccion/banco/create', 'TransaccionBancoController@create');
-route::get('transaccion/banco/search', 'TransaccionBancoController@search');
-route::get('transaccion/banco/show', 'TransaccionBancoController@show');
-route::post('transaccion/banco/delete', 'TransaccionBancoController@delete');
-route::post('transaccion/banco/store', 'TransaccionBancoController@store');
-route::post('transaccion/banco/update', 'TransaccionBancoController@update');
+ //transaccion banco detalle
+route::get('transaccion/banco/index', 'TransaccionBancoDetalleController@index')->name('transaccion.detalle');
+route::get('transaccion/banco/search', 'TransaccionBancoDetalleController@search');
+route::post('transaccion/banco/delete', 'TransaccionBancoDetalleController@delete');
+route::post('transaccion/banco/store', 'TransaccionBancoDetalleController@store');
+route::post('transaccion/banco/update', 'TransaccionBancoDetalleController@update');
+route::post('transaccion/banco/consult', 'TransaccionBancoDetalleController@consult');
 
-
+// fecha
 route::get('fecha/index','FechaController@index')->name('fecha.index');
 route::post('fecha/delete', 'FechaController@delete');
 route::post('fecha/store', 'FechaController@store');
@@ -153,6 +157,8 @@ route::post('fecha/update', 'FechaController@update');
 route::get( 'fecha/subscripcion/search/{paginacion?}/{pagina?}/{consulta?}', 'FechaController@search');
 route::post( 'fecha/subscripcion/consult', 'FechaController@consult');
 
+
+// feriado
 route::get('feriados/index', 'FeriadoController@index')->name('feriado.index');
 route::post('feriados/delete', 'FeriadoController@delete');
 route::post('feriados/store', 'FeriadoController@store');
@@ -160,12 +166,13 @@ route::post('feriados/update', 'FeriadoController@update');
 route::get( 'feriados/search/{paginacion?}/{pagina?}/{consulta?}', 'FeriadoController@search');
 route::post( 'feriados/consult', 'FeriadoController@consult');
 
+//logs
 route::get('logs/index', 'LogsController@index')->name('log.index');
 route::post('logs/delete', 'LogsController@delete');
 route::post('logs/store', 'LogsController@store');
 route::post('logs/update', 'LogsController@update');
 
-
+//usuario
 route::get('usuarios/index', 'UsuariosController@index')->name('usuarios.index');
 route::post('usuarios/delete', 'UsuariosController@delete');
 route::post('usuarios/store', 'UsuariosController@store');

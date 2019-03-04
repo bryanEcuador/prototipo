@@ -28,6 +28,8 @@ class ProductoController extends Controller
     
     public function store(Request $request)
     {
+        flash()->error("Error");
+         return back()->withInput();
         /* $parametros = $this->xml->makeArray($request);
         $datos = $this->xml->makeXml($parametros,$this ->cabecera);
         $cliente = $this->xml->soap();
@@ -78,5 +80,9 @@ class ProductoController extends Controller
 
     public function constult(Request $request){
 
+    }
+
+    public  function create(){
+        return view('modulos.producto.create');
     }
 }

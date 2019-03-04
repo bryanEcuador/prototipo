@@ -20,11 +20,10 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>COMERCIO</th>
-                        <th>PRODUCTO</th>
+                        <th>TRANSACCIÓN</th>
+                        <th>SUBTOTAL</th>
+                        <th>COMISIÓN</th>
                         <th>TOTAL</th>
-                        <th>TIPO COMISIÓN</th>
-                        <th>VALOR COMISIÓN</th>
                         <th COLSPAN="3">ACCIONES</th>
                     </tr>
                     </thead>
@@ -155,14 +154,6 @@
                             <div class="form-group row">
                                 <div class="col-md-2">
                                     <label for="nombre">Numero factura banco:</label>
-                                </div>
-                                <div class="col-md-6 ">
-                                    <input class="form-control" type="text" name="nombre" v-model="numero_factura_banco" maxlength="20">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-2">
-                                    <label for="nombre">Login:</label>
                                 </div>
                                 <div class="col-md-6 ">
                                     <input class="form-control" type="text" name="nombre" v-model="numero_factura_banco" maxlength="20">

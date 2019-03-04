@@ -13,229 +13,136 @@
         
         <div class="tile">
         <button class="btn btn-primary btn-lg btn-block mb-4" @click="crear"> Agregar catalogo</button>
+            <input type="text" class="form-control" placeholder="Ingrese el [] del cliente a consultar y presione la tecla enter"><br>
 
-           <table class="table table-hover table-bordered" id="sampleTable">
-                <thead>
-                  <tr>
-                    <th>nombre</th>
-                    <th>descripcion</th>
-                    
-     
-                    <th>Accioes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>nombre</td>
-                    <td>descripcion</td>
-                   
-               
-                    <td>
-                         <button class="btn btn-primary"  @click="editar" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>
-                        <button class="btn btn-info" @click="ver"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                        <button class="btn btn-danger"  @click="eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                    </td>
-                  </tr>
+            <div class="table-responsive">
+               <table class="table table-striped" id="">
+                   <thead>
+                   <tr>
+                       <th>NOMBRE</th>
+                       <th>DESCRIPCIÓN</th>
+                       <th COLSPAN="3">ACCIONES</th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   <tr>
+                       {{--<td>nombre</td>--}}
+                       {{--<td>descripcion</td>--}}
+                        {{--<td>--}}
+                            {{--<button class="btn btn-primary"  @click="editar" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>--}}
+                        {{--</td>--}}
+                        {{--<td>--}}
+                            {{--<button class="btn btn-info" @click="ver"><i class="fa fa-eye" aria-hidden="true"></i></button>--}}
+                        {{--</td>--}}
+                       {{--<td>--}}
+                           {{--<button class="btn btn-danger"  @click="eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></button>--}}
+                       {{--</td>--}}
+                   </tr>
 
-                </tbody>
-              </table>
+                   </tbody>
+               </table>
+           </div>
+
         </div>
-       
+        <div class="modal fade"  role="dialog" id="crear">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        {{-- <button type="button" class="close" data-dismiss="modal">&times;</button> --}}
+                        <h4 class="modal-title">Crear catalogo</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12" >
+
+                            <p>Cabecera</p>
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label for="nombre">Nombre:</label>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="nombre">Descripcion :</label>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <input class="form-control" type="text" name="nombre" v-model="descripcion" maxlength="20">
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label for="nombre">etiqueta 1:</label>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <input class="form-control" type="text" name="nombre" v-model="etiqueta1" maxlength="20">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="nombre">etiqueta 2:</label>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <input class="form-control" type="text" name="nombre" v-model="etiqueta2" maxlength="20">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label for="nombre">etiqueta 3:</label>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <input class="form-control" type="text" name="nombre" v-model="etiqueta3" maxlength="20">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="nombre">etiqueta 4:</label>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <input class="form-control" type="text" name="nombre" v-model="etiqueta4" maxlength="20">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label for="nombre">etiqueta 5:</label>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <input class="form-control" type="text" name="nombre" v-model="etiqueta5" maxlength="20">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="nombre">etiqueta 6:</label>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <input class="form-control" type="text" name="nombre" v-model="etiqueta6" maxlength="20">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label for="nombre">etiqueta 7:</label>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <input class="form-control" type="text" name="nombre" v-model="etiqueta7" maxlength="20">
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" @click="guardar" > Guardar  </button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
 
 
     <!-- Modal crear -->
-  <div class="modal fade"  role="dialog" id="crear">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          {{-- <button type="button" class="close" data-dismiss="modal">&times;</button> --}}
-          <h4 class="modal-title">Crear catalogo</h4>
-        </div>
-        <div class="modal-body">
-           <div class="col-md-12" >
 
-                <p>Cabecera</p>
-                <hr>
-                           <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Nombre:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="text" name="nombre" v-model="nombre" maxlength="20">
-                </div>
-
-                <div class="col-md-2">
-                    <label for="nombre">Descripcion :</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="text" name="nombre" v-model="descripcion" maxlength="20">
-                </div>
-            </div>
-
-         
-
-              <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">etiqueta 1:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="text" name="nombre" v-model="etiqueta1" maxlength="20">
-                </div>
-                <div class="col-md-2">
-                    <label for="nombre">etiqueta 2:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="text" name="nombre" v-model="etiqueta2" maxlength="20">
-                </div>
-            </div>
-
-             <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">etiqueta 3:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="text" name="nombre" v-model="etiqueta3" maxlength="20">
-                </div>
-                <div class="col-md-2">
-                    <label for="nombre">etiqueta 4:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="text" name="nombre" v-model="etiqueta4" maxlength="20">
-                </div>
-            </div>
-            
-             <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">etiqueta 5:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="text" name="nombre" v-model="etiqueta5" maxlength="20">
-                </div>
-                <div class="col-md-2">
-                    <label for="nombre">etiqueta 6:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="text" name="nombre" v-model="etiqueta6" maxlength="20">
-                </div>
-            </div>
-             <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">etiqueta 7:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="text" name="nombre" v-model="etiqueta7" maxlength="20">
-                </div>
-            </div>
-            
-            
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" > Guardar       </button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
  
-
-    <div class="modal fade"  role="dialog" id="editar">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          {{-- <button type="button" class="close" data-dismiss="modal">&times;</button> --}}
-          <h4 class="modal-title">Ver catalogo</h4>
-        </div>
-        <div class="modal-body">
-           <div class="col-md-12" >
-            
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Cabecera:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="text" name="mio" v-model="cabecera" maxlength="20">
-                </div>
-                 
-                <div class="col-md-2">
-                    <label for="nombre">Codigo miembro:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="text" name="mio" v-model="codigo_miembro" maxlength="20">
-                </div>
-            </div>
-            </div>
-
-             <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">Descripcion:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="text" name="mio" v-model="descripcion" maxlength="20">
-                </div>
-                <div class="col-md-2">
-                    <label for="nombre">valor 1:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="number" name="valor1" v-model="mio" maxlength="20">
-                </div>
-            </div>
-             
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">valor 2:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="number" name="mio" v-model="valor2" maxlength="20">
-                </div>
-                <div class="col-md-2">
-                    <label for="nombre">valor 3:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="number" name="mio" v-model="valor3" maxlength="20">
-                </div>
-            </div>
-           
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">valor 4:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="number" name="mio" v-model="valor4" maxlength="20">
-                </div>
-                 <div class="col-md-2">
-                    <label for="nombre">valor 5:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="number" name="mio" v-model="valor5" maxlength="20">
-                </div>
-            </div>
-           
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="nombre">valor 6:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="number" name="mio" v-model="valor6" maxlength="20">
-                </div>
-                <div class="col-md-2">
-                    <label for="nombre">valor 7:</label>
-                </div>
-                <div class="col-md-4 ">
-                   <input class="form-control" type="number" name="mio" v-model="valor7" maxlength="20">
-            </div>
-                
-            </div>
-            
-        </div>
-        <div class="modal-footer">
-           
-        </div>
-      </div>
-    </div>
-  </div>
-
 
 
   
@@ -380,6 +287,7 @@
                    v_etiqueta6 : '',
                    v_etiqueta7 : '',
 
+                    errores : [],
                 },
                 created : function() {
                     toastr.options = {
@@ -433,7 +341,7 @@
                             }).catch(error => {
                                     console.log(error);
                             });
-                   }
+                   },
   
                    // validaciones
                     validarCampos : function() {
@@ -446,7 +354,7 @@
 
                       if(this.errores.length == 0){
                           
-                            var url = 'catalogo/cabecera/store';
+                            var url = '/catalogo/cabecera/store';
                             axios.post(url, {
                                 var_cc_nombreCatalogo : this.nombre,
                                 var_cc_descripcionCatalogo : this.descripcion,
@@ -463,6 +371,7 @@
                             //this.limpiar();
                             
                             }).catch(error => {
+                                    toastr.error("Error al guardar el registro.")
                                     console.log(error);
                             });
 
@@ -486,7 +395,7 @@
                            var url = 'catalogo/cabecera/update';
                             axios.post(url, {
                                 
-                                int_cc_idCatalogoCabecera : this.e_id
+                                int_cc_idCatalogoCabecera : this.e_id,
                                 var_cc_nombreCatalogo : this.e_nombre,
                                 var_cc_descripcionCatalogo : this.e_descripcion,
                                 var_cc_etiqueta1 : this.e_etiqueta1,    

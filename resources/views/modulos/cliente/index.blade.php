@@ -120,7 +120,23 @@
                                                     <option>b</option>
                                                 </select>
                                             </div>
-                                        </div>                      
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-3">
+                                                <label for="nombre">Usuario</label>
+                                            </div>
+                                            <div class="col-md-8 ">
+                                                <input class="form-control" type="text"  v-model="c_login">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-3">
+                                                <label for="nombre">Contraseña</label>
+                                            </div>
+                                            <div class="col-md-8 ">
+                                                <input class="form-control" type="password"  v-model="c_pass">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-primary" id="guardar" type="button" @click="guardar">Guardar</button>
@@ -242,9 +258,24 @@
                                                     <option>a</option>
                                                     <option>b</option>
                                                 </select>
-                                                
                                             </div>
-                                        </div>                           
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-3">
+                                                <label for="nombre">Usuario</label>
+                                            </div>
+                                            <div class="col-md-8 ">
+                                                <input class="form-control" type="text"  v-model="e_login">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-3">
+                                                <label for="nombre">Contraseña</label>
+                                            </div>
+                                            <div class="col-md-8 ">
+                                                <input class="form-control" type="password"  v-model="e_pass">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-primary" id="guardar" type="button" @click="actualizar">actualizar</button>
@@ -513,6 +544,8 @@
                     c_fecha : '' ,
                     c_telefono : '' ,
                     c_email : '' ,
+                    c_login : '',
+                    c_pass : '',
 
                     e_id : '',
                     e_tipo_identificacion : '',
@@ -524,6 +557,9 @@
                     e_fecha : '' ,
                     e_telefono : '' ,
                     e_email : '' ,
+                    e_login : '',
+                    e_pass : '',
+
                     datos_editar : [],
 
                     v_id : '',
@@ -683,7 +719,9 @@
                             this.e_sector = data[0].var_cl_sector
                             this.e_fecha = data[0].var_cl_telefono
                             this.e_email = data[0].var_cl_email
-                            this.e_telegono = data[0].var_cl_telefono
+                            this.e_telefono = data[0].var_cl_telefono
+                            this.e_login = data[0].var_lg_login
+                            this.e_pass = data[0].var_us_pws
                 }).catch(error => {
                         toastr.error("Error al consultar los datos.")
                     this.load();
@@ -732,6 +770,8 @@
                             var_cl_fechaNacimiento  : this.c_fecha ,
                             var_cl_telefono : this.c_fecha ,
                             var_cl_email : this.c_email ,
+                                var_lg_login : this.c_login,
+                                var_lg_login : this.c_pass,
 
                             }).then(response => {
                                 if(response.data == this.correcto){
@@ -775,6 +815,8 @@
                             var_cl_fechaNacimiento  : this.e__fecha ,
                             var_cl_telefono : this.e__fecha ,
                             var_cl_email : this.e__email ,
+                                var_lg_login : this.e_login,
+                                var_lg_login : this.e_pass,
 
                             }).then(response => {
                             if(response.data == this.correcto){

@@ -211,21 +211,45 @@
                                                 <input class="form-control" type="telf" name="telefono" v-model="telefono" maxlength="20">
                                                 </div>
                                             </div>
-                                            
-                                           
-
                                             <div class="form-group row">
                                                 <div class="col-md-2">
                                                     <label for="nombre">Mio:</label>
                                                 </div>
-                                                <div class="col-md-10 ">
+                                                <div class="col-md-4 ">
                                                     <select class="form-control"  v-model="mio" >
                                                         <option>si</option>
                                                         <option>no</option>
                                                     </select>
                                                 </div>
+
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Estado:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control"  v-model="estado" >
+                                                        <option>si</option>
+                                                        <option>no</option>
+                                                    </select>
+                                                </div>
+
                                             </div>
-           </div>
+
+                                           <div class="form-group row">
+                                               <div class="col-md-2">
+                                                   <label for="nombre"> Login</label>
+                                               </div>
+                                               <div class="col-md-4 ">
+                                                   <input class="form-control" v-model="login" >
+                                               </div>
+
+                                               <div class="col-md-2">
+                                                   <label for="nombre">Password:</label>
+                                               </div>
+                                               <div class="col-md-4 ">
+                                                   <input class="form-control" v-model="pass" >
+                                               </div>
+                                           </div>
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" @click="guardar" > Guardar       </button>
@@ -374,7 +398,35 @@
                                                         <option>no</option>
                                                     </select>
                                                 </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Estado:</label>
+                                                </div>
+                                               <div class="col-md-4 ">
+                                                   <select class="form-control"  v-model="e_estado" >
+                                                       <option>si</option>
+                                                       <option>no</option>
+                                                   </select>
+                                               </div>
                                             </div>
+
+                                               <div class="form-group row">
+                                                   <div class="col-md-2">
+                                                       <label for="nombre"> Login</label>
+                                                   </div>
+                                                   <div class="col-md-4 ">
+                                                       <input class="form-control" v-model="e_login" >
+                                                   </div>
+
+                                                   <div class="col-md-2">
+                                                       <label for="nombre">Password:</label>
+                                                   </div>
+                                                   <div class="col-md-4 ">
+                                                       <input class="form-control" v-model="e_pass" >
+                                                   </div>
+                                               </div>
+
+
+
            </div>
         </div>
         <div class="modal-footer">
@@ -513,6 +565,12 @@
                                                 <div class="col-md-10 ">
                                                     <input class="form-control" type="text"  v-model="v_mio" maxlength="20">
                                                 </div>
+                                                <div class="col-md-2">
+                                                    <label for="nombre">Estado:</label>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                    <input class="form-control" type="text" v-model="v_estado" >
+                                                </div>
                                             </div>
            </div>
         </div>
@@ -585,6 +643,8 @@
                     email:'',
                     telefono: '',
                     mio: '',
+                    login : '',
+                    pass : '',
 
                     datos_editar : '',
                     e_id : '',
@@ -623,6 +683,8 @@
                     v_email:'',
                     v_telefono: '',
                     v_mio: '',
+                    e_login : '',
+                    e_pass : '',
 
 
 

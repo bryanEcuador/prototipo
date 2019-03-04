@@ -6,15 +6,6 @@
 @section('subtitulo','')
 
 @section('contenido')
-@if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
     @if (session('success'))
         <div class="alert alert-success">
@@ -27,9 +18,10 @@
             {{ session('danger') }}
         </div>
     @endif
+    @include('flash::message')
 
     <div class="col-md-12" id="creacionProveedores">
-        <form action="{{route('administrador.proveedor.store')}}" method="post" id="administracion">
+        <form action="{{route('producto.store')}}" method="post" id="administracion">
             @csrf
             <div class="tile">
                 <div class="form-group row">
@@ -37,7 +29,7 @@
                         <label for="nombre">comercio:</label>
                     </div>
                     <div class="col-md-6 ">
-                        <select class="form-control" v-model="comercio">
+                        <select class="form-control" name="big_cp_idComercio">
                             <option> 1</option>
                             <option> 2</option>
                         </select>
@@ -49,7 +41,7 @@
                         <label for="nombre">nombre del producto:</label>
                     </div>
                     <div class="col-md-6 ">
-                        <input v-model="producto" class="form-control">
+                        <input name="var_cp_nombreProducto" class="form-control">
                     </div>
                 </div> 
 
@@ -58,7 +50,7 @@
                         <label for="nombre">tipo producto:</label>
                     </div>
                     <div class="col-md-6 ">
-                        <select class="form-control" v-model="tipo_producto">
+                        <select class="form-control" name="var_cp_tipoProducto">
                             <option> 1</option>
                             <option> 2</option>
                         </select>
@@ -70,7 +62,7 @@
                         <label for="nombre">valor:</label>
                     </div>
                     <div class="col-md-6 ">
-                        <input v-model="valor" type="number" class="form-control">
+                        <input name="var_cp_valor" type="number" class="form-control">
                     </div>
                 </div> 
 
@@ -79,7 +71,7 @@
                         <label for="nombre">promocion:</label>
                     </div>
                     <div class="col-md-6 ">
-                        <select class="form-control" v-model="promocion">
+                        <select class="form-control" name="bit_cp_esPromocio">
                             <option> si</option>
                             <option> no</option>
                         </select>
@@ -91,7 +83,7 @@
                         <label for="nombre">disponible:</label>
                     </div>
                     <div class="col-md-6 ">
-                        <select class="form-control" v-model="disponible">
+                        <select class="form-control" name="bit_cp_disponible">
                             <option> si</option>
                             <option> no</option>
                         </select>
@@ -103,17 +95,36 @@
                         <label for="nombre">es mio:</label>
                     </div>
                     <div class="col-md-6 ">
-                        <select class="form-control" v-model="mio">
+                        <select class="form-control" name="bit_cp_esMio">
                             <option> si</option>
                             <option> no</option>
                         </select>
                     </div>
-                </div> 
-                
+                </div>
 
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">Habilitado:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <select class="form-control" name="bit_pf_habilitado">
+                            <option> si</option>
+                            <option> no</option>
+                        </select>
+                    </div>
+                </div>
+                <label>Agregue las imagenes de su producto</label>
+                <div class="form-group row">
+                    <input type="file" class="form-control col-md-4" name="foto1">
+                    <input type="file" class="form-control col-md-4" name="foto2">
+                    <input type="file" class="form-control col-md-4" name="foto3">
+                    <input type="file" class="form-control col-md-4" name="foto4">
+                    <input type="file" class="form-control col-md-4" name="foto5">
+                </div>
 
+                <hr>
                 <div class="col-md-6 ">
-                    <input class="btn btn-primary" type="button"  value ="guardar producto" >
+                    <input class="btn btn-primary" type="submit"  value ="guardar producto" >
                 </div>
             </div>
         </form>
