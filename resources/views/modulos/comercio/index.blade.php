@@ -228,7 +228,7 @@
            </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" > Guardar       </button>
+            <button type="button" class="btn btn-primary" @click="guardar" > Guardar       </button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
@@ -586,7 +586,7 @@
                     telefono: '',
                     mio: '',
 
-                    ver_editar : '',
+                    datos_editar : '',
                     e_id : '',
                     e_nombre: '',
                     e_ruc : '',
@@ -694,8 +694,15 @@
                 },
 
                 datosNumber : function() {
-
-                    return this.tabla.length;
+                   var tamaño = 0;
+                   
+                   if(this.tabla !== undefined){
+                         tamaño  = this.tabla.length
+                    return tamaño;
+                   }else{
+                       return tamaño;
+                   }
+                   
                 },
 
                 cantidadPorPagina : function () {
@@ -882,23 +889,23 @@
                         axios.get(url).then(response => {
                             
                              this.datos_editar = response.data
-                            this.e_id = data[0].big_co_idComercio
-                            this.e_nombre= data[0].var_co_nombreComercio
-                            this.e_ruc = data[0].var_co_ruc
-                            this.e_razon = data[0].var_co_razonSocial
-                            this.e_representante = data[0].var_co_representanteLegal
-                            this.e_representante_ci = data[0].var_co_identificacionRepresentanteLegal
+                            this.e_id = datos_editar[0].big_co_idComercio
+                            this.e_nombre= datos_editar[0].var_co_nombreComercio
+                            this.e_ruc = datos_editar[0].var_co_ruc
+                            this.e_razon = datos_editar[0].var_co_razonSocial
+                            this.e_representante = datos_editar[0].var_co_representanteLegal
+                            this.e_representante_ci = datos_editar[0].var_co_identificacionRepresentanteLegal
                             
-                            this.e_fecha= data[0].var_co_fechaCreacion
-                            this.e_direccion = data[0].var_co_direccion
-                            this.e_ciudad = data[0].var_co_ciudad
-                            this.e_sector = data[0].var_co_sector
-                            this.e_nombre_gerente = data[0].var_co_nombreGerente
-                            this.e_gerente_ci = data[0].var_co_identificacionGerente
-                            this.e_tipo_comercio = data[0].var_co_tipoComercio
-                            this.e_email=data[0].var_co_email
-                            this.e_telefono= data[0].var_co_telefono
-                            this.e_mio= data[0].var_co_esMio
+                            this.e_fecha= datos_editar[0].var_co_fechaCreacion
+                            this.e_direccion = datos_editar[0].var_co_direccion
+                            this.e_ciudad = datos_editar[0].var_co_ciudad
+                            this.e_sector = datos_editar[0].var_co_sector
+                            this.e_nombre_gerente = datos_editar[0].var_co_nombreGerente
+                            this.e_gerente_ci = datos_editar[0].var_co_identificacionGerente
+                            this.e_tipo_comercio = datos_editar[0].var_co_tipoComercio
+                            this.e_email=datos_editar[0].var_co_email
+                            this.e_telefono= datos_editar[0].var_co_telefono
+                            this.e_mio= datos_editar[0].var_co_esMio
                             
                          
                             
@@ -917,7 +924,14 @@
                             axios.post(url, {
                               big_co_idComercio : this.e_id,     
                             }).then(response => {
-                            toastr.success("registro eliminado con exito")
+                                toastr.success("registro eliminado con exito")
+                                if(response.data == this.correcto){
+                                      toastr.success("registro eliminado con exito")
+                                     
+                                     $("#crear").modal('hide');
+                                }else {
+                                    toastr.error("ha ocurrido un error a eliminar el registro")
+                                }
                             }).catch(error => {
                                     console.log(error);
                                toastr.error("ha ocurrido un error a eliminar el registro")
@@ -953,7 +967,14 @@
 
                             }).then(response => {
                             
-                            toastr.success("Registro guardado con exito")
+                            
+                            if(response.data == this.correcto){
+                                     toastr.success("registro guardado con exito")
+                                     this.limpiar();
+                                     $("#crear").modal('hide');
+                                }else {
+                                    toastr.error("Ha ocurrido un error al crear el  comercio")
+                                }
                             this.limpiar();
                             
                             }).catch(error => {
@@ -998,11 +1019,18 @@
                             var_co_esMio:this.e_mio,
 
                             }).then(response => {
-
-                            toastr.success("Registro actualizado con exito")
-                            this.limpiar();
+                              if(response.data == this.correcto){
+                                     toastr.success("registro actualizado con exito")
+                                     this.limpiar();
+                                     $("#editar").modal('hide');
+                                }else {
+                                    toastr.error("Ha ocurrido un error al actualizar el registro")
+                                }  
+                           
+                            
                             
                             }).catch(error => {
+                                toastr.error("Ha ocurrido un error al actualizar el registro")
                                     console.log(error);
                             });
 

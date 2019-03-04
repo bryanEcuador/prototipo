@@ -76,18 +76,21 @@ class ComercioController extends Controller
         return $this->xml->readXml($response);  
     }
 
-    public function search() {
 
-//        $cliente = $this->xml->soap();
+    public function search($paginacion = 5, $pagina=0){
+ 
 
-        // llamamos al metodo que vamos a consumir
-  //      $response = 'metodo'; //$cliente->metodo(paramaetros);
+       /*  $respuesta = $this->paginacion->paginacion($pagina,$dato s,$pagi nacion);
+        //dd($respuesta);
+        return response()
+            ->json($respuesta); */
 
-    //    return $this->xml->readXml($response);  
+       $arrayName = array();
+        return $arrayName;
     }
 
 
-    public function consult($id)
+    public function consult()
     { 
 
     }

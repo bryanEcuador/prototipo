@@ -12,40 +12,43 @@
         
         <div class="tile">
             <button class="btn btn-primary btn-lg btn-block mb-4" @click="crear"> Agregar producto</button>
-
-
-            <table class="table table-hover table-bordered" id="sampleTable">
+            <input type="text" class="form-control" v-model="consulta" v-on:keyup.13="consultar" placeholder="Ingrese el nombre del producto a consultar y presione la tecla enter"><br>    
+            <div class="table-responsive">
+                <table class="table table-striped" id="">
                 <thead>
                   <tr>
-                    <th>nombre comercio</th>
-                    <th>producto</th>
-                    <th>tipo producto</th>
-                    <th>valor</th>
-                    <th>promocion</th>
+                    <th>NOMBRE</th>
+                    <th>TIPO</th>
+                    <th>COMERCIO</th>
+                    <th>VALOR</th>
+                    <th>MIO</th>
                     <th>disponible</th>
-                    <th>mio</th>
      
-                    <th>Accioes</th>
+                    <th colspan="2">Accioes</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
+                      <td>producto</td>
+                      <td>tipo producto</td>
                     <td>nombre comercio</td>
-                    <td>producto</td>
-                    <td>tipo producto</td>
                     <td>valor</td>
-                    <td>promocion</td>
+                    <td>MIO</td>
                     <td>disponible</td>
-                    <td>mio</td>
-               
+                    
                     <td>
                         <button class="btn btn-primary"  @click="editar" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>
+                    </td>
+                    <td>
                         <button class="btn btn-danger"  @click="eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                     </td>
                   </tr>
 
                 </tbody>
               </table>
+            </div>
+
+            
           
             
 
@@ -322,7 +325,8 @@
                     disponible: '',
                     mio: '',
 
-                    e_id : ''
+                     datos_editar : '',
+                    e_id : '',
                     e_comercio :'',
                    e_producto:'',
                    e_tipo_producto:'',
@@ -333,9 +337,75 @@
 
                    
                     errores : [],
+
+
+                      /* paginacion */
+                paginacion : {
+                    'total' : 0,
+                    'current_page' : 0,
+                    'per_page' : 0,
+                    'last_page' : 0,
+                    'from' : 0,
+                    'to': 0,
+                },
+                datosPorPagina : 10,
+                offset: 3,
+                datos :[],
+                tabla : [],
+                consulta :'',
                    
 
                 },
+
+                 computed : {
+                
+                isActived : function () {
+                    return this.paginacion.current_page;
+                },
+                pagesNumber: function() {
+
+                    if(!this.paginacion.to){
+                        return [];
+                    }
+                    var from = this.paginacion.current_page - this.offset;
+                    if(from < 1){
+                        from = 1;
+                    }
+                    var to = from + (this.offset * 2);
+                    if(to >= this.paginacion.last_page){
+                        to = this.paginacion.last_page;
+                    }
+                    var pagesArray = [];
+                    while(from <= to){
+                        pagesArray.push(from);
+                        from++;
+                    }
+                    return pagesArray;
+                },
+
+                datosNumber : function() {
+
+                    return this.tabla.length;
+                },
+
+                cantidadPorPagina : function () {
+                
+                   var inicial = 0;
+                    var datos = [];
+
+                   while(true) {
+                         inicial = inicial + 5;
+                        if(this.paginacion.total <= inicial) { 
+                           break;
+                       } else {
+                           this.datosPorPagina = 5;
+                         datos.push(inicial)
+                       }
+                      
+                   }  
+                    return datos;           
+                },
+    }, 
                 created : function() {
                     toastr.options = {
                         "closeButton": true,
@@ -358,16 +428,36 @@
 
                 methods : {
 
-                     eliminar : function () {
+                     eliminar : function (id) {
                        $("#eliminar").modal('show');
                    },
 
-                   crear : function () {
+                   crear : function (id) {
                        $("#crear").modal('show');
                    },
                    
                    
-                   editar : function () {
+                   editar : function (id) {
+                        var url = '/producto/consult/'+id
+                        axios.get(url).then(response => {
+                            
+                             this.datos_editar = response.data
+                           
+                               this.e_id = this.datos_editar[0]
+                               this.e_comercio =this.datos_editar[0]
+                               this.e_producto=this.datos_editar[0]
+                               this.e_tipo_producto=this.datos_editar[0]
+                               this.e_valor=this.datos_editar[0]
+                                this.e_promocion= this.datos_editar[0]
+                                this.e_disponible= this.datos_editar[0]
+                                this.e_mio= this.datos_editar[0]  
+                            
+                         
+                            
+                        }).catch(error => {
+                            toastr.error("Error al consultar los datos.")
+                            
+                         });
                        $("#editar").modal('show');
                    },
   

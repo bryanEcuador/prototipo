@@ -72,13 +72,11 @@ route::post('producto/update', 'ProductoController@update');
 // subscripcion TODO
 
 route::get('comercio/subscripcion/index', 'comercioSubscripcionController@index')->name('subscripcion.index');
-route::get('comercio/subscripcion/edit', 'comercioSubscripcionController@edit');
-route::get('comercio/subscripcion/create', 'comercioSubscripcionController@create');
-route::get('comercio/subscripcion/search', 'comercioSubscripcionController@search');
+route::get( 'comercio/subscripcion/search/{paginacion?}/{pagina?}/{consulta?}', 'comercioSubscripcionController@search');
+route::post('comercio/subscripcion/consult', 'comercioSubscripcionController@consult');
 route::post('comercio/subscripcion/delete', 'comercioSubscripcionController@delete');
 route::post('comercio/subscripcion/store', 'comercioSubscripcionController@store');
 route::post('comercio/subscripcion/update', 'comercioSubscripcionController@update');
-route::get('comercio/subscripcion/show', 'comercioSubscripcionController@show');
 
 
 // piso 
@@ -152,11 +150,15 @@ route::get('fecha/index','FechaController@index')->name('fecha.index');
 route::post('fecha/delete', 'FechaController@delete');
 route::post('fecha/store', 'FechaController@store');
 route::post('fecha/update', 'FechaController@update');
+route::get( 'fecha/subscripcion/search/{paginacion?}/{pagina?}/{consulta?}', 'FechaController@search');
+route::post( 'fecha/subscripcion/consult', 'FechaController@consult');
 
 route::get('feriados/index', 'FeriadoController@index')->name('feriado.index');
 route::post('feriados/delete', 'FeriadoController@delete');
 route::post('feriados/store', 'FeriadoController@store');
 route::post('feriados/update', 'FeriadoController@update');
+route::get( 'feriados/search/{paginacion?}/{pagina?}/{consulta?}', 'FeriadoController@search');
+route::post( 'feriados/consult', 'FeriadoController@consult');
 
 route::get('logs/index', 'LogsController@index')->name('log.index');
 route::post('logs/delete', 'LogsController@delete');
@@ -168,6 +170,9 @@ route::get('usuarios/index', 'UsuariosController@index')->name('usuarios.index')
 route::post('usuarios/delete', 'UsuariosController@delete');
 route::post('usuarios/store', 'UsuariosController@store');
 route::post('usuarios/update', 'UsuariosController@update');
+
+
+route::get('proceso/index','ProcesoController@index')->name('proceso.index');
 
 http://localhost:42678/ServiciosVeryApe.svc/ServiciosVeryApe.svc
 

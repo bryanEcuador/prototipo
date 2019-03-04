@@ -556,6 +556,7 @@
                 offset: 3,
                 datos :[],
                 tabla : [],
+                seleccionado : 0,
                    
 
                 },
@@ -736,7 +737,7 @@
                                 if(response.data == this.correcto){
                                      toastr.success("registro guardado con exito")
                                      this.limpiar();
-                                     $("#crearCliente").modal('hide');
+                                     $("#crear").modal('hide');
                                 }else {
                                     toastr.error("Ha ocurrido un error al crear el cliente")
                                 }
