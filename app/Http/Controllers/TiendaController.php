@@ -14,6 +14,10 @@ use App\User;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Log;
 
+use App\Http\Controllers\XmlController;
+use App\Http\Controllers\PaginacionController;
+
+
 class TiendaController extends Controller {
 
     protected $ProveedorController;
@@ -22,12 +26,14 @@ class TiendaController extends Controller {
     public  $categorias;
     public  $subcategorias;
     public  $marca;
-   
-    public function __construct(ProveedorController $proveedorController, TiendaProcedure $tiendaProcedure, LoginController $loginController)
-    {
-        $this->ProveedorController  = $proveedorController;
-        $this->TiendaProcedure = $tiendaProcedure;
-        $this->LoginController = $loginController;
+
+    protected $xml;
+    protected $paginacion;
+
+
+    public function __construct(XmlController $xml , PaginacionController $paginacion) {
+        $this->xml = $xml;
+        $this->paginacion = $paginacion;
     }
 
     public function inicio(){
@@ -36,31 +42,38 @@ class TiendaController extends Controller {
        // return view('welcome',compact('top','vendidos'));
     }
 
-    public function productos($pagina = 0) {
+    public function productos($pagina = 0 ,$paginacion = 10 ,$categorias = null , $nombre = null) {
 
-        $pagina != 0 ? $pagina = $pagina - 1 : $pagina  = 0;
-        $paginacion = 3;
-        $total = count(\DB::select(\DB::raw('CALL prototipo.spConsultarProductosTodos()')));
-        $page = Input::get('page');
+       if($categorias == null and $nombre == null){
 
-        $posts = \DB::select(\DB::raw('CALL prototipo.spConsultarProductosTodos()'));
-        $posts = array_slice($posts, $pagina , $paginacion);
-        $posts = new LengthAwarePaginator($posts, $total, 3, $page);
+       }else if($categorias !== null and $nombre == null){
 
-        $posts->setPath('blog');
+       }else if($categorias == null and $nombre !== null){
 
-        return $posts;
+       }else if($categorias !== null and $nombre !== null){
+
+       }else{
+           $var = 0;
+       }
+
+        $datos = [];
+       // $respuesta = $this->paginacion->paginacion($pagina,$datos,$paginacion);
+        //return respuesta;
+        return $datos;
+
     }
 
     public function detalle($id) {
-        $producto =\DB::table('tb_producto')->where('id',$id)->get();
+       $producto =\DB::table('tb_producto')->where('id',$id)->get();
         //dd($producto);
         $imagenes =\DB::table('tb_imagenes')->where('producto_id',$id)->get();
-        return view('modulos.usuario.detalle',compact('producto','imagenes'));
+       return view('modulos.usuario.detalle',compact('producto','imagenes'));
+
+
     }
 
     public function categorias(){
-      return  $this->ProveedorController->consultarCategorias();
+      //return  $this->ProveedorController->consultarCategorias();
     }
 
     public function subCategorias($categoria){
@@ -71,26 +84,7 @@ class TiendaController extends Controller {
         return  $this->ProveedorController->consultarMarcas();
     }
 
-    public function filtro(Request $request,$pagina = 0){
-        try {
 
-            $this->categorias  = $request->input('categoria');
-            $this->subcategorias = $request->input('subcategoria');
-            $this->marca = $request->input('marca');
-           // dd($request->input());
-          $datos =  DB::table('tb_producto')
-                ->where([
-                    ['id_categoria','in',[1]],
-                ])
-                ->get();
-            dd($datos);
-          return $this->paginacion($pagina,$datos);
-
-
-        }catch (QueryException $exception){
-            return $exception;
-        }
-    }
 
     public function paginacion($pagina,$datos) {
         $paginacion = 1; // cuantos datos tenemos que recresar por pagina
@@ -118,23 +112,7 @@ class TiendaController extends Controller {
     }
 
     public function guardarComentarios(Request $request) {
-  
-        
-        $request->validate(
-            ['usuario' => 'required|string|max:15|min:3|',
-              'comentario' => 'required|string',
-              'calificacion' => 'required',   
-              'producto' => 'required'
 
-            ]
-        );
-        try{
-            $this->TiendaProcedure->guardarComentario($request->input('usuario'),$request->input('comentario'),$request->input('calificacion'),$request->input('producto'));
-            return  $array = array("exito");
-        }catch (QueryException $exception){
-            $array = array("Error" , $exception->errorInfo[1]);
-            return $array;
-        }
     }
 
       public function loadData($pagina = 0) {
@@ -159,125 +137,28 @@ class TiendaController extends Controller {
 
     }
 
-    public function consultarProductosTop(){
 
-        return  $this->TiendaProcedure->consultarProductosTop();
-    }
 
-    public function consultarProductosTopVentas(){
-        return  $this->TiendaProcedure->consultarProductosTopVentas();
-    }
-
-    public function webService() {
-        $url = 'https://secure.softwarekey.com/solo/webservices/XmlCustomerService.asmx?WSDL';
-        $client = new \SoapClient($url);
-
-        $xmlr = new \SimpleXMLElement("<CustomerSearch></CustomerSearch>");
-
-        $xmlr->addChild('AuthorID', 1);
-        $xmlr->addChild('UserID', 'mchojrin');
-        $xmlr->addChild('UserPassword', '1234');
-        $xmlr->addChild('Email', 'mauro.chojrin@leewayweb.com');
-
-        $params = new \stdClass();
-
-        $params->xml = $xmlr->asXML();
-
-        $result = $client->CustomerSearchS($params);
-        echo $result->CustomerSearchSResult->any;
-        echo "<br>";
-        print_r($result);
-        echo PHP_EOL;
-    }
 
     public function validarSesion() {
-       $respuesta = \Auth::check();
-       if($respuesta === true){
-           return 1;
-       }else {
-           return 0;
-       }
+
     }
 
     public function iniciarSesion(Request $request){
-        // consulta a la base de datos
 
-        $id = \DB::table('user')->where([
-            ['email',$request->input('email')],
-        ]);
-        if(count($id) !== 0 ){
-            //dd($request);
-            //Se crea variable de request
-            $requestConsulta = new Request();
-            //Se crea la propiedad email
-            $requestConsulta->request->add(array('email' => $request->input('email')));
-            $requestConsulta->request->add(array('password' => $request->input('password')));
-            //dd($requestConsulta);
-            $this->LoginController->login($request);
-        }else {
-            $url = 'https://secure.softwarekey.com/solo/webservices/XmlCustomerService.asmx?WSDL';
-            $client = new \SoapClient($url);
-
-            $xmlr = new \SimpleXMLElement("<CustomerSearch></CustomerSearch>"); // funcion
-
-            $xmlr->addChild('UserPassword',  $request->input('password'));
-            $xmlr->addChild('Email', $request->input('email'));
-
-            $params = new \stdClass();
-
-            $params->xml = $xmlr->asXML();
-
-            $result = $client->CustomerSearchS($params);
-            echo $result->CustomerSearchSResult->any;
-           // comienza a guardar en la base el usuario
-            //
-            /// / echo "<br>";
-            //print_r($result);
-            //echo PHP_EOL;
-
-
-            $this->crearUsuario($request);
-            $this->logear($request);
-        }
 
     }
 
     private function logear(Request $request){
-        $this->LoginController->login($request);
+
     }
 
     private function crearUsuario(Request $request){
-        // crear usuario
 
-        $id =DB::table('users')->insertGetId(
-            [
-                'name' => str_random(10),
-                'email' => str_random(10) . '@gmail.com',
-                'password' => bcrypt('secret'),
-            ]
-        );
 
-        DB::table('role_user')->insert([
-            'role_id' => 3,'user_id' => $id
-        ]);
     }
 
     public function comprar($producto_id) {
-
-        $datos = DB::table('tb_pedido')->where([
-           ['user_id',auth()->user()->id],['producto_id',$producto_id],['estado',1]
-        ])->get();
-        echo count($datos);
-        if(count($datos) == 0) {
-            // envia los datos al webservice
-
-            // guarda en la base de datos
-            return  1;
-        }else {
-            return 0;
-        }
-
-
 
     }
 }

@@ -1,3 +1,12 @@
+@extends('layouts.principal')
+@section('css')
+@endsection
+@section('css')
+@endsection
+@section('css')
+@endsection
+
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>

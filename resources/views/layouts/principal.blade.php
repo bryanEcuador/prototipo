@@ -6,36 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title> @yield('title')</title>
-    @yield('css')
+    <title>@yield('titulo')</title>
+
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
+    <link rel="stylesheet" type="text/css" href="/css/toastr.css">
     <!-- Bootstrap -->
-    <link type="text/css" rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}"/>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"/>
+
     <!-- Slick -->
-    <link type="text/css" rel="stylesheet" href="{{asset('css/slick.css')}}"/>
-    <link type="text/css" rel="stylesheet" href="{{asset('css/slick-theme.css')}}"/>
+    <link type="text/css" rel="stylesheet" href="/css/slick.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/slick-theme.css"/>
+
     <!-- nouislider -->
-    <link type="text/css" rel="stylesheet" href="{{asset('css/nouislider.min.css')}}"/>
+    <link type="text/css" rel="stylesheet" href="/css/nouislider.min.css"/>
+
     <!-- Font Awesome Icon -->
-    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+
     <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="{{asset('css/style.css')}}"/>
-<!---------------------------------------------------------------------->
-    <link type="text/css" rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}"/>
-    <!-- Slick -->
-    <link type="text/css" rel="stylesheet" href="{{asset('css/animate.css')}}"/>
-    <link type="text/css" rel="stylesheet" href="{{asset('css/hamburgers.min.css')}}"/>
-    <!-- nouislider -->
-    <link type="text/css" rel="stylesheet" href="{{asset('css/select2.min.css')}}"/>
-    <!-- Font Awesome Icon -->
-    <link rel="stylesheet" href="{{asset('css/util.css')}}">
-    <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="{{asset('css/main1.css')}}"/>
+    <link type="text/css" rel="stylesheet" href="/css/style.css"/>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,10 +33,7 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- iconos -->
-    <link type="text/css" rel="stylesheet" href="{{asset('css/font-awesome.css')}}"/>
-
+    @yield('css')
 </head>
 <body>
 <!-- HEADER -->
@@ -54,33 +41,10 @@
     <!-- TOP HEADER -->
     <div id="top-header">
         <div class="container">
+
             <ul class="header-links pull-right">
-              <!--  <li><a href="#"><i class="fa fa-user-o"> </i>Iniciar Sesion </a></li> -->
-               <!-- <li><a href="#"><i class="fa fa-user-o"></i> Mi cuenta</a></li> -->
-                @guest
-                    <li class="nav-item">
-                        <a class="nav-link" style="font-size: 18px;" href="{{ route('login') }}">Iniciar Sesión</a>
-                    </li>
-                    @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                        @endguest
-
+                <li><a href="#" data-toggle="modal" data-target="#iniciar-sesion"><i class="fa fa-user-o"></i> Iniciar sesión</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#registrarse"><i class="fa fa-user-o"></i> Registrarse</a></li>
             </ul>
         </div>
     </div>
@@ -96,7 +60,7 @@
                 <div class="col-md-3">
                     <div class="header-logo">
                         <a href="#" class="logo">
-                           <!-- <img src="./img/logo.png" alt=""> -->
+                            <img src="./img/logo.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -106,42 +70,35 @@
                 <div class="col-md-6">
                     <div class="header-search">
                         <form>
-                            <input class="input" placeholder="Buscar aquí">
-                            <span  class="fa fa-search fa-2x span-search" aria-hidden="true"> </span>
-                        </form>
 
+                            <input id="textoBusqueda" class="input" placeholder=" ¿Que estas buscando?" >
+                            <button class="search-btn" id="accionConsulta" type="button" onclick="consultar()" >Buscar</button>
+                        </form>
                     </div>
                 </div>
                 <!-- /SEARCH BAR -->
 
                 <!-- ACCOUNT -->
-                <div class="col-md-3 clearfix" style="display:none">
+                <div class="col-md-3 clearfix">
                     <div class="header-ctn">
                         <!-- Wishlist -->
-                        <div>
-                            <a href="#">
-                                <i class="fa fa-heart-o"></i>
-                                <span>Your Wishlist</span>
-                                <div class="qty">2</div>
-                            </a>
-                        </div>
                         <!-- /Wishlist -->
 
                         <!-- Cart -->
                         <div class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>Your Cart</span>
+                                <span>Tu carrito</span>
                                 <div class="qty">3</div>
                             </a>
                             <div class="cart-dropdown">
                                 <div class="cart-list">
                                     <div class="product-widget">
                                         <div class="product-img">
-                                           <!-- <img src="./img/product01.png" alt=""> -->
+                                            <img src="./img/product01.png" alt="">
                                         </div>
                                         <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                            <h3 class="product-name"><a href="#">nombre del producto </a></h3>
                                             <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
                                         </div>
                                         <button class="delete"><i class="fa fa-close"></i></button>
@@ -149,10 +106,10 @@
 
                                     <div class="product-widget">
                                         <div class="product-img">
-                                           <!-- <img src="./img/product02.png" alt=""> -->
+                                            <img src="./img/product02.png" alt="">
                                         </div>
                                         <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                            <h3 class="product-name"><a href="#">nombre del producto </a></h3>
                                             <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
                                         </div>
                                         <button class="delete"><i class="fa fa-close"></i></button>
@@ -198,8 +155,7 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="{{route('welcome')}}">Home</a></li>
-                <li><a href="{{route('tienda')}}">Productos</a></li>
+
             </ul>
             <!-- /NAV -->
         </div>
@@ -216,8 +172,10 @@
         <!-- row -->
         <div class="row">
             <div class="col-md-12">
-                <h3 class="breadcrumb-header"> @yield('nombre_breadcrumb')</h3>
+                <ul class="breadcrumb-tree">
+                    @yield('direcciones')
 
+                </ul>
             </div>
         </div>
         <!-- /row -->
@@ -239,119 +197,19 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
-<!----modal-->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100">
-                <div class="login100-pic js-tilt" data-tilt>
-                    <img src="images/img-01.png" alt="IMG">
-                </div>
 
-                <form class="login100-form validate-form">
-                    <span class="login100-form-title">
-                        Member Login
-                    </span>
+<!-- NEWSLETTER -->
 
-                    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email" placeholder="Email">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                        </span>
-                    </div>
-
-                    <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                        <input class="input100" type="password" name="pass" placeholder="Password">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fa fa-lock" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    
-                    <div class="container-login100-form-btn">
-                        <button class="login100-form-btn">
-                            Login
-                        </button>
-                    </div>
-
-                    <div class="text-center p-t-12">
-                        <span class="txt1">
-                            Forgot
-                        </span>
-                        <a class="txt2" href="#">
-                            Username / Password?
-                        </a>
-                    </div>
-
-                    <div class="text-center p-t-136">
-                        <a class="txt2" href="#">
-                            Create your Account
-                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-      <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-<!----modal-->
+<!-- /NEWSLETTER -->
 
 <!-- FOOTER -->
-<footer id="footer" style="font-size: 16" >
+<footer id="footer">
     <!-- top footer -->
-    <div class="section" id="info">
+    <div class="section">
         <!-- container -->
         <div class="container">
             <!-- row -->
-            <div class="row">
-                <div class="col-md-4 col-xs-6">
-                    <div class="footer">
-                        <h3 class="footer-title">Acerca de</h3>
-                        <p>@{{descripcion }}</p>
-                        <ul class="footer-links">
-                            <li><a href="#"><i class="fa fa-map-marker"></i>@{{direccion}}</a></li>
-                            <li><a href="#"><i class="fa fa-phone"></i>@{{telefono}}</a></li>
-                            <li><a href="#"><i class="fa fa-envelope-o"></i>@{{email}}</a></li>
-                        </ul>
-                    </div>
-                </div>
 
-
-                <div class="clearfix visible-xs"></div>
-
-                <div class="col-md-4 col-xs-6">
-                    <div class="footer">
-                        <h3 class="footer-title">Information</h3>
-                        <ul class="footer-links">
-                            <li><a href="{{route('acerca')}}">Acerca de</a></li>
-                            <li><a href="#">Contacte con nosotros</a></li>
-                            <li><a href="{{route('politicas')}}">Politica de privacidad</a></li>
-                            <li><a href="#">Ordenes y retornos</a></li>
-                            <li><a href="{{route('terminos')}}">Terminos y condiciones</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-xs-6">
-                    <div class="footer">
-                        <h3 class="footer-title">Servicios</h3>
-                        <ul class="footer-links">
-                            <li><a href="#">Mi cuenta</a></li>
-                            <li><a href="#">Estado de mi orden</a></li>
-                            <li><a href="#">Ayuda</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
             <!-- /row -->
         </div>
         <!-- /container -->
@@ -374,11 +232,9 @@
                     </ul>
                     <span class="copyright">
 								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-							<!--	Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    {{-- Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+--}}							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 							</span>
-
-
                 </div>
             </div>
             <!-- /row -->
@@ -389,75 +245,126 @@
 </footer>
 <!-- /FOOTER -->
 
+<!-- Modales  -->
+<!-- Modal -->
+<div id="iniciar-sesion" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <!-- <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div> -->
+            <div class="modal-body">
+                <h4 style="
+									text-align: center;
+									display: block;
+							"> Iniciar sessión</h4>
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input class="form-control" type="email" placeholder="ejemplo@hotmail.com">
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input class="form-control" type="password">
+                </div>
+                <p style="text-align : right;opacity: 0.4;"><span><a><small>Enviar correo de recuperación </small></a></span></p>
+
+
+                <button style="    display: block;
+    width: 100%;
+    margin-top: 2px;
+    margin-bottom: 2px;" class="btn btn-primary">Iniciar sesión</button>
+
+                <p style="text-align:center">¿Eres nuevo? <span style="color:cyan" data-toggle="modal" data-target="#registrarse" >Registrate</span></p>
+                <small></small>
+            </div>
+            <!-- 	<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div> -->
+        </div>
+
+    </div>
+</div>
+
+<div id="registrarse" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <!-- <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div> -->
+            <div class="modal-body">
+                <h4 style="
+									text-align: center;
+									display: block;
+							"> Registrarse</h4>
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input class="form-control" type="email" placeholder="ejemplo@hotmail.com">
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input class="form-control" type="password">
+                </div>
+                <div class="form-group">
+                    <label>Repetir contraseña</label>
+                    <input class="form-control" type="password">
+                </div>
+
+
+                <button style="    display: block;
+    width: 100%;
+    margin-top: 2px;
+    margin-bottom: 2px;" class="btn btn-primary">Registrarse</button>
+
+
+                <small></small>
+            </div>
+            <!-- 	<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div> -->
+        </div>
+
+    </div>
+</div>
+
+
+<!-- /Modales  -->
+
 <!-- jQuery Plugins -->
-<!--
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/slick.min.js"></script>
-<script src="js/nouislider.min.js"></script>
-<script src="js/jquery.zoom.min.js"></script>
-<script src="js/main.js"></script>
--->
-
-
-<script src=" {{asset('/js/jquery.min.js')}} "></script>
-<script src=" {{asset('/js/bootstrap.min.js')}}"></script>
-<script src=" {{asset('/js/slick.min.js')}}"></script>
-<script src=" {{asset('/js/nouislider.min.js')}}"></script>
-<script src=" {{asset('/js/jquery.zoom.min.js')}}"></script>
-<script src=" {{asset('/js/main_detalles.js')}}"></script>
-
-
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/slick.min.js"></script>
+<script src="/js/nouislider.min.js"></script>
+<script src="/js/jquery.zoom.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/plugins/toastr.js"></script>
 <script src="{{asset('js/axios.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-
 <script>
-    var Vue = new Vue ({
-       el:"#info" ,
-        data : {
-            cmbDatos : [],
-            nombre : '',
-            descripcion : '',
-            email : '',
-            telefono : '',
-            direccion : '',
-         },
-       created : function() {
-           this.cargarInfo()
-       },
+    var btnConsulta = document.getElementById('accionConsulta');
+    var txtConsulta;
+    var busqueda;
+    var consulta = document.getElementById('consulta'); // boton
 
-        methods : {
-           cargarInfo : function() {
-               axios.get('/info/basica').then(response => {
-                   this.cmbDatos = response.data,
-                   this.nombre = this.cmbDatos[0].nombre,
-                   this.descripcion = this.cmbDatos[0].descripcion,
-                   this.email = this.cmbDatos[0].email,
-                   this.telefono= this.cmbDatos[0].telefono,
-                   this.direccion = this.cmbDatos[0].direccion
-           }).catch(error => {
-               });
 
-           }
-        }
+    function  consultar () {
+         txtConsulta = document.getElementById('textoBusqueda');
+         busqueda = document.getElementById('busqueda'); // texto
+       busqueda.value = txtConsulta.value    ;
+        consulta.click();
+        //alert();
+    }
 
-    });
-
+    function consultar2(){
+        alert()
+    }
 
 </script>
-
-<script src=" {{asset('/js/jquery-3.2.1.min.js')}}"></script>
-<script src=" {{asset('/js/popper.js')}}"></script>
-<script src=" {{asset('/js/bootstrap1.min.js')}}"></script>
-<script src=" {{asset('/js/select2.min.js')}}"></script>
-<script src=" {{asset('/js/tilt.jquery.min.js')}}"></script>
-<script >
-        $('.js-tilt').tilt({
-            scale: 1.1
-        })
-    </script>
-<script src=" {{asset('/js/main1.js')}}"></script>
 @yield('js')
-
 </body>
 </html>

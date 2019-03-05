@@ -3,8 +3,9 @@
 Route::get('/','TiendaController@inicio')->name('welcome');
 
 
-route::get('/productos/{page?}','TiendaController@productos')->name('productos');
+route::get('/productos/search/{page?}/{paginacion?}/{categorias?}/{nombre?}','TiendaController@productos')->name('productos');
 route::get('/detalles/{id}','TiendaController@detalle')->name('detalle');
+
 route::get('/categorias','TiendaController@categorias')->name('categorias');
 route::get('/subcategorias/{categoria?}','TiendaController@subCategorias')->name('subcategoria');
 route::get('/marcas','TiendaController@marcas')->name('marca');
