@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>@yield('titulo')</title>
-
+    <title>Very ape </title>
+    <link rel="icon"   href="/img/icono.ico" type="image/png">
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/toastr.css">
@@ -60,26 +60,19 @@
                 <div class="col-md-3">
                     <div class="header-logo">
                         <a href="#" class="logo">
-                            <img src="./img/logo.png" alt="">
+                            <img src="./img/very.png" alt="">
                         </a>
                     </div>
                 </div>
                 <!-- /LOGO -->
 
                 <!-- SEARCH BAR -->
-                <div class="col-md-6">
-                    <div class="header-search">
-                        <form>
+                @yield('search')
 
-                            <input id="textoBusqueda" class="input" placeholder=" ¿Que estas buscando?" >
-                            <button class="search-btn" id="accionConsulta" type="button" onclick="consultar()" >Buscar</button>
-                        </form>
-                    </div>
-                </div>
                 <!-- /SEARCH BAR -->
 
                 <!-- ACCOUNT -->
-                <div class="col-md-3 clearfix">
+                <div class="col-md-3 clearfix pull-right" >
                     <div class="header-ctn">
                         <!-- Wishlist -->
                         <!-- /Wishlist -->
@@ -330,10 +323,11 @@
 									display: block;
 							"> Registrarse</h4>
                 <div class="container">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                            <input style="width: 70%" type="text" class="form-control col-md-6" placeholder=" Cesar Augusto Herrera Qurioz">
-                            </div>
+                        <div class="form-inline">
+
+                            <input style="width: 70%" type="text" class="form-control col-md-6" placeholder=" Cesar Augusto">
+                            <input style="width: 70%" type="text" class="form-control col-md-6" placeholder=" Herrera Qurioz">
+
                         </div>
                         <div class="form-inline">
                             <input type="email" class="form-control" placeholder="tuemail@hotmail.com">

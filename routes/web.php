@@ -29,6 +29,8 @@ route::get('/',function() {
     return view('welcome');
 })->name('welcome');
 
+route::get('/compra/{id?}','CuentaController@index');
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/index', 'Auth\RegisterController@index')->name('index');
 

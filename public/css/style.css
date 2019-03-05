@@ -1903,6 +1903,11 @@ textarea.input {
   color: #D10024;
 }
 
+#textoBusqueda {
+  border-radius: 40px 0px 0px 40px;
+  width: 70%;
+}
+
 .order-details .payment-method {
   margin: 30px 0px;
 }

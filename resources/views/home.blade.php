@@ -2,6 +2,17 @@
 @section('titulo',"Bienvenido")
 @section('css')
 @endsection
+@section('search')
+    <div class="col-md-6">
+        <div class="header-search">
+            <form>
+
+                <input id="textoBusqueda" class="input" placeholder=" ¿Que estas buscando?" >
+                <button class="search-btn" id="accionConsulta" type="button" onclick="consultar()" >Buscar</button>
+            </form>
+        </div>
+    </div>
+@endsection
 @section('direcciones')
 @endsection
 @section('contenido')

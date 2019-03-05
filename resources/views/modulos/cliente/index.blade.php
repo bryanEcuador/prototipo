@@ -422,10 +422,7 @@
           </div>
 
           {{-- /MODALES --}}
-            
-           
-        
-        
+
           <div class="tile">
 
         <button class="btn btn-primary btn-lg btn-block mb-4" @click="crear" > Agregar cliente</button>
@@ -434,9 +431,8 @@
          <table class="table table-striped" id="tabla-grande">
                 <thead>
                   <tr>
-                    <th>IDENTIFICACION</th>
-                    <th>NOMBRES</th>
-                    <th>APELLIDOS</th>
+                    <th>IDENTIFICACIÓN</th>
+                    <th colspan="1">CLIENTE</th>
                     <th>CIUDAD</th>
                     <th>TELÉFONO</th>
                     <th>EMAIL</th>
@@ -448,8 +444,8 @@
                     
                     <td>@{{dato.identificacion}}</td>
                     
-                    <td>@{{dato.nombres}}</td>
-                    <td>@{{dato.apellidos}}</td>
+                    <td>@{{dato.nombres}} @{{dato.apellidos}}</td>
+
                     <td>@{{dato.ciudad}}</td>
                    
                     <td>@{{dato.telefono}}</td>
