@@ -209,6 +209,35 @@
         <!-- container -->
         <div class="container">
             <!-- row -->
+            <div class="row">
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">Sobre nosotros</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
+                            <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+                <div class="clearfix visible-xs"></div>
+
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">Información</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Politica de privacidad</a></li>
+                            <li><a href="#">Ordenes and Retornos</a></li>
+                            <li><a href="#">Terminos & Condiciones</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
 
             <!-- /row -->
         </div>
@@ -234,7 +263,7 @@
 								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     {{-- Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 --}}							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-							</span>
+                    </span>
                 </div>
             </div>
             <!-- /row -->
@@ -289,31 +318,50 @@
 </div>
 
 <div id="registrarse" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-lg">
 
         <!-- Modal content-->
         <div class="modal-content">
-            <!-- <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div> -->
+
+
             <div class="modal-body">
                 <h4 style="
 									text-align: center;
 									display: block;
 							"> Registrarse</h4>
-                <div class="form-group">
-                    <label>E-mail</label>
-                    <input class="form-control" type="email" placeholder="ejemplo@hotmail.com">
+                <div class="container">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                            <input style="width: 70%" type="text" class="form-control col-md-6" placeholder=" Cesar Augusto Herrera Qurioz">
+                            </div>
+                        </div>
+                        <div class="form-inline">
+                            <input type="email" class="form-control" placeholder="tuemail@hotmail.com">
+                            <input type="password" class="form-control" placeholder="Contraseña">
+                            <input type="password" class="form-control" placeholder="Repita la contraseña">
+                            <input type="tel" class="form-control" placeholder="telefono 0990916466">
+                        </div>
+                        <br>
+
+                    <div class="form-inline">
+                        <select class="form-control">
+                            <option selected value="0" disabled>--Tipo identificación--</option>
+                        </select>
+                        <input class="form-control" placeholder="identificación">
+
+                        <select class="form-control">
+                                <option selected value="0" disabled>--Seleccione la ciudad--</option>
+                        </select>
+
+                        <select class="form-control">
+                                <option selected value="0" disabled>--Seleccione el sector--</option>
+                        </select>
+                    </div>
+                    <br>
+
                 </div>
-                <div class="form-group">
-                    <label>Contraseña</label>
-                    <input class="form-control" type="password">
-                </div>
-                <div class="form-group">
-                    <label>Repetir contraseña</label>
-                    <input class="form-control" type="password">
-                </div>
+
+
 
 
                 <button style="    display: block;

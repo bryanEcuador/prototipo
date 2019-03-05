@@ -102,7 +102,7 @@
                 <div class="col-md-4 col-xs-6" v-for="dato in tabla">
                     <div class="product">
                         <div class="product-img">
-                            <img src="./img/product02.png" alt="">
+                            <img :src="dato.url" alt="">
                             <div class="product-label">
                             </div>
                         </div>
@@ -341,7 +341,7 @@
 
                     changeNumberPage :function(page) {
                         this.load(page)
-                    }
+                    },
 
                     addCarrito : function(var_prodcuto,var_precio,var_url) {
                         var producto = var_prodcuto
