@@ -13,22 +13,13 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+      //  $this->middleware('auth');
     }
     public function index()
     {
-        $id = Auth::id();
-        $rol = DB::table('role_user')->select('role_id')->where('user_id',$id)->get();
-        $rol_id = $rol[0]->role_id;
-        if($rol_id == 1) {
-            return redirect()->route('administrador.index');
-        } else if($rol_id == 2) {
-            redirect()->route('proveedor.index');
-        } else if($rol_id == 3) {
-            redirect()->route('administrador.index');
-        } else {
+
             return view('home');
-        }
+        
         // return view('home');
     }
 }
