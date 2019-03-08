@@ -29,6 +29,7 @@ class TiendaController extends Controller {
 
     protected $xml;
     protected $paginacion;
+    protected $metodo;
 
 
     public function __construct(XmlController $xml , PaginacionController $paginacion) {

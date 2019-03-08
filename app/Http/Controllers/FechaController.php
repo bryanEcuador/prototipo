@@ -11,6 +11,8 @@ class FechaController extends Controller
 {
     protected $xml;
     protected $paginacion;
+    protected $metodo;
+
 
 
     public function __construct(XmlController $xml, PaginacionController $paginacion)
@@ -32,85 +34,28 @@ class FechaController extends Controller
 
     public function store(Request $request)
     {
-     /*    $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros, 'pr_ins_va_fechas');
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response);  */
+        return $this->xml->query($request,'pr_ins_va_fechas',$this->metodo);
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
-        $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros, 'pr_upd_va_fechas');
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response); 
+        return $this->xml->query($request,'pr_upd_va_fechas',$this->metodo);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy( Request $request)
-    {
-       /*  $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros, 'pr_upd_va_fechas');
-        $cliente = $this->xml->soap();
 
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response);  */
-    }
-
-    public function consult( Request $request){
-     
-        /* $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros, 'pr_sel_va_fechas');
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response); */
+    public function consult($id){
+        $parametros = array('big_fc_idFecha' => $id , 'int_tipoConsulta' => 0 , 'fch_fc_fecha' => '');
+        return $this->xml->query($parametros,'cabecera',$this->metodo);
     }
 
     public function search($paginacion = 5, $pagina=0,$consulta = null){
-        
-         /* $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros, 'pr_sel_va_fechas');
-        $cliente = $this->xml->soap();
+        if($consulta == null){
+            $parametros = array('big_fc_idFecha' => 0 , 'int_tipoConsulta' => 1 , 'fch_fc_fecha' => '');
+        }else {
+            $parametros = array('big_fc_idFecha' => 0 , 'int_tipoConsulta' => 0 , 'fch_fc_fecha' => $consulta);
+        }
 
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        $dato = $this->xml->readXml($response); */
-
-
-           /*  $respuesta = $this->paginacion->paginacion($pagina,$dato s,$paginacion);
-        //dd($respuesta);
-        return response()
-            ->json($respuesta); */
-
-       
-
+        return $this->xml->query($parametros,'cabecera',$this->metodo, true,$pagina,$paginacion);
     }
 
 

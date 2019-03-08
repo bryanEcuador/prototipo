@@ -11,6 +11,7 @@ class ProcesoController extends Controller
 
     protected $xml;
     protected $paginacion;
+    private $metodo = "nombre del metodo";
 
 
     /**
@@ -28,15 +29,11 @@ class ProcesoController extends Controller
 
     public function index(){
 
-        
-        //$cliente = $this->xml->soap();
-       
-        // llamamos al metodo que vamos a consumir
-        //$response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        //$datos = $this->xml->readXml($response);          
-
-        $datos =  array('dato' => 0 );
+        $parametros = array('big_td_idTransaccionDetalle' => 0 , 'int_tipoConsulta' => 1   , 'var_co_nombreComercio' => '');
+        $datos = $this->xml->makeXml($parametros,'');
+        $cliente = $this->xml->soap();
+        $response = $cliente->$this->metodo($datos);
+        $datos = $this->xml->readXml($response);
         return view('modulos.proceso.index' , compact('datos'));
     }
 

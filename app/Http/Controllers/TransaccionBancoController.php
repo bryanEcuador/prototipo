@@ -13,80 +13,38 @@ class TransaccionBancoController extends Controller
      */
     public function index()
     {
-        //
         return view('modulos.transaccion_banco.index');
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-        return view('modulos.transaccion_banco.create');
 
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        return $this->xml->query($request,'pr_ins_va_transaccion_banco',$this->metodo);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id = null)
+    public function update(Request $request)
     {
-        //
-        return view('modulos.transaccion_banco.show');
-
+        return $this->xml->query($request,'pr_upd_va_transaccion_banco',$this->metodo);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id = null)
+    public function search($paginacion = 5, $pagina=0 , $nombre = null){
+
+        if($nombre == null){
+            $parametros = array('big_tb_idTransaccion' => 0 , 'int_tipoConsulta' => 1   , 'var_co_nombreComercio' => '');
+
+        }else {
+            $parametros = array('big_tb_idTransaccion' => 0 , 'int_tipoConsulta' => 2   , 'var_co_nombreComercio' => $nombre);
+        }
+
+        return $this->xml->query($parametros,'pr_sel_va_transaccion_banco',$this->metodo, true,$pagina,$paginacion);
+    }
+
+
+    public function consult($id)
     {
-        //
-        return view('modulos.transaccion_banco.edit');
-
+        $parametros = array('big_tb_idTransaccion' => $id , 'int_tipoConsulta' => 0 , 'var_co_nombreComercio' => '');
+        return $this->xml->query($parametros,'pr_sel_va_transaccion_banco',$this->metodo);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

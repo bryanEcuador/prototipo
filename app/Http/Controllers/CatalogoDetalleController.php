@@ -9,7 +9,7 @@ use App\Http\Controllers\XmlController;
 class CatalogoDetalleController extends Controller
 {
     protected $xml;
-    private $cabecera = "pr_ins_va_clientes";
+    private $metodo;
 
     public function __construct(XmlController $xml)
     {
@@ -27,100 +27,34 @@ class CatalogoDetalleController extends Controller
         return view('modulos.catalogo_detalle.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-        return view('modulos.catalogo_detalle.create');
-        
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,$this ->cabecera);
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response);         
-
-        //
+        return $this->xml->query($request,'pr_ins_va_catalogo_detalle',$this->metodo);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id = null)
-    {
-        //
-        return view('modulos.catalogo_detalle.show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id = null)
-    {
-        //
-        return view('modulos.catalogo_detalle.edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
-        $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,$this ->cabecera);
-        $cliente = $this->xml->soap();
+        return $this->xml->query($request,'pr_upd_va_catalogo_detalle',$this->metodo);
 
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response);         
-
-        //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy( Request $request)
+    public function search($paginacion = 5, $pagina=0 , $nombre = null){
+
+        if($nombre == null){
+            $parametros = array('int_cc_idCatalogoDetalle' => 0 , 'int_tipoConsulta' => 1   , 'var_cd_descripcion' => '');
+
+        }else {
+            $parametros = array('int_cc_idCatalogoDetalle' => 0 , 'int_tipoConsulta' => 2   , 'var_cd_descripcion' => $nombre);
+        }
+
+        return $this->xml->query($parametros,'cabecera',$this->metodo, true,$pagina,$paginacion);
+    }
+
+
+    public function consult($id)
     {
-        $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,$this ->cabecera);
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response);         
-
-        //
+        $parametros = array('int_cc_idCatalogoDetalle' => $id , 'int_tipoConsulta' => 0 , 'var_cd_descripcion' => '');
+        return $this->xml->query($parametros,'cabecera',$this->metodo);
     }
 }

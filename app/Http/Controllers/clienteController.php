@@ -12,6 +12,7 @@ class clienteController extends Controller
 {
     protected $xml;
     protected $paginacion;
+    protected $metodo;
 
      
     /**
@@ -101,16 +102,24 @@ class clienteController extends Controller
     public function store(Request $request)
     {
 
-        return 0;
- 
-        /* $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,'pr_ins_va_clientes');
-        $cliente = $this->xml->soap();
-       
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response);          */
+        // Llamada al WebService
+        $client = new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
+        $result = $client->checkVat([
+            'countryCode' => 'DK',
+            'vatNumber' => '47458714'
+        ]);
+        print_r($result);
+//
+//         $parametros = $this->xml->makeArray($request);
+//        $datos = $this->xml->makeXml($parametros,'pr_ins_va_clientes');
+//        $parametros = array( 'datos' => $datos);
+//        $cliente = $this->xml->soap();
+//
+//        // llamamos al metodo que vamos a consumir
+//        //$response = 'metodo';
+//        // $cliente->metodo(paramaetros);
+//        $response = $cliente->__soapCall("ExecMain", array($parametros));
+//        return $this->xml->readXml($response);
 
         //
            
@@ -119,16 +128,15 @@ class clienteController extends Controller
   
     public function update(Request $request)
     {
-        return 1;
- 
-       /*  $parametros = $this->xml->makeArray($request);
+         $parametros = $this->xml->makeArray($request);
         $datos = $this->xml->makeXml($parametros,'pr_upd_va_clientes');
         $cliente = $this->xml->soap();
 
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
+       $response = $cliente->$this->metodo($datos);
 
-        return $this->xml->readXml($response);          */
+        $response = $this->xml->readXml($response);
+        return response()
+            ->json( $response);
 
     }
 

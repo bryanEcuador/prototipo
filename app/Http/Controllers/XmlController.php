@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use Symfony\Component\HttpFoundation\Request;
+use App\Http\Controllers\PaginacionController;
 
 class XmlController extends Controller
 {
-    //
+    protected $paginacion;
+    public function __construct(PaginacionController $paginacion)
+    {
+        $this->paginacion = $paginacion;
+    }
 
     public function makeXml($array,$cabecera)
     {
@@ -27,7 +31,12 @@ class XmlController extends Controller
         foreach ($array as $key => $value) {
                 /* echo $key . " " . $value; */
             $objetoXML->startElement($key);
-            $objetoXML->writeAttribute('Type', 'System.String');
+            if(is_numeric($key)){
+                $type = 'System.Int32';
+            }else if(is_string($key)){
+                $type = 'System.String';
+            }
+            $objetoXML->writeAttribute('Type', $type);
             $objetoXML->text($value);
             $objetoXML->fullEndElement(); // Final del elemento "obra" que cubre cada obra de la matriz.
         }
@@ -43,7 +52,7 @@ class XmlController extends Controller
     public function soap()
     {
 
-        $client = new SoapClient("http://<host-servidor>/webservice/services/ControlAssistencia?wsdl", array('trace' => 1));
+        $client = new SoapClient("http://webservice/services/ControlAssistencia?wsdl", array('trace' => 1));
         return $client;
     }
 
@@ -69,6 +78,19 @@ class XmlController extends Controller
         return $parametros;
     }
 
+    public function query($request ,$cabecera,$metodo,$busqueda = null,$pagina=null,$paginacion=null){
+
+        $parametros = $this->makeArray($request);
+        $datos = $this->makeXml($parametros,$cabecera);
+        $cliente = $this->soap();
+        $response = $cliente->$metodo($datos);
+        if($busqueda == null){
+            return $this->readXml($response);
+        } else {
+            $response  = $this->paginacion->paginacion($pagina,$response,$paginacion);
+            return response()->json($response);
+        }
+    }
     
 
 }

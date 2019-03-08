@@ -11,7 +11,7 @@ class ComercioController extends Controller
 {
     protected $xml;
     protected $paginacion;
-    private $cabecera = "pr_ins_va_comercios";
+    private $metodo;
 
     public function __construct(XmlController $xml , PaginacionController $paginacion)
     {
@@ -19,80 +19,39 @@ class ComercioController extends Controller
         $this->paginacion = $paginacion;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
         return view("modulos.comercio.index");
     }
 
   
     public function store(Request $request)
     {
-        $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,$this ->cabecera);
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response);         
-
-        //
-     
+        return $this->xml->query($request,'cabecera',$this->metodo);
     }
 
     public function update(Request $request)
     {
-        $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,$this ->cabecera);
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response);  
+        return $this->xml->query($request,'cabecera',$this->metodo);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy( Request $request)
-    {
-        $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,$this ->cabecera);
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response);  
-    }
-
-
-    public function search($paginacion = 5, $pagina=0){
+    public function search($paginacion = 5, $pagina=0 , $nombre = null){
  
+        if($nombre == null){
+            $parametros = array('big_co_idComercio' => 0 , 'int_tipoConsulta' => 1   , 'var_co_nombreComercio' => '');
 
-       /*  $respuesta = $this->paginacion->paginacion($pagina,$dato s,$pagi nacion);
-        //dd($respuesta);
-        return response()
-            ->json($respuesta); */
+        }else {
+            $parametros = array('big_co_idComercio' => 0 , 'int_tipoConsulta' => 2   , 'var_co_nombreComercio' => $nombre);
+        }
 
-       $arrayName = array();
-        return $arrayName;
+        return $this->xml->query($parametros,'cabecera',$this->metodo, true,$pagina,$paginacion);
     }
 
 
-    public function consult()
+    public function consult($id)
     { 
-
+        $parametros = array('big_co_idComercio' => $id , 'int_tipoConsulta' => 0 , 'var_co_nombreComercio' => '');
+        return $this->xml->query($parametros,'cabecera',$this->metodo);
     }
 
    

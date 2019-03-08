@@ -64,7 +64,7 @@ route::get( 'comercio/search/{paginacion?}/{pagina?}/{consulta?}', 'ComercioCont
 route::post('comercio/delete', 'ComercioController@delete');
 route::post('comercio/store', 'ComercioController@store');
 route::post('comercio/update', 'ComercioController@update');
-route::get('comercio/consult', 'ComercioController@consult');
+route::get('comercio/consult/{id}', 'ComercioController@consult');
 
 // producto TODO
 route::get('producto/index', 'ProductoController@index')->name('producto.index');

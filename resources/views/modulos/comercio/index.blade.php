@@ -239,20 +239,20 @@
                                                    <label for="nombre"> Login</label>
                                                </div>
                                                <div class="col-md-4 ">
-                                                   <input class="form-control" v-model="login" >
+                                                   <input class="form-control" type="text" v-model="login" >
                                                </div>
 
                                                <div class="col-md-2">
                                                    <label for="nombre">Password:</label>
                                                </div>
                                                <div class="col-md-4 ">
-                                                   <input class="form-control" v-model="pass" >
+                                                   <input class="form-control" type="password" v-model="pass" >
                                                </div>
                                            </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" @click="guardar" > Guardar       </button>
+            <button type="button" class="btn btn-primary" @click="guardar" > Guardar</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
@@ -302,7 +302,7 @@
 
                                             <div class="form-group row">
                                                 <div class="col-md-2">
-                                                    <label for="nombre">Identificacion Representante legal:</label>
+                                                    <label for="nombre">Identificación Representante legal:</label>
                                                 </div>
                                                 <div class="col-md-4 ">
                                                 <input class="form-control" type="text" name="representante_ci" v-model="e_representante_ci" maxlength="20">
@@ -319,7 +319,7 @@
                                           
                                             <div class="form-group row">
                                                 <div class="col-md-2">
-                                                    <label for="nombre">Direccion:</label>
+                                                    <label for="nombre">Dirección:</label>
                                                 </div>
                                                 <div class="col-md-4 ">
                                                 <input class="form-control" type="text" name="direccion" v-model="e_direccion" maxlength="20">
@@ -355,7 +355,7 @@
 
                                             <div class="form-group row">
                                                 <div class="col-md-2">
-                                                    <label for="nombre">Identificacion del gerente:</label>
+                                                    <label for="nombre">Identificación del gerente:</label>
                                                 </div>
                                                 <div class="col-md-4 ">
                                                 <input class="form-control" type="text" name="gerente_ci" v-model="e_gerente_ci" maxlength="20">
@@ -379,7 +379,7 @@
                                                 <input class="form-control" type="text" name="email" v-model="e_email" maxlength="20">
                                                 </div>
                                                 <div class="col-md-2">
-                                                    <label for="nombre">Telefono:</label>
+                                                    <label for="nombre">Teléfono:</label>
                                                 </div>
                                                 <div class="col-md-4 ">
                                                 <input class="form-control" type="text" name="telefono" v-model="e_telefono" maxlength="20">
@@ -414,14 +414,14 @@
                                                        <label for="nombre"> Login</label>
                                                    </div>
                                                    <div class="col-md-4 ">
-                                                       <input class="form-control" v-model="e_login" >
+                                                       <input class="form-control" type="text" v-model="e_login" >
                                                    </div>
 
                                                    <div class="col-md-2">
                                                        <label for="nombre">Password:</label>
                                                    </div>
                                                    <div class="col-md-4 ">
-                                                       <input class="form-control" v-model="e_pass" >
+                                                       <input class="form-control" type="password" v-model="e_pass" >
                                                    </div>
                                                </div>
 
@@ -430,7 +430,7 @@
            </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" >Actualizar       </button>
+            <button type="button" class="btn btn-primary" @click="actualizar">Actualizar</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
@@ -583,7 +583,6 @@
 
         {{-- eliminar  --}}
          <div id="eliminar" class="modal fade" role="dialog" >
-            
             <div class="modal-dialog modal-lg">
                 <div class="col-lg-12">
                     <div class="bs-component">
@@ -601,7 +600,6 @@
                                    </div>
                                 </div>
                             </div>
-                          </form>
                         </div>
                     </div>
                 </div>
@@ -614,13 +612,6 @@
     
 @endsection
 @section('js')
-
-    <
-    <script>
-        $(document).ready( function () {
-            $('#myTable').DataTable();
-        } );
-    </script>
 
 
     <script>
@@ -664,6 +655,8 @@
                     e_email:'',
                     e_telefono: '',
                     e_mio: '',
+                    e_login : '',
+                    e_pass : '',
 
                     ver_datos : '',
                     v_id : '',
@@ -683,8 +676,7 @@
                     v_email:'',
                     v_telefono: '',
                     v_mio: '',
-                    e_login : '',
-                    e_pass : '',
+
 
 
 

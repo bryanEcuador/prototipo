@@ -12,11 +12,12 @@ class FeriadoController extends Controller
 {
     protected $xml;
     protected $paginacion;
-
+    protected  $metodo;
     public function __construct(XmlController $xml, PaginacionController $paginacion)
     {
         $this->xml = $xml;
         $this->paginacion = $paginacion;
+
     }
     /**
      * Display a listing of the resource.
@@ -25,129 +26,37 @@ class FeriadoController extends Controller
      */
     public function index()
     {
-        //
         return view('modulos.feriados.index');
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros, 'pr_ins_va_feriados');
-        $cliente = $this->xml->soap();
+        return $this->xml->query($request,'pr_ins_va_feriados',$this->metodo);
 
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response); 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
-        $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros, 'pr_upd_va_feriados');
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response); 
+        return $this->xml->query($request,'pr_upd_va_feriados',$this->metodo);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy( Request $request)
+    public function search($paginacion = 5, $pagina=0 , $nombre = null){
+
+        if($nombre == null){
+            $parametros = array('big_ff_idFechaFeriado' => 0 , 'int_tipoConsulta' => 1   , 'fch_ff_fecha' => '');
+
+        }else {
+            $parametros = array('big_ff_idFechaFeriado' => 0 , 'int_tipoConsulta' => 2   , 'fch_ff_fecha' => $nombre);
+        }
+
+        return $this->xml->query($parametros,'pr_sel_va_feriados',$this->metodo, true,$pagina,$paginacion);
+    }
+
+
+    public function consult($id)
     {
-        $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,$this ->cabecera);
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response); 
-    }
-
-
-      public function consult( Request $request){
-     
-        /* $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros, 'pr_sel_va_feriados');
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response); */
-    }
-
-    public function search($paginacion = 5, $pagina=0,$consulta = null){
-        
-         /* $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros, 'pr_sel_va_fechas');
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        $dato = $this->xml->readXml($response); */
-
-
-           /*  $respuesta = $this->paginacion->paginacion($pagina,$dato s,$paginacion);
-        //dd($respuesta);
-        return response()
-            ->json($respuesta); */
-
-       
-
+        $parametros = array('big_ff_idFechaFeriado' => $id , 'int_tipoConsulta' => 0 , 'var_co_nombreComercio' => '');
+        return $this->xml->query($parametros,'cabecera',$this->metodo);
     }
 }

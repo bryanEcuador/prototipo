@@ -11,6 +11,7 @@ class ProductoController extends Controller
 
     protected $xml;
     protected $paginacion;
+    protected $metodo;
 
     public function __construct(XmlController $xml, PaginacionController $paginacion)
     {
@@ -37,7 +38,7 @@ class ProductoController extends Controller
         // llamamos al metodo que vamos a consumir
         $response = 'metodo'; //$cliente->metodo(paramaetros);
 
-        return $this->xml->readXml($response);    */      
+        return $this->xml->readXml($response);    */
     }
 
     public function search($paginacion = 5, $pagina=0,$nombre=null){ 
@@ -57,7 +58,7 @@ class ProductoController extends Controller
         // llamamos al metodo que vamos a consumir
         $response = 'metodo'; //$cliente->metodo(paramaetros);
 
-        return $this->xml->readXml($response);      */    
+        return $this->xml->readXml($response);      */
     }
 
     /**
@@ -75,7 +76,7 @@ class ProductoController extends Controller
         // llamamos al metodo que vamos a consumir
         $response = 'metodo'; //$cliente->metodo(paramaetros);
 
-        return $this->xml->readXml($response);   */       
+        return $this->xml->readXml($response);   */
     }
 
     public function constult(Request $request){

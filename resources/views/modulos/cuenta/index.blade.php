@@ -10,7 +10,7 @@
             <!-- Billing Details -->
             <div class="billing-details">
                 <div class="section-title">
-                    <h3 class="title">DIRECCIÓN DE ENVIO</h3>
+                    <h3 class="title">DATOS DE ENVIO</h3>
                 </div>
                 <div class="form-group">
                     <input class="input" type="text" name="first-name" placeholder="Nombre de la persona que envia">
