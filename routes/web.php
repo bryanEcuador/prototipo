@@ -69,10 +69,9 @@ route::get('comercio/consult/{id}', 'ComercioController@consult');
 // producto TODO
 route::get('producto/index', 'ProductoController@index')->name('producto.index');
 route::get('producto/create', 'ProductoController@create')->name('producto.create');
-route::get('producto/edit', 'ProductoController@edit')->name('producto.edit');
-route::get('producto/show', 'ProductoController@show')->name('producto.show');
+route::get('producto/edit/{id}', 'ProductoController@edit')->name('producto.edit');
+route::get('producto/show/{id}', 'ProductoController@show')->name('producto.show');
 route::post('producto/delete', 'ProductoController@delete');
-route::post('producto/consult', 'ProductoController@consult');
 route::post('producto/store', 'ProductoController@store')->name('producto.store');;
 route::post('producto/update', 'ProductoController@update');
 

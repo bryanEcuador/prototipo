@@ -20,7 +20,8 @@ class XmlController extends Controller
         $objetoXML = new \XMLWriter(); // instancio la clase
        
         // Estructura básica del XML
-        $objetoXML->openMemory();
+        //$objetoXML->openMemory();
+        $objetoXML->openURI("ejemplo.xml");
         $objetoXML->setIndent(true);
         $objetoXML->setIndentString("\t");
         $objetoXML->startDocument('1.0', 'utf-8'); // inicio del documento
@@ -43,16 +44,16 @@ class XmlController extends Controller
         $objetoXML->fullEndElement(); // Final del elemento "obra" que cubre cada obra de la matriz.
         $objetoXML->endElement(); // Final del nodo raíz, "ejemplos"
         $objetoXML->endDocument(); // Final del documento
-        $cadenaXML = trim($objetoXML->outputMemory());
+        //$cadenaXML = trim($objetoXML->outputMemory());
 
-        return $cadenaXML;
+        //return $cadenaXML;
 
     }
 
     public function soap()
     {
 
-        $client = new SoapClient("http://webservice/services/ControlAssistencia?wsdl", array('trace' => 1));
+        $client = new \SoapClient("http://webservice/services/ControlAssistencia?wsdl", array('trace' => 1));
         return $client;
     }
 
@@ -80,10 +81,11 @@ class XmlController extends Controller
 
     public function query($request ,$cabecera,$metodo,$busqueda = null,$pagina=null,$paginacion=null){
 
-        $parametros = $this->makeArray($request);
-        $datos = $this->makeXml($parametros,$cabecera);
+        $data = $this->makeArray($request);
+        $datos = $this->makeXml($data,$cabecera);
         $cliente = $this->soap();
-        $response = $cliente->$metodo($datos);
+        $parametros = array('parametros' => $datos);
+        $response = $cliente->$metodo($parametros);
         if($busqueda == null){
             return $this->readXml($response);
         } else {

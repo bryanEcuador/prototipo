@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pr_ins_va_clientes>
+	<var_lg_login Type="System.String">1</var_lg_login>
+	<var_cl_tipo_identificacion Type="System.String">1</var_cl_tipo_identificacion>
+	<var_cl_identificacion Type="System.String">000000000</var_cl_identificacion>
+	<var_cl_nombres Type="System.String">jdjdjdj</var_cl_nombres>
+	<var_cl_apellidos Type="System.String">pdkdjdj</var_cl_apellidos>
+	<var_cl_ciudad Type="System.String">1</var_cl_ciudad>
+	<var_cl_sector Type="System.String">1</var_cl_sector>
+	<var_cl_fechaNacimiento Type="System.String">2000-01-01</var_cl_fechaNacimiento>
+	<var_cl_telefono Type="System.String">0049439</var_cl_telefono>
+	<var_cl_email Type="System.String">bryan@hotmail.com</var_cl_email>
+</pr_ins_va_clientes>

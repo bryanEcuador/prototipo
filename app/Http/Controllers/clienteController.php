@@ -103,23 +103,24 @@ class clienteController extends Controller
     {
 
         // Llamada al WebService
-        $client = new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
-        $result = $client->checkVat([
-            'countryCode' => 'DK',
-            'vatNumber' => '47458714'
-        ]);
-        print_r($result);
+//        $client = new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
+//        $result = $client->checkVat([
+//            'countryCode' => 'DK',
+//            'vatNumber' => '47458714'
+//        ]);
+//        print_r($result);
 //
-//         $parametros = $this->xml->makeArray($request);
-//        $datos = $this->xml->makeXml($parametros,'pr_ins_va_clientes');
-//        $parametros = array( 'datos' => $datos);
-//        $cliente = $this->xml->soap();
-//
-//        // llamamos al metodo que vamos a consumir
-//        //$response = 'metodo';
-//        // $cliente->metodo(paramaetros);
-//        $response = $cliente->__soapCall("ExecMain", array($parametros));
-//        return $this->xml->readXml($response);
+         $parametros = $this->xml->makeArray($request);
+        $this->xml->makeXml($parametros,'pr_ins_va_clientes');
+        dd($parametros);
+        //$parametros = array( 'datos' => $datos);
+        $cliente = $this->xml->soap();
+
+        // llamamos al metodo que vamos a consumir
+        //$response = 'metodo';
+        // $cliente->metodo(paramaetros);
+        $response = $cliente->__soapCall("ExecMain", array($parametros));
+        return $this->xml->readXml($response);
 
         //
            

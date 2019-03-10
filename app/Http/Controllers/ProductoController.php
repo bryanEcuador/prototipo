@@ -41,13 +41,6 @@ class ProductoController extends Controller
         return $this->xml->readXml($response);    */
     }
 
-    public function search($paginacion = 5, $pagina=0,$nombre=null){ 
- 
- 
-
-       
-
-    }
 
     public function update(Request $request)
     {
@@ -79,9 +72,15 @@ class ProductoController extends Controller
         return $this->xml->readXml($response);   */
     }
 
-    public function constult(Request $request){
+    public function show($id){
 
     }
+
+    public function edit($id){
+
+    }
+
+
 
     public  function create(){
         return view('modulos.producto.create');
