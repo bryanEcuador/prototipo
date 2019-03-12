@@ -407,9 +407,43 @@
                    },
   
                    // validaciones
-                    validarCampos : function() {
-                       
+                    validarCampos : function(tipo) {
+                       if(tipo == "g"){
+                            if(this.fecha == ""){
+                                this.errores.push("El campo fecha no puede estar vacio");
+                            }
+                             if(this.fecha_proceso == ""){
+                                this.errores.push("El campo fecha no puede estar vacio");
+                            }
+                             if(this.dia == ""){
+                                this.errores.push("El campo fecha no puede estar vacio");
+                            }
+                             if(this.feriado == ""){
+                                this.errores.push("El campo fecha no puede estar vacio");
+                            }
+                       }else {
+                             if(this.e_fecha == ""){
+                                this.errores.push("El campo fecha no puede estar vacio");
+                            }
+                             if(this.e_fecha_proceso == ""){
+                                this.errores.push("El campo fecha no puede estar vacio");
+                            }
+                             if(this.e_dia == ""){
+                                this.errores.push("El campo fecha no puede estar vacio");
+                            }
+                             if(this.e_feriado == ""){
+                                this.errores.push("El campo fecha no puede estar vacio");
+                            }
+                       }
                     },
+
+                    espaciosBlanco : function() {
+                        this.dia : this.dia.trim();
+                        this.feriado : this.feriado.trim();
+
+                         this.e_dia : this.dia.trim();
+                        this.e_feriado : this.feriado.trim();
+                    }
 
                     suprimir : function() {
                         var url = 'fecha/delete';
@@ -427,8 +461,8 @@
                     },
 
                      guardar : function(){
-                      //this.espaciosBlanco();
-                      //this.validarCampos();
+                      this.espaciosBlanco();
+                      this.validarCampos("g");
 
                       if(this.errores.length == 0){
                           
@@ -467,7 +501,7 @@
 
                     actualizar : function() {
                          //this.espaciosBlanco();
-                      //this.validarCampos();
+                      this.validarCampos("a");
 
                       if(this.errores.length == 0){
                           
@@ -509,21 +543,21 @@
                
                 load : function(page, consulta) {
 
-                   var url = page !== undefined ?  '/comercio/search/'+this.datosPorPagina+'/'+page : '/comercio/search/'+this.datosPorPagina;
+                   var url = page !== undefined ?  '/fecha/search/'+this.datosPorPagina+'/'+page : '/fecha/search/'+this.datosPorPagina;
 
                    if(page !== undefined && consulta !== undefined){
                         // 1 1
-                        var url = '/comercio/search/'+this.datosPorPagina+'/'+page+'/'+consulta
+                        var url = '/fecha/search/'+this.datosPorPagina+'/'+page+'/'+consulta
                    }else if(page !== undefined && consulta == undefined )
                    {
                      // 1 0
-                      var url = '/comercio/search/'+this.datosPorPagina+'/'+page;
+                      var url = '/fecha/search/'+this.datosPorPagina+'/'+page;
                    }else if(page == undefined && consulta !== undefined){
                         
-                        var url = '/comercio/search/'+this.datosPorPagina+'/'+0+'/'+consulta;
+                        var url = '/fecha/search/'+this.datosPorPagina+'/'+0+'/'+consulta;
                    }else if(page == undefined && consulta == undefined ){
                      // 0 0
-                     var url = '/comercio/search/'+this.datosPorPagina
+                     var url = '/fecha/search/'+this.datosPorPagina
                    }
 
                     axios.get(url).then(response => {

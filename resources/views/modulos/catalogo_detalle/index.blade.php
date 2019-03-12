@@ -26,9 +26,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-
-                    </tr>
+                    <tr v-for="dato in tabla">
+                       <td>@{{dato.int_cd_idCatalogoCabecera}}</td>
+                       <td>@{{dato.var_cd_codigoMiembro}}</td>
+                       <td>@{{dato.var_cd_descripcion}}</td>
+                        <td>
+                            <button class="btn btn-primary"  @click="editar" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>
+                        </td>
+                        <td>
+                            <button class="btn btn-info" @click="ver"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                        </td>
+                       <td>
+                           <button class="btn btn-danger"  @click="eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                       </td>
+                   </tr>
 
                     </tbody>
                 </table>
@@ -409,7 +420,66 @@
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut"
                     }
+                    this.load()
                 },
+
+            computed : {
+                
+                isActived : function () {
+                    return this.paginacion.current_page;
+                },
+                pagesNumber: function() {
+
+                    if(!this.paginacion.to){
+                        return [];
+                    }
+                    var from = this.paginacion.current_page - this.offset;
+                    if(from < 1){
+                        from = 1;
+                    }
+                    var to = from + (this.offset * 2);
+                    if(to >= this.paginacion.last_page){
+                        to = this.paginacion.last_page;
+                    }
+                    var pagesArray = [];
+                    while(from <= to){
+                        pagesArray.push(from);
+                        from++;
+                    }
+                    return pagesArray;
+                },
+
+                datosNumber : function() {
+                   var tamaño = 0;
+                   
+                   if(this.tabla !== undefined){
+                         tamaño  = this.tabla.length
+                    return tamaño;
+                   }else{
+                       return tamaño;
+                   }
+                   
+                },
+
+                cantidadPorPagina : function () {
+                
+                   var inicial = 0;
+                    var datos = [];
+
+                   while(true) {
+                         inicial = inicial + 5;
+                        if(this.paginacion.total <= inicial) { 
+                           break;
+                       } else {
+                           this.datosPorPagina = 5;
+                         datos.push(inicial)
+                       }
+                      
+                   }  
+                    return datos;           
+                },
+    }, 
+
 
                 methods : {
 
@@ -425,17 +495,69 @@
                    
                    
                    editar : function () {
+                       var url = '/catalogo/detalle/consult/'+id
+                        axios.get(url).then(response => {
+                            var data = response.data
+                            this.e_cabecera =  data[0].int_cd_idCatalogoCabecera
+                            this.e_codigo_miembro = data[0].var_cd_codigoMiembro
+                            this.e_descripcion = data[0].var_cd_descripcion
+                            this.e_valor1 = data[0].var_cd_valor1
+                            this.e_valor2 = data[0].var_cd_valor2
+                            this.e_valor3 = data[0].var_cd_valor3
+                            this.e_valor4 = data[0].var_cd_valor4
+                            this.e_valor5 = data[0].var_cd_valor5
+                            this.e_valor6 = data[0].var_cd_valor6
+                            this.e_valor7 = data[0].var_cd_valor7
+                            
+                           
+                        }).catch(error => {
+                            toastr.error("Error al consultar los datos.")
+                            
+                         });
                        $("#editar").modal('show');
                    },
 
                     ver : function () {
+                        var url = '/catalogo/detalle/consult/'+id
+                        axios.get(url).then(response => {
+                            var data = response.data
+                            this.v_cabecera =  data[0].int_cd_idCatalogoCabecera
+                            this.v_codigo_miembro = data[0].var_cd_codigoMiembro
+                            this.v_descripcion = data[0].var_cd_descripcion
+                            this.v_valor1 = data[0].var_cd_valor1
+                            this.v_valor2 = data[0].var_cd_valor2
+                            this.v_valor3 = data[0].var_cd_valor3
+                            this.v_valor4 = data[0].var_cd_valor4
+                            this.v_valor5 = data[0].var_cd_valor5
+                            this.v_valor6 = data[0].var_cd_valor6
+                            this.v_valor7 = data[0].var_cd_valor7
+                            
+                           
+                        }).catch(error => {
+                            toastr.error("Error al consultar los datos.")
+                            
+                         });
                        $("#ver").modal('show');
+                   },
+
+                   limpiar : function() {
+                    
+                    this.cabecera = "" ;
+                   this.codigo_miembro = "" ;
+                   this.descripcion = "";
+                   this.valor1 = "";
+                   this.valor2 = "";
+                   this.valor3 = "";
+                   this.valor4 = "";
+                   this.valor5 = "";
+                   this.valor6 = "";
+                   this.valor7 = "";
                    },
 
 
                    actualizar : function() {
-                         //this.espaciosBlanco();
-                      //this.validarCampos();
+                        this.espaciosBlanco();
+                        this.validarCampos("a");
 
                       if(this.errores.length == 0){
                           
@@ -487,19 +609,109 @@
                                     console.log(error);
                             });
                    },
+
+                espaciosBlanco : function() {
+
+                    this.cabecera = this.cabecera.trim() ;
+                   this.codigo_miembro = this.codigo_miembro.trim() ;
+                   this.descripcion = this.descripcion.trim();
+                   this.valor1 = this.valor1.trim();
+                   this.valor2 = this.valor2.trim();
+                   this.valor3 = this.valor3.trim();
+                   this.valor4 = this.valor4.trim();
+                   this.valor5 = this.valor5.trim();
+                   this.valor6 = this.valor6.trim();
+                   this.valor7 = this.valor7.trim();
+
+                    this.e_cabecera = this.e_cabecera.trim() ;
+                   this.e_codigo_miembro = this.e_codigo_miembro.trim() ;
+                   this.e_descripcion = this.e_descripcion.trim();
+                   this.e_valor1 = this.e_valor1.trim();
+                   this.valor2 = this.e_valor2.trim();
+                   this.e_valor3 = this.e_valor3.trim();
+                   this.e_valor4 = this.e_valor4.trim();
+                   this.e_valor5 = this.e_valor5.trim();
+                   this.e_valor6 = this.e_valor6.trim();
+                   this.e_valor7 = this.e_valor7.trim();
+
+                   },
   
                    // validaciones
-                    validarCampos : function() {
-                       
+                    validarCampos : function(tipo) {
+                       if(tipo == "g"){
+                            if(this.cabecera == '' ){
+                                this.errores.push("El campo cabecera no puede estar en blanco.")
+                            }
+                             if(this.codigo_miembro == '' ){
+                                this.errores.push("El campo cabecera no puede estar en blanco.")
+                            }
+                             if(this.descripcion == '' ){
+                                this.errores.push("El campo cabecera no puede estar en blanco.")
+                            }
+                             if(this.valor1 == '' ){
+                                this.errores.push("El campo cabecera no puede estar en blanco.")
+                            }
+                             if(this.valor2 == '' ){
+                                this.errores.push("El campo cabecera no puede estar en blanco.")
+                            }
+                             if(this.valor3 == '' ){
+                                this.errores.push("El campo cabecera no puede estar en blanco.")
+                            }
+                             if(this.valor4 == '' ){
+                                this.errores.push("El campo cabecera no puede estar en blanco.")
+                            }
+                             if(this.valor5 == '' ){
+                                this.errores.push("El campo cabecera no puede estar en blanco.")
+                            }
+                             if(this.valor6 == '' ){
+                                this.errores.push("El campo cabecera no puede estar en blanco.")
+                            }
+                             if(this.valor7 == '' ){
+                                this.errores.push("El campo cabecera no puede estar en blanco.")
+                            }
+                           
+                       }else {
+                            if(this.e_cabecera == '' ){
+                                this.errores.push("El campo cabecera no puede estar en blanco.")
+                            }
+                             if(this.e_codigo_miembro == '' ){
+                                this.errores.push("El campo cabecera no puede estar en blanco.")
+                            }
+                             if(this.e_descripcion == '' ){
+                                this.errores.push("El campo descripción no puede estar en blanco.")
+                            }
+                             if(this.e_valor1 == '' ){
+                                this.errores.push("El campo valor 1 no puede estar en blanco.")
+                            }
+                             if(this.e_valor2 == '' ){
+                                this.errores.push("El campo valor 2 no puede estar en blanco.")
+                            }
+                             if(this.e_valor3 == '' ){
+                                this.errores.push("El campo valor 3 no puede estar en blanco.")
+                            }
+                             if(this.e_valor4 == '' ){
+                                this.errores.push("El campo valor 4 no puede estar en blanco.")
+                            }
+                             if(this.e_valor5 == '' ){
+                                this.errores.push("El campo valor 5 no puede estar en blanco.")
+                            }
+                             if(this.e_valor6 == '' ){
+                                this.errores.push("El campo valor 6 no puede estar en blanco.")
+                            }
+                             if(this.e_valor7 == '' ){
+                                this.errores.push("El campo valor 7 no puede estar en blanco.")
+                            }
+                           
+                       }
                     },
 
-                     guardar : function(){
-                      //this.espaciosBlanco();
-                      //this.validarCampos();
+                guardar : function(){
+                      this.espaciosBlanco();
+                      this.validarCampos("g");
 
                       if(this.errores.length == 0){
                           
-                            var url = 'catalogo/cabecera/store';
+                            var url = 'catalogo/detalle/store';
                             axios.post(url, {
                                 int_cd_idCatalogoCabecera : this.cabecera ,
                                 var_cd_codigoMiembro : this.codigo_miembro ,
@@ -514,7 +726,7 @@
                        
                             }).then(response => {
                             
-                            //this.limpiar();
+                            this.limpiar();
                                 toastr.error("Error al guardar el registro")
                             
                             }).catch(error => {
@@ -531,7 +743,78 @@
                           }
                           this.errores = [];
                       }
-                    },    
+                    },
+
+                               //--------------------- PAGINACION ---------------------------------------//
+               
+               
+               
+                
+                load : function(page, consulta) {
+
+                   var url = page !== undefined ?  '/catalogo/detalle/'+this.datosPorPagina+'/'+page : '/catalogo/detalle/'+this.datosPorPagina;
+
+                   if(page !== undefined && consulta !== undefined){
+                        // 1 1
+                        var url = '/catalogo/detalle/'+this.datosPorPagina+'/'+page+'/'+consulta
+                   }else if(page !== undefined && consulta == undefined )
+                   {
+                     // 1 0
+                      var url = '/catalogo/detalle/'+this.datosPorPagina+'/'+page;
+                   }else if(page == undefined && consulta !== undefined){
+                        
+                        var url = '/catalogo/detalle/'+this.datosPorPagina+'/'+0+'/'+consulta;
+                   }else if(page == undefined && consulta == undefined ){
+                     // 0 0
+                     var url = '/catalogo/detalle/'+this.datosPorPagina
+                   }
+
+                    axios.get(url).then(response => {
+
+                    this.datos = response.data;
+                    this.tabla = this.datos.data
+
+                    this.paginacion.total = this.datos.total;
+                    if(page == undefined) {
+                        this.paginacion.current_page = this.datos.current_page;
+                    }
+                    this.paginacion.per_page = this.datos.per_page;
+                    this.paginacion.last_page = this.datos.last_page;
+                    this.paginacion.from = this.datos.from;
+                    this.paginacion.to = this.datos.to;
+                }).catch(error => {
+                        console.log(error);
+                    this.load();
+                });
+                },
+
+                 changePage: function(page) {
+                     this.paginacion.current_page = page;
+                     if(this.consulta == ''){
+                        this.load(page) 
+                     }else {
+                           this.load(page,this.consulta) 
+                     }
+                     
+                    
+                },
+
+                changeNumberPage :function(page) {
+                   if(this.consulta == ''){
+                        this.load(page) 
+                     }else {
+                           this.load(page,this.consulta) 
+                     }
+                },
+
+                
+                //--------------------- PAGINACION ---------------------------------------//
+
+                consultar : function(){
+                     this.load(0,this.consulta) 
+                },    
+
+
                  
 
                 }

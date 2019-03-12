@@ -29,7 +29,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                      {{--  <td>subtotal</td>
+                      <td>subtotal</td>
                         <td>comision</td>
                         <td>total</td>
                         <td>cliente</td>
@@ -41,7 +41,7 @@
                             <button class="btn btn-primary"  @click="editar" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>
                             <button class="btn btn-info" @click="ver"><i class="fa fa-eye" aria-hidden="true"></i></button>
                             <button class="btn btn-danger"  @click="eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                        </td>--}}
+                        </td>
                     </tr>
 
                     </tbody>
@@ -532,6 +532,64 @@
                     }
                 },
 
+ computed : {
+                
+                isActived : function () {
+                    return this.paginacion.current_page;
+                },
+                pagesNumber: function() {
+
+                    if(!this.paginacion.to){
+                        return [];
+                    }
+                    var from = this.paginacion.current_page - this.offset;
+                    if(from < 1){
+                        from = 1;
+                    }
+                    var to = from + (this.offset * 2);
+                    if(to >= this.paginacion.last_page){
+                        to = this.paginacion.last_page;
+                    }
+                    var pagesArray = [];
+                    while(from <= to){
+                        pagesArray.push(from);
+                        from++;
+                    }
+                    return pagesArray;
+                },
+
+                datosNumber : function() {
+                   var tamaño = 0;
+                   
+                   if(this.tabla !== undefined){
+                         tamaño  = this.tabla.length
+                    return tamaño;
+                   }else{
+                       return tamaño;
+                   }
+                   
+                },
+
+                cantidadPorPagina : function () {
+                
+                   var inicial = 0;
+                    var datos = [];
+
+                   while(true) {
+                         inicial = inicial + 5;
+                        if(this.paginacion.total <= inicial) { 
+                           break;
+                       } else {
+                           this.datosPorPagina = 5;
+                         datos.push(inicial)
+                       }
+                      
+                   }  
+                    return datos;           
+                },
+    }, 
+
+
                 methods : {
 
                      eliminar : function () {
@@ -560,10 +618,94 @@
 
                    },
 
+                   validarCampos : function (tipo) {
+                     if (tipo == "g"){
+                         if(this.subtotal == ""){
+                             this.errores.push("El campo subtotal no puede estar vacio");
+                         }
+                         if(this.comision == ""){
+                             this.errores.push("El campo comisión no puede estar vacio");
+                         }
+                         if(this.total == ""){
+                             this.errores.push("El campo total no puede estar vacio");
+                         }
+                         
+                         if(this.cliente == ""){
+                             this.errores.push("El campo cliente no puede estar vacio");
+                         }
+                         if(this.tarjeta == ""){
+                             this.errores.push("El campo tarjeta no puede estar vacio");
+                         }
+                         if(this.fecha == ""){
+                             this.errores.push("El campo fecha no puede estar vacio");
+                         }
+                         if(this.proceso == ""){
+                             this.errores.push("El campo proceso no puede estar vacio");
+                         }
+                           if(this.fecha_transaccion == ""){
+                             this.errores.push("El campo fecha transacción no puede estar vacio");
+                         }
+                           if(this.estado_banco == ""){
+                             this.errores.push("El campo estado banco no puede estar vacio");
+                         }
+                         if(this.estado_comercio == ""){
+                             this.errores.push("El campo estado comercio no puede estar vacio");
+                         }
+                         if(this.factura == ""){
+                             this.errores.push("El campo factura no puede estar vacio");
+                         }
+                         
+                         if(this.numero_factura_banco == ""){
+                             this.errores.push("El campo numero factura no puede estar vacio");
+                         }
+                         
+                     } else {
+                        if(this.e_subtotal == ""){
+                             this.errores.push("El campo subtotal no puede estar vacio");
+                         }
+                         if(this.e_comision == ""){
+                             this.errores.push("El campo comisión no puede estar vacio");
+                         }
+                         if(this.e_total == ""){
+                             this.errores.push("El campo total no puede estar vacio");
+                         }
+                         
+                         if(this.e_cliente == ""){
+                             this.errores.push("El campo cliente no puede estar vacio");
+                         }
+                         if(this.e_tarjeta == ""){
+                             this.errores.push("El campo tarjeta no puede estar vacio");
+                         }
+                         if(this.e_fecha == ""){
+                             this.errores.push("El campo fecha no puede estar vacio");
+                         }
+                         if(this.e_proceso == ""){
+                             this.errores.push("El campo proceso no puede estar vacio");
+                         }
+                           if(this.e_fecha_transaccion == ""){
+                             this.errores.push("El campo fecha transacción no puede estar vacio");
+                         }
+                           if(this.e_estado_banco == ""){
+                             this.errores.push("El campo estado banco no puede estar vacio");
+                         }
+                         if(this.e_estado_comercio == ""){
+                             this.errores.push("El campo estado comercio no puede estar vacio");
+                         }
+                         if(this.e_factura == ""){
+                             this.errores.push("El campo factura no puede estar vacio");
+                         }
+                         
+                         if(this.e_numero_factura_banco == ""){
+                             this.errores.push("El campo numero factura no puede estar vacio");
+                         }
+
+                     }  
+                   },
+
 
                    guardar : function(){
                       //this.espaciosBlanco();
-                      //this.validarCampos();
+                     this.validarCampos("g");
 
                       if(this.errores.length == 0){
                           
@@ -603,8 +745,8 @@
                     },
 
                     actualizar : function() {
-                         //this.espaciosBlanco();
-                      //this.validarCampos();
+                         this.espaciosBlanco();
+                        this.validarCampos("a");
 
                       if(this.errores.length == 0){
                           
@@ -643,6 +785,74 @@
                           this.errores = [];
                       }
                     },
+
+                     //--------------------- PAGINACION ---------------------------------------//
+               
+               
+                load : function(page, consulta) {
+
+                   var url = page !== undefined ?  '/transaccion/banco/search/'+this.datosPorPagina+'/'+page : '/comercio/search/'+this.datosPorPagina;
+
+                   if(page !== undefined && consulta !== undefined){
+                        // 1 1
+                        var url = '/transaccion/banco/search/'+this.datosPorPagina+'/'+page+'/'+consulta
+                   }else if(page !== undefined && consulta == undefined )
+                   {
+                     // 1 0
+                      var url = '/transaccion/banco/search/'+this.datosPorPagina+'/'+page;
+                   }else if(page == undefined && consulta !== undefined){
+                        
+                        var url = '/transaccion/banco/search/'+this.datosPorPagina+'/'+0+'/'+consulta;
+                   }else if(page == undefined && consulta == undefined ){
+                     // 0 0
+                     var url = '/transaccion/banco/search/'+this.datosPorPagina
+                   }
+
+                    axios.get(url).then(response => {
+
+                    this.datos = response.data;
+                    this.tabla = this.datos.data
+
+                    this.paginacion.total = this.datos.total;
+                    if(page == undefined) {
+                        this.paginacion.current_page = this.datos.current_page;
+                    }
+                    this.paginacion.per_page = this.datos.per_page;
+                    this.paginacion.last_page = this.datos.last_page;
+                    this.paginacion.from = this.datos.from;
+                    this.paginacion.to = this.datos.to;
+                }).catch(error => {
+                        console.log(error);
+                    this.load();
+                });
+                },
+
+                 changePage: function(page) {
+                     this.paginacion.current_page = page;
+                     if(this.consulta == ''){
+                        this.load(page) 
+                     }else {
+                           this.load(page,this.consulta) 
+                     }
+                     
+                    
+                },
+
+                changeNumberPage :function(page) {
+                   if(this.consulta == ''){
+                        this.load(page) 
+                     }else {
+                           this.load(page,this.consulta) 
+                     }
+                },
+
+                
+                //--------------------- PAGINACION ---------------------------------------//
+
+                consultar : function(){
+                     this.load(0,this.consulta) 
+                },  
+
 
                 }
             }

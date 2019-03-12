@@ -83,48 +83,51 @@ route::post('comercio/subscripcion/consult', 'comercioSubscripcionController@con
 route::post('comercio/subscripcion/delete', 'comercioSubscripcionController@delete');
 route::post('comercio/subscripcion/store', 'comercioSubscripcionController@store');
 route::post('comercio/subscripcion/update', 'comercioSubscripcionController@update');
+route::get( 'comercio/subscripcion/consult/{id}', 'comercioSubscripcionController@consult');
 
 
 // piso 
-route::get('comercio/piso/index', 'comercioPisoController@index')->name('piso.index');
+/* route::get('comercio/piso/index', 'comercioPisoController@index')->name('piso.index');
 route::get('comercio/piso/edit', 'comercioPisoController@edit')->name('piso.edit');
 route::get('comercio/piso/create', 'comercioPisoController@create')->name('piso.create');
 route::get('comercio/piso/search', 'comercioPisoController@search');
 route::post('comercio/piso/delete', 'comercioPisoController@delete');
 route::post('comercio/piso/store', 'comercioPisoController@store');
 route::post('comercio/piso/update', 'comercioPisoController@update');
-route::get('comercio/piso/show', 'comercioPisoController@show')->name('piso.show');
+route::get('comercio/piso/show', 'comercioPisoController@show')->name('piso.show'); */
 
 //propaganda
-route::get('comercio/piso/propaganda/index', 'comercioPisoPropagandaController@index')->name('propaganda.index');
+/* route::get('comercio/piso/propaganda/index', 'comercioPisoPropagandaController@index')->name('propaganda.index');
 route::get('comercio/piso/propaganda/edit', 'comercioPisoPropagandaController@edit')->name('propaganda.edit');
 route::get('comercio/piso/propaganda/create', 'comercioPisoPropagandaController@create')->name('propaganda.create');
 route::get('comercio/piso/propaganda/search', 'comercioPisoPropagandaController@search');
 route::get('comercio/piso/propaganda/show', 'comercioPisoPropagandaController@show')->name('propaganda.show');
 route::post('comercio/piso/propaganda/delete', 'comercioPisoPropagandaController@delete');
 route::post('comercio/piso/propaganda/store', 'comercioPisoPropagandaController@store');
-route::post('comercio/piso/propaganda/update', 'comercioPisoPropagandaController@update');
+route::post('comercio/piso/propaganda/update', 'comercioPisoPropagandaController@update'); */
 
 
 //catalogo cabecera
 route::get('catalogo/cabecera/index', 'CatalogoCabeceraController@index')->name('catalogoCabecera.index');
-route::get('catalogo/cabecera/edit', 'CatalogoCabeceraController@edit');
 route::get('catalogo/cabecera/create', 'CatalogoCabeceraController@create');
 route::get('catalogo/cabecera/search', 'CatalogoCabeceraController@search');
 route::get('catalogo/cabecera/show', 'CatalogoCabeceraController@show');
 route::post('catalogo/cabecera/delete', 'CatalogoCabeceraController@delete');
 route::post('catalogo/cabecera/store', 'CatalogoCabeceraController@store');
 route::post('catalogo/cabecera/update', 'CatalogoCabeceraController@update');
+route::get( 'catalogo/cabecera/search/{paginacion?}/{pagina?}/{consulta?}', 'CatalogoCabeceraController@search');
+route::get('catalogo/cabecera/consult/{id}', 'CatalogoCabeceraController@consult');
 
 //catalogo detalle
 route::get('catalogo/detalle/index', 'CatalogoDetalleController@index')->name('catalogoDetalle.index');
 route::get('catalogo/detalle/edit', 'CatalogoDetalleController@edit');
 route::get('catalogo/detalle/create', 'CatalogoDetalleController@create');
 route::get('catalogo/detalle/search', 'CatalogoDetalleController@search');
-route::get('catalogo/detalle/show', 'CatalogoDetalleController@show');
 route::post('catalogo/detalle/delete', 'CatalogoDetalleController@delete');
 route::post('catalogo/detalle/store', 'CatalogoDetalleController@store');
 route::post('catalogo/detalle/update', 'CatalogoDetalleController@update');
+route::get( 'catalogo/detalle/search/{paginacion?}/{pagina?}/{consulta?}', 'CatalogoDetalleController@search');
+route::get('catalogo/detalle/consult/{id}', 'CatalogoDetalleController@consult');
 
 //liquidacion comercio
 route::get('liquidacion/comercio/index', 'LiquidacionComercioController@index')->name('liquidacion.index');
@@ -135,31 +138,35 @@ route::get('liquidacion/comercio/show', 'LiquidacionComercioController@show');
 route::post('liquidacion/comercio/delete', 'LiquidacionComercioController@delete');
 route::post('liquidacion/comercio/store', 'LiquidacionComercioController@store');
 route::post('liquidacion/comercio/update', 'LiquidacionComercioController@update');
+route::get( 'liquidacion/comercio/search/{paginacion?}/{pagina?}/{consulta?}', 'LiquidacionComercioController@search');
+route::get( 'liquidacion/comercio/consult/{id}', 'LiquidacionComercioController@consult');
 
 
 // transacción banco
-route::get('transaccion/banco/detalle/index', 'TransaccionBancoController@index')->name('transaccion.cabecera');
-route::get('transaccion/banco/detalle/search', 'TransaccionBancoController@search');
-route::post('transaccion/banco/detalle/delete', 'TransaccionBancoController@delete');
-route::post('transaccion/banco/detalle/store', 'TransaccionBancoController@store');
-route::post('transaccion/banco/detalle/update', 'TransaccionBancoController@update');
-route::post('transaccion/banco/detalle/consult', 'TransaccionBancoController@consult');
+route::get('transaccion/banco/index', 'TransaccionBancoController@index')->name('transaccion.cabecera');
+route::get('transaccion/banco/search', 'TransaccionBancoController@search');
+route::post('transaccion/banco/delete', 'TransaccionBancoController@delete');
+route::post('transaccion/banco/store', 'TransaccionBancoController@store');
+route::post('transaccion/banco/update', 'TransaccionBancoController@update');
+route::get('transaccion/banco/search/{paginacion?}/{pagina?}/{consulta?}', 'TransaccionBancoDetalleController@search');
+route::get('transaccion/banco/consult{id}', 'TransaccionBancoController@consult');
 
  //transaccion banco detalle
-route::get('transaccion/banco/index', 'TransaccionBancoDetalleController@index')->name('transaccion.detalle');
-route::get('transaccion/banco/search', 'TransaccionBancoDetalleController@search');
-route::post('transaccion/banco/delete', 'TransaccionBancoDetalleController@delete');
-route::post('transaccion/banco/store', 'TransaccionBancoDetalleController@store');
-route::post('transaccion/banco/update', 'TransaccionBancoDetalleController@update');
-route::post('transaccion/banco/consult', 'TransaccionBancoDetalleController@consult');
+route::get('transaccion/banco/detalle/index', 'TransaccionBancoDetalleController@index')->name('transaccion.detalle');
+route::get( 'transaccion/banco/detalle/search', 'TransaccionBancoDetalleController@search');
+route::post( 'transaccion/banco/detalle/delete', 'TransaccionBancoDetalleController@delete');
+route::post( 'transaccion/banco/detalle/store', 'TransaccionBancoDetalleController@store');
+route::post( 'transaccion/banco/detalle/update', 'TransaccionBancoDetalleController@update');
+route::get( 'transaccion/banco/detalle/search/{paginacion?}/{pagina?}/{consulta?}', 'TransaccionBancoDetalleController@search');
+route::get('transaccion/banco/detalle/consult/{id}', 'TransaccionBancoDetalleController@consult');
 
 // fecha
 route::get('fecha/index','FechaController@index')->name('fecha.index');
 route::post('fecha/delete', 'FechaController@delete');
 route::post('fecha/store', 'FechaController@store');
 route::post('fecha/update', 'FechaController@update');
-route::get( 'fecha/subscripcion/search/{paginacion?}/{pagina?}/{consulta?}', 'FechaController@search');
-route::post( 'fecha/subscripcion/consult', 'FechaController@consult');
+route::get( 'fecha/search/{paginacion?}/{pagina?}/{consulta?}', 'FechaController@search');
+route::get( 'fecha/consult/{id}', 'FechaController@consult');
 
 
 // feriado
@@ -168,7 +175,7 @@ route::post('feriados/delete', 'FeriadoController@delete');
 route::post('feriados/store', 'FeriadoController@store');
 route::post('feriados/update', 'FeriadoController@update');
 route::get( 'feriados/search/{paginacion?}/{pagina?}/{consulta?}', 'FeriadoController@search');
-route::post( 'feriados/consult', 'FeriadoController@consult');
+route::get( 'feriados/consult/{id}', 'FeriadoController@consult');
 
 //logs
 route::get('logs/index', 'LogsController@index')->name('log.index');

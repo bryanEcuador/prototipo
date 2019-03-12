@@ -13,7 +13,7 @@
         
         <div class="tile">
         <button class="btn btn-primary btn-lg btn-block mb-4" @click="crear"> Agregar catalogo</button>
-            <input type="text" class="form-control" placeholder="Ingrese el [] del cliente a consultar y presione la tecla enter"><br>
+            <input type="text" class="form-control" v-model="consulta" v-on:keyup.13="consultar" placeholder="Ingrese el [] del cliente a consultar y presione la tecla enter"><br>
 
             <div class="table-responsive">
                <table class="table table-striped" id="">
@@ -25,18 +25,18 @@
                    </tr>
                    </thead>
                    <tbody>
-                   <tr>
-                       {{--<td>nombre</td>--}}
-                       {{--<td>descripcion</td>--}}
-                        {{--<td>--}}
-                            {{--<button class="btn btn-primary"  @click="editar" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>--}}
-                        {{--</td>--}}
-                        {{--<td>--}}
-                            {{--<button class="btn btn-info" @click="ver"><i class="fa fa-eye" aria-hidden="true"></i></button>--}}
-                        {{--</td>--}}
-                       {{--<td>--}}
-                           {{--<button class="btn btn-danger"  @click="eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></button>--}}
-                       {{--</td>--}}
+                   <tr v-for="dato in tabla">
+                       <td>@{{dato.var_cc_nombreCatalogo}}</td>
+                       <td>@{{dato.var_cc_descripcionCatalogo}}</td>
+                        <td>
+                            <button class="btn btn-primary"  @click="editar" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>
+                        </td>
+                        <td>
+                            <button class="btn btn-info" @click="ver"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                        </td>
+                       <td>
+                           <button class="btn btn-danger"  @click="eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                       </td>
                    </tr>
 
                    </tbody>
@@ -288,6 +288,23 @@
                    v_etiqueta7 : '',
 
                     errores : [],
+
+
+                      /* paginacion */
+                paginacion : {
+                    'total' : 0,
+                    'current_page' : 0,
+                    'per_page' : 0,
+                    'last_page' : 0,
+                    'from' : 0,
+                    'to': 0,
+                },
+                datosPorPagina : 10,
+                offset: 3,
+                datos :[],
+                tabla : [],
+                consulta :'',
+                datos_editar : [],
                 },
                 created : function() {
                     toastr.options = {
@@ -307,12 +324,69 @@
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut"
                     }
+
+                    this.load();
                 },
+
+    computed : {
+                
+                isActived : function () {
+                    return this.paginacion.current_page;
+                },
+                pagesNumber: function() {
+
+                    if(!this.paginacion.to){
+                        return [];
+                    }
+                    var from = this.paginacion.current_page - this.offset;
+                    if(from < 1){
+                        from = 1;
+                    }
+                    var to = from + (this.offset * 2);
+                    if(to >= this.paginacion.last_page){
+                        to = this.paginacion.last_page;
+                    }
+                    var pagesArray = [];
+                    while(from <= to){
+                        pagesArray.push(from);
+                        from++;
+                    }
+                    return pagesArray;
+                },
+
+                datosNumber : function() {
+                   var tamaño = 0;
+                   
+                   if(this.tabla !== undefined){
+                         tamaño  = this.tabla.length
+                    return tamaño;
+                   }else{
+                       return tamaño;
+                   }
+                   
+                },
+
+                cantidadPorPagina : function () {
+                
+                   var inicial = 0;
+                    var datos = [];
+
+                   while(true) {
+                         inicial = inicial + 5;
+                        if(this.paginacion.total <= inicial) { 
+                           break;
+                       } else {
+                           this.datosPorPagina = 5;
+                         datos.push(inicial)
+                       }
+                      
+                   }  
+                    return datos;           
+                },
+    }, 
 
                 methods : {
 
-                
-                    
                     eliminar : function () {
                        $("#eliminar").modal('show');
                    },
@@ -323,10 +397,46 @@
                    
                    
                    editar : function () {
+                       var url = '/catalogo/cabecera/consult/'+id
+                        axios.get(url).then(response => {
+                            var data = response.data
+                            this.e_nombre =  data[0].var_cc_nombreCatalogo
+                            this.e_descripcion = data[0].var_cc_descripcionCatalogo
+                            this.e_etiqueta1 = data[0].var_cc_etiqueta1
+                            this.e_etiqueta2 = data[0].var_cc_etiqueta2
+                            this.e_etiqueta3 = data[0].var_cc_etiqueta3
+                            this.e_etiqueta4 = data[0].var_cc_etiqueta4
+                            this.e_etiqueta5 = data[0].var_cc_etiqueta5
+                            this.e_etiqueta6 = data[0].var_cc_etiqueta6
+                            this.e_etiqueta7 = data[0].var_cc_etiqueta7
+                           
+                        
+                            
+                        }).catch(error => {
+                            toastr.error("Error al consultar los datos.")
+                            
+                         });
                        $("#editar").modal('show');
                    },
 
-                    ver : function () {
+                    ver : function (id) {
+                        var url = '/catalogo/cabecera/consult/'+id
+                        axios.get(url).then(response => {
+                            var data = response.data
+                            this.v_nombre =  data[0].var_cc_nombreCatalogo
+                            this.v_descripcion = data[0].var_cc_descripcionCatalogo
+                            this.v_etiqueta1 = data[0].var_cc_etiqueta1
+                            this.v_etiqueta2 = data[0].var_cc_etiqueta2
+                            this.v_etiqueta3 = data[0].var_cc_etiqueta3
+                            this.v_etiqueta4 = data[0].var_cc_etiqueta4
+                            this.v_etiqueta5 = data[0].var_cc_etiqueta5
+                            this.v_etiqueta6 = data[0].var_cc_etiqueta6
+                            this.v_etiqueta7 = data[0].var_cc_etiqueta7
+                           
+                        }).catch(error => {
+                            toastr.error("Error al consultar los datos.")
+                            
+                         });
                        $("#ver").modal('show');
                    },
 
@@ -335,22 +445,79 @@
                                int_cc_idCatalogoCabecera : this.e_id,
                        
                             }).then(response => {
-                            
-                            //this.limpiar();
-                            
+
+
                             }).catch(error => {
                                     console.log(error);
                             });
                    },
   
                    // validaciones
-                    validarCampos : function() {
-                       
+                    validarCampos : function(tipo) {
+                       if(tipo == 'g') {
+
+                           if(this.this.nombre == ''){
+                               this.errores.push('El campo nombre no puede estar en blanco')
+                           }
+                           if(this.this.descripcion == ''){
+                               this.errores.push('El campo descripción 1 no puede estar en blanco')
+                           }
+                               if(this.etiqueta1 == ''){
+                                this.errores.push('El campo etiqueta 1 no puede estar en blanco')
+                               }
+                           if(this.etiqueta2 == ''){
+                               this.errores.push('El campo etiqueta 2 no puede estar en blanco')
+                           }
+                           if(this.etiqueta3 == ''){
+                               this.errores.push('El campo etiqueta 3 no puede estar en blanco')
+                           }
+                           if(this.etiqueta4 == ''){
+                               this.errores.push('El campo etiqueta 4 no puede estar en blanco')
+                           }
+                           if(this.etiqueta5 == ''){
+                               this.errores.push('El campo etiqueta 5 no puede estar en blanco')
+                           }
+                           if(this.etiqueta6 == ''){
+                               this.errores.push('El campo etiqueta 6 no puede estar en blanco')
+                           }
+                           if(this.etiqueta7 == ''){
+                               this.errores.push('El campo etiqueta 7 no puede estar en blanco')
+                           }
+
+                       }else {
+                           if(this.e_nombre == ''){
+                               this.errores.push('El campo nombre no puede estar en blanco')
+                           }
+                           if(this.e_descripcion == ''){
+                               this.errores.push('El campo descripción 1 no puede estar en blanco')
+                           }
+                           if(this.e_etiqueta1 == ''){
+                               this.errores.push('El campo etiqueta 1 no puede estar en blanco')
+                           }
+                           if(this.e_etiqueta2 == ''){
+                               this.errores.push('El campo etiqueta 2 no puede estar en blanco')
+                           }
+                           if(this.e_etiqueta3 == ''){
+                               this.errores.push('El campo etiqueta 3 no puede estar en blanco')
+                           }
+                           if(this.e_etiqueta4 == ''){
+                               this.errores.push('El campo etiqueta 4 no puede estar en blanco')
+                           }
+                           if(this.e_etiqueta5 == ''){
+                               this.errores.push('El campo etiqueta 5 no puede estar en blanco')
+                           }
+                           if(this.e_etiqueta6 == ''){
+                               this.errores.push('El campo etiqueta 6 no puede estar en blanco')
+                           }
+                           if(this.e_etiqueta7 == ''){
+                               this.errores.push('El campo etiqueta 7 no puede estar en blanco')
+                           }
+                       }
                     },
 
                      guardar : function(){
-                      //this.espaciosBlanco();
-                      //this.validarCampos();
+                      this.espaciosBlanco();
+                      this.validarCampos('g');
 
                       if(this.errores.length == 0){
                           
@@ -387,8 +554,8 @@
                     },
 
                     actualizar : function() {
-                         //this.espaciosBlanco();
-                      //this.validarCampos();
+                         this.espaciosBlanco();
+                        this.validarCampos('a');
 
                       if(this.errores.length == 0){
                           
@@ -426,7 +593,99 @@
                       }
                     },
 
+                    espaciosBlanco : function(){
+                            this.nombre =  this.nombre.trim();
+                            this.descripcion = this.descripcion.trim() ;
+                            this.etiqueta1 = this.etiqueta1.trim();
+                            this.etiqueta2 = this.etiqueta2.trim();
+                            this.etiqueta3 = this.etiqueta3.trim();
+                            this.etiqueta4 = this.etiqueta4.trim();
+                            this.etiqueta5 = this.etiqueta5.trim();
+                            this.etiqueta6 = this.etiqueta6.trim();
+                            this.etiqueta7 = this.etiqueta7.trim();
 
+                           
+                            this.e_nombre =  this.nombre.trim();
+                            this.e_descripcion = this.e_descripcion.trim() ;
+                            this.e_etiqueta1 = this.e_etiqueta1.trim();
+                            this.e_etiqueta2 = this.e_etiqueta2.trim();
+                            this.e_etiqueta3 = this.e_etiqueta3.trim();
+                            this.e_etiqueta4 = this.e_etiqueta4.trim();
+                            this.e_etiqueta5 = this.e_etiqueta5.trim();
+                            this.e_etiqueta6 = this.e_etiqueta6.trim();
+                            this.e_etiqueta7 = this.e_etiqueta7.trim();
+                    },
+
+                    limpiar : function(){
+
+                    },
+
+                        //--------------------- PAGINACION ---------------------------------------//
+               
+               
+                load : function(page, consulta) {
+
+                   var url = page !== undefined ?  '/catalogo/cabecera/'+this.datosPorPagina+'/'+page : '/catalogo/cabecera/'+this.datosPorPagina;
+
+                   if(page !== undefined && consulta !== undefined){
+                        // 1 1
+                        var url = '/catalogo/cabecera/'+this.datosPorPagina+'/'+page+'/'+consulta
+                   }else if(page !== undefined && consulta == undefined )
+                   {
+                     // 1 0
+                      var url = '/catalogo/cabecera/'+this.datosPorPagina+'/'+page;
+                   }else if(page == undefined && consulta !== undefined){
+                        
+                        var url = '/catalogo/cabecera/'+this.datosPorPagina+'/'+0+'/'+consulta;
+                   }else if(page == undefined && consulta == undefined ){
+                     // 0 0
+                     var url = '/catalogo/cabecera/'+this.datosPorPagina
+                   }
+
+                    axios.get(url).then(response => {
+
+                    this.datos = response.data;
+                    this.tabla = this.datos.data
+
+                    this.paginacion.total = this.datos.total;
+                    if(page == undefined) {
+                        this.paginacion.current_page = this.datos.current_page;
+                    }
+                    this.paginacion.per_page = this.datos.per_page;
+                    this.paginacion.last_page = this.datos.last_page;
+                    this.paginacion.from = this.datos.from;
+                    this.paginacion.to = this.datos.to;
+                }).catch(error => {
+                        console.log(error);
+                    this.load();
+                });
+                },
+
+                 changePage: function(page) {
+                     this.paginacion.current_page = page;
+                     if(this.consulta == ''){
+                        this.load(page) 
+                     }else {
+                           this.load(page,this.consulta) 
+                     }
+                     
+                    
+                },
+
+                changeNumberPage :function(page) {
+                   if(this.consulta == ''){
+                        this.load(page) 
+                     }else {
+                           this.load(page,this.consulta) 
+                     }
+                },
+
+                
+                //--------------------- PAGINACION ---------------------------------------//
+
+                consultar : function(){
+                     this.load(0,this.consulta) 
+                },    
 
                 }
             }

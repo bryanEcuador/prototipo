@@ -448,21 +448,21 @@
                
                 load : function(page, consulta) {
 
-                   var url = page !== undefined ?  '/comercio/search/'+this.datosPorPagina+'/'+page : '/comercio/search/'+this.datosPorPagina;
+                   var url = page !== undefined ?  '/feriado/search/'+this.datosPorPagina+'/'+page : '/comercio/search/'+this.datosPorPagina;
 
                    if(page !== undefined && consulta !== undefined){
                         // 1 1
-                        var url = '/comercio/search/'+this.datosPorPagina+'/'+page+'/'+consulta
+                        var url = '/feriado/search/'+this.datosPorPagina+'/'+page+'/'+consulta
                    }else if(page !== undefined && consulta == undefined )
                    {
                      // 1 0
-                      var url = '/comercio/search/'+this.datosPorPagina+'/'+page;
+                      var url = '/feriado/search/'+this.datosPorPagina+'/'+page;
                    }else if(page == undefined && consulta !== undefined){
                         
-                        var url = '/comercio/search/'+this.datosPorPagina+'/'+0+'/'+consulta;
+                        var url = '/feriado/search/'+this.datosPorPagina+'/'+0+'/'+consulta;
                    }else if(page == undefined && consulta == undefined ){
                      // 0 0
-                     var url = '/comercio/search/'+this.datosPorPagina
+                     var url = '/feriado/search/'+this.datosPorPagina
                    }
 
                     axios.get(url).then(response => {

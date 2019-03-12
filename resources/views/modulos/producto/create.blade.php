@@ -21,7 +21,7 @@
     @include('flash::message')
 
     <div class="col-md-12" id="creacionProveedores">
-        <form action="{{route('producto.store')}}" method="post" id="administracion">
+        <form action="{{route('producto.store')}}" method="post" id="administracion" enctype="multipart/form-data">
             @csrf
             <div class="tile">
                 <div class="form-group row">
@@ -124,7 +124,7 @@
 
                 <hr>
                 <div class="col-md-6 ">
-                    <input class="btn btn-primary" type="submit"  value ="guardar producto" >
+                    <input class="btn btn-primary" type="submit"  value ="Guardar producto" >
                 </div>
             </div>
         </form>

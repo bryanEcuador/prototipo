@@ -649,6 +649,63 @@
                     this.load()
                 },
 
+                 computed : {
+                
+                isActived : function () {
+                    return this.paginacion.current_page;
+                },
+                pagesNumber: function() {
+
+                    if(!this.paginacion.to){
+                        return [];
+                    }
+                    var from = this.paginacion.current_page - this.offset;
+                    if(from < 1){
+                        from = 1;
+                    }
+                    var to = from + (this.offset * 2);
+                    if(to >= this.paginacion.last_page){
+                        to = this.paginacion.last_page;
+                    }
+                    var pagesArray = [];
+                    while(from <= to){
+                        pagesArray.push(from);
+                        from++;
+                    }
+                    return pagesArray;
+                },
+
+                datosNumber : function() {
+                   var tamaño = 0;
+                   
+                   if(this.tabla !== undefined){
+                         tamaño  = this.tabla.length
+                    return tamaño;
+                   }else{
+                       return tamaño;
+                   }
+                   
+                },
+
+                cantidadPorPagina : function () {
+                
+                   var inicial = 0;
+                    var datos = [];
+
+                   while(true) {
+                         inicial = inicial + 5;
+                        if(this.paginacion.total <= inicial) { 
+                           break;
+                       } else {
+                           this.datosPorPagina = 5;
+                         datos.push(inicial)
+                       }
+                      
+                   }  
+                    return datos;           
+                },
+    }, 
+
                 methods : {
 
                      eliminar : function () {
@@ -674,11 +731,175 @@
                    },
 
                     espaciosBlanco : function() {
+                    
+                    this.transaccion= this.transaccion.trim();
+                    this.detalle_transaccion = this.detalle_transaccion.trim();
+                    this.comercio = this.comercio.trim();
+                    this.comercio_producto = this.comercio_producto.trim();
+                    this.cliente = this.cliente.trim();
+                    this.cantidad = this.cantidad.trim();                  
+                    this.valor = this.valor.trim();
+                    this.subtotal = this.subtotal.trim();
+                    this.comision = this.comision.trim();
+                    this.total = this.total.trim();
+                    this.estado = this.estado.trim();
+                    this.fecha_transaccion = this.fecha_transaccion.trim();
+                    this.fecha_proceso = this.fecha_proceso.trim();
+                    this.fecha_liquidacion = this.fecha_liquidacion.trim();
+                    this.factura = this.factura.trim();
+                    this.tipo_comision = this.tipo_comision.trim();
+                    this.valor_comision = this.valor_comision.trim();
 
+
+                    this.e_transaccion= this.e_transaccion.trim();
+                    this.e_detalle_transaccion = this.e_detalle_transaccion.trim();
+                    this.e_comercio = this.e_comercio.trim();
+                    this.e_comercio_producto = this.e_comercio_producto.trim();
+                    this.e_cliente = this.e_cliente.trim();
+                    this.e_cantidad = this.e_cantidad.trim();                  
+                    this.e_valor = this.e_valor.trim();
+                    this.e_subtotal = this.e_subtotal.trim();
+                    this.e_comision = this.e_comision.trim();
+                    this.e_total = this.e_total.trim();
+                    this.e_estado = this.e_estado.trim();
+                    this.e_fecha_transaccion = this.e_fecha_transaccion.trim();
+                    this.e_fecha_proceso = this.e_fecha_proceso.trim();
+                    this.e_fecha_liquidacion = this.e_fecha_liquidacion.trim();
+                    this.e_factura = this.e_factura.trim();
+                    this.e_tipo_comision = this.e_tipo_comision.trim();
+                    this.e_valor_comision = this.e_valor_comision.trim();
+
+                  
                     },
+                    this.transaccion= this.transaccion.trim();
+                    this.detalle_transaccion = this.detalle_transaccion.trim();
+                    this.comercio = this.comercio.trim();
+                    this.comercio_producto = this.comercio_producto.trim();
+                    this.cliente = this.cliente.trim();
+                    this.cantidad = this.cantidad.trim();                  
+                    this.valor = this.valor.trim();
+                    this.subtotal = this.subtotal.trim();
+                    this.comision = this.comision.trim();
+                    this.total = this.total.trim();
+                    this.estado = this.estado.trim();
+                    this.fecha_transaccion = this.fecha_transaccion.trim();
+                    this.fecha_proceso = this.fecha_proceso.trim();
+                    this.fecha_liquidacion = this.fecha_liquidacion.trim();
+                    this.factura = this.factura.trim();
+                    this.tipo_comision = this.tipo_comision.trim();
+                    this.valor_comision = this.valor_comision.trim();
+
 
                     validarCampos :  function(tipo){
+                        
+                        if( tipo == "g"){
+                                    if(this.transaccion == ""){
+                                    this.errores.push("El campo transacción no puede estar vacio.")
+                                }
+                                if(this.detalle_transaccion == ""){
+                                    this.errores.push("El campo detalle transacción no puede estar vacio.")
+                                }
+                                if(this.comercio == ""){
+                                    this.errores.push("El campo comercio no puede estar vacio.")
+                                }
+                                if(this.comercio_producto == ""){
+                                    this.errores.push("El campo producto no puede estar vacio.")
+                                }
+                                if(this.cliente == ""){
+                                    this.errores.push("El campo cliente no puede estar vacio.")
+                                }
+                                if(this.cantidad == ""){
+                                    this.errores.push("El campo cantidad no puede estar vacio.")
+                                }
+                                if(this.valor == ""){
+                                    this.errores.push("El campo valor no puede estar vacio.")
+                                }
+                                if(this.subtotal == ""){
+                                    this.errores.push("El campo subtotal no puede estar vacio.")
+                                }
+                                if(this.comision == ""){
+                                    this.errores.push("El campo transacción no puede estar vacio.")
+                                }
+                                if(this.total == ""){
+                                    this.errores.push("El campo total no puede estar vacio.")
+                                }
+                                if(this.estado == ""){
+                                    this.errores.push("El campo estado no puede estar vacio.")
+                                }
+                                if(this.fecha_transaccion == ""){
+                                    this.errores.push("El campo fecha transacción no puede estar vacio.")
+                                }
+                                if(this.fecha_proceso == ""){
+                                    this.errores.push("El campo fecha proceso no puede estar vacio.")
+                                }
+                                if(this.fecha_liquidacion == ""){
+                                    this.errores.push("El campo fecha liquidación no puede estar vacio.")
+                                }
+                                if(this.factura == ""){
+                                    this.errores.push("El campo factura no puede estar vacio.")
+                                }
+                                if(this.tipo_comision == ""){
+                                    this.errores.push("El campo tipo comisión no puede estar vacio.")
+                                }
+                                if(this.valor_comision == ""){
+                                    this.errores.push("El campo valor comisión no puede estar vacio.")
+                                }
+                        } else {
+                                
+                                if(this.e_transaccion == ""){
+                                    this.errores.push("El campo transacción no puede estar vacio.")
+                                }
+                                if(this.e_detalle_transaccion == ""){
+                                    this.errores.push("El campo detalle transacción no puede estar vacio.")
+                                }
+                                if(this.e_comercio == ""){
+                                    this.errores.push("El campo comercio no puede estar vacio.")
+                                }
+                                if(this.e_comercio_producto == ""){
+                                    this.errores.push("El campo producto no puede estar vacio.")
+                                }
+                                if(this.e_cliente == ""){
+                                    this.errores.push("El campo cliente no puede estar vacio.")
+                                }
+                                if(this.e_cantidad == ""){
+                                    this.errores.push("El campo cantidad no puede estar vacio.")
+                                }
+                                if(this.e_valor == ""){
+                                    this.errores.push("El campo valor no puede estar vacio.")
+                                }
+                                if(this.e_subtotal == ""){
+                                    this.errores.push("El campo subtotal no puede estar vacio.")
+                                }
+                                if(this.e_comision == ""){
+                                    this.errores.push("El campo transacción no puede estar vacio.")
+                                }
+                                if(this.e_total == ""){
+                                    this.errores.push("El campo total no puede estar vacio.")
+                                }
+                                if(this.e_estado == ""){
+                                    this.errores.push("El campo estado no puede estar vacio.")
+                                }
+                                if(this.e_fecha_transaccion == ""){
+                                    this.errores.push("El campo fecha transacción no puede estar vacio.")
+                                }
+                                if(this.e_fecha_proceso == ""){
+                                    this.errores.push("El campo fecha proceso no puede estar vacio.")
+                                }
+                                if(this.e_fecha_liquidacion == ""){
+                                    this.errores.push("El campo fecha liquidación no puede estar vacio.")
+                                }
+                                if(this.e_factura == ""){
+                                    this.errores.push("El campo factura no puede estar vacio.")
+                                }
+                                if(this.e_tipo_comision == ""){
+                                    this.errores.push("El campo tipo comisión no puede estar vacio.")
+                                }
+                                if(this.e_valor_comision == ""){
+                                    this.errores.push("El campo valor comisión no puede estar vacio.")
+                                }
+                        }
 
+                        
                     },
                    guardar : function(){
                       this.espaciosBlanco();
@@ -686,7 +907,7 @@
 
                       if(this.errores.length == 0){
                           
-                            var url = '/comercio/store';
+                            var url = '/liquidacion/comercio/store';
                             axios.post(url, {
                                 
                            big_lc_idTransaccionBanco :this.transaccion,
@@ -733,12 +954,12 @@
                     },
 
                     actualizar : function() {
-                         //this.espaciosBlanco();
-                      //this.validarCampos();
+                         this.espaciosBlanco();
+                         this.validarCampos("a");
 
                       if(this.errores.length == 0){
                           
-                           var url = 'comercio/update';
+                           var url = 'liquidacion/comercio/update';
                             axios.post(url, {
                            big_lc_idLiquidacion : this.e_id,          
                            big_lc_idTransaccionBanco :this.transaccion,

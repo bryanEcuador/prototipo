@@ -1,8 +1,8 @@
 @extends('layouts.admin')
-@section('nombre_pagina','Editar suscripción comercio')
+@section('nombre_pagina','Editar Producto')
 @section('css')
 @endsection
-@section('titulo de la pagina','Subscripción comercio')
+@section('titulo de la pagina','Edición producto')
 @section('subtitulo','')
 
 @section('contenido')
@@ -29,10 +29,10 @@
     @endif
 
     <div class="col-md-12" id="creacionProveedores">
-        <form action="{{route('administrador.proveedor.store')}}" method="post" id="administracion">
+        <form action="{{route('administrador.proveedor.update')}}" method="post" id="administracion">
             @csrf
             <div class="tile">
- <div class="form-group row">
+                <div class="form-group row">
                     <div class="col-md-2">
                         <label for="nombre">comercio:</label>
                     </div>
@@ -108,12 +108,44 @@
                             <option> no</option>
                         </select>
                     </div>
-                </div> 
-
-
+                </div>
+                <label>Productos</label>
+                <hr>
+                <div class="form-group row">
+                    <div class="card" style="width:30%">
+                        <img class="card-img-top" name="foto1" src="\storage\productos\92PuZUewSXGQCXn7HUcPMwFc6b9AZQGgIkbRVMje.jpeg" alt="Card image">
+                        <div class="card-body">
+                            <input type="file" class="form-control">
+                        </div>
+                    </div>
+                    <div class="card" style="width:30%">
+                        <img class="card-img-top" name="foto2" src="\storage\productos\92PuZUewSXGQCXn7HUcPMwFc6b9AZQGgIkbRVMje.jpeg" alt="Card image">
+                        <div class="card-body">
+                            <input type="file" class="form-control">
+                        </div>
+                    </div>
+                    <div class="card" style="width:30%">
+                        <img class="card-img-top" name="foto3" src="\storage\productos\92PuZUewSXGQCXn7HUcPMwFc6b9AZQGgIkbRVMje.jpeg" alt="Card image">
+                        <div class="card-body">
+                            <input type="file" class="form-control">
+                        </div>
+                    </div>
+                    <div class="card" style="width:30%">
+                        <img class="card-img-top" name="foto4" src="\storage\productos\92PuZUewSXGQCXn7HUcPMwFc6b9AZQGgIkbRVMje.jpeg" alt="Card image">
+                        <div class="card-body">
+                            <input type="file" class="form-control">
+                        </div>
+                    </div>
+                    <div class="card" style="width:30%">
+                        <img class="card-img-top" name="foto5" src="\storage\productos\92PuZUewSXGQCXn7HUcPMwFc6b9AZQGgIkbRVMje.jpeg" alt="Card image">
+                        <div class="card-body">
+                            <input type="file" class="form-control">
+                        </div>
+                    </div>
+                </div>
 
                 <div class="col-md-6 ">
-                    <input class="btn btn-primary" type="button" name="id" value ="editar suscripcion" v-model="id" maxlength="20">
+                    <input class="btn btn-primary" type="submit" name="id" value ="Actualizar">
                 </div>
             </div>
         </form>

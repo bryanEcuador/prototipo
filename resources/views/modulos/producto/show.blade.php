@@ -1,8 +1,8 @@
 @extends('layouts.admin')
-@section('nombre_pagina','Ver suscripción comercio')
+@section('nombre_pagina','Ver producto')
 @section('css')
 @endsection
-@section('titulo de la pagina','Ver suscripción comercio')
+@section('titulo de la pagina','Ver producto')
 @section('subtitulo','')
 
 @section('contenido')
@@ -29,96 +29,94 @@
     @endif
 
     <div class="col-md-12" id="creacionProveedores">
-        <form action="{{route('administrador.proveedor.store')}}" method="post" id="administracion">
-            @csrf
-            <div class="tile">
-                <div class="form-group row">
-                    <div class="col-md-2">
-                        <label for="nombre">comercio:</label>
-                    </div>
-                    <div class="col-md-6 ">
-                    <input class="form-control" type="text" name="id" v-model="id" maxlength="20">
-                    </div>
-                </div> 
-                <div class="form-group row">
-                    <div class="col-md-2">
-                        <label for="nombre">piso local:</label>
-                    </div>
-                    <div class="col-md-6 ">
-                    <input class="form-control" type="text" name="id" v-model="id" maxlength="20">
-                    </div>
-                </div> 
-
-                <div class="form-group row">
-                    <div class="col-md-2">
-                        <label for="nombre">Fecha inicio subscripcion:</label>
-                    </div>
-                    <div class="col-md-6 ">
-                    <input class="form-control" type="date" name="id" v-model="id" maxlength="20">
-                    </div>
-                </div> 
-
-                <div class="form-group row">
-                    <div class="col-md-2">
-                        <label for="nombre">Años contratado:</label>
-                    </div>
-                    <div class="col-md-6 ">
-                    <input class="form-control" type="number" name="id" v-model="id" maxlength="20">
-                    </div>
+        <div class="tile">
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label for="nombre">comercio:</label>
                 </div>
-                
-                                
-                <div class="form-group row">
-                    <div class="col-md-2">
-                        <label for="nombre">Fecha fin subscripción :</label>
-                    </div>
-                    <div class="col-md-6 ">
-                    <input class="form-control" type="date" name="id" v-model="id" maxlength="20">
-                    </div>
-                </div> 
-
-                <div class="form-group row">
-                    <div class="col-md-2">
-                        <label for="nombre">Dias alerta fin suscripcion:</label>
-                    </div>
-                    <div class="col-md-6 ">
-                    <input class="form-control" type="date" name="id" v-model="id" maxlength="20">
-                    </div>
-                </div> 
-
-                 <div class="form-group row">
-                    <div class="col-md-2">
-                        <label for="nombre">Activo:</label>
-                    </div>
-                    <div class="col-md-6 ">
-                    <input class="form-control" type="text" name="id" v-model="id" maxlength="20">
-                    </div>
-                </div> 
-
-                <div class="form-group row">
-                    <div class="col-md-2">
-                        <label for="nombre">Tipo condición:</label>
-                    </div>
-                    <div class="col-md-6 ">
-                    <input class="form-control" type="text" name="id" v-model="id" maxlength="20">
-                    </div>
-                </div> 
-
-                <div class="form-group row">
-                    <div class="col-md-2">
-                        <label for="nombre">Valor condición:</label>
-                    </div>
-                    <div class="col-md-6 ">
-                    <input class="form-control" type="number" name="id" v-model="id" maxlength="20">
-                    </div>
-                </div> 
-
-
-
                 <div class="col-md-6 ">
+                    <input class="form-control" name="">
                 </div>
             </div>
-        </form>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label for="nombre">nombre del producto:</label>
+                </div>
+                <div class="col-md-6 ">
+                    <input v-model="producto" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label for="nombre">tipo producto:</label>
+                </div>
+                <div class="col-md-6 ">
+                    <input class="form-control" name="">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label for="nombre">valor:</label>
+                </div>
+                <div class="col-md-6 ">
+                    <input v-model="valor" type="number" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label for="nombre">promocion:</label>
+                </div>
+                <div class="col-md-6 ">
+                    <input class="form-control" name="">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label for="nombre">disponible:</label>
+                </div>
+                <div class="col-md-6 ">
+                    <input class="form-control" name="">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <label for="nombre">es mio:</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" name="">
+                </div>
+            </div>
+            <label>Productos</label>
+            <hr>
+            <div class="form-group row">
+                <div class="card" style="width:30%">
+                    <img class="card-img-top" name="foto1" src="\storage\productos\92PuZUewSXGQCXn7HUcPMwFc6b9AZQGgIkbRVMje.jpeg" alt="Card image">
+
+                </div>
+                <div class="card" style="width:30%">
+                    <img class="card-img-top" name="foto2" src="\storage\productos\92PuZUewSXGQCXn7HUcPMwFc6b9AZQGgIkbRVMje.jpeg" alt="Card image">
+
+                </div>
+                <div class="card" style="width:30%">
+                    <img class="card-img-top" name="foto3" src="\storage\productos\92PuZUewSXGQCXn7HUcPMwFc6b9AZQGgIkbRVMje.jpeg" alt="Card image">
+
+                </div>
+                <div class="card" style="width:30%">
+                    <img class="card-img-top" name="foto4" src="\storage\productos\92PuZUewSXGQCXn7HUcPMwFc6b9AZQGgIkbRVMje.jpeg" alt="Card image">
+
+                </div>
+                <div class="card" style="width:30%">
+                    <img class="card-img-top" name="foto5" src="\storage\productos\92PuZUewSXGQCXn7HUcPMwFc6b9AZQGgIkbRVMje.jpeg" alt="Card image">
+
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @section('js')

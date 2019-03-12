@@ -903,7 +903,7 @@
                            var url = '/comercio/consult/'+id
                         axios.get(url).then(response => {
                             
-                            this.datos_ver = response.data
+                            var data = response.data
                             this.v_id = data[0].big_co_idComercio
                             this.v_nombre= data[0].var_co_nombreComercio
                             this.v_ruc = data[0].var_co_ruc
