@@ -714,6 +714,35 @@
 
                   
                    ver : function () {
+                       var url = '/liquidacion/comercio/'+id
+                        axios.get(url).then(response => {
+                            var data = response.data
+                            this.v_id = data.big_lc_idLiquidacion
+                             this.v_transaccion=  data.big_lc_idTransaccionBanco
+                            this.v_detalle_transaccion =  data.big_lc_idTransaccionBancoDetalle
+                            this.v_comercio =  data.big_lc_idComercio
+                            this.v_comercio_producto = data.big_lc_idComercioProducto 
+                            this.vcliente =  data.big_lc_idCliente
+                            this.vcantidad =       data.mon_lc_cantidad              
+                            this.v_valor =  data.mon_lc_valor
+                            this.v_subtotal =  data.mon_lc_subtotal
+                            this.v_comision =  data.mon_lc_comision
+                            this.v_total =  data.mon_lc_total
+                            this.v_estado =  data.bit_lc_estadoLiquidacion
+                            this.v_fecha_transaccion = data.fch_lc_fechaTransaccion 
+                            this.v_fecha_proceso =  data.fch_lc_fechaProceso
+                            this.v_fecha_liquidacion = data.fch_lc_fechaLiquidacion 
+                            this.v_factura =  data.var_lc_factura
+                            this.v_tipo_comision =  data.var_lc_tipoComision 
+                            this.v_valor_comision =  data.mon_lc_valorComision        
+
+                           
+                        
+                            
+                        }).catch(error => {
+                            toastr.error("Error al consultar los datos.")
+                            
+                         });
                        $("#ver").modal('show');
                    },
 
@@ -723,6 +752,35 @@
                    
                    
                    editar : function () {
+                        var url = '/liquidacion/comercio/'+id
+                        axios.get(url).then(response => {
+                            var data = response.data
+                            this.e_id = data.big_lc_idLiquidacion
+                             this.e_transaccion=  data.big_lc_idTransaccionBanco
+                            this.e_detalle_transaccion =  data.big_lc_idTransaccionBancoDetalle
+                            this.e_comercio =  data.big_lc_idComercio
+                            this.e_comercio_producto = data.big_lc_idComercioProducto 
+                            this.e_cliente =  data.big_lc_idCliente
+                            this.vcantidad =       data.mon_lc_cantidad              
+                            this.e_valor =  data.mon_lc_valor
+                            this.e_subtotal =  data.mon_lc_subtotal
+                            this.e_comision =  data.mon_lc_comision
+                            this.e_total =  data.mon_lc_total
+                            this.e_estado =  data.bit_lc_estadoLiquidacion
+                            this.e_fecha_transaccion = data.fch_lc_fechaTransaccion 
+                            this.e_fecha_proceso =  data.fch_lc_fechaProceso
+                            this.e_fecha_liquidacion = data.fch_lc_fechaLiquidacion 
+                            this.e_factura =  data.var_lc_factura
+                            this.e_tipo_comision =  data.var_lc_tipoComision 
+                            this.e_valor_comision =  data.mon_lc_valorComision        
+
+                           
+                        
+                            
+                        }).catch(error => {
+                            toastr.error("Error al consultar los datos.")
+                            
+                         });
                        $("#editar").modal('show');
                    },
 
@@ -771,23 +829,7 @@
 
                   
                     },
-                    this.transaccion= this.transaccion.trim();
-                    this.detalle_transaccion = this.detalle_transaccion.trim();
-                    this.comercio = this.comercio.trim();
-                    this.comercio_producto = this.comercio_producto.trim();
-                    this.cliente = this.cliente.trim();
-                    this.cantidad = this.cantidad.trim();                  
-                    this.valor = this.valor.trim();
-                    this.subtotal = this.subtotal.trim();
-                    this.comision = this.comision.trim();
-                    this.total = this.total.trim();
-                    this.estado = this.estado.trim();
-                    this.fecha_transaccion = this.fecha_transaccion.trim();
-                    this.fecha_proceso = this.fecha_proceso.trim();
-                    this.fecha_liquidacion = this.fecha_liquidacion.trim();
-                    this.factura = this.factura.trim();
-                    this.tipo_comision = this.tipo_comision.trim();
-                    this.valor_comision = this.valor_comision.trim();
+                    
 
 
                     validarCampos :  function(tipo){

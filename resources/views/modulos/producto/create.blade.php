@@ -88,7 +88,29 @@
                             <option> no</option>
                         </select>
                     </div>
-                </div> 
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">Descripción:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <textarea class="form-control" name="var_cp_descripcion">
+
+                        </textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <label for="nombre">Descripción tecnica:</label>
+                    </div>
+                    <div class="col-md-6 ">
+                        <textarea class="form-control" name="var_cp_descripcion_tecnica">
+
+                        </textarea>
+                    </div>
+                </div>
 
                 <div class="form-group row">
                     <div class="col-md-2">

@@ -21,31 +21,55 @@
                     <thead>
                     <tr>
                         <th>TRANSACCIÓN</th>
+                        <th>COMERCIO</th>
                         <th>SUBTOTAL</th>
-                        <th>COMISIÓN</th>
                         <th>TOTAL</th>
                         <th COLSPAN="3">ACCIONES</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                      <td>subtotal</td>
-                        <td>comision</td>
-                        <td>total</td>
-                        <td>cliente</td>
-                        <td>tipo tarjeta</td>
-                        <td>fecha</td>
-                        <td>proceso</td>
+                    <tr v-for="dato in tabla">
+                      <td>@{{dato.big_td_idTransaccionDetalle }}</td>
+                      <td>@{{dato.big_td_idComercio}}</td>
+                      <td>@{{dato.mon_td_subtotal}}</td>
+                      <td>@{{dato.mon_td_tota}}</td>
+                     
 
                         <td>
-                            <button class="btn btn-primary"  @click="editar" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>
-                            <button class="btn btn-info" @click="ver"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                            <button class="btn btn-danger"  @click="eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                            <button class="btn btn-primary"  @click="editar(dato.big_td_idTransaccionDetalle)" ><i class="fa fa-pencil-square-o 2x-fa" aria-hidden="true"></i></button>
+                            <button class="btn btn-info" @click="ver(dato.big_td_idTransaccionDetalle)"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                            <button class="btn btn-danger"  @click="eliminar(dato.big_td_idTransaccionDetalle)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                         </td>
                     </tr>
 
                     </tbody>
                 </table>
+                  <div class="form-inline" v-if="datosNumber !== 0">
+                <div class="col-md-4">
+                    <span> @{{ paginacion.to }} de @{{paginacion.total}} registros</span>
+                </div>
+
+                <div class="col-md-8">
+                    <div>
+                         <!-- corregir -->
+                        <ul class="pagination">
+                            <li class="page-item" v-if="paginacion.current_page > 1">
+                                <a class="page-link" href="#" @click.prevent="changePage(paginacion.current_page - 1 )" >
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item" v-for="page in pagesNumber" v-bind:class="[ page == isActived ? 'page-item active' : 'page-item']">
+                                <a class="page-link" href="#" @click.prevent="changePage(page)"  >@{{page}}</a>
+                            </li>
+                            <li class="page-item" v-if="paginacion.current_page < paginacion.last_page"  >
+                                <a class="page-link" href="#"  @click.prevent="changePage(paginacion.current_page + 1 )">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> 
+            </div>
             </div>
 
         </div>
@@ -470,13 +494,13 @@
                    total:'',
                    cliente:'',
                    tarjeta :'',
-                   fecha :'',
+                 
                    proceso : '',
                    fecha_transaccion : '',
                    estado_banco :'',
                    estado_comercio :'',
                    factura: '',
-                   cliente : '',
+                  
                    numero_factura_banco : '',
 
 
@@ -511,6 +535,21 @@
                     errores : [],
                    
                     consulta : '',
+
+                      /* paginacion */
+                paginacion : {
+                    'total' : 0,
+                    'current_page' : 0,
+                    'per_page' : 0,
+                    'last_page' : 0,
+                    'from' : 0,
+                    'to': 0,
+                },
+                datosPorPagina : 5,
+                offset: 3,
+                datos :[],
+                tabla : [],
+                seleccionado : 0,
                 },
                 created : function() {
                     toastr.options = {
@@ -530,9 +569,11 @@
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut"
                     }
+                    this.load()
                 },
 
- computed : {
+
+        computed : {
                 
                 isActived : function () {
                     return this.paginacion.current_page;
@@ -598,6 +639,32 @@
 
                   
                    ver : function () {
+
+
+                        var url = '/transaccion/banco/consult/'+id
+                        axios.get(url).then(response => {
+                            var data = response.data
+                            this.v_subtotal = data.mon_tb_subtotal;
+                            this.v_comision= data.mon_tb_comisionBoton;
+                            this.v_total= data.mon_tb_total ;
+                            this.v_cliente= data.big_tb_idCliente ;
+                            this.v_tarjeta = data.var_tb_tipoTarjeta ;
+                        
+                            this.v_proceso =  data.fch_tb_fechaProceso ;
+                            this.v_fecha_transaccion =  data.fch_tb_fechaTransaccion ;
+                            this.v_estado_banco = data.var_tb_estadoBanco  ;
+                            this.v_estado_comercio = data.var_tb_estadoComercios ;
+                            this.v_factura=  data.var_tb_numeroFacturaCliente ;
+                            
+                            this.e_numero_factura_banco =  data.var_tb_numeroFacturaBanco;
+
+                           
+                        
+                            
+                        }).catch(error => {
+                            toastr.error("Error al consultar los datos.")
+                            
+                         });
                        $("#ver").modal('show');
                    },
 
@@ -611,6 +678,30 @@
                    
                    
                    editar : function () {
+                       var url = '/transaccion/banco/consult/'+id
+                        axios.get(url).then(response => {
+                            var data = response.data
+                            this.e_subtotal = data.mon_tb_subtotal;
+                            this.e_comision= data.mon_tb_comisionBoton;
+                            this.e_total= data.mon_tb_total ;
+                            this.e_cliente= data.big_tb_idCliente ;
+                            this.e_tarjeta = data.var_tb_tipoTarjeta ;
+                            
+                            this.e_proceso =  data.fch_tb_fechaProceso ;
+                            this.e_fecha_transaccion =  data.fch_tb_fechaTransaccion ;
+                            this.e_estado_banco = data.var_tb_estadoBanco  ;
+                            this.e_estado_comercio = data.var_tb_estadoComercios ;
+                            this.e_factura=  data.var_tb_numeroFacturaCliente ;
+                            
+                            this.e_numero_factura_banco =  data.var_tb_numeroFacturaBanco;
+
+                           
+                        
+                            
+                        }).catch(error => {
+                            toastr.error("Error al consultar los datos.")
+                            
+                         });
                        $("#editar").modal('show');
                    },
 
@@ -712,19 +803,18 @@
                             var url = '/transaccion/banco/store';
                             axios.post(url, {
                                 
-                           subtotal : this.subtotal,
-                            comision: this.comision,
-                            total: this.total,
-                            cliente: this.cliente,
-                            tarjeta : this.tarjeta,
-                            fecha : this.fecha,
-                            proceso : this.proceso ,
-                            fecha_transaccion : this.fecha_transaccion ,
-                            estado_banco : this.banco,
-                            estado_comercio : this.estado_comercio,
-                            factura:  this.factura,
-                            cliente : this.cliente ,
-                            numero_factura_banco : this.numero_factura_banco ,
+                           mon_tb_subtotal : this.subtotal,
+                            mon_tb_comisionBoton: this.comision,
+                            mon_tb_total: this.total,
+                            big_tb_idCliente: this.cliente,
+                            var_tb_tipoTarjeta : this.tarjeta,
+                            /* fch_tb_fechaProceso : this.fecha, */
+                             fch_tb_fechaProceso: this.proceso ,
+                            fch_tb_fechaTransaccion : this.fecha_transaccion ,
+                            var_tb_estadoBanco : this.banco,
+                            var_tb_estadoComercios : this.estado_comercio,
+                            var_tb_numeroFacturaCliente:  this.factura,
+                            var_tb_numeroFacturaBanco : this.numero_factura_banco ,
                             }).then(response => {
                             
                             //this.limpiar();
@@ -753,19 +843,18 @@
                            var url = 'transaccion/banco/update';
                             axios.post(url, {
                                 
-                          subtotal : this.subtotal,
-                            comision: this.comision,
-                            total: this.total,
-                            cliente: this.cliente,
-                            tarjeta : this.tarjeta,
-                            fecha : this.fecha,
-                            proceso : this.proceso ,
-                            fecha_transaccion : this.fecha_transaccion ,
-                            estado_banco : this.banco,
-                            estado_comercio : this.estado_comercio,
-                            factura:  this.factura,
-                            cliente : this.cliente ,
-                            numero_factura_banco : this.numero_factura_banco ,
+                          mon_tb_subtotal : this.e_subtotal,
+                            mon_tb_comisionBoton: this.e_comision,
+                            mon_tb_total: this.e_total,
+                            big_tb_idCliente: this.e_cliente,
+                            var_tb_tipoTarjeta : this.e_tarjeta,
+                            /* fch_tb_fechaProceso : this.fecha, */
+                             fch_tb_fechaProceso: this.e_proceso ,
+                            fch_tb_fechaTransaccion : this.e_fecha_transaccion ,
+                            var_tb_estadoBanco : this.e_banco,
+                            var_tb_estadoComercios : this.e_estado_comercio,
+                            var_tb_numeroFacturaCliente:  this.e_factura,
+                            var_tb_numeroFacturaBanco : this.e_numero_factura_banco ,
 
                             }).then(response => {
                             
