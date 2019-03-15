@@ -8,7 +8,7 @@ use App\Http\Controllers\XmlController;
 class CatalogoCabeceraController extends Controller
 {
     protected $xml;
-    private $metodo;
+    protected $metodo = 'excecAdmi';
 
     public function __construct(XmlController $xml)
     {
@@ -36,20 +36,20 @@ class CatalogoCabeceraController extends Controller
     public function search($paginacion = 5, $pagina=0 , $nombre = null){
 
         if($nombre == null){
-            $parametros = array('int_cc_idCatalogoCabecera' => 0 , 'int_tipoConsulta' => 1   , 'var_cc_nombreCatalogo' => '');
+            $parametros = array('int_cc_idCatalogoCabecera' => 0 , 'int_tipoConsulta' => 1   , 'var_cc_descripcionCatalogo' => '');
 
         }else {
-            $parametros = array('int_cc_idCatalogoCabecera' => 0 , 'int_tipoConsulta' => 2   , 'var_cc_nombreCatalogo' => $nombre);
+            $parametros = array('int_cc_idCatalogoCabecera' => 0 , 'int_tipoConsulta' => 2   , 'var_cc_descripcionCatalogo' => $nombre);
         }
 
-        return $this->xml->query($parametros,'cabecera',$this->metodo, true,$pagina,$paginacion);
+        return $this->xml->query($parametros, 'pr_sel_va_catalogo_cabecera',$this->metodo, true,$pagina,$paginacion);
     }
 
 
     public function consult($id)
     {
-        $parametros = array('int_cc_idCatalogoCabecera' => $id , 'int_tipoConsulta' => 0 , 'var_cc_nombreCatalogo' => '');
-        return $this->xml->query($parametros,'cabecera',$this->metodo);
+        $parametros = array('int_cc_idCatalogoCabecera' => $id , 'int_tipoConsulta' => 0 , 'var_cc_descripcionCatalogo' => '');
+        return $this->xml->query($parametros, 'pr_sel_va_catalogo_cabecera',$this->metodo);
     }
 
 

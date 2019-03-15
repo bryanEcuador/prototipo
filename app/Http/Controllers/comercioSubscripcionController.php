@@ -13,7 +13,7 @@ class comercioSubscripcionController extends Controller
 
     protected $xml;
     protected $paginacion;
-    protected $metodo;
+    protected $metodo = 'ExecMain';
 
     public function __construct(XmlController $xml, PaginacionController $paginacion)
     {

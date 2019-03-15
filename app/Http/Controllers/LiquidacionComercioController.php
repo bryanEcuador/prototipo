@@ -8,7 +8,7 @@ use App\Http\Controllers\XmlController;
 class LiquidacionComercioController extends Controller
 {
      protected $xml;
-    private $metodo;
+    private $metodo = 'ExecMain';
 
     public function __construct(XmlController $xml)
     {
@@ -33,10 +33,10 @@ class LiquidacionComercioController extends Controller
     public function search($paginacion = 5, $pagina=0 , $nombre = null){
 
         if($nombre == null){
-            $parametros = array('big_lc_idLiquidacion' => 0 , 'int_tipoConsulta' => 1   , 'var_co_nombreComercio' => '');
+            $parametros = array('big_lc_idLiquidacion' => 0 , 'int_tipoConsulta' => 1   , 'fch_lc_fechaProceso' => '');
 
         }else {
-            $parametros = array('big_lc_idLiquidacion' => 0 , 'int_tipoConsulta' => 2   , 'var_co_nombreComercio' => $nombre);
+            $parametros = array('big_lc_idLiquidacion' => 0 , 'int_tipoConsulta' => 2   , 'fch_lc_fechaProceso' => $nombre);
         }
 
         return $this->xml->query($parametros,'pr_sel_va_liquidacion_comercios',$this->metodo, true,$pagina,$paginacion);
@@ -45,7 +45,7 @@ class LiquidacionComercioController extends Controller
 
     public function consult($id)
     {
-        $parametros = array('big_co_idComercio' => $id , 'int_tipoConsulta' => 0 , 'var_co_nombreComercio' => '');
+        $parametros = array('big_co_idComercio' => $id , 'int_tipoConsulta' => 0 , 'fch_lc_fechaProceso' => '');
         return $this->xml->query($parametros,'pr_sel_va_liquidacion_comercios',$this->metodo);
     }
 

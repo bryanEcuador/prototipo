@@ -29,7 +29,7 @@ class TiendaController extends Controller {
 
     protected $xml;
     protected $paginacion;
-    protected $metodo;
+    protected $metodo = ;
 
 
     public function __construct(XmlController $xml , PaginacionController $paginacion) {
@@ -38,9 +38,7 @@ class TiendaController extends Controller {
     }
 
     public function inicio(){
-       // $top = $this->consultarProductosTop();
-       // $vendidos = $this->consultarProductosTopVentas();
-       // return view('welcome',compact('top','vendidos'));
+    
     }
 
     public function productos($pagina = 0 ,$paginacion = 10 ,$categorias = null , $nombre = null) {
@@ -55,35 +53,42 @@ class TiendaController extends Controller {
 
        }else{
            $var = 0;
-       }
+        }
 
-        $datos = [];
-       // $respuesta = $this->paginacion->paginacion($pagina,$datos,$paginacion);
-        //return respuesta;
-        return $datos;
+        $parametros = array( 'big_pc_idComercioProducto' => 0, 'int_tipoConsulta' => 1, 'big_cp_idComercio' => '');
+       // $imagenes =
+        return $this->xml->query($parametros, 'pr_sel_va_comercio_productos',$this->metodo, true,$pagina,$paginacion );
+
+    }
+
+
+    public function consultarComentarios($pagina = 0,$paginacion = 10 ){
+        $parametros = array( 'big_pc_idComercioProducto' => 0, 'int_tipoConsulta' => 1, 'ch_pc_fecha' => '');
+        // $imagenes =
+        return $this->xml->query($parametros, 'pr_sel_va_comercio_productos', $this->metodo, true, $pagina, $paginacion);
+       
+    }
+
+    public function guardarComentarios(Request $request)
+    {
 
     }
 
     public function detalle($id) {
-       $producto =\DB::table('tb_producto')->where('id',$id)->get();
-        //dd($producto);
-        $imagenes =\DB::table('tb_imagenes')->where('producto_id',$id)->get();
-       return view('modulos.usuario.detalle',compact('producto','imagenes'));
+      
+        
+        return view('modulos.usuario.detalle',compact('producto','imagenes'));
 
 
     }
 
     public function categorias(){
-      //return  $this->ProveedorController->consultarCategorias();
+        $parametros = array('big_pc_idComercioProducto' => 0, 'int_tipoConsulta' => 1, 'big_cp_idComercio' => '');
+        // $imagenes =
+        return $this->xml->query($parametros, 'pr_sel_ranking_categorias', $this->metodo, true, $pagina, $paginacion);
     }
 
-    public function subCategorias($categoria){
-        return  DB::table('tb_sub_categoria')->where('categoria_id',$categoria)->get();
-    }
-
-    public function marcas(){
-        return  $this->ProveedorController->consultarMarcas();
-    }
+   
 
 
 
@@ -98,23 +103,15 @@ class TiendaController extends Controller {
         return $datos;
     }
 
-    public function consultarColores(Request $resquest) {
-       return DB::table('tb_colores')->whereIn('id',$resquest->input('colores'))->get();
-    }
+  
 
-    public function consultarComentarios($producto_id,$pagina=0){
-        $datos =  $this->TiendaProcedure->consultarComentarios($producto_id,$pagina);   
-         return  $this->paginacionComentarios($pagina,$datos);
-    }
-
+    
     public function consultarPromedioProductos($producto_id){
         return  $this->TiendaProcedure->consultarPromedioProductos($producto_id);
           
     }
 
-    public function guardarComentarios(Request $request) {
-
-    }
+    
 
       public function loadData($pagina = 0) {
             $datos =  $this->SeguridadProcedure->consultarPermisosTodos();

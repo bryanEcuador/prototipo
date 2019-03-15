@@ -20,8 +20,8 @@ class XmlController extends Controller
         $objetoXML = new \XMLWriter(); // instancio la clase
        
         // Estructura básica del XML
-        //$objetoXML->openMemory();
-        $objetoXML->openURI("ejemplo.xml");
+        $objetoXML->openMemory();
+        //$objetoXML->openURI("ejemplo.xml");
         $objetoXML->setIndent(true);
         $objetoXML->setIndentString("\t");
         $objetoXML->startDocument('1.0', 'utf-8'); // inicio del documento
@@ -44,7 +44,7 @@ class XmlController extends Controller
         $objetoXML->fullEndElement(); // Final del elemento "obra" que cubre cada obra de la matriz.
         $objetoXML->endElement(); // Final del nodo raíz, "ejemplos"
         $objetoXML->endDocument(); // Final del documento
-        //$cadenaXML = trim($objetoXML->outputMemory());
+        $cadenaXML = trim($objetoXML->outputMemory());
 
         //return $cadenaXML;
 
@@ -53,7 +53,8 @@ class XmlController extends Controller
     public function soap()
     {
 
-        $client = new \SoapClient("http://webservice/services/ControlAssistencia?wsdl", array('trace' => 1));
+        //$client = new \SoapClient("http://webservice/services/ControlAssistencia?wsdl", array('trace' => 1));
+        $client = new \SoapClient("http://localhost:42678/ServiciosVeryApe.svc?wsdl", array('trace' => 1, 'exceptions' => true,'keep_alive' => true ,'features' => SOAP_SINGLE_ELEMENT_ARRAYS, 'soap_version'=> 'SOAP_1_1' ));
         return $client;
     }
 
@@ -82,10 +83,10 @@ class XmlController extends Controller
     public function query($request ,$cabecera,$metodo,$busqueda = null,$pagina=null,$paginacion=null){
 
         $data = $this->makeArray($request);
-        $datos = $this->makeXml($data,$cabecera);
+        $parametros = $this->makeXml($data,$cabecera);
         $cliente = $this->soap();
-        $parametros = array('parametros' => $datos);
-        $response = $cliente->$metodo($parametros);
+        $parametros2 = array('xml' => $parametros);
+        $response = $cliente->$metodo($parametros2);
         if($busqueda == null){
             return $this->readXml($response);
         } else {

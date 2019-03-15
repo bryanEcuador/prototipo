@@ -11,7 +11,7 @@ class FechaController extends Controller
 {
     protected $xml;
     protected $paginacion;
-    protected $metodo;
+    protected $metodo = 'excecAdmi';
 
 
 
@@ -44,18 +44,18 @@ class FechaController extends Controller
 
 
     public function consult($id){
-        $parametros = array('big_fc_idFecha' => $id , 'int_tipoConsulta' => 0 , 'fch_fc_fecha' => '');
-        return $this->xml->query($parametros,'cabecera',$this->metodo);
+        $parametros = array('big_fc_idFecha' => $id , 'int_tipoConsulta' => 0 );
+        return $this->xml->query($parametros, 'pr_sel_va_fechas',$this->metodo);
     }
 
     public function search($paginacion = 5, $pagina=0,$consulta = null){
         if($consulta == null){
-            $parametros = array('big_fc_idFecha' => 0 , 'int_tipoConsulta' => 1 , 'fch_fc_fecha' => '');
+            $parametros = array('big_fc_idFecha' => 0 , 'int_tipoConsulta' => 1);
         }else {
-            $parametros = array('big_fc_idFecha' => 0 , 'int_tipoConsulta' => 0 , 'fch_fc_fecha' => $consulta);
+            $parametros = array('big_fc_idFecha' => 0 , 'int_tipoConsulta' => 2 );
         }
 
-        return $this->xml->query($parametros,'cabecera',$this->metodo, true,$pagina,$paginacion);
+        return $this->xml->query($parametros, 'pr_sel_va_fechas',$this->metodo, true,$pagina,$paginacion);
     }
 
 

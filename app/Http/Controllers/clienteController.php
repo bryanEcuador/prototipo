@@ -12,7 +12,7 @@ class clienteController extends Controller
 {
     protected $xml;
     protected $paginacion;
-    protected $metodo;
+    protected $metodo = 'excecAdmi';
 
      
     /**
@@ -102,73 +102,27 @@ class clienteController extends Controller
     public function store(Request $request)
     {
 
-        // Llamada al WebService
-//        $client = new \SoapClient("http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl");
-//        $result = $client->checkVat([
-//            'countryCode' => 'DK',
-//            'vatNumber' => '47458714'
-//        ]);
-//        print_r($result);
-//
-         $parametros = $this->xml->makeArray($request);
-        $this->xml->makeXml($parametros,'pr_ins_va_clientes');
-        dd($parametros);
-        //$parametros = array( 'datos' => $datos);
-        $cliente = $this->xml->soap();
+        $parametros = $this->xml->makeArray($request);
+        $datos = $this->xml->makeXml($parametros,'pr_upd_va_clientes') ;
+        
+        $cliente = new \SoapClient("http://localhost:42678/ServiciosVeryApe.svc?wsdl", array('trace' => 1, 'exceptions' => true,'keep _alive' => true,'feat ures' => SOAP_SINGLE_ELEMENT_ARRAYS, 'soap_version'=> 'S OAP_1_1' ));
 
-        // llamamos al metodo que vamos a consumir
-        //$response = 'metodo';
-        // $cliente->metodo(paramaetros);
-        $response = $cliente->__soapCall("ExecMain", array($parametros));
-        return $this->xml->readXml($response);
-
-        //
+         $parametros = array('xml' => $datos);
+        $response = $cliente->execMain($parametros);
+        dd($response);
            
     }
 
   
     public function update(Request $request)
     {
-         $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,'pr_upd_va_clientes');
-        $cliente = $this->xml->soap();
+        return $this->xml->query($request, 'pr_upd_va_clientes',$this->metodo);
 
-       $response = $cliente->$this->metodo($datos);
-
-        $response = $this->xml->readXml($response);
-        return response()
-            ->json( $response);
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy( Request $request)
-    {
-        return 0;
-        /* $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,'pr_del_va_clientes');
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response);    */      
     }
 
     public function consult($id){
-        /*  $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,$this->cabecera);
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response);          */
+        $parametros = array( 'big_cl_idCliente' => $id, 'int_tipoConsulta' => 0, 'var_co_nombreComercio' => '');
+        return $this->xml->query($parametros, 'pr_sel_va_clientes', $this->metodo);
     }
 
    

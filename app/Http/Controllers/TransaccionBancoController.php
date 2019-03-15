@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 class TransaccionBancoController extends Controller
 {
+    protected $metodo = 'excecAdmi';
+
     /**
      * Display a listing of the resource.
      *

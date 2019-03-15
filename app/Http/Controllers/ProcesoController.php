@@ -11,8 +11,7 @@ class ProcesoController extends Controller
 
     protected $xml;
     protected $paginacion;
-    private $metodo = "nombre del metodo";
-
+    protected $metodo = 'excecAdmi';
 
     /**
      * Display a listing of the resource.
@@ -29,7 +28,7 @@ class ProcesoController extends Controller
 
     public function index(){
 
-        $parametros = array('big_td_idTransaccionDetalle' => 0 , 'int_tipoConsulta' => 1   , 'var_co_nombreComercio' => '');
+        $parametros = array( 'fch_fp_fechaProceso' => 0 , 'int_tipoConsulta' => 1 );
         $datos = $this->xml->makeXml($parametros,'');
         $cliente = $this->xml->soap();
         $response = $cliente->$this->metodo($datos);

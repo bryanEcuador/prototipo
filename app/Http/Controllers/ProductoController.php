@@ -13,7 +13,7 @@ class ProductoController extends Controller
 
     protected $xml;
     protected $paginacion;
-    protected $metodo;
+    protected $metodo = 'excecAdmi';
 
     public function __construct(XmlController $xml, PaginacionController $paginacion)
     {
@@ -31,31 +31,60 @@ class ProductoController extends Controller
     
     public function store(Request $request)
     {
+        
+       
+        $nombre1 = '' ; 
+        $nombre2 =  ''; 
+        $nombre3 = '' ; 
+        $nombre4 = '' ; 
+        $nombre5 = '' ; 
+
+       
         $ruta = "/storage/productos/";
 
-        $nombre1 = $request->file('foto1')->store('');
-        $nombre2 = $request->file('foto2')->store('');
-        $nombre3 = $request->file('foto3')->store('');
-        $nombre4 = $request->file('foto4')->store('');
-        $nombre5 = $request->file('foto5')->store('');
+        if( $request->file('foto1')->store('')){
+            $nombre1 = $request->file('foto1')->store('');
+            $nombre1 = $ruta.$nombre1;
+        }
+        if($request->file('foto2')->store('')){
+             $nombre2 = $request->file('foto2')->store('');
+            $nombre2 = $ruta.$nombre2;
+        }
+        if($request->file('foto3')->store('')){
+             $nombre3 = $request->file('foto3')->store('');
+            $nombre3 = $ruta.$nombre3;
+        }
+        if($request->file('foto4')->store('')){
+             $nombre4 = $request->file('foto4')->store('');
+            $nombre4 = $ruta.$nombre4;
+        }
+        if($nombre2 = $request->file('foto5')->store('')){
+            $nombre5 =  $nombre2 = $request->file('foto5')->store('');
+            $nombre5 = $ruta.$nombre5;
+        }
 
-        $nombre1 = $ruta.$nombre1;
-        $nombre2 = $ruta.$nombre2;
-        $nombre3 = $ruta.$nombre3;
-        $nombre4 = $ruta.$nombre4;
-        $nombre5 = $ruta.$nombre5;
+       /* insert a las tablas */
+        $insert = $this->xml->query($request,'pr_ins_va_comercio_productos' ,$this->metodo);
+        
+        /* obtener el id y hacer un nuevo insert */
+        $variable = array($nombre1, nombre2, nombre3, nombre4, nombre5);
 
+        foreach ($variable as $value) {
+            $array = array(
+                'big_pf_idProductoFotos' => null,
+                'big_pf_idComercioProducto' => $request->input('big_pf_idComercioProducto'),
+                'big_pf_idComercio' => $request->input('big_cp_idComercio'), 'var_pf_ruta' => $value,
+                'var_pf_nombreArchivo' => substr($value,( strrpos($value, '/') + 1)), 'bit_pf_habilitado' => '1'
+            );
+            $this->xml->query($array,'pr_ins_va_co mercio_productos',$this->metodo );
+
+        }
+        
+        
 
         flash()->error("Error");
          return back()->withInput();
-        /* $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,$this ->cabecera);
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response);    */
+       
     }
 
 
@@ -72,14 +101,7 @@ class ProductoController extends Controller
      */
     public function destroy(Request $request)
     {
-       /*  $parametros = $this->xml->makeArray($request);
-        $datos = $this->xml->makeXml($parametros,$this ->cabecera);
-        $cliente = $this->xml->soap();
-
-        // llamamos al metodo que vamos a consumir
-        $response = 'metodo'; //$cliente->metodo(paramaetros);
-
-        return $this->xml->readXml($response);   */
+       
     }
 
     public function show($id){
